@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Flask",
+      "type": "shell",
+      "command": ".venv/bin/python main.py",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Watch CSS with TailwindCSS",
+      "type": "shell",
+      "command": "npx tailwindcss -i static/src/input.css -o static/css/output.css --minify --watch",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Browser-Sync",
+      "type": "shell",
+      "command": "npx browser-sync start --no-notify --proxy '127.0.0.1:5000' --files 'static/src/*.css, templates/*.html' --delay 300",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Start All",
+      "dependsOn": [
+        "Start Flask",
+        "Watch CSS with TailwindCSS",
+        "Start Browser-Sync"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
