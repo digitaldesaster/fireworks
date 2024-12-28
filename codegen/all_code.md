@@ -4,42 +4,55 @@
 from flask import Flask, render_template, request, session
 from core import auth
 from datetime import timedelta
+import os
+from flask_login import LoginManager, current_user, login_required
+from core.db_user import User
+from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
-app.secret_key = '5765765ASDFHR746gDHEdjhkkjhe'  # Change this to a secure secret key
+app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
-# Set session timeout to 60,000 minutes (about 41 days)
-@app.before_request
-def make_session_permanent():
-	session.permanent = True
-	app.permanent_session_lifetime = timedelta(minutes=60000)
+# Initialize Flask-Login with proper session durations
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+login_manager.session_protection = 'strong'
 
-@app.before_request
-@auth.login_required
-def check_auth():
-	pass
+# Session configuration
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)  # For "Remember me"
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=30)    # For "Remember me"
+app.config['REMEMBER_COOKIE_SECURE'] = False                   # Set to True in production with HTTPS
+app.config['REMEMBER_COOKIE_HTTPONLY'] = True                  # No JavaScript access
+
+# Initialize CSRF protection
+csrf = CSRFProtect()
+csrf.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+	return User.objects(email=user_id).first()
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    return auth.do_register(request)
+	return auth.do_register(request)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return auth.do_login(request)
+	return auth.do_login(request)
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    return auth.do_logout()
+	return auth.do_logout()
 
 # Route for the home page
 @app.route("/")
 @app.route("/index")
-
+@login_required
 def index():
 	return render_template("index.html")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+	app.run(debug=True)
 
 ```
 
@@ -70,7 +83,7 @@ module.exports = {
 
 # templates
 
-## templates/index.html
+## ../templates/index.html
 
 ```
 <!doctype html>
@@ -107,8 +120,11 @@ module.exports = {
               aria-label="User menu"
             >
               <div class="avatar placeholder">
-                <div class="bg-neutral text-neutral-content w-10 rounded-full">
-                  <span class="icon-[tabler--user] size-6"></span>
+                <div class="bg-primary text-primary-content w-10 rounded-full">
+                  <span class="text-sm font-bold"
+                    >{{ current_user.firstname[0] }}{{ current_user.name[0]
+                    }}</span
+                  >
                 </div>
               </div>
             </button>
@@ -124,6 +140,11 @@ module.exports = {
                   method="post"
                   class="w-full"
                 >
+                  <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                  />
                   <button type="submit" class="dropdown-item w-full text-left">
                     <span class="icon-[tabler--logout] size-5 shrink-0"></span>
                     Logout
@@ -135,13 +156,31 @@ module.exports = {
         </div>
       </div>
     </nav>
+
+    <div class="container mx-auto px-4 py-12">
+      <div class="card max-w-2xl mx-auto">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-2.5">
+            Welcome back, {{ current_user.firstname }} {{ current_user.name }}!
+          </h5>
+          <p class="mb-4">
+            We're glad to see you again. Here's your personal dashboard
+            overview.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
   </body>
 </html>
 
 ```
 
-## templates/register.html
+## ../templates/register.html
 
 ```
 <!doctype html>
@@ -167,11 +206,12 @@ module.exports = {
 
         {% if status == 'error' %}
         <div class="alert alert-error mb-4">
-          <span>Registration failed. Please check your input.</span>
+          <span>{{ error_message if error_message else 'Registration failed. Please check your input.' }}</span>
         </div>
         {% endif %}
 
         <form method="POST" action="{{ url_for('register') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <div class="space-y-6">
             <div class="form-control">
               <label class="label" for="firstname">
@@ -251,7 +291,7 @@ module.exports = {
 
 ```
 
-## templates/login.html
+## ../templates/login.html
 
 ```
 <!doctype html>
@@ -273,7 +313,8 @@ module.exports = {
           <p class="text-base-content/60 mt-2">Please sign in to continue</p>
         </div>
 
-        <form method="POST" action="{{ url_for('login') }}">
+        <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <div class="space-y-6">
             <div class="form-control">
               <label class="label" for="email">
@@ -287,6 +328,7 @@ module.exports = {
                 placeholder="your@email.com"
                 value="{{ email if email }}"
                 required
+                autocomplete="email"
               />
             </div>
 
@@ -301,6 +343,7 @@ module.exports = {
                 class="input input-bordered w-full"
                 placeholder="••••••••"
                 required
+                autocomplete="current-password"
               />
               <label class="label">
                 <a href="#" class="label-text-alt link link-hover"
@@ -347,7 +390,7 @@ module.exports = {
 
 # core
 
-## core/auth.py
+## ../core/auth.py
 
 ```
 #!/usr/bin/env python
@@ -355,24 +398,13 @@ module.exports = {
 from flask import Flask, render_template, redirect, request, session, url_for
 from functools import wraps
 import json
-
+from flask_login import login_user, logout_user, login_required, current_user
 from core import db_user, db_connect
+from datetime import timedelta
 
 def is_public_route():
     public_routes = ['/login', '/register', '/static']
     return request.path.startswith(tuple(public_routes))
-
-#login required
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if is_public_route():
-            return f(*args, **kwargs)
-        if 'user_email' not in session:
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return decorated_function
-
 
 def do_register(request):
     if request.method == 'POST':
@@ -382,35 +414,35 @@ def do_register(request):
         password = request.form.get('password', '')
 
         if not all([firstname, name, email, password]):
-            return render_template('register.html', status='error')
+            return render_template('register.html', status='error', 
+                                error_message='All fields are required')
             
         if len(password) < 8:
-            return render_template('register.html', status='error')
+            return render_template('register.html', status='error',
+                                error_message='Password must be at least 8 characters')
 
         result = db_user.create_user(firstname, name, email, password)
         
         if 'error' in result:
-            return render_template('register.html', status='error')
+            error_message = 'Email already exists' if result['error'] == 'user exists' else 'Registration failed'
+            return render_template('register.html', status='error',
+                                error_message=error_message)
             
         return redirect(url_for('login'))
     
     return render_template('register.html')
 
-
 def do_login(request):
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        remember = 'remember' in request.form
 
-        status = db_user.check_password(email,password)
+        status = db_user.check_password(email, password)
 
         if status['status'] == 'ok':
-            data = json.loads(status['user'])
-            session['user_email'] = data['email']
-            session['user_fn'] = data['firstname']
-            session['user_ln'] = data['name']
-            session['user_name'] = data['firstname'] + ' ' + data['name']
-            session['user_role'] = data['role']
+            user = db_user.User.objects(email=email).first()
+            login_user(user, remember=remember, duration=timedelta(days=30) if remember else None)
             return redirect(url_for('index'))
         else:
             return render_template('login.html', status='error')
@@ -418,72 +450,116 @@ def do_login(request):
         return render_template('login.html')
 
 def do_logout():
-    if 'user_email' in session:
-            session.pop('user_email')
+    logout_user()
+    session.clear()
     return redirect(url_for('login'))
 
 ```
 
-## core/db_user.py
+## ../core/db_user.py
 
 ```
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from werkzeug.security import generate_password_hash, \
-     check_password_hash
-
+from werkzeug.security import generate_password_hash, check_password_hash
 from core.db_document import *
+from flask_login import UserMixin
+import logging
+from mongoengine.errors import NotUniqueError, ValidationError, OperationError
 
-class User(Document):
-    firstname = StringField()
-    name = StringField()
-    email = StringField()
-    pw_hash = StringField()
-    role = StringField()
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class User(Document, UserMixin):
+    firstname = StringField(required=True)
+    name = StringField(required=True)
+    email = StringField(required=True, unique=True)
+    pw_hash = StringField(required=True)
+    role = StringField(required=True, default='user')
+
+    def get_id(self):
+        return str(self.email)
 
 def hash_password(password):
-    return (generate_password_hash(password))
+    return generate_password_hash(password)
 
 def check_password(email, password):
-    user = User.objects(email = email).first()
-    if user !=None:
-        if check_password_hash(user.pw_hash, password):
-            return {'status':'ok','message' : 'successfully logged in','user' : user.to_json()}
-    return {'status':'error','message' : 'user not found'}
-
-def create_user(firstname, name, email, password,role = 'user'):
     try:
-        User.objects.get(email = email)
-        return {'error' : 'user exists'}
-    except DoesNotExist:
-        user = User(firstname = firstname, name = name,email = email, pw_hash = hash_password(password), role = role)
-        try:
-            user.save()
-            return {'ok' : 'user created', 'id' : user.id}
-        except:
-            return {'error' : 'user not created'}
-def delete_user(email,password):
-    user = User.objects(email = email).first()
-    if user != None:
-        if check_password_hash(user.pw_hash, password):
-            user.delete()
-            return {'ok' : 'deleted'}
-        else:
-            return {'error' : 'password false'}
-    else:
-        return {'error' : 'user does not exists'}
-def update_password(email,password,new_password):
-    try:
-        user = User.objects.get(email = email)
-        if check_password_hash(user.pw_hash, password):
-            user.pw_hash =  hash_password(new_password)
-            user.save()
-            return {'ok' : 'password updated'}
-        else:
-            return {'error' : 'password false'}
+        user = User.objects(email=email).first()
+        if user and check_password_hash(user.pw_hash, password):
+            return {'status': 'ok', 'message': 'successfully logged in', 'user': user.to_json()}
+        return {'status': 'error', 'message': 'Invalid email or password'}
+    except Exception as e:
+        logger.error(f"Error checking password for {email}: {str(e)}")
+        return {'status': 'error', 'message': 'Authentication error occurred'}
 
-    except:
-        return {'error' : 'user does not exists'}
+def create_user(firstname, name, email, password, role='user'):
+    try:
+        # Check if user exists first
+        if User.objects(email=email).first():
+            return {'error': 'user exists'}
+
+        # Create new user
+        user = User(
+            firstname=firstname,
+            name=name,
+            email=email,
+            pw_hash=hash_password(password),
+            role=role
+        )
+        user.save()
+        logger.info(f"User created successfully: {email}")
+        return {'ok': 'user created', 'id': str(user.id)}
+
+    except ValidationError as e:
+        logger.error(f"Validation error creating user {email}: {str(e)}")
+        return {'error': 'Invalid user data provided'}
+    except NotUniqueError as e:
+        logger.error(f"Duplicate email error for {email}")
+        return {'error': 'user exists'}
+    except OperationError as e:
+        logger.error(f"Database operation error creating user {email}: {str(e)}")
+        return {'error': 'Database error occurred'}
+    except Exception as e:
+        logger.error(f"Unexpected error creating user {email}: {str(e)}")
+        return {'error': 'An unexpected error occurred'}
+
+def delete_user(email, password):
+    try:
+        user = User.objects(email=email).first()
+        if not user:
+            return {'error': 'user does not exist'}
+        
+        if not check_password_hash(user.pw_hash, password):
+            return {'error': 'incorrect password'}
+        
+        user.delete()
+        logger.info(f"User deleted successfully: {email}")
+        return {'ok': 'deleted'}
+    except Exception as e:
+        logger.error(f"Error deleting user {email}: {str(e)}")
+        return {'error': 'Failed to delete user'}
+
+def update_password(email, password, new_password):
+    try:
+        user = User.objects(email=email).first()
+        if not user:
+            return {'error': 'user does not exist'}
+
+        if not check_password_hash(user.pw_hash, password):
+            return {'error': 'incorrect password'}
+
+        user.pw_hash = hash_password(new_password)
+        user.save()
+        logger.info(f"Password updated successfully for user: {email}")
+        return {'ok': 'password updated'}
+    except ValidationError as e:
+        logger.error(f"Validation error updating password for {email}: {str(e)}")
+        return {'error': 'Invalid password format'}
+    except Exception as e:
+        logger.error(f"Error updating password for {email}: {str(e)}")
+        return {'error': 'Failed to update password'}
 
 # for i in range(1, 101):
 #     username = f"User{i}"
@@ -504,13 +580,13 @@ def update_password(email,password,new_password):
 
 ```
 
-## core/__init__.py
+## ../core/__init__.py
 
 ```
 # This file can be empty, it just marks the directory as a Python package 
 ```
 
-## core/db_document.py
+## ../core/db_document.py
 
 ```
 #!/usr/bin/env python
@@ -700,7 +776,7 @@ class Prompt(DynamicDocument):
 
 ```
 
-## core/db_connect.py
+## ../core/db_connect.py
 
 ```
 #!/usr/bin/env python

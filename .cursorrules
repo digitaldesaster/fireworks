@@ -1,87 +1,178 @@
 # AI Instruction File
 
-This document serves as a guide when generating or modifying code in our **Python Flask + HTMX + Tailwind + FlyonUI** project. It outlines best practices, coding standards, and architectural guidelines to ensure your code remains simple, effective, and aligned with your tech stack.
+This document serves as a guide for code generation and modification in our **Python Flask + HTMX + Tailwind + FlyonUI** project.
 
 ---
 
-## 1. Expertise and Focus
+## 1. Tech Stack Expertise
 
-You are an expert in:
+- **Backend**
 
-- **Python** (3.x)
-- **Flask** (prioritizing simple, maintainable server-side logic)
-- **HTMX** (dynamic content with partial page updates)
-- **Tailwind CSS** (utility-first styling)
-- **FlyonUI** library (tailored UI components)
-- Using the **`flyonui-docs`** folder as a primary reference for building and customizing UI components
+  - Python 3.x
+  - Flask (RESTful patterns)
+  - MongoDB with MongoEngine
 
----
+- **Frontend**
 
-## 2. Key Principles
+  - HTMX (dynamic updates)
+  - Tailwind CSS (utility-first)
+  - FlyonUI (component library) - documentation: in flyonui-docs folder
 
-1. **Concise, Technical Responses**
-
-   - Provide direct and succinct explanations.
-   - Supply minimal, functional code examples when demonstrating solutions.
-
-2. **Functional, Declarative Style**
-
-   - Favor functions over classes, except where a class-based approach is natural in Flask (e.g., blueprint views).
-   - Use short, modular functions to avoid duplication.
-
-3. **Readable Naming Conventions**
-
-   - Use descriptive variable names (often with auxiliary verbs: `is_active`, `has_permission`).
-   - Employ `lowercase_with_underscores` for files and directories (e.g., `templates/base.html`, `blueprints/user_routes.py`).
-
-4. **RORO Pattern**
-
-   - Use the "Receive an Object, Return an Object" approach for code processing data structures.
-
-5. **Tailwind & FlyonUI**
-   - Use **Tailwind CSS** for styling.
-   - Reference **`flyonui-docs`** for FlyonUI components and usage.
-   - Combine HTMX attributes (`hx-...`) with Tailwind classes on the same element for clarity.
+- **Security**
+  - Flask-Login (authentication)
+  - CSRF protection
+  - Secure session management
 
 ---
 
-## 3. Python/Flask Guidelines
+## 2. Core Principles
 
-1. **Function Definitions**
+1. **Security First**
 
-   - Use `def` for routes and utilities.
-   - Include type hints where possible:
-     ```python
-     def process_data(data: dict) -> dict:
-         ...
-     ```
+   - Environment variables for secrets
+   - CSRF protection on all forms
+   - Secure session management
+   - Input validation and sanitization
 
-2. **Project Structure**
+2. **Clean Code**
 
-   - **`app.py`** or **`wsgi.py`** for Flask initialization.
-   - **`blueprints/`** for route organization.
-   - **`templates/`** for HTML files (HTMX + Tailwind).
-   - **`flyonui-docs/`** for FlyonUI reference.
+   - Functional, declarative style
+   - Early returns for error handling
+   - Clear naming conventions
+   - Type hints where beneficial
 
-3. **Conditionals**
-   - Avoid braces in single-line statements:
-     ```python
-     if condition: do_something()
-     ```
-   - Use early returns to simplify logic:
-     ```python
-     if not condition:
-         return {"error": "Invalid condition."}
-     # Continue happy path
-     ```
+3. **User Experience**
+
+   - Meaningful error messages
+   - Progressive enhancement
+   - Responsive design
+   - Fast page loads
+
+4. **Maintainability**
+   - Modular components
+   - Clear documentation
+   - Consistent patterns
+   - Version control best practices
 
 ---
 
-## 4. Error Handling and Validation
+## 3. Implementation Guidelines
 
-- **Early Error Detection**: Quickly return errors for invalid conditions.
-- **Guard Clauses**:
-  ```python
-  if not request_data:
-      return {"error": "No data provided."}
-  ```
+### Python/Flask
+
+```python
+# Function definitions with type hints
+def process_user_data(data: dict) -> dict:
+    if not data:
+        return {"error": "No data provided"}
+    return {"status": "success", "data": data}
+
+# Early returns
+def validate_input(data: dict) -> tuple[bool, str]:
+    if not data.get('email'):
+        return False, "Email required"
+    if not data.get('password'):
+        return False, "Password required"
+    return True, ""
+
+# Route organization
+@app.route('/api/users', methods=['POST'])
+@login_required
+def create_user():
+    is_valid, error = validate_input(request.json)
+    if not is_valid:
+        return {"error": error}, 400
+    # Continue with valid data
+```
+
+### HTML/Templates
+
+```html
+<!-- Component structure -->
+<div class="component-wrapper">
+  <form hx-post="/api/action" class="form-class">
+    {% include "partials/csrf_token.html" %}
+    <!-- Form content -->
+  </form>
+</div>
+
+<!-- Error handling -->
+{% if error %}
+<div class="alert alert-error">{{ error_message }}</div>
+{% endif %}
+```
+
+### Project Structure
+
+```
+project/
+├── app.py              # Application entry
+├── blueprints/         # Route modules
+├── core/              # Core functionality
+├── static/            # Assets
+├── templates/         # HTML templates
+└── tests/             # Test suite
+```
+
+---
+
+## 4. Security Requirements
+
+1. **Authentication**
+
+   - Flask-Login for session management
+   - Remember-me functionality
+   - Secure password handling
+
+2. **Data Protection**
+
+   - CSRF tokens on all forms
+   - HTTPOnly cookies
+   - XSS prevention
+   - Input validation
+
+3. **Environment**
+   - Secrets in .env
+   - Debug mode in development only
+   - Secure headers in production
+
+---
+
+## 5. Quality Standards
+
+1. **Code Quality**
+
+   - PEP 8 compliance
+   - Type hints where beneficial
+   - Docstrings for complex functions
+   - Clear error messages
+
+2. **Testing**
+
+   - Unit tests for core functionality
+   - Integration tests for routes
+   - Security testing
+   - UI/UX testing
+
+3. **Documentation**
+   - Updated CHANGELOG.md
+   - Clear commit messages
+   - API documentation
+   - Setup instructions
+
+---
+
+## 6. Development Workflow
+
+1. **Version Control**
+
+   - Feature branches
+   - Meaningful commit messages
+   - Regular small commits
+   - Pull request reviews
+
+2. **Deployment**
+   - Environment-specific configs
+   - Backup procedures
+   - Rollback plans
+   - Monitoring setup
