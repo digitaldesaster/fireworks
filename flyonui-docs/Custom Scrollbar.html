@@ -1,0 +1,880 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     content
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Custom Scrollbar
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Differently designed scrollbar as alternative to the browser's default scrollbar.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="166" viewbox="0 0 218 166" width="218" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5657_36692)">
+      <rect fill="#76717f" fill-opacity=".06" height="120" rx="8" width="180" x="19" y="23">
+      </rect>
+      <rect fill="oklch(var(--p))" height="12" rx="6" width="63" x="34" y="38">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".2" height="8" rx="4" width="112" x="34" y="61">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".2" height="8" rx="4" width="78" x="34" y="75">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".2" height="4" rx="2" transform="rotate(90 188 34)" width="98" x="188" y="34">
+      </rect>
+      <rect fill="oklch(var(--p))" height="4" rx="2" transform="rotate(90 188 71)" width="24" x="188" y="71">
+      </rect>
+      <path d="M218 23H-.560284e-5" stroke="url(#paint0_linear_5657_36692)" stroke-opacity=".4">
+      </path>
+      <path d="M218 143H-.560284e-5" stroke="url(#paint1_linear_5657_36692)" stroke-opacity=".4">
+      </path>
+      <path d="M19 166V-.178814e-6" stroke="url(#paint2_linear_5657_36692)" stroke-opacity=".4">
+      </path>
+      <path d="M199 166V-.178814e-6" stroke="url(#paint3_linear_5657_36692)" stroke-opacity=".4">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5657_36692" x1=".116537e-4" x2="218" y1="22.5" y2="22.5561">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5657_36692" x1=".116537e-4" x2="218" y1="142.5" y2="142.556">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5657_36692" x1="19.5" x2="19.4675" y1=".889576e-5" y2="166">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5657_36692" x1="199.5" x2="199.467" y1=".889576e-5" y2="166">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5657_36692">
+       <rect fill="#fff" height="166" width="218">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          vertical-scrollbar
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds vertical scrollbar style.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          horizontal-scrollbar
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds horizontal scrollbar style.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          rounded-scrollbar
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds rounded style.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="vertical-scroll">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#vertical-scroll">
+       Vertical scroll
+      </a>
+      <a aria-label=" Vertical scroll " class="no-underline" href="#vertical-scroll">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use
+    <code>
+     .vertical-scrollbar
+    </code>
+    component class to add customize Scrollbar along
+    <code>
+     y-axis
+    </code>
+    .
+   </p>
+   <p>
+    Style the scrollbar with this tailwind modifier
+    <code>
+     [&amp;::-webkit-scrollbar]:
+    </code>
+    ,
+    <code>
+     [&amp;::-webkit-scrollbar-thumb]:
+    </code>
+    , and
+    <code>
+     [&amp;::-webkit-scrollbar-track]:
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="vertical-scrollbar shadow max-h-56 w-full p-4"&gt;
+  &lt;ul class="space-y-5"&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 1&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 1. It contains some details about the first item on the list.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 1-1&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 1-1. It provides additional information about the first sub-item.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 1-2&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 1-2. It gives more details about the second sub-item.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 2&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 2. It explains what the second item on the list is about.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 3&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 3. It provides context for the third item on the list.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 3-1&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 3-2&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+      &lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="vertical-scrollbar shadow max-h-56 w-full p-4">
+        <ul class="space-y-5">
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 1
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 1. It contains some details about the first item on the list.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 1-1
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 1-1. It provides additional information about the first sub-item.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 1-2
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 1-2. It gives more details about the second sub-item.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 2
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 2. It explains what the second item on the list is about.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 3
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 3. It provides context for the third item on the list.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 3-1
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 3-2
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+          </p>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"vertical-scrollbar shadow max-h-56 w-full p-4"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"space-y-5"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 1. It contains some details about the first item on the list.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1-1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 1-1. It provides additional information about the first sub-item.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1-2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 1-2. It gives more details about the second sub-item.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 2. It explains what the second item on the list is about.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 3. It provides context for the third item on the list.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3-1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3-2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="horizontal-scroll">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#horizontal-scroll">
+       Horizontal scroll
+      </a>
+      <a aria-label=" Horizontal scroll " class="no-underline" href="#horizontal-scroll">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use
+    <code>
+     .horizontal-scrollbar
+    </code>
+    component class to add customize Scrollbar along
+    <code>
+     x-axis
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="horizontal-scrollbar shadow flex flex-row space-x-3 p-4"&gt;
+  &lt;div class="min-w-0 shrink-0"&gt;
+    &lt;span class="text-base-content/90 font-semibold"&gt;Item 1&lt;/span&gt;
+    &lt;p class="text-base-content/80 mt-1 w-40 text-base"&gt;
+      This is a description for Item 1. It contains some details about the first item on the list.
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="min-w-0 shrink-0"&gt;
+    &lt;span class="text-base-content/90 font-semibold"&gt;Item 1-1&lt;/span&gt;
+    &lt;p class="text-base-content/80 mt-1 w-40 text-base"&gt;
+      This is a description for Item 1-1. It provides additional information about the first sub-item.
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="min-w-0 shrink-0"&gt;
+    &lt;span class="text-base-content/90 font-semibold"&gt;Item 1-2&lt;/span&gt;
+    &lt;p class="text-base-content/80 mt-1 w-40 text-base"&gt;
+      This is a description for Item 1-2. It gives more details about the second sub-item.
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="min-w-0 shrink-0"&gt;
+    &lt;span class="text-base-content/90 font-semibold"&gt;Item 2&lt;/span&gt;
+    &lt;p class="text-base-content/80 mt-1 w-40 text-base"&gt;
+      This is a description for Item 2. It explains what the second item on the list is about.
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;span class="min-w-0 shrink-0"&gt;
+    &lt;span class="text-base-content/90 font-semibold"&gt;Item 3&lt;/span&gt;
+    &lt;p class="text-base-content/80 mt-1 w-40 text-base"&gt;
+      This is a description for Item 3. It provides context for the third item on the list.
+    &lt;/p&gt;
+  &lt;/span&gt;
+  &lt;span class="min-w-0 shrink-0"&gt;
+    &lt;span class="text-base-content/90 font-semibold"&gt;Item 3-1&lt;/span&gt;
+    &lt;p class="text-base-content/80 mt-1 w-40 text-base"&gt;
+      This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+    &lt;/p&gt;
+  &lt;/span&gt;
+  &lt;span class="min-w-0 shrink-0"&gt;
+    &lt;span class="text-base-content/90 font-semibold"&gt;Item 3-2&lt;/span&gt;
+    &lt;p class="text-base-content/80 mt-1 w-40 text-base"&gt;
+      This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+    &lt;/p&gt;
+  &lt;/span&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="horizontal-scrollbar shadow flex flex-row space-x-3 p-4">
+        <div class="min-w-0 shrink-0">
+         <span class="text-base-content/90 font-semibold">
+          Item 1
+         </span>
+         <p class="text-base-content/80 mt-1 w-40 text-base">
+          This is a description for Item 1. It contains some details about the first item on the list.
+         </p>
+        </div>
+        <div class="min-w-0 shrink-0">
+         <span class="text-base-content/90 font-semibold">
+          Item 1-1
+         </span>
+         <p class="text-base-content/80 mt-1 w-40 text-base">
+          This is a description for Item 1-1. It provides additional information about the first sub-item.
+         </p>
+        </div>
+        <div class="min-w-0 shrink-0">
+         <span class="text-base-content/90 font-semibold">
+          Item 1-2
+         </span>
+         <p class="text-base-content/80 mt-1 w-40 text-base">
+          This is a description for Item 1-2. It gives more details about the second sub-item.
+         </p>
+        </div>
+        <div class="min-w-0 shrink-0">
+         <span class="text-base-content/90 font-semibold">
+          Item 2
+         </span>
+         <p class="text-base-content/80 mt-1 w-40 text-base">
+          This is a description for Item 2. It explains what the second item on the list is about.
+         </p>
+        </div>
+        <span class="min-w-0 shrink-0">
+         <span class="text-base-content/90 font-semibold">
+          Item 3
+         </span>
+         <p class="text-base-content/80 mt-1 w-40 text-base">
+          This is a description for Item 3. It provides context for the third item on the list.
+         </p>
+        </span>
+        <span class="min-w-0 shrink-0">
+         <span class="text-base-content/90 font-semibold">
+          Item 3-1
+         </span>
+         <p class="text-base-content/80 mt-1 w-40 text-base">
+          This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+         </p>
+        </span>
+        <span class="min-w-0 shrink-0">
+         <span class="text-base-content/90 font-semibold">
+          Item 3-2
+         </span>
+         <p class="text-base-content/80 mt-1 w-40 text-base">
+          This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+         </p>
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"horizontal-scrollbar shadow flex flex-row space-x-3 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"min-w-0 shrink-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 w-40 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      This is a description for Item 1. It contains some details about the first item on the list.
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"min-w-0 shrink-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1-1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 w-40 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      This is a description for Item 1-1. It provides additional information about the first sub-item.
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"min-w-0 shrink-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1-2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 w-40 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      This is a description for Item 1-2. It gives more details about the second sub-item.
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"min-w-0 shrink-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 w-40 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      This is a description for Item 2. It explains what the second item on the list is about.
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"min-w-0 shrink-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 w-40 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      This is a description for Item 3. It provides context for the third item on the list.
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"min-w-0 shrink-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3-1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 w-40 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"min-w-0 shrink-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3-2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 w-40 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="rounded-scroll">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#rounded-scroll">
+       Rounded scroll
+      </a>
+      <a aria-label=" Rounded scroll " class="no-underline" href="#rounded-scroll">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use
+    <code>
+     .rounded-scrollbar
+    </code>
+    class with
+    <code>
+     .vertical-scrollbar
+    </code>
+    or
+    <code>
+     .horizontal-scrollbar
+    </code>
+    to make it rounded scrollbar.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="vertical-scrollbar rounded-scrollbar card max-h-56 w-full p-4"&gt;
+  &lt;ul class="space-y-5 p-3"&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 1&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 1. It contains some details about the first item on the list.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 1-1&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 1-1. It provides additional information about the first sub-item.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 1-2&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 1-2. It gives more details about the second sub-item.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 2&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 2. It explains what the second item on the list is about.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 3&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 3. It provides context for the third item on the list.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 3-1&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+      &lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="text-base-content/90 font-semibold"&gt;Item 3-2&lt;/span&gt;
+      &lt;p class="text-base-content/80 mt-1 text-base"&gt;
+        This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+      &lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="vertical-scrollbar rounded-scrollbar card max-h-56 w-full p-4">
+        <ul class="space-y-5 p-3">
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 1
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 1. It contains some details about the first item on the list.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 1-1
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 1-1. It provides additional information about the first sub-item.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 1-2
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 1-2. It gives more details about the second sub-item.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 2
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 2. It explains what the second item on the list is about.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 3
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 3. It provides context for the third item on the list.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 3-1
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+          </p>
+         </li>
+         <li>
+          <span class="text-base-content/90 font-semibold">
+           Item 3-2
+          </span>
+          <p class="text-base-content/80 mt-1 text-base">
+           This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+          </p>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"vertical-scrollbar rounded-scrollbar card max-h-56 w-full p-4"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"space-y-5 p-3"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 1. It contains some details about the first item on the list.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1-1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 1-1. It provides additional information about the first sub-item.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 1-2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 1-2. It gives more details about the second sub-item.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 2. It explains what the second item on the list is about.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 3. It provides context for the third item on the list.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3-1&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 3-1. It gives more information about the first sub-item of Item 3.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-semibold"</span>&gt;Item 3-2&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-1 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>        This is a description for Item 3-2. It explains further about the second sub-item of Item 3.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/content/blockquote/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Blockquote
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/content/divider/">
+     Divider
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

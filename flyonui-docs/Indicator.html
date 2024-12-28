@@ -1,0 +1,1509 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     components
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Indicator
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Indicators precisely position elements at the corners of other elements, improving visual alignment in user interfaces.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="105" viewbox="0 0 126 105" width="126" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5515_4949)">
+      <path d="M126 19H-.217557e-5" stroke="url(#paint0_linear_5515_4949)" stroke-opacity=".4">
+      </path>
+      <path d="M126 89H-.217557e-5" stroke="url(#paint1_linear_5515_4949)" stroke-opacity=".4">
+      </path>
+      <path d="M28 105V-.327826e-6" stroke="url(#paint2_linear_5515_4949)" stroke-opacity=".4">
+      </path>
+      <path d="M98 105V-.327826e-6" stroke="url(#paint3_linear_5515_4949)" stroke-opacity=".4">
+      </path>
+      <path d="M28 27c0-4.4183 3.5817-8 8-8H90c4.4183.0 8 3.5817 8 8V81c0 4.4183-3.5817 8-8 8H36c-4.4183.0-8-3.5817-8-8V27z" fill="#76717f" fill-opacity=".06">
+      </path>
+      <path d="M98 26c3.866.0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z" fill="oklch(var(--p))">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5515_4949" x1=".673562e-5" x2="126" y1="18.5" y2="18.5187">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5515_4949" x1=".673562e-5" x2="126" y1="88.5" y2="88.5187">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5515_4949" x1="28.5" x2="28.487" y1=".561762e-5" y2="105">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5515_4949" x1="98.5" x2="98.487" y1=".561762e-5" y2="105">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5515_4949">
+       <rect fill="#fff" height="105" width="126">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Container element.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator-item
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Will be placed on the corner of sibling.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator-start
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Align horizontally to the left.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator-center
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Align horizontally to the center.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator-end
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Align horizontally to the right (default).
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator-top
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Align vertically to top (default).
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator-middle
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Align vertically to middle.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          indicator-bottom
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Align vertically to bottom.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic">
+       Basic
+      </a>
+      <a aria-label=" Basic " class="no-underline" href="#basic">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="indicator">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#indicator">
+       Indicator
+      </a>
+      <a aria-label=" Indicator " class="no-underline" href="#indicator">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     indicator
+    </code>
+    component acts as a container for indicators, with the
+    <code>
+     indicator-item
+    </code>
+    class offering default positioning. Tailwind utility classes enable control over size, background color, and roundness of the indicators.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3"&gt;
+    &lt;span class="icon-[tabler--bell] text-primary size-5"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator">
+        <span class="indicator-item bg-primary size-3 rounded-full">
+        </span>
+        <div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3">
+         <span class="icon-[tabler--bell] text-primary size-5">
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/10 border-primary grid place-items-center rounded-md border p-3"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--bell] text-primary size-5"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="badge-as-indicator">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#badge-as-indicator">
+       Badge as indicator
+      </a>
+      <a aria-label=" Badge as indicator " class="no-underline" href="#badge-as-indicator">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use
+    <code>
+     badge
+    </code>
+    for badge style indicator.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item badge badge-primary"&gt;+999&lt;/span&gt;
+  &lt;div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3"&gt;
+    &lt;span class="icon-[tabler--bell] text-primary size-5"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator">
+        <span class="indicator-item badge badge-primary">
+         +999
+        </span>
+        <div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3">
+         <span class="icon-[tabler--bell] text-primary size-5">
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item badge badge-primary"</span>&gt;+999&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/10 border-primary grid place-items-center rounded-md border p-3"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--bell] text-primary size-5"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="pill-badge-as-indicator">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#pill-badge-as-indicator">
+       Pill badge as indicator
+      </a>
+      <a aria-label=" Pill badge as indicator " class="no-underline" href="#pill-badge-as-indicator">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Using the
+    <code>
+     rounded-full
+    </code>
+    class with
+    <code>
+     badge
+    </code>
+    creates a pill-shaped badge as an indicator.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item badge badge-primary rounded-full"&gt;+999&lt;/span&gt;
+  &lt;div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3"&gt;
+    &lt;span class="icon-[tabler--bell] text-primary size-5"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator">
+        <span class="indicator-item badge badge-primary rounded-full">
+         +999
+        </span>
+        <div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3">
+         <span class="icon-[tabler--bell] text-primary size-5">
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item badge badge-primary rounded-full"</span>&gt;+999&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/10 border-primary grid place-items-center rounded-md border p-3"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--bell] text-primary size-5"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="indicator-on-avatar">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#indicator-on-avatar">
+       Indicator on avatar
+      </a>
+      <a aria-label=" Indicator on avatar " class="no-underline" href="#indicator-on-avatar">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Avatar with an indicator badge denoting the user’s status.
+   </p>
+   <div class="not-prose custom-list mt-4 mb-6 flex items-start gap-4 alert alert-soft !bg-primary/10 alert-primary" role="alert">
+    <span class="icon-[tabler--info-circle] mt-px size-5 shrink-0 leading-none">
+    </span>
+    <span>
+     Note! : This indicator are different form the
+     <a class="link link-primary" href="/docs/components/avatar/#status">
+      Avatar Status
+     </a>
+     .
+    </span>
+    <style>
+     .custom-list li::before{content:"-";margin-right:.5em}
+    </style>
+   </div>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="avatar indicator me-8"&gt;
+  &lt;span class="indicator-item badge badge-primary"&gt;typing…&lt;/span&gt;
+  &lt;div class="size-16 rounded-md"&gt;
+    &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png" alt="avatar" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="avatar indicator"&gt;
+  &lt;span class="indicator-item bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;div class="size-16 rounded-md"&gt;
+    &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png" alt="avatar" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="avatar indicator me-8">
+        <span class="indicator-item badge badge-primary">
+         typing…
+        </span>
+        <div class="size-16 rounded-md">
+         <img alt="avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"/>
+        </div>
+       </div>
+       <div class="avatar indicator">
+        <span class="indicator-item bg-primary size-3 rounded-full">
+        </span>
+        <div class="size-16 rounded-md">
+         <img alt="avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"/>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar indicator me-8"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item badge badge-primary"</span>&gt;typing…&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-16 rounded-md"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-16 rounded-md"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="indicator-on-input">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#indicator-on-input">
+       Indicator on input
+      </a>
+      <a aria-label=" Indicator on input " class="no-underline" href="#indicator-on-input">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Input field with a prominent indicator badge denoting a required entry.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item badge badge-primary"&gt;Required&lt;/span&gt;
+  &lt;input type="text" placeholder="Your email address" class="input input-bordered input-primary" /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator">
+        <span class="indicator-item badge badge-primary">
+         Required
+        </span>
+        <input class="input input-bordered input-primary" placeholder="Your email address" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item badge badge-primary"</span>&gt;Required&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Your email address"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input input-bordered input-primary"</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="button-indicator">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#button-indicator">
+       Button indicator
+      </a>
+      <a aria-label=" Button indicator " class="no-underline" href="#button-indicator">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Button indicator provides a visual cue for interacting with content or actions within a container.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator mt-4"&gt;
+  &lt;div class="indicator-item indicator-top"&gt;
+    &lt;button class="btn btn-error btn-circle btn-sm" aria-label="Close Button Indicator"&gt;
+      &lt;span class="icon-[tabler--x] size-5"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="card-body"&gt;
+      &lt;h2 class="card-title"&gt;Card Title&lt;/h2&gt;
+      &lt;p&gt;Rerum reiciendis beatae tenetur excepturi&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator mt-4">
+        <div class="indicator-item indicator-top">
+         <button aria-label="Close Button Indicator" class="btn btn-error btn-circle btn-sm">
+          <span class="icon-[tabler--x] size-5">
+          </span>
+         </button>
+        </div>
+        <div class="card">
+         <div class="card-body">
+          <h2 class="card-title">
+           Card Title
+          </h2>
+          <p>
+           Rerum reiciendis beatae tenetur excepturi
+          </p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator mt-4"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-top"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-error btn-circle btn-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Close Button Indicator"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--x] size-5"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card-body"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card-title"</span>&gt;Card Title&lt;/<span style="color:#f92672">h2</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>&gt;Rerum reiciendis beatae tenetur excepturi&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="animation">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#animation">
+       Animation
+      </a>
+      <a aria-label=" Animation " class="no-underline" href="#animation">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="ping-animation">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#ping-animation">
+       Ping animation
+      </a>
+      <a aria-label=" Ping animation " class="no-underline" href="#ping-animation">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Include the
+    <code>
+     animate-ping
+    </code>
+    utility to enable an element to scale and fade, resembling a radar ping or water ripple effect, which is beneficial for features like notification badges.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item bg-error size-3 rounded-full"&gt;
+    &lt;span class="bg-error absolute size-full animate-ping rounded-full opacity-75"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;button class="btn btn-secondary btn-outline btn-square" aria-label="Button Indicator"&gt;&lt;span class="icon-[tabler--shopping-bag] size-5"&gt;&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item badge badge-error rounded-full"&gt;
+    +99
+    &lt;span class="bg-error absolute size-full animate-ping rounded-full opacity-75"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;button class="btn btn-secondary btn-outline"&gt;Notifications&lt;/button&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator">
+        <span class="indicator-item bg-error size-3 rounded-full">
+         <span class="bg-error absolute size-full animate-ping rounded-full opacity-75">
+         </span>
+        </span>
+        <button aria-label="Button Indicator" class="btn btn-secondary btn-outline btn-square">
+         <span class="icon-[tabler--shopping-bag] size-5">
+         </span>
+        </button>
+       </div>
+       <div class="indicator">
+        <span class="indicator-item badge badge-error rounded-full">
+         +99
+         <span class="bg-error absolute size-full animate-ping rounded-full opacity-75">
+         </span>
+        </span>
+        <button class="btn btn-secondary btn-outline">
+         Notifications
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item bg-error size-3 rounded-full"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-error absolute size-full animate-ping rounded-full opacity-75"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-secondary btn-outline btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Button Indicator"</span>&gt;&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--shopping-bag] size-5"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item badge badge-error rounded-full"</span>&gt;
+</span></span><span style="display:flex"><span>    +99
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-error absolute size-full animate-ping rounded-full opacity-75"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-secondary btn-outline"</span>&gt;Notifications&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="pulse-animation">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#pulse-animation">
+       Pulse animation
+      </a>
+      <a aria-label=" Pulse animation " class="no-underline" href="#pulse-animation">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Apply the class
+    <code>
+     animation-pulse
+    </code>
+    to integrate this animated loading indicator for situations where content within a card is loading.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="bg-primary/10 flex size-32 items-center justify-center rounded-md border"&gt;
+  &lt;div class="indicator"&gt;
+    &lt;span class="badge badge-primary animate-pulse rounded-full"&gt;loading...&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose relative flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="bg-primary/10 flex size-32 items-center justify-center rounded-md border">
+        <div class="indicator">
+         <span class="badge badge-primary animate-pulse rounded-full">
+          loading...
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/10 flex size-32 items-center justify-center rounded-md border"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"badge badge-primary animate-pulse rounded-full"</span>&gt;loading...&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="positions">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#positions">
+       Positions
+      </a>
+      <a aria-label=" Positions " class="no-underline" href="#positions">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="indicator-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#indicator-2">
+       Indicator
+      </a>
+      <a aria-label=" Indicator " class="no-underline" href="#indicator-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The Indicators can be positioned at.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item indicator-top indicator-start bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-top indicator-center bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-top indicator-end bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-middle indicator-start bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-middle indicator-center bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-middle indicator-end bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-bottom indicator-start bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-bottom indicator-center bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;span class="indicator-item indicator-bottom indicator-end bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;div class="bg-primary/10 border border-primary grid h-32 w-60 place-items-center rounded-md"&gt;&lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator">
+        <span class="indicator-item indicator-top indicator-start bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-top indicator-center bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-top indicator-end bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-middle indicator-start bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-middle indicator-center bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-middle indicator-end bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-bottom indicator-start bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-bottom indicator-center bg-primary size-3 rounded-full">
+        </span>
+        <span class="indicator-item indicator-bottom indicator-end bg-primary size-3 rounded-full">
+        </span>
+        <div class="bg-primary/10 border border-primary grid h-32 w-60 place-items-center rounded-md">
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-top indicator-start bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-top indicator-center bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-top indicator-end bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-middle indicator-start bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-middle indicator-center bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-middle indicator-end bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-bottom indicator-start bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-bottom indicator-center bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-bottom indicator-end bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/10 border border-primary grid h-32 w-60 place-items-center rounded-md"</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="badge-indicator">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#badge-indicator">
+       Badge indicator
+      </a>
+      <a aria-label=" Badge indicator " class="no-underline" href="#badge-indicator">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The badge display can be positioned at.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator my-3 ms-14"&gt;
+  &lt;span class="indicator-item indicator-top indicator-start badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;top+start&lt;/span&gt; &lt;span class="sm:hidden"&gt;T-Start&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-top indicator-center badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;top+center&lt;/span&gt; &lt;span class="sm:hidden"&gt;T-center&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-top indicator-end badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;top+end&lt;/span&gt; &lt;span class="sm:hidden"&gt;T-end&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-middle indicator-start badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;middle+start&lt;/span&gt; &lt;span class="sm:hidden"&gt;M-start&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-middle indicator-center badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;middle+center&lt;/span&gt; &lt;span class="sm:hidden"&gt;M-center&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-middle indicator-end badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;middle+end&lt;/span&gt; &lt;span class="sm:hidden"&gt;M-end&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-bottom indicator-start badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;bottom+start&lt;/span&gt; &lt;span class="sm:hidden"&gt;B-Start&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-bottom indicator-center badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;bottom+center&lt;/span&gt; &lt;span class="sm:hidden"&gt;B-center&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="indicator-item indicator-bottom indicator-end badge badge-primary max-sm:px-1"&gt;
+    &lt;span class="max-sm:hidden"&gt;bottom+end&lt;/span&gt; &lt;span class="sm:hidden"&gt;B-end&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;div class="bg-primary/10 border-primary grid h-32 w-60 place-items-center rounded-md border max-sm:w-40"&gt;content&lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator my-3 ms-14">
+        <span class="indicator-item indicator-top indicator-start badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          top+start
+         </span>
+         <span class="sm:hidden">
+          T-Start
+         </span>
+        </span>
+        <span class="indicator-item indicator-top indicator-center badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          top+center
+         </span>
+         <span class="sm:hidden">
+          T-center
+         </span>
+        </span>
+        <span class="indicator-item indicator-top indicator-end badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          top+end
+         </span>
+         <span class="sm:hidden">
+          T-end
+         </span>
+        </span>
+        <span class="indicator-item indicator-middle indicator-start badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          middle+start
+         </span>
+         <span class="sm:hidden">
+          M-start
+         </span>
+        </span>
+        <span class="indicator-item indicator-middle indicator-center badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          middle+center
+         </span>
+         <span class="sm:hidden">
+          M-center
+         </span>
+        </span>
+        <span class="indicator-item indicator-middle indicator-end badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          middle+end
+         </span>
+         <span class="sm:hidden">
+          M-end
+         </span>
+        </span>
+        <span class="indicator-item indicator-bottom indicator-start badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          bottom+start
+         </span>
+         <span class="sm:hidden">
+          B-Start
+         </span>
+        </span>
+        <span class="indicator-item indicator-bottom indicator-center badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          bottom+center
+         </span>
+         <span class="sm:hidden">
+          B-center
+         </span>
+        </span>
+        <span class="indicator-item indicator-bottom indicator-end badge badge-primary max-sm:px-1">
+         <span class="max-sm:hidden">
+          bottom+end
+         </span>
+         <span class="sm:hidden">
+          B-end
+         </span>
+        </span>
+        <div class="bg-primary/10 border-primary grid h-32 w-60 place-items-center rounded-md border max-sm:w-40">
+         content
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator my-3 ms-14"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-top indicator-start badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;top+start&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;T-Start&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-top indicator-center badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;top+center&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;T-center&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-top indicator-end badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;top+end&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;T-end&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-middle indicator-start badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;middle+start&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;M-start&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-middle indicator-center badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;middle+center&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;M-center&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-middle indicator-end badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;middle+end&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;M-end&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-bottom indicator-start badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;bottom+start&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;B-Start&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-bottom indicator-center badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;bottom+center&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;B-center&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-bottom indicator-end badge badge-primary max-sm:px-1"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-sm:hidden"</span>&gt;bottom+end&lt;/<span style="color:#f92672">span</span>&gt; &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:hidden"</span>&gt;B-end&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/10 border-primary grid h-32 w-60 place-items-center rounded-md border max-sm:w-40"</span>&gt;content&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="responsive">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#responsive">
+       Responsive
+      </a>
+      <a aria-label=" Responsive " class="no-underline" href="#responsive">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="position-based-on-resolution">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#position-based-on-resolution">
+       Position based on resolution
+      </a>
+      <a aria-label=" Position based on resolution " class="no-underline" href="#position-based-on-resolution">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Utilize responsive modifiers like
+    <code>
+     sm
+    </code>
+    ,
+    <code>
+     md
+    </code>
+    ,
+    <code>
+     lg
+    </code>
+    to adjust the indicator’s position based on screen size.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="indicator"&gt;
+  &lt;span class="indicator-item indicator-start sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end bg-primary size-3 rounded-full"&gt;&lt;/span&gt;
+  &lt;div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3"&gt;
+    &lt;span class="icon-[tabler--bell] text-primary size-5"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="indicator">
+        <span class="indicator-item indicator-start sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end bg-primary size-3 rounded-full">
+        </span>
+        <div class="bg-primary/10 border-primary grid place-items-center rounded-md border p-3">
+         <span class="icon-[tabler--bell] text-primary size-5">
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"indicator-item indicator-start sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end bg-primary size-3 rounded-full"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/10 border-primary grid place-items-center rounded-md border p-3"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--bell] text-primary size-5"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/components/diff/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Diff
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/components/list-group/">
+     List group
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

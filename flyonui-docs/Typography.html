@@ -1,0 +1,943 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     content
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Typography
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     A comprehensive guide to typography, featuring examples of global settings, headings, body text, lists, and various other elements.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="166" viewbox="0 0 218 166" width="218" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5657_37313)">
+      <rect fill="#76717f" fill-opacity=".06" height="120" rx="8" width="180" x="19" y="23">
+      </rect>
+      <path d="M89.6667 102.333h7.25" stroke="oklch(var(--p))" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      </path>
+      <path d="M113.833 102.333H130.75" stroke="oklch(var(--p))" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      </path>
+      <path d="M96.6748 90.25H113.35" stroke="oklch(var(--p))" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      </path>
+      <path d="M104.65 69.2251l14.017 33.1079" stroke="oklch(var(--p))" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      </path>
+      <path d="M92.0833 102.333 106.583 63.6667h4.834l16.916 38.6663" stroke="oklch(var(--p))" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      </path>
+      <path d="M218 23H-.560284e-5" stroke="url(#paint0_linear_5657_37313)" stroke-opacity=".4">
+      </path>
+      <path d="M218 143H-.560284e-5" stroke="url(#paint1_linear_5657_37313)" stroke-opacity=".4">
+      </path>
+      <path d="M19 166V-.178814e-6" stroke="url(#paint2_linear_5657_37313)" stroke-opacity=".4">
+      </path>
+      <path d="M199 166V-.178814e-6" stroke="url(#paint3_linear_5657_37313)" stroke-opacity=".4">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5657_37313" x1=".116537e-4" x2="218" y1="22.5" y2="22.5561">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5657_37313" x1=".116537e-4" x2="218" y1="142.5" y2="142.556">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5657_37313" x1="19.5" x2="19.4675" y1=".889576e-5" y2="166">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5657_37313" x1="199.5" x2="199.467" y1=".889576e-5" y2="166">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5657_37313">
+       <rect fill="#fff" height="166" width="218">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <hr class="mb-10 w-full border-base-content/25"/>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="fonts">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#fonts">
+       Fonts
+      </a>
+      <a aria-label=" Fonts " class="no-underline" href="#fonts">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="font-family">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#font-family">
+       Font family
+      </a>
+      <a aria-label=" Font family " class="no-underline" href="#font-family">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    <code>
+     Inter
+    </code>
+    is used for FlyonUI docs. To change or customize this, consult the
+    <a class="link link-primary" href="https://tailwindcss.com/docs/font-family" target="_blank">
+     font-family
+    </a>
+    section in the TailwindCSS documentation.
+   </p>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="font-sizes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#font-sizes">
+       Font sizes
+      </a>
+      <a aria-label=" Font sizes " class="no-underline" href="#font-sizes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="headings">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#headings">
+       Headings
+      </a>
+      <a aria-label=" Headings " class="no-underline" href="#headings">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use of Tailwind CSS
+    <a class="link link-primary" href="https://tailwindcss.com/docs/font-size" target="_blank">
+     font size
+    </a>
+    utility classes to style various headings.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;h1 class="text-base-content/90 text-4xl"&gt;Heading 1&lt;/h1&gt;
+&lt;h2 class="text-base-content/90 text-3xl"&gt;Heading 2&lt;/h2&gt;
+&lt;h3 class="text-base-content/90 text-2xl"&gt;Heading 3&lt;/h3&gt;
+&lt;h4 class="text-base-content/90 text-xl"&gt;Heading 4&lt;/h4&gt;
+&lt;h5 class="text-base-content/90 text-lg"&gt;Heading 5&lt;/h5&gt;
+&lt;h6 class="text-base-content/90 text-base"&gt;Heading 6&lt;/h6&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <h1 class="text-base-content/90 text-4xl">
+        Heading 1
+       </h1>
+       <h2 class="text-base-content/90 text-3xl">
+        Heading 2
+       </h2>
+       <h3 class="text-base-content/90 text-2xl">
+        Heading 3
+       </h3>
+       <h4 class="text-base-content/90 text-xl">
+        Heading 4
+       </h4>
+       <h5 class="text-base-content/90 text-lg">
+        Heading 5
+       </h5>
+       <h6 class="text-base-content/90 text-base">
+        Heading 6
+       </h6>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-4xl"</span>&gt;Heading 1&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-3xl"</span>&gt;Heading 2&lt;/<span style="color:#f92672">h2</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-2xl"</span>&gt;Heading 3&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">h4</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-xl"</span>&gt;Heading 4&lt;/<span style="color:#f92672">h4</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">h5</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-lg"</span>&gt;Heading 5&lt;/<span style="color:#f92672">h5</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">h6</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-base"</span>&gt;Heading 6&lt;/<span style="color:#f92672">h6</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="paragraph">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#paragraph">
+       Paragraph
+      </a>
+      <a aria-label=" Paragraph " class="no-underline" href="#paragraph">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     &lt;p&gt;
+    </code>
+    tag is extensively employed in HTML documents for composing longer passages of text, typically separated by blank lines. Adhering to proper usage of this tag can notably improve on-page SEO performance.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div&gt;
+  &lt;h5 class="text-base-content/90 text-lg font-semibold"&gt;Body text&lt;/h5&gt;
+  &lt;p class="text-base-content/80 text-base"&gt;
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+    mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+  &lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;h5 class="text-base-content/90 text-lg font-semibold"&gt;Small text&lt;/h5&gt;
+  &lt;small class="text-base-content/80"&gt;
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+    mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+  &lt;/small&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;h5 class="text-base-content/90 text-lg font-semibold"&gt;Muted text&lt;/h5&gt;
+  &lt;p class="text-base-content/50 text-base"&gt;
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+    mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+  &lt;/p&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div>
+        <h5 class="text-base-content/90 text-lg font-semibold">
+         Body text
+        </h5>
+        <p class="text-base-content/80 text-base">
+         Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+        </p>
+       </div>
+       <div>
+        <h5 class="text-base-content/90 text-lg font-semibold">
+         Small text
+        </h5>
+        <small class="text-base-content/80">
+         Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+        </small>
+       </div>
+       <div>
+        <h5 class="text-base-content/90 text-lg font-semibold">
+         Muted text
+        </h5>
+        <p class="text-base-content/50 text-base">
+         Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">h5</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-lg font-semibold"</span>&gt;Body text&lt;/<span style="color:#f92672">h5</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+</span></span><span style="display:flex"><span>    mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">h5</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-lg font-semibold"</span>&gt;Small text&lt;/<span style="color:#f92672">h5</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">small</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;
+</span></span><span style="display:flex"><span>    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+</span></span><span style="display:flex"><span>    mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">small</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">h5</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-lg font-semibold"</span>&gt;Muted text&lt;/<span style="color:#f92672">h5</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/50 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Duis
+</span></span><span style="display:flex"><span>    mollis, est non commodo luctus.Duis mollis, est non commodo luctus.
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="semantic-tags">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#semantic-tags">
+       Semantic tags
+      </a>
+      <a aria-label=" Semantic tags " class="no-underline" href="#semantic-tags">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="inline-text-elements">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#inline-text-elements">
+       Inline text elements
+      </a>
+      <a aria-label=" Inline text elements " class="no-underline" href="#inline-text-elements">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Styling for common inline HTML5 elements.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;p class="text-base-content/80"&gt; You can use the mark tag to &lt;mark&gt;highlight&lt;/mark&gt; text. &lt;/p&gt;
+&lt;p class="text-base-content/80"&gt;&lt;del&gt;This line of text is meant to be treated as deleted text.&lt;/del&gt;&lt;/p&gt;
+&lt;p class="text-base-content/80"&gt;&lt;s&gt;This line of text is meant to be treated as no longer accurate.&lt;/s&gt;&lt;/p&gt;
+&lt;p class="text-base-content/80"&gt;&lt;ins&gt;This line of text is meant to be treated as an addition to the document.&lt;/ins&gt;&lt;/p&gt;
+&lt;p class="text-base-content/80"&gt;&lt;u&gt;This line of text will render as underlined.&lt;/u&gt;&lt;/p&gt;
+&lt;p class="text-base-content/80"&gt;&lt;small&gt;This line of text is meant to be treated as fine print.&lt;/small&gt;&lt;/p&gt;
+&lt;p class="text-base-content/80"&gt;&lt;strong&gt;This line rendered as bold text.&lt;/strong&gt;&lt;/p&gt;
+&lt;p class="text-base-content/80"&gt;&lt;em&gt;This line rendered as italicized text.&lt;/em&gt;&lt;/p&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="text-base-content/80">
+        You can use the mark tag to
+        <mark>
+         highlight
+        </mark>
+        text.
+       </p>
+       <p class="text-base-content/80">
+        <del>
+         This line of text is meant to be treated as deleted text.
+        </del>
+       </p>
+       <p class="text-base-content/80">
+        <s>
+         This line of text is meant to be treated as no longer accurate.
+        </s>
+       </p>
+       <p class="text-base-content/80">
+        <ins>
+         This line of text is meant to be treated as an addition to the document.
+        </ins>
+       </p>
+       <p class="text-base-content/80">
+        <u>
+         This line of text will render as underlined.
+        </u>
+       </p>
+       <p class="text-base-content/80">
+        <small>
+         This line of text is meant to be treated as fine print.
+        </small>
+       </p>
+       <p class="text-base-content/80">
+        <strong>
+         This line rendered as bold text.
+        </strong>
+       </p>
+       <p class="text-base-content/80">
+        <em>
+         This line rendered as italicized text.
+        </em>
+       </p>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt; You can use the mark tag to &lt;<span style="color:#f92672">mark</span>&gt;highlight&lt;/<span style="color:#f92672">mark</span>&gt; text. &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;&lt;<span style="color:#f92672">del</span>&gt;This line of text is meant to be treated as deleted text.&lt;/<span style="color:#f92672">del</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;&lt;<span style="color:#f92672">s</span>&gt;This line of text is meant to be treated as no longer accurate.&lt;/<span style="color:#f92672">s</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;&lt;<span style="color:#f92672">ins</span>&gt;This line of text is meant to be treated as an addition to the document.&lt;/<span style="color:#f92672">ins</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;&lt;<span style="color:#f92672">u</span>&gt;This line of text will render as underlined.&lt;/<span style="color:#f92672">u</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;&lt;<span style="color:#f92672">small</span>&gt;This line of text is meant to be treated as fine print.&lt;/<span style="color:#f92672">small</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;&lt;<span style="color:#f92672">strong</span>&gt;This line rendered as bold text.&lt;/<span style="color:#f92672">strong</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80"</span>&gt;&lt;<span style="color:#f92672">em</span>&gt;This line rendered as italicized text.&lt;/<span style="color:#f92672">em</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          ELEMENT (TAG)
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;mark&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Used to highlight or mark text for emphasis or reference.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;del&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Indicates text that should be treated as deleted or removed from the document.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;s&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Represents text that is no longer relevant or accurate.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;ins&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Marks text that has been added to the document.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;u&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Renders text with an underline to indicate emphasis or annotation.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;small&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Denotes text that should be displayed in a smaller font size, often used for fine print or side comments.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;strong&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Renders text in a bold font to denote strong importance or emphasis.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          &lt;em&gt;
+         </code>
+        </td>
+        <td class="px-4">
+         Renders text in italics to indicate emphasis or stress.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <p>
+    These HTML5 elements offer semantic significance to the content, effectively communicating specific intentions to both users and search engines.
+   </p>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="misc">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#misc">
+       Misc
+      </a>
+      <a aria-label=" Misc " class="no-underline" href="#misc">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="gradient-text">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#gradient-text">
+       Gradient text
+      </a>
+      <a aria-label=" Gradient text " class="no-underline" href="#gradient-text">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use the classes
+    <code>
+     bg-clip-text
+    </code>
+    ,
+    <code>
+     text-transparent
+    </code>
+    , and
+    <code>
+     bg-gradient-{tw-utility-class}
+    </code>
+    to achieve a gradient overlay effect on a text element.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText("&lt;p class=\"bg-gradient-to-r from-primary to-error bg-clip-text text-transparent font-black text-4xl w-fit\"&gt; Gradient text &lt;/p&gt;")' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="bg-gradient-to-r from-primary to-error bg-clip-text text-transparent font-black text-4xl w-fit">
+        Gradient text
+       </p>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-gradient-to-r from-primary to-error bg-clip-text text-transparent font-black text-4xl w-fit"</span>&gt; Gradient text &lt;/<span style="color:#f92672">p</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="first-line-and-first-letter">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#first-line-and-first-letter">
+       First-line and first-letter
+      </a>
+      <a aria-label=" First-line and first-letter " class="no-underline" href="#first-line-and-first-letter">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Apply styles to the initial line of a text block using the
+    <code>
+     ::first-line
+    </code>
+    pseudo-element, and to the first letter with the
+    <code>
+     ::first-letter
+    </code>
+    pseudo-element.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;p class=&quot;first-letter:text-base-content/90 text-justify first-letter:float-left first-letter:me-3 first-letter:text-7xl first-letter:font-bold first-line:uppercase first-line:tracking-widest&quot; &gt;
+  You see this old vinyl record, weathered and worn, its label scratched and faded? At first glance, it may appear as
+  nothing more than discarded junk. Yet, to me, it holds something infinitely precious—the sound of my childhood. It's
+  not just music; it's a treasure trove of memories, each groove on its surface a testament to days gone by. As I gently
+  place the needle onto its surface, I am transported back to a time when summer nights stretched on forever, filled
+  with the warmth of family gatherings and pop that emanates from the speakers is like a whisper from the past, a
+  nostalgic echo of moments I hold dear.
+&lt;/p&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="first-letter:text-base-content/90 text-justify first-letter:float-left first-letter:me-3 first-letter:text-7xl first-letter:font-bold first-line:uppercase first-line:tracking-widest">
+        You see this old vinyl record, weathered and worn, its label scratched and faded? At first glance, it may appear as
+nothing more than discarded junk. Yet, to me, it holds something infinitely precious—the sound of my childhood. It's
+not just music; it's a treasure trove of memories, each groove on its surface a testament to days gone by. As I gently
+place the needle onto its surface, I am transported back to a time when summer nights stretched on forever, filled
+with the warmth of family gatherings and pop that emanates from the speakers is like a whisper from the past, a
+nostalgic echo of moments I hold dear.
+       </p>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"first-letter:text-base-content/90 text-justify first-letter:float-left first-letter:me-3 first-letter:text-7xl first-letter:font-bold first-line:uppercase first-line:tracking-widest"</span> &gt;
+</span></span><span style="display:flex"><span>  You see this old vinyl record, weathered and worn, its label scratched and faded? At first glance, it may appear as
+</span></span><span style="display:flex"><span>  nothing more than discarded junk. Yet, to me, it holds something infinitely precious—the sound of my childhood. It's
+</span></span><span style="display:flex"><span>  not just music; it's a treasure trove of memories, each groove on its surface a testament to days gone by. As I gently
+</span></span><span style="display:flex"><span>  place the needle onto its surface, I am transported back to a time when summer nights stretched on forever, filled
+</span></span><span style="display:flex"><span>  with the warmth of family gatherings and pop that emanates from the speakers is like a whisper from the past, a
+</span></span><span style="display:flex"><span>  nostalgic echo of moments I hold dear.
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="open/closed-state">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#open%2fclosed-state">
+       Open/closed state
+      </a>
+      <a aria-label=" Open/closed state " class="no-underline" href="#open%2fclosed-state">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Conditional application of styles based on the open state of either a
+    <code>
+     &lt;details&gt;
+    </code>
+    or
+    <code>
+     &lt;dialog&gt;
+    </code>
+    element.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="max-w-lg"&gt;
+  &lt;details class="open:bg-base-100 rounded-lg p-6 open:shadow" open&gt;
+    &lt;summary class="text-base-content/90 select-none text-base font-semibold"&gt;How did paperclips come to be?&lt;/summary&gt;
+    &lt;div class="text-base-content/80 mt-3 text-base"&gt;
+      &lt;p&gt;
+        The humble paperclip has an interesting history. It was first patented in the late 19th century by Norwegian
+        inventor Johan Vaaler, although the exact origin of the paperclip dates back even earlier to other similar
+        designs.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/details&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="max-w-lg">
+        <details class="open:bg-base-100 rounded-lg p-6 open:shadow" open="">
+         <summary class="text-base-content/90 select-none text-base font-semibold">
+          How did paperclips come to be?
+         </summary>
+         <div class="text-base-content/80 mt-3 text-base">
+          <p>
+           The humble paperclip has an interesting history. It was first patented in the late 19th century by Norwegian
+inventor Johan Vaaler, although the exact origin of the paperclip dates back even earlier to other similar
+designs.
+          </p>
+         </div>
+        </details>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-lg"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">details</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"open:bg-base-100 rounded-lg p-6 open:shadow"</span> <span style="color:#a6e22e">open</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">summary</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 select-none text-base font-semibold"</span>&gt;How did paperclips come to be?&lt;/<span style="color:#f92672">summary</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 mt-3 text-base"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>        The humble paperclip has an interesting history. It was first patented in the late 19th century by Norwegian
+</span></span><span style="display:flex"><span>        inventor Johan Vaaler, although the exact origin of the paperclip dates back even earlier to other similar
+</span></span><span style="display:flex"><span>        designs.
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">details</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/content/mask/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Mask
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/components/accordion/">
+     Accordion
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

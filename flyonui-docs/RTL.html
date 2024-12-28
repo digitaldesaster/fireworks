@@ -1,0 +1,518 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     customization
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     RTL
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Learn how to setup and configure bidirectional text formats (RTL and LTR) in your project using native Tailwind CSS variants and the FlyonUI components.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="60" viewbox="0 0 60 60" width="60" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_6475_117367)">
+      <mask height="60" id="mask0_6475_117367" maskunits="userSpaceOnUse" style="mask-type:luminance" width="60" x="0" y="0">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="#fff">
+       </path>
+      </mask>
+      <g mask="url(#mask0_6475_117367)">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="oklch(var(--bc))">
+       </path>
+       <path clip-rule="evenodd" d="M41.9953 38.7001 30.6315 24.6934C30.2248 24.1921 29.4567 24.2017 29.0627 24.7132L18.7058 38.158C18.5165 38.4038 18.2238 38.5478 17.9136 38.5478H11.621C10.7822 38.5478 10.3161 37.5771 10.8406 36.9225L29.0608 14.1819C29.459 13.6849 30.2141 13.6818 30.6164 14.1754L49.5749 37.4383C50.1072 38.0916 49.6424 39.0701 48.7997 39.0701H42.7719C42.4705 39.0701 42.1852 38.9341 41.9953 38.7001zm-11.436-3.8978 6.8236 7.779C37.9499 43.2276 37.4909 44.2407 36.6312 44.2407H23.6662c-.8355.0-1.3026-.963899999999995-.7849-1.6196l6.1413-7.779C29.4099 34.3516 30.1471 34.3325 30.5593 34.8023z" fill="url(#paint0_linear_6475_117367)" fill-rule="evenodd">
+       </path>
+      </g>
+      <path d="M45.0005 1.24933h-30c-7.59393.0-13.75001 6.15608-13.75001 13.74997v30c0 7.594 6.15608 13.75 13.75001 13.75h30c7.5939.0 13.75-6.156 13.75-13.75v-30c0-7.59389-6.1561-13.74997-13.75-13.74997z" stroke="url(#paint1_linear_6475_117367)" stroke-width="2">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_6475_117367" x1="30.2104" x2="30.2104" y1="13.8072" y2="44.2407">
+       <stop stop-color="oklch(var(--nc))">
+       </stop>
+       <stop offset="1" stop-color="oklch(var(--nc))" stop-opacity=".8">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_6475_117364" x1="40.0005" x2="40.0005" y1="9.99933" y2="69.9993">
+       <stop stop-color="#fff" stop-opacity=".28">
+       </stop>
+       <stop offset="1" stop-color="#fff" stop-opacity=".04">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_6475_117364">
+       <rect fill="#fff" height="60" transform="translate(10 10)" width="60">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] !mt-px text-base-content/90" id="rtlright-to-left">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#rtlright-to-left">
+       RTL(right-to-left)
+      </a>
+      <a aria-label=" RTL(right-to-left) " class="no-underline" href="#rtlright-to-left">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    RTL (right-to-left) is a text orientation used for languages such as Arabic, Hebrew, Persian, Urdu, and Yiddish, spoken by over 500 million people. It is also among the fastest-growing language groups online.
+   </p>
+   <p>
+    All FlyonUI components seamlessly support RTL by leveraging logical CSS properties and values, like using
+    <code>
+     ms-0
+    </code>
+    instead of
+    <code>
+     ml-0
+    </code>
+    and
+    <code>
+     pe-4
+    </code>
+    instead of
+    <code>
+     pr-4
+    </code>
+    . This functionality requires Tailwind CSS v3.3.0.
+   </p>
+   <p>
+    In this guide, you’ll learn how to set up and configure bidirectional text formats (RTL and LTR) in your project using Tailwind CSS variants and FlyonUI components by modifying the
+    <code>
+     dir
+    </code>
+    attribute on the
+    <code>
+     &lt;html&gt;
+    </code>
+    element.
+   </p>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="setting-up-rtl">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#setting-up-rtl">
+       Setting up RTL
+      </a>
+      <a aria-label=" Setting up RTL " class="no-underline" href="#setting-up-rtl">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Before you begin, ensure you have the latest version of
+    <a href="https://tailwindcss.com/docs/installation" target="_blank">
+     Tailwind CSS
+    </a>
+    and
+    <a class="link link-primary" href="/docs/getting-started/quick-start/">
+     FlyonUI
+    </a>
+    installed.
+   </p>
+   <p>
+    To enable RTL support, add the
+    <code>
+     dir
+    </code>
+    attribute to the
+    <code>
+     &lt;html&gt;
+    </code>
+    tag in your
+    <code>
+     index.html
+    </code>
+    file:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">dir</span><span style="color:#f92672">=</span><span style="color:#e6db74">"rtl"</span>&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- your HTML markup --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre>
+   </div>
+   <br/>
+   <p>
+    All FlyonUI components are fully compatible with RTL mode, utilizing Tailwind CSS’s logical properties for easy adaptability. You can test this functionality by toggling between LTR and RTL modes using the RTL button below.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="accordion accordion-shadow max-w-lg"&gt;
+  &lt;div class="accordion-item active" id="payment-arrow-right"&gt;
+    &lt;button class="accordion-toggle inline-flex items-center justify-between text-start" aria-controls="payment-arrow-right-collapse" aria-expanded="true"&gt;
+      &lt;div class="flex gap-4"&gt;
+        &lt;div class="avatar"&gt;
+          &lt;div class="size-12 rounded-md"&gt;
+            &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png" alt="avatar" /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;p class="mb-0.5"&gt;Richard Payne&lt;/p&gt;
+          &lt;p class="text-sm text-base-content/50 font-normal"&gt;pwright@yahoo.com&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;span class="icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div id="payment-arrow-right-collapse" class="accordion-content w-full overflow-hidden transition-[height] duration-300" aria-labelledby="payment-arrow-right" role="region"&gt;
+      &lt;div class="px-5 pb-4"&gt;
+        &lt;p class="text-base-content/80 font-normal"&gt;
+          Richard Payne is a remarkable individual known for his exceptional skills and expertise in various fields. With a strong background in technology and a passion for innovation, Richard has made significant contributions to the industry.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="accordion-item" id="delivery-arrow-right"&gt;
+    &lt;button class="accordion-toggle inline-flex items-center justify-between text-start" aria-controls="delivery-arrow-right-collapse" aria-expanded="false"&gt;
+      &lt;div class="flex gap-4"&gt;
+        &lt;div class="avatar"&gt;
+          &lt;div class="size-12 rounded-md"&gt;
+            &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-7.png" alt="avatar" /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;p class="mb-0.5"&gt;Jordan Stevenson&lt;/p&gt;
+          &lt;p class="text-sm text-base-content/50 font-normal"&gt;wramirez@outlook.com&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;span class="icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div id="delivery-arrow-right-collapse" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="delivery-arrow-right" role="region"&gt;
+      &lt;div class="px-5 pb-4"&gt;
+        &lt;p class="text-base-content/80 font-normal"&gt;
+          Jordan Stevenson is a talented individual with a passion for technology and innovation. Jordan has made significant contributions to various projects and has a deep understanding of programming languages and frameworks.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="accordion-item" id="cancel-arrow-right"&gt;
+    &lt;button class="accordion-toggle inline-flex items-center justify-between text-start" aria-controls="cancel-arrow-right-collapse" aria-expanded="false"&gt;
+      &lt;div class="flex gap-4"&gt;
+        &lt;div class="avatar"&gt;
+          &lt;div class="size-12 rounded-md"&gt;
+            &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png" alt="avatar" /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;p class="mb-0.5"&gt;Nicholas Tanner&lt;/p&gt;
+          &lt;p class="text-sm text-base-content/50 font-normal"&gt;snguyen@icloud.com&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;span class="icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div id="cancel-arrow-right-collapse" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="cancel-arrow-right" role="region"&gt;
+      &lt;div class="px-5 pb-4"&gt;
+        &lt;p class="text-base-content/80 font-normal"&gt;
+          Nicholas Tanner is a highly skilled individual with a strong passion for technology and innovation. Nicholas has made significant contributions to numerous projects and possesses a deep understanding of various programming languages and frameworks.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="accordion accordion-shadow max-w-lg">
+        <div class="accordion-item active" id="payment-arrow-right">
+         <button aria-controls="payment-arrow-right-collapse" aria-expanded="true" class="accordion-toggle inline-flex items-center justify-between text-start">
+          <div class="flex gap-4">
+           <div class="avatar">
+            <div class="size-12 rounded-md">
+             <img alt="avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"/>
+            </div>
+           </div>
+           <div>
+            <p class="mb-0.5">
+             Richard Payne
+            </p>
+            <p class="text-sm text-base-content/50 font-normal">
+             pwright@yahoo.com
+            </p>
+           </div>
+          </div>
+          <span class="icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180">
+          </span>
+         </button>
+         <div aria-labelledby="payment-arrow-right" class="accordion-content w-full overflow-hidden transition-[height] duration-300" id="payment-arrow-right-collapse" role="region">
+          <div class="px-5 pb-4">
+           <p class="text-base-content/80 font-normal">
+            Richard Payne is a remarkable individual known for his exceptional skills and expertise in various fields. With a strong background in technology and a passion for innovation, Richard has made significant contributions to the industry.
+           </p>
+          </div>
+         </div>
+        </div>
+        <div class="accordion-item" id="delivery-arrow-right">
+         <button aria-controls="delivery-arrow-right-collapse" aria-expanded="false" class="accordion-toggle inline-flex items-center justify-between text-start">
+          <div class="flex gap-4">
+           <div class="avatar">
+            <div class="size-12 rounded-md">
+             <img alt="avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-7.png"/>
+            </div>
+           </div>
+           <div>
+            <p class="mb-0.5">
+             Jordan Stevenson
+            </p>
+            <p class="text-sm text-base-content/50 font-normal">
+             wramirez@outlook.com
+            </p>
+           </div>
+          </div>
+          <span class="icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180">
+          </span>
+         </button>
+         <div aria-labelledby="delivery-arrow-right" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" id="delivery-arrow-right-collapse" role="region">
+          <div class="px-5 pb-4">
+           <p class="text-base-content/80 font-normal">
+            Jordan Stevenson is a talented individual with a passion for technology and innovation. Jordan has made significant contributions to various projects and has a deep understanding of programming languages and frameworks.
+           </p>
+          </div>
+         </div>
+        </div>
+        <div class="accordion-item" id="cancel-arrow-right">
+         <button aria-controls="cancel-arrow-right-collapse" aria-expanded="false" class="accordion-toggle inline-flex items-center justify-between text-start">
+          <div class="flex gap-4">
+           <div class="avatar">
+            <div class="size-12 rounded-md">
+             <img alt="avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"/>
+            </div>
+           </div>
+           <div>
+            <p class="mb-0.5">
+             Nicholas Tanner
+            </p>
+            <p class="text-sm text-base-content/50 font-normal">
+             snguyen@icloud.com
+            </p>
+           </div>
+          </div>
+          <span class="icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180">
+          </span>
+         </button>
+         <div aria-labelledby="cancel-arrow-right" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" id="cancel-arrow-right-collapse" role="region">
+          <div class="px-5 pb-4">
+           <p class="text-base-content/80 font-normal">
+            Nicholas Tanner is a highly skilled individual with a strong passion for technology and innovation. Nicholas has made significant contributions to numerous projects and possesses a deep understanding of various programming languages and frameworks.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion accordion-shadow max-w-lg"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-item active"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"payment-arrow-right"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-toggle inline-flex items-center justify-between text-start"</span> <span style="color:#a6e22e">aria-controls</span><span style="color:#f92672">=</span><span style="color:#e6db74">"payment-arrow-right-collapse"</span> <span style="color:#a6e22e">aria-expanded</span><span style="color:#f92672">=</span><span style="color:#e6db74">"true"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex gap-4"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-12 rounded-md"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span> /&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-0.5"</span>&gt;Richard Payne&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-base-content/50 font-normal"</span>&gt;pwright@yahoo.com&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"payment-arrow-right-collapse"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-content w-full overflow-hidden transition-[height] duration-300"</span> <span style="color:#a6e22e">aria-labelledby</span><span style="color:#f92672">=</span><span style="color:#e6db74">"payment-arrow-right"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"region"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"px-5 pb-4"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 font-normal"</span>&gt;
+</span></span><span style="display:flex"><span>          Richard Payne is a remarkable individual known for his exceptional skills and expertise in various fields. With a strong background in technology and a passion for innovation, Richard has made significant contributions to the industry.
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-item"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"delivery-arrow-right"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-toggle inline-flex items-center justify-between text-start"</span> <span style="color:#a6e22e">aria-controls</span><span style="color:#f92672">=</span><span style="color:#e6db74">"delivery-arrow-right-collapse"</span> <span style="color:#a6e22e">aria-expanded</span><span style="color:#f92672">=</span><span style="color:#e6db74">"false"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex gap-4"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-12 rounded-md"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-7.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span> /&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-0.5"</span>&gt;Jordan Stevenson&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-base-content/50 font-normal"</span>&gt;wramirez@outlook.com&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"delivery-arrow-right-collapse"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-content hidden w-full overflow-hidden transition-[height] duration-300"</span> <span style="color:#a6e22e">aria-labelledby</span><span style="color:#f92672">=</span><span style="color:#e6db74">"delivery-arrow-right"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"region"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"px-5 pb-4"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 font-normal"</span>&gt;
+</span></span><span style="display:flex"><span>          Jordan Stevenson is a talented individual with a passion for technology and innovation. Jordan has made significant contributions to various projects and has a deep understanding of programming languages and frameworks.
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-item"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"cancel-arrow-right"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-toggle inline-flex items-center justify-between text-start"</span> <span style="color:#a6e22e">aria-controls</span><span style="color:#f92672">=</span><span style="color:#e6db74">"cancel-arrow-right-collapse"</span> <span style="color:#a6e22e">aria-expanded</span><span style="color:#f92672">=</span><span style="color:#e6db74">"false"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex gap-4"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-12 rounded-md"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span> /&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-0.5"</span>&gt;Nicholas Tanner&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-base-content/50 font-normal"</span>&gt;snguyen@icloud.com&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-left] accordion-item-active:-rotate-90 size-5 shrink-0 transition-transform duration-300 rtl:-rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"cancel-arrow-right-collapse"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"accordion-content hidden w-full overflow-hidden transition-[height] duration-300"</span> <span style="color:#a6e22e">aria-labelledby</span><span style="color:#f92672">=</span><span style="color:#e6db74">"cancel-arrow-right"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"region"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"px-5 pb-4"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 font-normal"</span>&gt;
+</span></span><span style="display:flex"><span>          Nicholas Tanner is a highly skilled individual with a strong passion for technology and innovation. Nicholas has made significant contributions to numerous projects and possesses a deep understanding of various programming languages and frameworks.
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-rtl-variants">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-rtl-variants">
+       Using RTL variants
+      </a>
+      <a aria-label=" Using RTL variants " class="no-underline" href="#using-rtl-variants">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    To implement RTL variants in your custom components, prepend
+    <code>
+     rtl:
+    </code>
+    to the relevant classes. For example, use
+    <code>
+     space-x-5
+    </code>
+    for horizontal spacing in LTR mode, and
+    <code>
+     rtl:space-x-reverse
+    </code>
+    for the equivalent in RTL mode:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"space-x-5 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- ... --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre>
+   </div>
+   <br/>
+   <p>
+    We recommend using logical properties for margins, paddings, borders, and rounded corners to keep your HTML markup clean and reduce the number of utility classes—beneficial when working with Tailwind CSS.
+   </p>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="ui-components">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#ui-components">
+       UI components
+      </a>
+      <a aria-label=" UI components " class="no-underline" href="#ui-components">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    All FlyonUI components come with built-in RTL support. By setting the
+    <code>
+     dir
+    </code>
+    attribute to
+    <code>
+     rtl
+    </code>
+    on the
+    <code>
+     &lt;html&gt;
+    </code>
+    element, all examples in the documentation will render correctly. Explore the full range of UI components and examples in our official documentation.
+   </p>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/customization/utilities/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Utilities
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/content/blockquote/">
+     Blockquote
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

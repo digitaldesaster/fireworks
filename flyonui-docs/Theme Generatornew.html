@@ -1,0 +1,447 @@
+<article class="lg:border-base-content/10 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     customization
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Theme Generator
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Design and personalize your own unique theme with ease and make it truly yours. Tailor every detail to reflect your style and preferences!
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="60" viewbox="0 0 60 60" width="60" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_6475_117367)">
+      <mask height="60" id="mask0_6475_117367" maskunits="userSpaceOnUse" style="mask-type:luminance" width="60" x="0" y="0">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="#fff">
+       </path>
+      </mask>
+      <g mask="url(#mask0_6475_117367)">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="oklch(var(--bc))">
+       </path>
+       <path clip-rule="evenodd" d="M41.9953 38.7001 30.6315 24.6934C30.2248 24.1921 29.4567 24.2017 29.0627 24.7132L18.7058 38.158C18.5165 38.4038 18.2238 38.5478 17.9136 38.5478H11.621C10.7822 38.5478 10.3161 37.5771 10.8406 36.9225L29.0608 14.1819C29.459 13.6849 30.2141 13.6818 30.6164 14.1754L49.5749 37.4383C50.1072 38.0916 49.6424 39.0701 48.7997 39.0701H42.7719C42.4705 39.0701 42.1852 38.9341 41.9953 38.7001zm-11.436-3.8978 6.8236 7.779C37.9499 43.2276 37.4909 44.2407 36.6312 44.2407H23.6662c-.8355.0-1.3026-.963899999999995-.7849-1.6196l6.1413-7.779C29.4099 34.3516 30.1471 34.3325 30.5593 34.8023z" fill="url(#paint0_linear_6475_117367)" fill-rule="evenodd">
+       </path>
+      </g>
+      <path d="M45.0005 1.24933h-30c-7.59393.0-13.75001 6.15608-13.75001 13.74997v30c0 7.594 6.15608 13.75 13.75001 13.75h30c7.5939.0 13.75-6.156 13.75-13.75v-30c0-7.59389-6.1561-13.74997-13.75-13.74997z" stroke="url(#paint1_linear_6475_117367)" stroke-width="2">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_6475_117367" x1="30.2104" x2="30.2104" y1="13.8072" y2="44.2407">
+       <stop stop-color="oklch(var(--nc))">
+       </stop>
+       <stop offset="1" stop-color="oklch(var(--nc))" stop-opacity=".8">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_6475_117364" x1="40.0005" x2="40.0005" y1="9.99933" y2="69.9993">
+       <stop stop-color="#fff" stop-opacity=".28">
+       </stop>
+       <stop offset="1" stop-color="#fff" stop-opacity=".04">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_6475_117364">
+       <rect fill="#fff" height="60" transform="translate(10 10)" width="60">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] !mt-px text-base-content/90" id="flyonui-theme-generator">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#flyonui-theme-generator">
+       FlyonUI Theme Generator
+      </a>
+      <a aria-label="FlyonUI Theme Generator" class="no-underline" href="#flyonui-theme-generator">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    You can add custom themes to the
+    <code>
+     tailwind.config.js
+    </code>
+    file within the
+    <code>
+     flyonui &gt; themes
+    </code>
+    array. This page allows you to select desired color values and preview how components will appear with your chosen palette.
+   </p>
+   <p>
+    Additionally, you can define optional colors to gain finer control over specific elements, such as button focus states or button text colors.
+   </p>
+   <p>
+    Visit the
+    <a class="link link-primary font-medium" href="/docs/customization/colors/">
+     Colors
+    </a>
+    page for a complete list of available color names.
+   </p>
+   <p>
+    For a detailed guide on customizing design elements like border-radius or animations, check out the
+    <a class="link link-primary font-medium" href="/docs/customization/themes/">
+     Themes
+    </a>
+    page.
+   </p>
+   <div class="flex flex-col gap-4 xl:flex-row">
+    <div class="shrink-0">
+     <div class="mb-3 flex flex-wrap justify-between gap-2">
+      <div class="text-base-content/90 text-xl font-semibold">
+       tailwind.config.js
+      </div>
+      <div class="flex gap-2">
+       <div class="tooltip">
+        <button aria-label="Circle Outline Icon Button" class="btn btn-circle btn-sm btn-soft" id="toggle-optional-color-icon">
+         <span class="icon-[tabler--switch-vertical] size-5">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Toggle Optional Colors
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Circle Outline Icon Button" class="btn btn-circle btn-sm btn-soft" id="contrast-icon">
+         <span class="icon-[tabler--contrast-filled] size-5">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Fixed Contrast
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Circle Outline Icon Button" class="btn btn-circle btn-sm btn-soft" id="reset-icon">
+         <span class="icon-[tabler--reload] size-5">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Reset
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Circle Outline Icon Button" class="btn btn-circle btn-sm btn-soft" id="random-icon">
+         <span class="icon-[tabler--dice-6] size-5">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Randomize
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button class="btn btn-circle btn-sm btn-soft" id="copy-theme">
+         <span class="icon-[tabler--clipboard] size-5">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Copy Theme
+         </span>
+        </span>
+       </div>
+      </div>
+     </div>
+     <pre class="text-sm bg-base-content/90 mt-0"><code class="text-neutral-content/30">module.exports = {</code>
+<code>flyonui: {
+  themes: [
+    {
+      mytheme: {</code><div class="ms-4 flex gap-1"><span class="badge mt-1 badge-warning badge-xs select-none">Pick</span>
+        <div id="color-picker-container"></div>
+      </div>      },
+    },
+  ],
+},
+<code class="text-neutral-content/30">plugins: [
+  require('flyonui'),
+],
+//...
+}</code></pre>
+    </div>
+    <div>
+     <div class="text-base-content/90 mb-3 text-xl font-semibold">
+      Preview
+     </div>
+     <div class="preview-box rounded-box bg-base-100 border p-6">
+      <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
+       <button class="btn">
+        Default
+       </button>
+       <button class="btn btn-primary">
+        Primary
+       </button>
+       <button class="btn btn-secondary">
+        Secondary
+       </button>
+       <button class="btn btn-accent">
+        Accent
+       </button>
+       <button class="btn btn-info">
+        Info
+       </button>
+       <button class="btn btn-success">
+        Success
+       </button>
+       <button class="btn btn-warning">
+        Warning
+       </button>
+       <button class="btn btn-error">
+        Error
+       </button>
+      </div>
+      <div class="grid grid-cols-3 place-items-center gap-2 sm:grid-cols-5 my-4">
+       <span class="badge">
+        Default
+       </span>
+       <span class="badge badge-neutral">
+        Neutral
+       </span>
+       <span class="badge badge-primary">
+        Primary
+       </span>
+       <span class="badge badge-secondary">
+        Secondary
+       </span>
+       <span class="badge badge-accent">
+        Accent
+       </span>
+       <span class="badge badge-info">
+        Info
+       </span>
+       <span class="badge badge-success">
+        Success
+       </span>
+       <span class="badge badge-warning">
+        Warning
+       </span>
+       <span class="badge badge-error">
+        Error
+       </span>
+      </div>
+      <div class="flex flex-col gap-4 my-4">
+       <div class="flex flex-col gap-3 md:flex-row">
+        <div class="md:w-1/2">
+         <div class="inline-flex flex-col mb-3">
+          <span class="link link-animated">
+           I'm a simple link
+          </span>
+          <span class="link link-primary link-animated">
+           I'm a simple link
+          </span>
+          <span class="link link-secondary link-animated">
+           I'm a simple link
+          </span>
+          <span class="link link-accent link-animated">
+           I'm a simple link
+          </span>
+         </div>
+         <div class="space-x-2">
+          <span class="loading loading-spinner text-primary">
+          </span>
+          <span class="loading loading-spinner text-secondary">
+          </span>
+          <span class="loading loading-spinner text-info">
+          </span>
+          <span class="loading loading-spinner text-warning">
+          </span>
+          <span class="loading loading-spinner text-error">
+          </span>
+         </div>
+        </div>
+        <div class="flex flex-col gap-3 md:w-1/2">
+         <div aria-label="Primary Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress w-56" role="progressbar">
+          <div class="progress-bar progress-primary progress-striped w-3/4">
+          </div>
+         </div>
+         <div aria-label="Secondary Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress w-56" role="progressbar">
+          <div class="progress-bar progress-secondary progress-striped w-3/4">
+          </div>
+         </div>
+         <div aria-label="Accent Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress w-56" role="progressbar">
+          <div class="progress-bar progress-accent progress-striped w-3/4">
+          </div>
+         </div>
+         <div aria-label="Info Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress w-56" role="progressbar">
+          <div class="progress-bar progress-info progress-striped w-3/4">
+          </div>
+         </div>
+         <div aria-label="Success Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress w-56" role="progressbar">
+          <div class="progress-bar progress-success progress-striped w-3/4">
+          </div>
+         </div>
+         <div aria-label="Warning Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress w-56" role="progressbar">
+          <div class="progress-bar progress-warning progress-striped w-3/4">
+          </div>
+         </div>
+         <div aria-label="Error Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress w-56" role="progressbar">
+          <div class="progress-bar progress-error progress-striped w-3/4">
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="flex gap-3 max-md:flex-col md:items-center">
+        <div class="flex gap-3 md:w-1/2">
+         <div class="tooltip [--placement:left]">
+          <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+           <span class="icon-[tabler--chevron-left]">
+           </span>
+          </button>
+          <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+           <span class="tooltip-body">
+            Tooltip on left
+           </span>
+          </span>
+         </div>
+         <div class="tooltip">
+          <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+           <span class="icon-[tabler--chevron-up]">
+           </span>
+          </button>
+          <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+           <span class="tooltip-body">
+            Tooltip on top
+           </span>
+          </span>
+         </div>
+         <div class="tooltip [--placement:bottom]">
+          <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+           <span class="icon-[tabler--chevron-down]">
+           </span>
+          </button>
+          <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+           <span class="tooltip-body">
+            Tooltip on bottom
+           </span>
+          </span>
+         </div>
+         <div class="tooltip [--placement:right]">
+          <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+           <span class="icon-[tabler--chevron-right]">
+           </span>
+          </button>
+          <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+           <span class="tooltip-body">
+            Tooltip on right
+           </span>
+          </span>
+         </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 md:w-1/2">
+         <div class="radial-progress" style="--value:60;--size:3.5rem">
+          60%
+         </div>
+         <div class="radial-progress text-warning" style="--value:75;--size:3.5rem">
+          75%
+         </div>
+         <div class="radial-progress text-info" style="--value:90;--size:3.5rem">
+          90%
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="flex flex-col gap-4">
+       <div class="flex flex-col gap-3 md:flex-row">
+        <div class="md:w-1/2">
+         <div>
+          <input checked="" class="switch" type="checkbox"/>
+          <input checked="" class="switch switch-primary" type="checkbox"/>
+          <input checked="" class="switch switch-secondary" type="checkbox"/>
+          <input checked="" class="switch switch-accent" type="checkbox"/>
+         </div>
+         <div>
+          <input checked="" class="checkbox" type="checkbox"/>
+          <input checked="" class="checkbox checkbox-primary" type="checkbox"/>
+          <input checked="" class="checkbox checkbox-secondary" type="checkbox"/>
+          <input checked="" class="checkbox checkbox-accent" type="checkbox"/>
+         </div>
+         <div>
+          <input checked="" class="radio" name="radio-1" type="radio"/>
+          <input class="radio radio-primary" name="radio-1" type="radio"/>
+          <input class="radio radio-secondary" name="radio-1" type="radio"/>
+          <input class="radio radio-accent" name="radio-1" type="radio"/>
+         </div>
+        </div>
+        <div class="md:w-1/2">
+         <input class="range range-sm" max="100" min="0" type="range" value="70"/>
+         <input class="range range-sm range-primary" max="100" min="0" type="range" value="60"/>
+         <input class="range range-sm range-secondary" max="100" min="0" type="range" value="50"/>
+         <input class="range range-sm range-accent" max="100" min="0" type="range" value="40"/>
+        </div>
+       </div>
+       <div class="bg-base-200 p-4 rounded-lg">
+        <div class="chat chat-receiver">
+         <div class="chat-avatar avatar not-prose">
+          <div class="size-10 rounded-full">
+           <img alt="avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"/>
+          </div>
+         </div>
+         <div class="chat-bubble">
+          I finally finished the marathon!
+         </div>
+        </div>
+        <div class="chat chat-sender">
+         <div class="chat-avatar avatar not-prose">
+          <div class="size-10 rounded-full">
+           <img alt="avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"/>
+          </div>
+         </div>
+         <div class="chat-bubble">
+          Wow, that's incredible! I'm so proud of you!
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="space-y-3 mt-4">
+       <div class="alert alert-primary" role="alert">
+        Welcome to our platform! Explore our latest features and updates.
+       </div>
+       <div class="alert alert-info" role="alert">
+        Stay tuned for our upcoming events and announcements.
+       </div>
+       <div class="alert alert-success" role="alert">
+        Your transaction was successful. Thank you for choosing our service!
+       </div>
+       <div class="alert alert-warning" role="alert">
+        Attention! Your account security may be at risk. Enable two-factor authentication now.
+       </div>
+       <div class="alert alert-error" role="alert">
+        Oops! It seems there was an unexpected error. Please try again later.
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/customization/colors/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Colors
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/customization/icons/">
+     Icons
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

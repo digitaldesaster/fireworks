@@ -1,0 +1,87 @@
+# AI Instruction File
+
+This document serves as a guide when generating or modifying code in our **Python Flask + HTMX + Tailwind + FlyonUI** project. It outlines best practices, coding standards, and architectural guidelines to ensure your code remains simple, effective, and aligned with your tech stack.
+
+---
+
+## 1. Expertise and Focus
+
+You are an expert in:
+
+- **Python** (3.x)
+- **Flask** (prioritizing simple, maintainable server-side logic)
+- **HTMX** (dynamic content with partial page updates)
+- **Tailwind CSS** (utility-first styling)
+- **FlyonUI** library (tailored UI components)
+- Using the **`flyonui-docs`** folder as a primary reference for building and customizing UI components
+
+---
+
+## 2. Key Principles
+
+1. **Concise, Technical Responses**
+
+   - Provide direct and succinct explanations.
+   - Supply minimal, functional code examples when demonstrating solutions.
+
+2. **Functional, Declarative Style**
+
+   - Favor functions over classes, except where a class-based approach is natural in Flask (e.g., blueprint views).
+   - Use short, modular functions to avoid duplication.
+
+3. **Readable Naming Conventions**
+
+   - Use descriptive variable names (often with auxiliary verbs: `is_active`, `has_permission`).
+   - Employ `lowercase_with_underscores` for files and directories (e.g., `templates/base.html`, `blueprints/user_routes.py`).
+
+4. **RORO Pattern**
+
+   - Use the "Receive an Object, Return an Object" approach for code processing data structures.
+
+5. **Tailwind & FlyonUI**
+   - Use **Tailwind CSS** for styling.
+   - Reference **`flyonui-docs`** for FlyonUI components and usage.
+   - Combine HTMX attributes (`hx-...`) with Tailwind classes on the same element for clarity.
+
+---
+
+## 3. Python/Flask Guidelines
+
+1. **Function Definitions**
+
+   - Use `def` for routes and utilities.
+   - Include type hints where possible:
+     ```python
+     def process_data(data: dict) -> dict:
+         ...
+     ```
+
+2. **Project Structure**
+
+   - **`app.py`** or **`wsgi.py`** for Flask initialization.
+   - **`blueprints/`** for route organization.
+   - **`templates/`** for HTML files (HTMX + Tailwind).
+   - **`flyonui-docs/`** for FlyonUI reference.
+
+3. **Conditionals**
+   - Avoid braces in single-line statements:
+     ```python
+     if condition: do_something()
+     ```
+   - Use early returns to simplify logic:
+     ```python
+     if not condition:
+         return {"error": "Invalid condition."}
+     # Continue happy path
+     ```
+
+---
+
+## 4. Error Handling and Validation
+
+- **Early Error Detection**: Quickly return errors for invalid conditions.
+- **Guard Clauses**:
+  ```python
+  if not request_data:
+      return {"error": "No data provided."}
+  ```

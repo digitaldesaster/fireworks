@@ -1,0 +1,2639 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     overlays
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Tooltip
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     A tooltip is a helpful tool that displays a message when you hover over an element.
+    </p>
+    <div class="mt-3 flex items-center gap-2">
+     <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" d="M17.6745 16.9224 12.6233 10.378C12.2167 9.85117 11.4185 9.8611 11.0251 10.3979L6.45728 16.631C6.26893 16.888 5.96935 17.0398 5.65069 17.0398H3.79114C2.9635 17.0398 2.49412 16.0919 2.99583 15.4336L11.0224 4.90319C11.4206 4.38084 12.2056 4.37762 12.608 4.89668L20.9829 15.6987C21.4923 16.3558 21.024 17.3114 20.1926 17.3114H18.4661C18.1562 17.3114 17.8638 17.1677 17.6745 16.9224zm-5.0879-1.33 2.309 2.7669C15.439 19.0105 14.976 20 14.1278 20H9.74075C8.9164 20 8.4461 19.0586 8.94116 18.3994l2.07804-2.7669C11.4065 15.1169 12.1734 15.0972 12.5866 15.5924z" fill="oklch(var(--p))" fill-rule="evenodd">
+      </path>
+     </svg>
+     <a aria-label="Component requires flyonui JavaScript" class="link link-animated link-primary flex items-center gap-2 font-medium" href="/docs/getting-started/quick-start/">
+      <span>
+       Require FlyonUI JS
+      </span>
+      <span class="icon-[tabler--external-link] size-5 pt-1">
+      </span>
+     </a>
+    </div>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="98" viewbox="0 0 164 98" width="164" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5515_5964)">
+      <path d="M18 67V.89407e-6" stroke="url(#paint0_linear_5515_5964)" stroke-opacity=".4">
+      </path>
+      <path d="M164 15H-.339746e-5" stroke="url(#paint1_linear_5515_5964)" stroke-opacity=".4">
+      </path>
+      <path d="M164 51H-.339746e-5" stroke="url(#paint2_linear_5515_5964)" stroke-opacity=".4">
+      </path>
+      <path d="M18 23c0-4.4183 3.5817-8 8-8H139C143.418 15 147 18.5817 147 23V43C147 47.4183 143.418 51 139 51H97.6007C95.757 51 93.9699 51.6368 92.5417 52.8027L87.559 56.8702C84.6146 59.2738 80.3854 59.2738 77.441 56.8702L72.4583 52.8027C71.0301 51.6368 69.243 51 67.3993 51H26c-4.4183.0-8-3.5817-8-8V23z" fill="#76717f" fill-opacity=".06">
+      </path>
+      <rect fill="#76717f" fill-opacity=".2" height="8" rx="4" width="104" x="31" y="29">
+      </rect>
+      <rect fill="oklch(var(--p))" height="32" rx="8" width="34" x="66" y="65">
+      </rect>
+      <rect fill="#fff" height="8" rx="4" width="16" x="75" y="77">
+      </rect>
+      <path d="M147 65V-1" stroke="url(#paint3_linear_5515_5964)" stroke-opacity=".4">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5515_5964" x1="18.5" x2="18.4947" y1=".359852e-5" y2="67">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5515_5964" x1=".876699e-5" x2="164" y1="14.5" y2="14.5317">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5515_5964" x1=".876699e-5" x2="164" y1="50.5" y2="50.5317">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5515_5964" x1="147.5" x2="147.495" y1="-.999996" y2="65">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5515_5964">
+       <rect fill="#fff" height="98" width="164">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Base class for tooltip component.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-toggle
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Base class for toggling the display of tooltip.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-content
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Places for tooltip content with popper.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-body
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Container for tooltip content.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-primary
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Tooltip with ‘primary’ color.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-secondary
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Tooltip with ‘secondary’ color.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-accent
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Tooltip with ‘accent’ color.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-info
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Tooltip with ‘info’ color.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-success
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Tooltip with ‘success’ color.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-warning
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Tooltip with ‘warning’ color.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-error
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Tooltip with ’error’ color.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          tooltip-shown:{tw-utility-class}
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds specific tailwind classes when the tooltip is open.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Utilize the class
+    <code>
+     tooltip
+    </code>
+    as the target for JavaScript to address the tooltip component, and use the component class
+    <code>
+     tooltip-content
+    </code>
+    for the tooltip container. Apply the Tailwind CSS display utility classes
+    <code>
+     opacity-100
+    </code>
+    and
+    <code>
+     visible
+    </code>
+    to the
+    <code>
+     tooltip-shown:
+    </code>
+    modifier to toggle the visibility of the tooltip and make it visible.
+   </p>
+   <p>
+    Apply the component class
+    <code>
+     tooltip-toggle
+    </code>
+    to a button or any other element to trigger the appearance of the tooltip upon hovering.
+   </p>
+   <p>
+    Include any text or markup within the component class
+    <code>
+     tooltip-body
+    </code>
+    that you wish to display in the tooltip.
+   </p>
+   <p>
+    Use below given example for default tooltip on hover.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body"&gt;Tooltip on top&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="tooltip">
+        <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Tooltip on top
+         </span>
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on top&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="colors">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#colors">
+       Colors
+      </a>
+      <a aria-label=" Colors " class="no-underline" href="#colors">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="semantic-variants">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#semantic-variants">
+       Semantic variants
+      </a>
+      <a aria-label=" Semantic variants " class="no-underline" href="#semantic-variants">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use modifier class
+    <code>
+     tooltip-{semantic-color}
+    </code>
+    with component class
+    <code>
+     tooltip-body
+    </code>
+    for colored tooltip.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;!-- Primary tooltip --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square btn-primary" aria-label="Primary Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body tooltip-primary"&gt;Primary tooltip&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Secondary tooltip --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square btn-secondary" aria-label="Secondary Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body tooltip-secondary"&gt;Secondary tooltip&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Accent tooltip --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square btn-accent" aria-label="Accent Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body tooltip-accent"&gt;Accent tooltip&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Info tooltip --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square btn-info" aria-label="Info Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body tooltip-info"&gt;Info tooltip&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Success tooltip --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square btn-success" aria-label="Success Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body tooltip-success"&gt;Success tooltip&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Warning tooltip --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square btn-warning" aria-label="Warning Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body tooltip-warning"&gt;Warning tooltip&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Error tooltip --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square btn-error" aria-label="Error Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body tooltip-error"&gt;Error tooltip&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose gap-5 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="tooltip">
+        <button aria-label="Primary Tooltip" class="tooltip-toggle btn btn-square btn-primary" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body tooltip-primary">
+          Primary tooltip
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Secondary Tooltip" class="tooltip-toggle btn btn-square btn-secondary" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body tooltip-secondary">
+          Secondary tooltip
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Accent Tooltip" class="tooltip-toggle btn btn-square btn-accent" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body tooltip-accent">
+          Accent tooltip
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Info Tooltip" class="tooltip-toggle btn btn-square btn-info" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body tooltip-info">
+          Info tooltip
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Success Tooltip" class="tooltip-toggle btn btn-square btn-success" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body tooltip-success">
+          Success tooltip
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Warning Tooltip" class="tooltip-toggle btn btn-square btn-warning" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body tooltip-warning">
+          Warning tooltip
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Error Tooltip" class="tooltip-toggle btn btn-square btn-error" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body tooltip-error">
+          Error tooltip
+         </span>
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Primary tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square btn-primary"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Primary Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body tooltip-primary"</span>&gt;Primary tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Secondary tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square btn-secondary"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Secondary Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body tooltip-secondary"</span>&gt;Secondary tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Accent tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square btn-accent"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Accent Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body tooltip-accent"</span>&gt;Accent tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Info tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square btn-info"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Info Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body tooltip-info"</span>&gt;Info tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Success tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square btn-success"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Success Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body tooltip-success"</span>&gt;Success tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Warning tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square btn-warning"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Warning Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body tooltip-warning"</span>&gt;Warning tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Error tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square btn-error"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Error Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body tooltip-error"</span>&gt;Error tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="directions">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#directions">
+       Directions
+      </a>
+      <a aria-label=" Directions " class="no-underline" href="#directions">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="tooltip-placements">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#tooltip-placements">
+       Tooltip placements
+      </a>
+      <a aria-label=" Tooltip placements " class="no-underline" href="#tooltip-placements">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Utilize the JavaScript option class
+    <code>
+     [--placement:{direction}]
+    </code>
+    to specify the tooltip placement in various directions. Here,
+    <code>
+     direction
+    </code>
+    can be
+    <code>
+     top
+    </code>
+    ,
+    <code>
+     bottom
+    </code>
+    ,
+    <code>
+     left
+    </code>
+    , or
+    <code>
+     right
+    </code>
+    . By default, the tooltip is positioned at the
+    <code>
+     top
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;!-- Left tooltip --&gt;
+&lt;div class="tooltip [--placement:left]"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-left]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body"&gt;Tooltip on left&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Top tooltip (default) --&gt;
+&lt;div class="tooltip"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body"&gt;Tooltip on top&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Bottom tooltip --&gt;
+&lt;div class="tooltip [--placement:bottom]"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-down]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body"&gt;Tooltip on bottom&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- Right tooltip --&gt;
+&lt;div class="tooltip [--placement:right]"&gt;
+  &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+    &lt;span class="icon-[tabler--chevron-right]"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+    &lt;span class="tooltip-body"&gt;Tooltip on right&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="tooltip [--placement:left]">
+        <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+         <span class="icon-[tabler--chevron-left]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Tooltip on left
+         </span>
+        </span>
+       </div>
+       <div class="tooltip">
+        <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+         <span class="icon-[tabler--chevron-up]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Tooltip on top
+         </span>
+        </span>
+       </div>
+       <div class="tooltip [--placement:bottom]">
+        <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+         <span class="icon-[tabler--chevron-down]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Tooltip on bottom
+         </span>
+        </span>
+       </div>
+       <div class="tooltip [--placement:right]">
+        <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+         <span class="icon-[tabler--chevron-right]">
+         </span>
+        </button>
+        <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+         <span class="tooltip-body">
+          Tooltip on right
+         </span>
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Left tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:left]"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-left]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on left&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Top tooltip (default) --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on top&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Bottom tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:bottom]"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-down]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on bottom&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Right tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:right]"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-right]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on right&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="image-tooltip">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#image-tooltip">
+       Image tooltip
+      </a>
+      <a aria-label=" Image tooltip " class="no-underline" href="#image-tooltip">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Please utilize the provided example for creating an image tooltip.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;p&gt;
+  The
+  &lt;span class=&quot;tooltip [--strategy:absolute]&quot;&gt;
+    &lt;span class=&quot;tooltip-toggle&quot;&gt;
+      &lt;a href=&quot;https://en.wikipedia.org/wiki/Himalayas&quot; class=&quot;link link-primary link-hover&quot;&gt;Himalayas&lt;/a&gt;
+      &lt;span class=&quot;tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible p-4&quot; role=&quot;popover&quot;&gt;
+        &lt;span class=&quot;tooltip-body bg-base-100 flex max-w-64 sm:max-w-xs rounded-lg p-0 text-start shadow&quot;&gt;
+          &lt;span class=&quot;text-base-content/80 flex w-1/2 flex-col justify-between p-2 sm:p-4 text-xs&quot;&gt;
+            &lt;span class=&quot;text-base-content/90 text-base font-medium&quot;&gt;About Himalayas&lt;/span&gt;
+            The Great Himalayan mountain ranges in the Indian sub-continent region.
+            &lt;a href=&quot;https://en.wikipedia.org/wiki/Himalayas&quot; target=&quot;blank&quot; class=&quot;link link-primary link-hover flex items-center&quot; &gt;
+              Read more
+              &lt;span class=&quot;icon-[tabler--chevron-right] rtl:rotate-180&quot;&gt;&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/span&gt;
+          &lt;img src=&quot;https://lp-cms-production.imgix.net/2021-01/GettyRF_450207051.jpg&quot; alt=&quot;the himalayas&quot; class=&quot;h-40 w-1/2 rounded-e-lg object-cover&quot; /&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  , Asia's towering mountain range, separates the Indian subcontinent from the Tibetan Plateau. Mount Everest, Earth's
+  highest peak, and over 100 others surpass 7,200 m. Spanning Nepal, China, Pakistan, Bhutan, and India, they birth
+  major rivers like the Indus and the Ganges. Home to 600 million people, they shape South Asian and Tibetan cultures.
+&lt;/p&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose h-[500px] sm:h-80 relative items-end flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p>
+        The
+        <span class="tooltip [--strategy:absolute]">
+         <span class="tooltip-toggle">
+          <a class="link link-primary link-hover" href="https://en.wikipedia.org/wiki/Himalayas">
+           Himalayas
+          </a>
+          <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible p-4" role="popover">
+           <span class="tooltip-body bg-base-100 flex max-w-64 sm:max-w-xs rounded-lg p-0 text-start shadow">
+            <span class="text-base-content/80 flex w-1/2 flex-col justify-between p-2 sm:p-4 text-xs">
+             <span class="text-base-content/90 text-base font-medium">
+              About Himalayas
+             </span>
+             The Great Himalayan mountain ranges in the Indian sub-continent region.
+             <a class="link link-primary link-hover flex items-center" href="https://en.wikipedia.org/wiki/Himalayas" target="blank">
+              Read more
+              <span class="icon-[tabler--chevron-right] rtl:rotate-180">
+              </span>
+             </a>
+            </span>
+            <img alt="the himalayas" class="h-40 w-1/2 rounded-e-lg object-cover" src="https://lp-cms-production.imgix.net/2021-01/GettyRF_450207051.jpg"/>
+           </span>
+          </span>
+         </span>
+        </span>
+        , Asia's towering mountain range, separates the Indian subcontinent from the Tibetan Plateau. Mount Everest, Earth's
+highest peak, and over 100 others surpass 7,200 m. Spanning Nepal, China, Pakistan, Bhutan, and India, they birth
+major rivers like the Indus and the Ganges. Home to 600 million people, they shape South Asian and Tibetan cultures.
+       </p>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  The
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--strategy:absolute]"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://en.wikipedia.org/wiki/Himalayas"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"link link-primary link-hover"</span>&gt;Himalayas&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible p-4"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"popover"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body bg-base-100 flex max-w-64 sm:max-w-xs rounded-lg p-0 text-start shadow"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 flex w-1/2 flex-col justify-between p-2 sm:p-4 text-xs"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-base font-medium"</span>&gt;About Himalayas&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>            The Great Himalayan mountain ranges in the Indian sub-continent region.
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://en.wikipedia.org/wiki/Himalayas"</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">"blank"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"link link-primary link-hover flex items-center"</span> &gt;
+</span></span><span style="display:flex"><span>              Read more
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-right] rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://lp-cms-production.imgix.net/2021-01/GettyRF_450207051.jpg"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"the himalayas"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"h-40 w-1/2 rounded-e-lg object-cover"</span> /&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  , Asia's towering mountain range, separates the Indian subcontinent from the Tibetan Plateau. Mount Everest, Earth's
+</span></span><span style="display:flex"><span>  highest peak, and over 100 others surpass 7,200 m. Spanning Nepal, China, Pakistan, Bhutan, and India, they birth
+</span></span><span style="display:flex"><span>  major rivers like the Indus and the Ganges. Home to 600 million people, they shape South Asian and Tibetan cultures.
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="user-details">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#user-details">
+       User details
+      </a>
+      <a aria-label=" User details " class="no-underline" href="#user-details">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Below given example shows user details tooltip upon hover.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="tooltip [--placement:bottom-start] sm:[--placement:right]"&gt;
+  &lt;div class="tooltip-toggle"&gt;
+    &lt;div class="border-base-content/20 flex items-center gap-3 rounded-lg border bg-base-100 p-2 shadow hover:cursor-pointer" &gt;
+      &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-10.png" alt="Sophia" class="size-8 rounded-full object-cover" /&gt;
+      &lt;div class="flex flex-col items-start pe-4"&gt;
+        &lt;span class="text-base-content/90 font-medium"&gt;Sophia Aldrin&lt;/span&gt;
+        &lt;span class="text-base-content/80 -mt-1 text-xs"&gt;@sophia23&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="popover"&gt;
+      &lt;div class="tooltip-body bg-base-100 text-base-content/80 w-80 rounded-lg p-4 text-start shadow"&gt;
+        &lt;div class="mb-4 flex items-start justify-between"&gt;
+          &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-10.png" alt="Sophia" class="size-12 rounded-full object-cover" /&gt;
+          &lt;button class="btn btn-primary btn-sm"&gt;Follow&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class="flex flex-col"&gt;
+          &lt;div class="text-base-content/90 text-lg font-medium"&gt;Sophia Aldrin&lt;/div&gt;
+          &lt;div class="-mt-1 text-xs"&gt;@sophia23&lt;/div&gt;
+          &lt;p class="mt-4"&gt;
+            Lead Software Architect.
+            &lt;br/&gt;
+            &lt;a href="#" class="link link-primary link-animated text-sm"&gt;ABC Technologies&lt;/a&gt;
+          &lt;/p&gt;
+          &lt;div class="mt-4 space-y-2"&gt;
+            &lt;div class="flex items-center gap-1.5"&gt;
+              &lt;span class="icon-[tabler--mail] size-4"&gt;&lt;/span&gt;
+              sophia23@gmail.com
+            &lt;/div&gt;
+            &lt;div class="flex items-center gap-1.5"&gt;
+              &lt;span class="icon-[tabler--phone] size-4"&gt;&lt;/span&gt;+(101) 123-456-7891
+            &lt;/div&gt;
+            &lt;div class="flex items-center gap-1.5"&gt;
+              &lt;span class="icon-[tabler--map-pin] size-4"&gt;&lt;/span&gt;
+              Ontario, Canada
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="divider my-2"&gt;&lt;/div&gt;
+          &lt;div class="text-sm flex items-center gap-3"&gt;
+            &lt;div&gt;
+              &lt;span class="text-base-content/90 me-1 font-medium"&gt;478&lt;/span&gt;
+              Following
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;span class="text-base-content/90 me-1 font-medium"&gt;1,984&lt;/span&gt;
+              Followers
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="tooltip [--placement:bottom-start] sm:[--placement:right]">
+        <div class="tooltip-toggle">
+         <div class="border-base-content/20 flex items-center gap-3 rounded-lg border bg-base-100 p-2 shadow hover:cursor-pointer">
+          <img alt="Sophia" class="size-8 rounded-full object-cover" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-10.png"/>
+          <div class="flex flex-col items-start pe-4">
+           <span class="text-base-content/90 font-medium">
+            Sophia Aldrin
+           </span>
+           <span class="text-base-content/80 -mt-1 text-xs">
+            @sophia23
+           </span>
+          </div>
+         </div>
+         <div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="popover">
+          <div class="tooltip-body bg-base-100 text-base-content/80 w-80 rounded-lg p-4 text-start shadow">
+           <div class="mb-4 flex items-start justify-between">
+            <img alt="Sophia" class="size-12 rounded-full object-cover" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-10.png"/>
+            <button class="btn btn-primary btn-sm">
+             Follow
+            </button>
+           </div>
+           <div class="flex flex-col">
+            <div class="text-base-content/90 text-lg font-medium">
+             Sophia Aldrin
+            </div>
+            <div class="-mt-1 text-xs">
+             @sophia23
+            </div>
+            <p class="mt-4">
+             Lead Software Architect.
+             <br/>
+             <a class="link link-primary link-animated text-sm" href="#">
+              ABC Technologies
+             </a>
+            </p>
+            <div class="mt-4 space-y-2">
+             <div class="flex items-center gap-1.5">
+              <span class="icon-[tabler--mail] size-4">
+              </span>
+              sophia23@gmail.com
+             </div>
+             <div class="flex items-center gap-1.5">
+              <span class="icon-[tabler--phone] size-4">
+              </span>
+              +(101) 123-456-7891
+             </div>
+             <div class="flex items-center gap-1.5">
+              <span class="icon-[tabler--map-pin] size-4">
+              </span>
+              Ontario, Canada
+             </div>
+            </div>
+            <div class="divider my-2">
+            </div>
+            <div class="text-sm flex items-center gap-3">
+             <div>
+              <span class="text-base-content/90 me-1 font-medium">
+               478
+              </span>
+              Following
+             </div>
+             <div>
+              <span class="text-base-content/90 me-1 font-medium">
+               1,984
+              </span>
+              Followers
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:bottom-start] sm:[--placement:right]"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"border-base-content/20 flex items-center gap-3 rounded-lg border bg-base-100 p-2 shadow hover:cursor-pointer"</span> &gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-10.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Sophia"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-8 rounded-full object-cover"</span> /&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-start pe-4"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-medium"</span>&gt;Sophia Aldrin&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 -mt-1 text-xs"</span>&gt;@sophia23&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"popover"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body bg-base-100 text-base-content/80 w-80 rounded-lg p-4 text-start shadow"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-4 flex items-start justify-between"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-10.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Sophia"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-12 rounded-full object-cover"</span> /&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary btn-sm"</span>&gt;Follow&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-lg font-medium"</span>&gt;Sophia Aldrin&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"-mt-1 text-xs"</span>&gt;@sophia23&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4"</span>&gt;
+</span></span><span style="display:flex"><span>            Lead Software Architect.
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">"#"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"link link-primary link-animated text-sm"</span>&gt;ABC Technologies&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 space-y-2"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center gap-1.5"</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--mail] size-4"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>              sophia23@gmail.com
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center gap-1.5"</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--phone] size-4"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;+(101) 123-456-7891
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center gap-1.5"</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--map-pin] size-4"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>              Ontario, Canada
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"divider my-2"</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm flex items-center gap-3"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 me-1 font-medium"</span>&gt;478&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>              Following
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 me-1 font-medium"</span>&gt;1,984&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>              Followers
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="descriptive-tooltip">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#descriptive-tooltip">
+       Descriptive tooltip
+      </a>
+      <a aria-label=" Descriptive tooltip " class="no-underline" href="#descriptive-tooltip">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Below given example shows descriptive tooltip upon hover.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex items-center gap-1"&gt;
+  &lt;span&gt;Terms &amp; Conditions&lt;/span&gt;
+  &lt;div class="tooltip [--placement:bottom]"&gt;
+    &lt;div class="tooltip-toggle"&gt;
+      &lt;span class="icon-[tabler--help] hover:text-primary mt-1.5 size-4"&gt;&lt;/span&gt;
+      &lt;div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="popover"&gt;
+        &lt;div class="tooltip-body bg-base-100 text-base-content/80 max-w-xs rounded-lg p-4 text-start shadow"&gt;
+          &lt;span class="text-lg text-base-content/90"&gt;Terms and Conditions&lt;/span&gt;
+          &lt;ul class="mt-4 space-y-1.5 text-xs"&gt;
+            &lt;li&gt;
+              Welcome to FlyonUI. If you continue to browse and use this TailwindCSS component library, you are agreeing to comply with
+              and be bound by the following terms and conditions of its use.
+            &lt;/li&gt;
+            &lt;li&gt;
+              The content of the pages of this website is for your general information and use only. It is subject to
+              change without notice.
+            &lt;/li&gt;
+            &lt;li&gt;
+              This website uses cookies to monitor browsing preferences. If you do allow cookies to be used, the
+              following personal information may be stored by us for use by third parties.
+            &lt;/li&gt;
+            &lt;li&gt;
+              Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness,
+              performance, completeness, or suitability of the information and materials found or offered on this
+              website for any particular purpose.
+            &lt;/li&gt;
+            &lt;li&gt;
+              Your use of any information or materials on this website is entirely at your own risk, for which we shall
+              not be liable. It shall be your own responsibility to ensure that any products, services, or information
+              available through this website meet your specific requirements.
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex items-center gap-1">
+        <span>
+         Terms &amp; Conditions
+        </span>
+        <div class="tooltip [--placement:bottom]">
+         <div class="tooltip-toggle">
+          <span class="icon-[tabler--help] hover:text-primary mt-1.5 size-4">
+          </span>
+          <div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="popover">
+           <div class="tooltip-body bg-base-100 text-base-content/80 max-w-xs rounded-lg p-4 text-start shadow">
+            <span class="text-lg text-base-content/90">
+             Terms and Conditions
+            </span>
+            <ul class="mt-4 space-y-1.5 text-xs">
+             <li>
+              Welcome to FlyonUI. If you continue to browse and use this TailwindCSS component library, you are agreeing to comply with
+and be bound by the following terms and conditions of its use.
+             </li>
+             <li>
+              The content of the pages of this website is for your general information and use only. It is subject to
+change without notice.
+             </li>
+             <li>
+              This website uses cookies to monitor browsing preferences. If you do allow cookies to be used, the
+following personal information may be stored by us for use by third parties.
+             </li>
+             <li>
+              Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness,
+performance, completeness, or suitability of the information and materials found or offered on this
+website for any particular purpose.
+             </li>
+             <li>
+              Your use of any information or materials on this website is entirely at your own risk, for which we shall
+not be liable. It shall be your own responsibility to ensure that any products, services, or information
+available through this website meet your specific requirements.
+             </li>
+            </ul>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center gap-1"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span>&gt;Terms <span style="color:#960050;background-color:#1e0010">&amp;</span> Conditions&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:bottom]"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--help] hover:text-primary mt-1.5 size-4"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"popover"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body bg-base-100 text-base-content/80 max-w-xs rounded-lg p-4 text-start shadow"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-lg text-base-content/90"</span>&gt;Terms and Conditions&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 space-y-1.5 text-xs"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>              Welcome to FlyonUI. If you continue to browse and use this TailwindCSS component library, you are agreeing to comply with
+</span></span><span style="display:flex"><span>              and be bound by the following terms and conditions of its use.
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>              The content of the pages of this website is for your general information and use only. It is subject to
+</span></span><span style="display:flex"><span>              change without notice.
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>              This website uses cookies to monitor browsing preferences. If you do allow cookies to be used, the
+</span></span><span style="display:flex"><span>              following personal information may be stored by us for use by third parties.
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>              Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness,
+</span></span><span style="display:flex"><span>              performance, completeness, or suitability of the information and materials found or offered on this
+</span></span><span style="display:flex"><span>              website for any particular purpose.
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>              Your use of any information or materials on this website is entirely at your own risk, for which we shall
+</span></span><span style="display:flex"><span>              not be liable. It shall be your own responsibility to ensure that any products, services, or information
+</span></span><span style="display:flex"><span>              available through this website meet your specific requirements.
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="destroy/reinitialize">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#destroy%2freinitialize">
+       Destroy/Reinitialize
+      </a>
+      <a aria-label=" Destroy/Reinitialize " class="no-underline" href="#destroy%2freinitialize">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+    <span class="badge badge-sm badge-soft badge-primary rounded-full align-middle uppercase">
+     new
+    </span>
+   </div>
+   <p>
+    The
+    <code>
+     destroy
+    </code>
+    <a class="link link-primary" href="#destroy-method">
+     method
+    </a>
+    is provided to facilitate the destruction of a tooltip element.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div id="tooltip-to-destroy"&gt;
+  &lt;!-- Left tooltip --&gt;
+  &lt;div class="tooltip [--placement:left]"&gt;
+    &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+      &lt;span class="icon-[tabler--chevron-left]"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+      &lt;span class="tooltip-body"&gt;Tooltip on left&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!-- Top tooltip (default) --&gt;
+  &lt;div class="tooltip"&gt;
+    &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+      &lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+      &lt;span class="tooltip-body"&gt;Tooltip on top&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!-- Bottom tooltip --&gt;
+  &lt;div class="tooltip [--placement:bottom]"&gt;
+    &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+      &lt;span class="icon-[tabler--chevron-down]"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+      &lt;span class="tooltip-body"&gt;Tooltip on bottom&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!-- Right tooltip --&gt;
+  &lt;div class="tooltip [--placement:right]"&gt;
+    &lt;button type="button" class="tooltip-toggle btn btn-square" aria-label="Tooltip"&gt;
+      &lt;span class="icon-[tabler--chevron-right]"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+      &lt;span class="tooltip-body"&gt;Tooltip on right&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="mt-4 flex gap-3"&gt;
+  &lt;button class="btn btn-primary" id="destroy-btn"&gt;Destroy&lt;/button&gt;
+  &lt;button class="btn btn-primary" id="reinit-btn" disabled&gt;Reinitialize&lt;/button&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', () =&gt; {
+    ;(function () {
+      const tooltips = document.querySelectorAll('#tooltip-to-destroy .tooltip')
+      const destroy = document.querySelector('#destroy-btn')
+      const reinit = document.querySelector('#reinit-btn')
+
+      destroy.addEventListener('click', () =&gt; {
+        tooltips.forEach(el =&gt; {
+          const { element } = HSTooltip.getInstance(el, true)
+
+          element.destroy()
+        })
+
+        destroy.setAttribute('disabled', 'disabled')
+        reinit.removeAttribute('disabled')
+      })
+
+      reinit.addEventListener('click', () =&gt; {
+        HSTooltip.autoInit()
+
+        reinit.setAttribute('disabled', 'disabled')
+        destroy.removeAttribute('disabled')
+      })
+    })()
+  });
+&lt;/script&gt;
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div id="tooltip-to-destroy">
+        <div class="tooltip [--placement:left]">
+         <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+          <span class="icon-[tabler--chevron-left]">
+          </span>
+         </button>
+         <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+          <span class="tooltip-body">
+           Tooltip on left
+          </span>
+         </span>
+        </div>
+        <div class="tooltip">
+         <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+          <span class="icon-[tabler--chevron-up]">
+          </span>
+         </button>
+         <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+          <span class="tooltip-body">
+           Tooltip on top
+          </span>
+         </span>
+        </div>
+        <div class="tooltip [--placement:bottom]">
+         <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+          <span class="icon-[tabler--chevron-down]">
+          </span>
+         </button>
+         <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+          <span class="tooltip-body">
+           Tooltip on bottom
+          </span>
+         </span>
+        </div>
+        <div class="tooltip [--placement:right]">
+         <button aria-label="Tooltip" class="tooltip-toggle btn btn-square" type="button">
+          <span class="icon-[tabler--chevron-right]">
+          </span>
+         </button>
+         <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+          <span class="tooltip-body">
+           Tooltip on right
+          </span>
+         </span>
+        </div>
+       </div>
+       <div class="mt-4 flex gap-3">
+        <button class="btn btn-primary" id="destroy-btn">
+         Destroy
+        </button>
+        <button class="btn btn-primary" disabled="" id="reinit-btn">
+         Reinitialize
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-to-destroy"</span>&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Left tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:left]"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-left]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on left&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Top tooltip (default) --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on top&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Bottom tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:bottom]"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-down]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on bottom&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Right tooltip --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--placement:right]"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-right]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip on right&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex gap-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"destroy-btn"</span>&gt;Destroy&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"reinit-btn"</span> <span style="color:#a6e22e">disabled</span>&gt;Reinitialize&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>    ;(<span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">tooltips</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">'#tooltip-to-destroy .tooltip'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destroy</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#destroy-btn'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reinit</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#reinit-btn'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">destroy</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">tooltips</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">el</span> =&gt; {
+</span></span><span style="display:flex"><span>          <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSTooltip</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#a6e22e">el</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>()
+</span></span><span style="display:flex"><span>        })
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">destroy</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">reinit</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      })
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">reinit</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">HSTooltip</span>.<span style="color:#a6e22e">autoInit</span>()
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">reinit</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">destroy</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      })
+</span></span><span style="display:flex"><span>    })()
+</span></span><span style="display:flex"><span>  });
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="javascript-behavior">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#javascript-behavior">
+       JavaScript behavior
+      </a>
+      <a aria-label=" JavaScript behavior " class="no-underline" href="#javascript-behavior">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="options">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#options">
+       Options
+      </a>
+      <a aria-label=" Options " class="no-underline" href="#options">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="not-prose custom-list mt-4 mb-6 flex items-start gap-4 alert alert-soft !bg-primary/10 alert-primary" role="alert">
+    <span class="icon-[tabler--info-circle] mt-px size-5 shrink-0 leading-none">
+    </span>
+    <span>
+     FlyonUI is powered by
+     <a class="link link-primary font-semibold" href="https://preline.co/plugins.html">
+      Preline’s
+     </a>
+     unstyled, headless Tailwind plugins to deliver accessible and responsive user interfaces.
+    </span>
+    <style>
+     .custom-list li::before{content:"-";margin-right:.5em}
+    </style>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          PARAMETERS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          OPTIONS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DEFAULT VALUE
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          [--trigger:*]
+         </code>
+        </td>
+        <td class="px-4">
+         Event to trigger a tooltip.
+        </td>
+        <td class="px-4">
+         focus, hover, click
+        </td>
+        <td class="px-4">
+         <code>
+          hover
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          [--placement:*]
+         </code>
+        </td>
+        <td class="px-4">
+         Tooltip placement.
+        </td>
+        <td class="px-4">
+         top, top-start, top-end, bottom, bottom-start, bottom-end, right, right-start, right-end, left, left-start, left-end
+        </td>
+        <td class="px-4">
+         <code>
+          top
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          [--strategy:*]
+         </code>
+        </td>
+        <td class="px-4">
+         Sets the position to absolute instead of fixed, and removes the transform styles to position the menu relative to the relative parent block.
+        </td>
+        <td class="px-4">
+         fixed, absolute
+        </td>
+        <td class="px-4">
+         <code>
+          fixed
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           [--interaction:*]
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         Adjusts interactivity within the tooltip/popover content.
+        </td>
+        <td class="px-4">
+         boolean
+        </td>
+        <td class="px-4">
+         <code>
+          true
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           [-—prevent-popper:*]
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         Prevents popper positioning calculation issue.
+        </td>
+        <td class="px-4">
+         boolean
+        </td>
+        <td class="px-4">
+         <code>
+          false
+         </code>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="methods">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#methods">
+       Methods
+      </a>
+      <a aria-label=" Methods " class="no-underline" href="#methods">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     HSTooltip
+    </code>
+    object is contained within the global
+    <code>
+     window
+    </code>
+    object.
+   </p>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          METHOD
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          PUBLIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          show()
+         </code>
+        </td>
+        <td class="px-4">
+         Force show tooltip.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          hide()
+         </code>
+        </td>
+        <td class="px-4">
+         Force hide tooltip.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          destroy()
+         </code>
+        </td>
+        <td class="px-4">
+         Destroys the instance, removes generated markup (if any), removes added classes and attributes.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          STATIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          HSTooltip.getInstance(target, isInstance)
+         </code>
+        </td>
+        <td class="px-4">
+         <div>
+          Returns the element associated to the
+          <code>
+           target
+          </code>
+          .
+          <ul class="m-0">
+           <li>
+            The
+            <code>
+             target
+            </code>
+            can be either a Node or a string (a valid CSS selector).
+           </li>
+           <li>
+            <code>
+             isInstance
+            </code>
+            boolean. Returns the instance instead of Node if
+            <code>
+             true
+            </code>
+            .
+           </li>
+          </ul>
+         </div>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          HSTooltip.show(target)
+         </code>
+        </td>
+        <td class="px-4">
+         <div>
+          Shows the element associated to the
+          <code>
+           target
+          </code>
+          .
+          <ul class="m-0">
+           <li>
+            <code>
+             target
+            </code>
+            should be a Node or string (valid selector).
+           </li>
+          </ul>
+         </div>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          HSTooltip.hide(target)
+         </code>
+        </td>
+        <td class="px-4">
+         <div>
+          Shows the element associated to the
+          <code>
+           target
+          </code>
+          .
+          <ul class="m-0">
+           <li>
+            <code>
+             target
+            </code>
+            should be a Node or string (valid selector).
+           </li>
+          </ul>
+         </div>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h4 class="!mt-0 text-[1rem]" id="method-usage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#method-usage">
+       Method usage
+      </a>
+      <a aria-label=" Method usage " class="no-underline" href="#method-usage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <p>
+    Below is a demonstration of how to use the public methods. Apply the ID to the
+    <code>
+     tooltip
+    </code>
+    component class and target it using the methods. We’ve included JavaScript for a public method, enabling it to function when the
+    <code>
+     method
+    </code>
+    button is clicked. To test other methods, copy and paste the following code into your console, then click the button.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="tooltip" id="tooltip-target"&gt;
+  &lt;div class="tooltip-toggle"&gt;
+    &lt;button class="btn btn-square" aria-label="Tooltip"&gt;&lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;&lt;/button&gt;
+    &lt;div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+      &lt;span class="tooltip-body"&gt;Tooltip&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;button class="btn btn-primary" id="show-btn"&gt;Method&lt;/button&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', function () {
+    const tooltip = new HSTooltip(document.querySelector('#tooltip-target'))
+    const showBtn = document.querySelector('#show-btn')
+
+    showBtn.addEventListener('click', () =&gt; {
+      tooltip.show()
+      document.addEventListener('click', () =&gt; {
+        tooltip.hide()
+      })
+    })
+  })
+&lt;/script&gt;
+
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="tooltip" id="tooltip-target">
+        <div class="tooltip-toggle">
+         <button aria-label="Tooltip" class="btn btn-square">
+          <span class="icon-[tabler--chevron-up]">
+          </span>
+         </button>
+         <div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+          <span class="tooltip-body">
+           Tooltip
+          </span>
+         </div>
+        </div>
+       </div>
+       <button class="btn btn-primary" id="show-btn">
+        Method
+       </button>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-target"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"show-btn"</span>&gt;Method&lt;/<span style="color:#f92672">button</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">tooltip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HSTooltip</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#tooltip-target'</span>))
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">showBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#show-btn'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">showBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">tooltip</span>.<span style="color:#a6e22e">show</span>()
+</span></span><span style="display:flex"><span>      document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">tooltip</span>.<span style="color:#a6e22e">hide</span>()
+</span></span><span style="display:flex"><span>      })
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p class="mt-10 mb-1.5 not-prose">
+    Force show tooltip (public method).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#75715e">// This method is used in above example.
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">tooltip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HSTooltip</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#tooltip-target'</span>));
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">showBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#show-btn'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">showBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">tooltip</span>.<span style="color:#a6e22e">show</span>();
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`// This method is used in above example.
+const tooltip = new HSTooltip(document.querySelector('#tooltip-target'));
+const showBtn = document.querySelector('#show-btn');
+
+showBtn.addEventListener('click', () =&gt; {
+  tooltip.show();
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <p class="mb-1.5 not-prose">
+    Force show tooltip (static method).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">showBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#show-btn'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">showBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">HSTooltip</span>.<span style="color:#a6e22e">show</span>(<span style="color:#e6db74">'#tooltip-target'</span>);
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const showBtn = document.querySelector('#show-btn');
+
+showBtn.addEventListener('click', () =&gt; {
+  HSTooltip.show('#tooltip-target');
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <p class="mb-1.5 not-prose">
+    Open item (mixed).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSTooltip</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#tooltip-target'</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">showBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#show-btn'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">showBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">show</span>();
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const { element } = HSTooltip.getInstance('#tooltip-target', true);
+const showBtn = document.querySelector('#show-btn');
+
+showBtn.addEventListener('click', () =&gt; {
+  element.show();
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <p class="mb-1.5 not-prose" id="destroy-method">
+    Destroy instance (public).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">tooltip</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'.tooltip'</span>)
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSTooltip</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#a6e22e">tooltip</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">destroy</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>()
+</span></span><span style="display:flex"><span>})</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const tooltip = document.querySelector('.tooltip')
+const { element } = HSTooltip.getInstance(tooltip, true)
+
+destroy.addEventListener('click', () =&gt; {
+  element.destroy()
+})`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="events">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#events">
+       Events
+      </a>
+      <a aria-label=" Events " class="no-underline" href="#events">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          METHOD
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          on:show
+         </code>
+        </td>
+        <td class="px-4">
+         Triggered whenever a tooltip is showed.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          on:hide
+         </code>
+        </td>
+        <td class="px-4">
+         Triggered whenever a tooltip is hidden.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h4 class="!mt-0 text-[1rem]" id="event-usage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#event-usage">
+       Event usage
+      </a>
+      <a aria-label=" Event usage " class="no-underline" href="#event-usage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <p>
+    Below is a demonstration of how to use the event. We’ve included JavaScript to handle the events, allowing it to execute when the corresponding event is fired. To test these events, monitor your console.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="tooltip [--trigger:hover]" id="tooltip-target-2"&gt;
+  &lt;div class="tooltip-toggle"&gt;
+    &lt;button class="btn btn-square" aria-label="Tooltip"&gt;&lt;span class="icon-[tabler--chevron-up]"&gt;&lt;/span&gt;&lt;/button&gt;
+    &lt;div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip"&gt;
+      &lt;span class="tooltip-body"&gt;Tooltip&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', function () {
+    const { element } = HSTooltip.getInstance('#tooltip-target-2', true)
+
+    element.on('show', instance =&gt; console.log('show'))
+    element.on('hide', instance =&gt; console.log('hide'))
+  })
+&lt;/script&gt;
+
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="tooltip [--trigger:hover]" id="tooltip-target-2">
+        <div class="tooltip-toggle">
+         <button aria-label="Tooltip" class="btn btn-square">
+          <span class="icon-[tabler--chevron-up]">
+          </span>
+         </button>
+         <div class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
+          <span class="tooltip-body">
+           Tooltip
+          </span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip [--trigger:hover]"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-target-2"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-toggle"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Tooltip"</span>&gt;&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-up]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tooltip-body"</span>&gt;Tooltip&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSTooltip</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#tooltip-target-2'</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'show'</span>, <span style="color:#a6e22e">instance</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">'show'</span>))
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'hide'</span>, <span style="color:#a6e22e">instance</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">'hide'</span>))
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p class="mt-12 mb-1.5 not-prose">
+    An example where a function is run every time a tooltip shows.
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSTooltip</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#tooltip-target-2'</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'show'</span>, (<span style="color:#a6e22e">instance</span>) =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">"show"</span>));
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'hide'</span>, (<span style="color:#a6e22e">instance</span>) =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">"hide"</span>));</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const { element } = HSTooltip.getInstance('#tooltip-target-2', true)
+
+element.on('show', (instance) =&gt; console.log(&quot;show&quot;));
+element.on('hide', (instance) =&gt; console.log(&quot;hide&quot;));`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/overlays/popover/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Popover
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/forms/checkbox/">
+     Checkbox
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

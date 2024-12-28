@@ -1,0 +1,1587 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     components
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Stat
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Stat is used to display key data and metrics in a clean and customizable layout.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="114" viewbox="0 0 230 114" width="230" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_6613_131634)">
+      <path d="M25 114V-.366569e-5" stroke="url(#paint0_linear_6613_131634)" stroke-opacity=".4">
+      </path>
+      <path d="M205 114V-.366569e-5" stroke="url(#paint1_linear_6613_131634)" stroke-opacity=".4">
+      </path>
+      <path d="M230 20H-.411272e-5" stroke="url(#paint2_linear_6613_131634)" stroke-opacity=".4">
+      </path>
+      <path d="M230 94H-.411272e-5" stroke="url(#paint3_linear_6613_131634)" stroke-opacity=".4">
+      </path>
+      <rect fill="#76717f" fill-opacity=".06" height="74" rx="8" width="180" x="25" y="20">
+      </rect>
+      <path d="M156 57c0-9.941 8.059-18 18-18s18 8.059 18 18-8.059 18-18 18-18-8.059-18-18z" fill="#76717f" fill-opacity=".06">
+      </path>
+      <circle cx="174" cy="53.1" r="3.12" stroke="#474857" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".5" stroke-width="1.5">
+      </circle>
+      <path d="M169.32 64.02V62.46c0-1.7231 1.39700000000002-3.12 3.12-3.12h3.12c1.72299999999998.0 3.12 1.3969 3.12 3.12v1.56" stroke="#474857" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".5" stroke-width="1.5">
+      </path>
+      <rect fill="oklch(var(--p))" height="8" rx="4" width="61" x="39" y="52">
+      </rect>
+      <rect fill="#474857" fill-opacity=".2" height="8" rx="4" width="91" x="39" y="35">
+      </rect>
+      <rect fill="#474857" fill-opacity=".2" height="8" rx="4" width="76" x="39" y="72">
+      </rect>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_6613_131634" x1="25.5" x2="25.4847" y1=".611218e-5" y2="114">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_6613_131634" x1="205.5" x2="205.485" y1=".611218e-5" y2="114">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_6613_131634" x1=".122952e-4" x2="230" y1="19.5" y2="19.5624">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_6613_131634" x1=".122952e-4" x2="230" y1="93.5" y2="93.5624">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_6613_131634">
+       <rect fill="#fff" height="114" width="230">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stats
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         A container that holds multiple stat items.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stat
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Represents an individual stat item.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stat-title
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Displays the title text for a stat item.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stat-value
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Shows the numerical or main value of a stat item.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stat-desc
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Provides additional description text for a stat item.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stat-figure
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Used for displaying an icon, image, or other graphic element.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stat-actions
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Contains buttons or input fields related to the stat item.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          stats-vertical
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Arranges stat items in a vertical layout.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    This basic example of stat component.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Total Emails Sent&lt;/div&gt;
+    &lt;div class="stat-value"&gt;76,250&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;18% more than last month&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats">
+        <div class="stat">
+         <div class="stat-title">
+          Total Emails Sent
+         </div>
+         <div class="stat-value">
+          76,250
+         </div>
+         <div class="stat-desc">
+          18% more than last month
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Total Emails Sent&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;76,250&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;18% more than last month&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustration">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustration">
+       Illustration
+      </a>
+      <a aria-label=" Illustration " class="no-underline" href="#illustration">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-avatar">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-avatar">
+       With avatar
+      </a>
+      <a aria-label=" With avatar " class="no-underline" href="#with-avatar">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below demonstrates a Stat displaying with avatar.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-figure"&gt;
+      &lt;div class="avatar"&gt;
+        &lt;div class="size-12 rounded-full"&gt;
+          &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Avatar" /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-title"&gt;Total page views&lt;/div&gt;
+    &lt;div class="stat-value"&gt;89,400&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;21% ↗︎ than last month&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats">
+        <div class="stat">
+         <div class="stat-figure">
+          <div class="avatar">
+           <div class="size-12 rounded-full">
+            <img alt="User Avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"/>
+           </div>
+          </div>
+         </div>
+         <div class="stat-title">
+          Total page views
+         </div>
+         <div class="stat-value">
+          89,400
+         </div>
+         <div class="stat-desc">
+          21% ↗︎ than last month
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-figure"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-12 rounded-full"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"User Avatar"</span> /&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Total page views&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;89,400&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;21% ↗︎ than last month&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-icons-and-image">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-icons-and-image">
+       With icons and image
+      </a>
+      <a aria-label=" With icons and image " class="no-underline" href="#with-icons-and-image">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below demonstrates a Stat displaying with icons and images.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-figure text-base-content size-8"&gt;
+      &lt;span class="icon-[tabler--world] size-8"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-title"&gt;Website Traffic&lt;/div&gt;
+    &lt;div class="stat-value"&gt;32K&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;5% ↗︎ than last week&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-figure text-base-content size-8"&gt;
+      &lt;span class="icon-[tabler--users-group] size-8"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-title"&gt;New Signups&lt;/div&gt;
+    &lt;div class="stat-value"&gt;1.2K&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;12% increase this month&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-figure size-12"&gt;
+      &lt;div class="avatar"&gt;
+        &lt;div class="size-12 rounded-full"&gt;
+          &lt;img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png" alt="User Avatar"/&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-value text-success"&gt;95%&lt;/div&gt;
+    &lt;div class="stat-title"&gt;Customer Retention&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;Steady over last quarter&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats">
+        <div class="stat">
+         <div class="stat-figure text-base-content size-8">
+          <span class="icon-[tabler--world] size-8">
+          </span>
+         </div>
+         <div class="stat-title">
+          Website Traffic
+         </div>
+         <div class="stat-value">
+          32K
+         </div>
+         <div class="stat-desc">
+          5% ↗︎ than last week
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-figure text-base-content size-8">
+          <span class="icon-[tabler--users-group] size-8">
+          </span>
+         </div>
+         <div class="stat-title">
+          New Signups
+         </div>
+         <div class="stat-value">
+          1.2K
+         </div>
+         <div class="stat-desc">
+          12% increase this month
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-figure size-12">
+          <div class="avatar">
+           <div class="size-12 rounded-full">
+            <img alt="User Avatar" src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"/>
+           </div>
+          </div>
+         </div>
+         <div class="stat-value text-success">
+          95%
+         </div>
+         <div class="stat-title">
+          Customer Retention
+         </div>
+         <div class="stat-desc">
+          Steady over last quarter
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-figure text-base-content size-8"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--world] size-8"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Website Traffic&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;32K&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;5% ↗︎ than last week&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-figure text-base-content size-8"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--users-group] size-8"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;New Signups&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;1.2K&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;12% increase this month&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-figure size-12"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size-12 rounded-full"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">"User Avatar"</span>/&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value text-success"</span>&gt;95%&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Customer Retention&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;Steady over last quarter&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="center-item">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#center-item">
+       Center item
+      </a>
+      <a aria-label=" Center item " class="no-underline" href="#center-item">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below shows a Stat with a centered item layout.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats"&gt;
+  &lt;div class="stat place-items-center"&gt;
+    &lt;div class="stat-title"&gt;Total Sales&lt;/div&gt;
+    &lt;div class="stat-value"&gt;52K&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;From Jan 1st to Feb 1st&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat place-items-center"&gt;
+    &lt;div class="stat-title"&gt;Active Customers&lt;/div&gt;
+    &lt;div class="stat-value"&gt;8,350&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↗︎ 150 (1.8%)&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat place-items-center"&gt;
+    &lt;div class="stat-title"&gt;New Signups&lt;/div&gt;
+    &lt;div class="stat-value"&gt;2,400&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↘︎ 180 (7%)&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats">
+        <div class="stat place-items-center">
+         <div class="stat-title">
+          Total Sales
+         </div>
+         <div class="stat-value">
+          52K
+         </div>
+         <div class="stat-desc">
+          From Jan 1st to Feb 1st
+         </div>
+        </div>
+        <div class="stat place-items-center">
+         <div class="stat-title">
+          Active Customers
+         </div>
+         <div class="stat-value">
+          8,350
+         </div>
+         <div class="stat-desc">
+          ↗︎ 150 (1.8%)
+         </div>
+        </div>
+        <div class="stat place-items-center">
+         <div class="stat-title">
+          New Signups
+         </div>
+         <div class="stat-value">
+          2,400
+         </div>
+         <div class="stat-desc">
+          ↘︎ 180 (7%)
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat place-items-center"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Total Sales&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;52K&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;From Jan 1st to Feb 1st&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat place-items-center"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Active Customers&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;8,350&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↗︎ 150 (1.8%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat place-items-center"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;New Signups&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;2,400&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↘︎ 180 (7%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="vertical">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#vertical">
+       Vertical
+      </a>
+      <a aria-label=" Vertical " class="no-underline" href="#vertical">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below illustrates a vertical Stat layout.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats stats-vertical"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Total Invoices&lt;/div&gt;
+    &lt;div class="stat-value"&gt;5,780&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;From Jan 1st to Feb 1st&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Paid Invoices&lt;/div&gt;
+    &lt;div class="stat-value"&gt;4,320&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↗︎ 120 (3%)&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Pending Invoices&lt;/div&gt;
+    &lt;div class="stat-value"&gt;1,460&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↘︎ 80 (5%)&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats stats-vertical">
+        <div class="stat">
+         <div class="stat-title">
+          Total Invoices
+         </div>
+         <div class="stat-value">
+          5,780
+         </div>
+         <div class="stat-desc">
+          From Jan 1st to Feb 1st
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-title">
+          Paid Invoices
+         </div>
+         <div class="stat-value">
+          4,320
+         </div>
+         <div class="stat-desc">
+          ↗︎ 120 (3%)
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-title">
+          Pending Invoices
+         </div>
+         <div class="stat-value">
+          1,460
+         </div>
+         <div class="stat-desc">
+          ↘︎ 80 (5%)
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats stats-vertical"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Total Invoices&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;5,780&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;From Jan 1st to Feb 1st&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Paid Invoices&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;4,320&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↗︎ 120 (3%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Pending Invoices&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;1,460&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↘︎ 80 (5%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="responsive">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#responsive">
+       Responsive
+      </a>
+      <a aria-label=" Responsive " class="no-underline" href="#responsive">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use TailwindCSS classes for
+    <a class="link link-primary" href="https://tailwindcss.com/docs/responsive-design#targeting-a-breakpoint-range" target="_blank">
+     responsive design
+    </a>
+    , such as
+    <code>
+     sm:
+    </code>
+    ,
+    <code>
+     md:
+    </code>
+    ,
+    <code>
+     lg:
+    </code>
+    ,
+    <code>
+     xl:
+    </code>
+    , and
+    <code>
+     2xl:
+    </code>
+    , along with the responsive class
+    <code>
+     stats-vertical
+    </code>
+    , to switch the stat alignment to horizontal at specific breakpoints or vice the versa.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats max-sm:stats-vertical"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Emails Sent&lt;/div&gt;
+    &lt;div class="stat-value"&gt;58K&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;Jan 1st to Feb 1st&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;New Subscribers&lt;/div&gt;
+    &lt;div class="stat-value"&gt;3,600&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↗︎ 450 (14%)&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Unsubscribes&lt;/div&gt;
+    &lt;div class="stat-value"&gt;850&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↘︎ 65 (7%)&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats max-sm:stats-vertical">
+        <div class="stat">
+         <div class="stat-title">
+          Emails Sent
+         </div>
+         <div class="stat-value">
+          58K
+         </div>
+         <div class="stat-desc">
+          Jan 1st to Feb 1st
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-title">
+          New Subscribers
+         </div>
+         <div class="stat-value">
+          3,600
+         </div>
+         <div class="stat-desc">
+          ↗︎ 450 (14%)
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-title">
+          Unsubscribes
+         </div>
+         <div class="stat-value">
+          850
+         </div>
+         <div class="stat-desc">
+          ↘︎ 65 (7%)
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats max-sm:stats-vertical"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Emails Sent&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;58K&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;Jan 1st to Feb 1st&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;New Subscribers&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;3,600&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↗︎ 450 (14%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Unsubscribes&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;850&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↘︎ 65 (7%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-progress-bar">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-progress-bar">
+       With progress bar
+      </a>
+      <a aria-label=" With progress bar " class="no-underline" href="#with-progress-bar">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below shows a Stat with a progress bar.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats max-sm:w-full"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="avatar placeholder"&gt;
+      &lt;div class="bg-success/20 text-success size-10 rounded-full"&gt;
+        &lt;span class="icon-[tabler--package] size-6"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-value mb-1"&gt;Order&lt;/div&gt;
+    &lt;div class="stat-title"&gt;7,500 of 10,000 orders&lt;/div&gt;
+    &lt;div class="progress bg-success/10 h-2" role="progressbar" aria-label="Order Progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"&gt;
+      &lt;div class="progress-bar progress-success w-3/4"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="stats max-sm:w-full"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="avatar placeholder"&gt;
+      &lt;div class="bg-warning/20 text-warning size-10 rounded-full"&gt;
+        &lt;span class="icon-[tabler--cash] size-6"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-value mb-1"&gt;Revenue&lt;/div&gt;
+    &lt;div class="stat-title"&gt;$45,000 of $100,000&lt;/div&gt;
+    &lt;div class="progress bg-warning/10 h-2" role="progressbar" aria-label="Revenue Progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"&gt;
+      &lt;div class="progress-bar progress-warning w-2/5"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="stats max-sm:w-full"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="avatar placeholder"&gt;
+      &lt;div class="bg-error/20 text-error size-10 rounded-full"&gt;
+        &lt;span class="icon-[tabler--credit-card] size-6"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-value mb-1"&gt;Invoice&lt;/div&gt;
+    &lt;div class="stat-title"&gt;$18,200 of $25,000&lt;/div&gt;
+    &lt;div class="progress bg-error/10 h-2" role="progressbar" aria-label="Invoice Progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100"&gt;
+      &lt;div class="progress-bar progress-error w-[73%]"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats max-sm:w-full">
+        <div class="stat">
+         <div class="avatar placeholder">
+          <div class="bg-success/20 text-success size-10 rounded-full">
+           <span class="icon-[tabler--package] size-6">
+           </span>
+          </div>
+         </div>
+         <div class="stat-value mb-1">
+          Order
+         </div>
+         <div class="stat-title">
+          7,500 of 10,000 orders
+         </div>
+         <div aria-label="Order Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress bg-success/10 h-2" role="progressbar">
+          <div class="progress-bar progress-success w-3/4">
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="stats max-sm:w-full">
+        <div class="stat">
+         <div class="avatar placeholder">
+          <div class="bg-warning/20 text-warning size-10 rounded-full">
+           <span class="icon-[tabler--cash] size-6">
+           </span>
+          </div>
+         </div>
+         <div class="stat-value mb-1">
+          Revenue
+         </div>
+         <div class="stat-title">
+          $45,000 of $100,000
+         </div>
+         <div aria-label="Revenue Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" class="progress bg-warning/10 h-2" role="progressbar">
+          <div class="progress-bar progress-warning w-2/5">
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="stats max-sm:w-full">
+        <div class="stat">
+         <div class="avatar placeholder">
+          <div class="bg-error/20 text-error size-10 rounded-full">
+           <span class="icon-[tabler--credit-card] size-6">
+           </span>
+          </div>
+         </div>
+         <div class="stat-value mb-1">
+          Invoice
+         </div>
+         <div class="stat-title">
+          $18,200 of $25,000
+         </div>
+         <div aria-label="Invoice Progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="73" class="progress bg-error/10 h-2" role="progressbar">
+          <div class="progress-bar progress-error w-[73%]">
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats max-sm:w-full"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar placeholder"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-success/20 text-success size-10 rounded-full"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--package] size-6"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value mb-1"</span>&gt;Order&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;7,500 of 10,000 orders&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progress bg-success/10 h-2"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progressbar"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Order Progressbar"</span> <span style="color:#a6e22e">aria-valuenow</span><span style="color:#f92672">=</span><span style="color:#e6db74">"75"</span> <span style="color:#a6e22e">aria-valuemin</span><span style="color:#f92672">=</span><span style="color:#e6db74">"0"</span> <span style="color:#a6e22e">aria-valuemax</span><span style="color:#f92672">=</span><span style="color:#e6db74">"100"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progress-bar progress-success w-3/4"</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats max-sm:w-full"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar placeholder"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-warning/20 text-warning size-10 rounded-full"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--cash] size-6"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value mb-1"</span>&gt;Revenue&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;$45,000 of $100,000&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progress bg-warning/10 h-2"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progressbar"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Revenue Progressbar"</span> <span style="color:#a6e22e">aria-valuenow</span><span style="color:#f92672">=</span><span style="color:#e6db74">"45"</span> <span style="color:#a6e22e">aria-valuemin</span><span style="color:#f92672">=</span><span style="color:#e6db74">"0"</span> <span style="color:#a6e22e">aria-valuemax</span><span style="color:#f92672">=</span><span style="color:#e6db74">"100"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progress-bar progress-warning w-2/5"</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats max-sm:w-full"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"avatar placeholder"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-error/20 text-error size-10 rounded-full"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--credit-card] size-6"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value mb-1"</span>&gt;Invoice&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;$18,200 of $25,000&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progress bg-error/10 h-2"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progressbar"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Invoice Progressbar"</span> <span style="color:#a6e22e">aria-valuenow</span><span style="color:#f92672">=</span><span style="color:#e6db74">"73"</span> <span style="color:#a6e22e">aria-valuemin</span><span style="color:#f92672">=</span><span style="color:#e6db74">"0"</span> <span style="color:#a6e22e">aria-valuemax</span><span style="color:#f92672">=</span><span style="color:#e6db74">"100"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"progress-bar progress-error w-[73%]"</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-actions-button">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-actions-button">
+       With actions button
+      </a>
+      <a aria-label=" With actions button " class="no-underline" href="#with-actions-button">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The following example demonstrates the use of an action button within a stat component.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats max-md:stats-vertical"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Subscription Plan&lt;/div&gt;
+    &lt;div class="stat-value"&gt;Premium&lt;/div&gt;
+    &lt;div class="stat-actions"&gt;
+      &lt;button class="btn btn-sm btn-primary"&gt;Upgrade Plan&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Next Billing Date&lt;/div&gt;
+    &lt;div class="stat-value"&gt;Oct 15, 2024&lt;/div&gt;
+    &lt;div class="stat-actions flex flex-wrap gap-2"&gt;
+      &lt;button class="btn btn-sm btn-soft"&gt;View Details&lt;/button&gt;
+      &lt;button class="btn btn-sm btn-warning btn-soft"&gt;Change Payment Method&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats max-md:stats-vertical">
+        <div class="stat">
+         <div class="stat-title">
+          Subscription Plan
+         </div>
+         <div class="stat-value">
+          Premium
+         </div>
+         <div class="stat-actions">
+          <button class="btn btn-sm btn-primary">
+           Upgrade Plan
+          </button>
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-title">
+          Next Billing Date
+         </div>
+         <div class="stat-value">
+          Oct 15, 2024
+         </div>
+         <div class="stat-actions flex flex-wrap gap-2">
+          <button class="btn btn-sm btn-soft">
+           View Details
+          </button>
+          <button class="btn btn-sm btn-warning btn-soft">
+           Change Payment Method
+          </button>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats max-md:stats-vertical"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Subscription Plan&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;Premium&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-actions"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>&gt;Upgrade Plan&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Next Billing Date&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;Oct 15, 2024&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-actions flex flex-wrap gap-2"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-soft"</span>&gt;View Details&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-warning btn-soft"</span>&gt;Change Payment Method&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="border-layout">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#border-layout">
+       Border layout
+      </a>
+      <a aria-label=" Border layout " class="no-underline" href="#border-layout">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The following example demonstrates a Stat component with a bordered layout.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="stats border-base-content/10 border shadow-none"&gt;
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Total Invoices&lt;/div&gt;
+    &lt;div class="stat-value"&gt;5,780&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;From Jan 1st - Feb 1st&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Paid Invoices&lt;/div&gt;
+    &lt;div class="stat-value"&gt;4,320&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↗︎ 120 (3%)&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stat"&gt;
+    &lt;div class="stat-title"&gt;Pending Invoices&lt;/div&gt;
+    &lt;div class="stat-value"&gt;1,460&lt;/div&gt;
+    &lt;div class="stat-desc"&gt;↘︎ 80 (5%)&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="stats border-base-content/10 border shadow-none">
+        <div class="stat">
+         <div class="stat-title">
+          Total Invoices
+         </div>
+         <div class="stat-value">
+          5,780
+         </div>
+         <div class="stat-desc">
+          From Jan 1st - Feb 1st
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-title">
+          Paid Invoices
+         </div>
+         <div class="stat-value">
+          4,320
+         </div>
+         <div class="stat-desc">
+          ↗︎ 120 (3%)
+         </div>
+        </div>
+        <div class="stat">
+         <div class="stat-title">
+          Pending Invoices
+         </div>
+         <div class="stat-value">
+          1,460
+         </div>
+         <div class="stat-desc">
+          ↘︎ 80 (5%)
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stats border-base-content/10 border shadow-none"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Total Invoices&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;5,780&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;From Jan 1st - Feb 1st&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Paid Invoices&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;4,320&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↗︎ 120 (3%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-title"</span>&gt;Pending Invoices&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-value"</span>&gt;1,460&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stat-desc"</span>&gt;↘︎ 80 (5%)&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/components/stack/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Stack
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/components/swap/">
+     Swap
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

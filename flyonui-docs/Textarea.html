@@ -1,0 +1,1648 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     forms
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Textarea
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     A textarea is a multi-line text input field that allows users to enter longer text.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="166" viewbox="0 0 218 166" width="218" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5515_6770)">
+      <rect fill="#76717f" fill-opacity=".06" height="120" rx="8" width="180" x="19" y="23">
+      </rect>
+      <rect fill="oklch(var(--p))" height="12" rx="6" width="63" x="34" y="38">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".2" height="8" rx="4" width="112" x="34" y="61">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".2" height="8" rx="4" width="78" x="34" y="75">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".2" height="4" rx="2" transform="rotate(90 188 34)" width="98" x="188" y="34">
+      </rect>
+      <rect fill="oklch(var(--p))" height="4" rx="2" transform="rotate(90 188 71)" width="24" x="188" y="71">
+      </rect>
+      <path d="M218 23H-.560284e-5" stroke="url(#paint0_linear_5515_6770)" stroke-opacity=".4">
+      </path>
+      <path d="M218 143H-.560284e-5" stroke="url(#paint1_linear_5515_6770)" stroke-opacity=".4">
+      </path>
+      <path d="M19 166V-.178814e-6" stroke="url(#paint2_linear_5515_6770)" stroke-opacity=".4">
+      </path>
+      <path d="M199 166V-.178814e-6" stroke="url(#paint3_linear_5515_6770)" stroke-opacity=".4">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5515_6770" x1=".116537e-4" x2="218" y1="22.5" y2="22.5561">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5515_6770" x1=".116537e-4" x2="218" y1="142.5" y2="142.556">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5515_6770" x1="19.5" x2="19.4675" y1=".889576e-5" y2="166">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5515_6770" x1="199.5" x2="199.467" y1=".889576e-5" y2="166">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5515_6770">
+       <rect fill="#fff" height="166" width="218">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          label
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         For helper text.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          textarea
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Basic textarea field.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          textarea-floating
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Floating textarea field.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          textarea-filled
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         textarea with background color and floating label.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          textarea-floating-label
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Floats the label to the top.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          textarea-filled-label
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Floats the label at the top.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          textarea-filled-focused
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds animation to the bottom border of a floating filled textarea.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          is-valid
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds success style to the textarea.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          is-invalid
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds error style to the textarea.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic textarea example.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText("&lt;textarea class=\"textarea max-w-sm\" aria-label=\"Textarea\" &gt;&lt;/textarea&gt;")' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <textarea aria-label="Textarea" class="textarea max-w-sm"></textarea>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea max-w-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Textarea"</span> &gt;&lt;/<span style="color:#f92672">textarea</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="label-and-placeholder">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#label-and-placeholder">
+       Label and placeholder
+      </a>
+      <a aria-label=" Label and placeholder " class="no-underline" href="#label-and-placeholder">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic textarea with placeholder.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="sm:w-96"&gt;
+  &lt;label class="label label-text" for="textareaLabel"&gt; Your bio &lt;/label&gt;
+  &lt;textarea class="textarea" placeholder="Hello!!!" id="textareaLabel"&gt;&lt;/textarea&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="sm:w-96">
+        <label class="label label-text" for="textareaLabel">
+         Your bio
+        </label>
+        <textarea class="textarea" id="textareaLabel" placeholder="Hello!!!"></textarea>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaLabel"</span>&gt; Your bio &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaLabel"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="types">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#types">
+       Types
+      </a>
+      <a aria-label=" Types " class="no-underline" href="#types">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default-2">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText("&lt;textarea class=\"textarea max-w-sm\" placeholder=\"Hello!!!\" &gt;&lt;/textarea&gt;")' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <textarea class="textarea max-w-sm" placeholder="Hello!!!"></textarea>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea max-w-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> &gt;&lt;/<span style="color:#f92672">textarea</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="floating-label">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#floating-label">
+       Floating label
+      </a>
+      <a aria-label=" Floating label " class="no-underline" href="#floating-label">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     textarea-floating
+    </code>
+    style is used to define the appearance of the textarea, while the
+    <code>
+     textarea-floating-label
+    </code>
+    is the container for the label text. To handle cases where the content exceeds the initial size, we applied the
+    <code>
+     field-sizing: content;
+    </code>
+    CSS rule, allowing the textarea to expand when the content exceeds the set maximum height of
+    <code>
+     5rem
+    </code>
+    (
+    <code>
+     m-h-20
+    </code>
+    ).
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="relative sm:w-96"&gt;
+  &lt;textarea class="textarea textarea-floating peer" placeholder="Hello!!!" id="textareaFloating"&gt;&lt;/textarea&gt;
+  &lt;label class="textarea-floating-label" for="textareaFloating"&gt;Your bio&lt;/label&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="relative sm:w-96">
+        <textarea class="textarea textarea-floating peer" id="textareaFloating" placeholder="Hello!!!"></textarea>
+        <label class="textarea-floating-label" for="textareaFloating">
+         Your bio
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-floating peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaFloating"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaFloating"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="filled-textarea">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#filled-textarea">
+       Filled textarea
+      </a>
+      <a aria-label=" Filled textarea " class="no-underline" href="#filled-textarea">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     textarea-filled
+    </code>
+    style is applied to the textarea, with
+    <code>
+     textarea-filled-label
+    </code>
+    for the label and
+    <code>
+     textarea-filled-focused
+    </code>
+    for focus animations. The textarea auto-expands beyond a
+    <code>
+     5rem
+    </code>
+    max height using
+    <code>
+     field-sizing: content;
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="relative sm:w-96"&gt;
+  &lt;textarea class="textarea textarea-filled peer" placeholder="Hello!!!" id="textareaFilled"&gt;&lt;/textarea&gt;
+  &lt;label class="textarea-filled-label" for="textareaFilled"&gt;Your bio&lt;/label&gt;
+  &lt;span class="textarea-filled-focused"&gt;&lt;/span&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="relative sm:w-96">
+        <textarea class="textarea textarea-filled peer" id="textareaFilled" placeholder="Hello!!!"></textarea>
+        <label class="textarea-filled-label" for="textareaFilled">
+         Your bio
+        </label>
+        <span class="textarea-filled-focused">
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-filled peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaFilled"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaFilled"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="validation-states">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#validation-states">
+       Validation states
+      </a>
+      <a aria-label=" Validation states " class="no-underline" href="#validation-states">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="success-state">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#success-state">
+       Success state
+      </a>
+      <a aria-label=" Success state " class="no-underline" href="#success-state">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Success state can be show using
+    <code>
+     is-valid
+    </code>
+    class.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;!-- Basic --&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;label class="label label-text" for="textareaStateSuccessDefault"&gt; Full Name &lt;/label&gt;
+  &lt;textarea class="textarea is-valid" placeholder="Hello!!!" id="textareaStateSuccessDefault"&gt;&lt;/textarea&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Floating --&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;div class="label justify-end"&gt;
+    &lt;span class="label-text-alt"&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="relative"&gt;
+    &lt;textarea class="textarea textarea-floating is-valid peer" placeholder="Hello!!!" id="textareaStateSuccessFloating"&gt;&lt;/textarea&gt;
+    &lt;label class="textarea-floating-label" for="textareaStateSuccessFloating"&gt;Your bio&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Filled --&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;div class="label justify-end"&gt;
+    &lt;span class="label-text-alt"&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="relative"&gt;
+    &lt;textarea class="textarea textarea-filled is-valid peer" placeholder="Hello!!!" id="textareaStateSuccessFilled"&gt;&lt;/textarea&gt;
+    &lt;label class="textarea-filled-label" for="textareaStateSuccessFilled"&gt;Your bio&lt;/label&gt;
+    &lt;span class="textarea-filled-focused"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block space-y-4 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="sm:w-96">
+        <label class="label label-text" for="textareaStateSuccessDefault">
+         Full Name
+        </label>
+        <textarea class="textarea is-valid" id="textareaStateSuccessDefault" placeholder="Hello!!!"></textarea>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="sm:w-96">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <textarea class="textarea textarea-floating is-valid peer" id="textareaStateSuccessFloating" placeholder="Hello!!!"></textarea>
+         <label class="textarea-floating-label" for="textareaStateSuccessFloating">
+          Your bio
+         </label>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="sm:w-96">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <textarea class="textarea textarea-filled is-valid peer" id="textareaStateSuccessFilled" placeholder="Hello!!!"></textarea>
+         <label class="textarea-filled-label" for="textareaStateSuccessFilled">
+          Your bio
+         </label>
+         <span class="textarea-filled-focused">
+         </span>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Basic --&gt;</span>
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateSuccessDefault"</span>&gt; Full Name &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea is-valid"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateSuccessDefault"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Floating --&gt;</span>
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-floating is-valid peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateSuccessFloating"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateSuccessFloating"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Filled --&gt;</span>
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-filled is-valid peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateSuccessFilled"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateSuccessFilled"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="error-state">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#error-state">
+       Error state
+      </a>
+      <a aria-label=" Error state " class="no-underline" href="#error-state">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Error state can be show using
+    <code>
+     is-invalid
+    </code>
+    class.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;!-- Basic --&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;label class="label label-text" for="textareaStateErrorDefault"&gt; Full Name &lt;/label&gt;
+  &lt;textarea class="textarea is-invalid" placeholder="Hello!!!" id="textareaStateErrorDefault"&gt;&lt;/textarea&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Floating --&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;div class="label justify-end"&gt;
+    &lt;span class="label-text-alt"&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="relative"&gt;
+    &lt;textarea class="textarea textarea-floating peer is-invalid" placeholder="Hello!!!" id="textareaStateErrorFloating"&gt;&lt;/textarea&gt;
+    &lt;label class="textarea-floating-label" for="textareaStateErrorFloating"&gt;Your bio&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Filled --&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;div class="label justify-end"&gt;
+    &lt;span class="label-text-alt"&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="relative"&gt;
+    &lt;textarea class="textarea textarea-filled peer is-invalid" placeholder="Hello!!!" id="textareaStateErrorFilled"&gt;&lt;/textarea&gt;
+    &lt;label class="textarea-filled-label" for="textareaStateErrorFilled"&gt;Your bio&lt;/label&gt;
+    &lt;span class="textarea-filled-focused"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block space-y-4 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="sm:w-96">
+        <label class="label label-text" for="textareaStateErrorDefault">
+         Full Name
+        </label>
+        <textarea class="textarea is-invalid" id="textareaStateErrorDefault" placeholder="Hello!!!"></textarea>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="sm:w-96">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <textarea class="textarea textarea-floating peer is-invalid" id="textareaStateErrorFloating" placeholder="Hello!!!"></textarea>
+         <label class="textarea-floating-label" for="textareaStateErrorFloating">
+          Your bio
+         </label>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="sm:w-96">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <textarea class="textarea textarea-filled peer is-invalid" id="textareaStateErrorFilled" placeholder="Hello!!!"></textarea>
+         <label class="textarea-filled-label" for="textareaStateErrorFilled">
+          Your bio
+         </label>
+         <span class="textarea-filled-focused">
+         </span>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Basic --&gt;</span>
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateErrorDefault"</span>&gt; Full Name &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea is-invalid"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateErrorDefault"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Floating --&gt;</span>
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-floating peer is-invalid"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateErrorFloating"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateErrorFloating"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Filled --&gt;</span>
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-filled peer is-invalid"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateErrorFilled"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaStateErrorFilled"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="hidden-label">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#hidden-label">
+       Hidden label
+      </a>
+      <a aria-label=" Hidden label " class="no-underline" href="#hidden-label">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    <code>
+     label
+    </code>
+    elements hidden using the .sr-only class.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="w-full sm:w-96"&gt;
+  &lt;label class="label label-text sr-only" for="textareaHiddenLabel"&gt; Your bio &lt;/label&gt;
+  &lt;textarea class="textarea" placeholder="Hello!!!" id="textareaHiddenLabel"&gt;&lt;/textarea&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-full sm:w-96">
+        <label class="label label-text sr-only" for="textareaHiddenLabel">
+         Your bio
+        </label>
+        <textarea class="textarea" id="textareaHiddenLabel" placeholder="Hello!!!"></textarea>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-full sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text sr-only"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHiddenLabel"</span>&gt; Your bio &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHiddenLabel"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="disable">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#disable">
+       Disable
+      </a>
+      <a aria-label=" Disable " class="no-underline" href="#disable">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Add the
+    <code>
+     disabled
+    </code>
+    boolean attribute on an textarea to remove pointer events, and prevent focusing.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="w-full sm:w-96"&gt;
+  &lt;label class="label -text sr-only" for="textareaDisabledefault"&gt; Your bio &lt;/label&gt;
+  &lt;textarea class="textarea" placeholder="Hello!!!" id="textareaDisabledefault" disabled&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;textarea class="textarea textarea-floating peer" placeholder="Hello!!!" id="textareaDisabledoating" disabled&gt;&lt;/textarea&gt;
+  &lt;label class="textarea-floating-label" for="textareaDisabledoating"&gt;Your bio&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;textarea class="textarea textarea-filled peer" placeholder="Hello!!!" id="textareaDisabledFilled" disabled&gt;&lt;/textarea&gt;
+  &lt;label class="textarea-filled-label" for="textareaDisabledFilled"&gt;Your bio&lt;/label&gt;
+  &lt;span class="textarea-filled-focused"&gt;&lt;/span&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block space-y-4 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-full sm:w-96">
+        <label class="label -text sr-only" for="textareaDisabledefault">
+         Your bio
+        </label>
+        <textarea class="textarea" disabled="" id="textareaDisabledefault" placeholder="Hello!!!"></textarea>
+       </div>
+       <div class="sm:w-96">
+        <textarea class="textarea textarea-floating peer" disabled="" id="textareaDisabledoating" placeholder="Hello!!!"></textarea>
+        <label class="textarea-floating-label" for="textareaDisabledoating">
+         Your bio
+        </label>
+       </div>
+       <div class="sm:w-96">
+        <textarea class="textarea textarea-filled peer" disabled="" id="textareaDisabledFilled" placeholder="Hello!!!"></textarea>
+        <label class="textarea-filled-label" for="textareaDisabledFilled">
+         Your bio
+        </label>
+        <span class="textarea-filled-focused">
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-full sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label -text sr-only"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaDisabledefault"</span>&gt; Your bio &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaDisabledefault"</span> <span style="color:#a6e22e">disabled</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-floating peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaDisabledoating"</span> <span style="color:#a6e22e">disabled</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaDisabledoating"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-filled peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaDisabledFilled"</span> <span style="color:#a6e22e">disabled</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaDisabledFilled"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="readonly">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#readonly">
+       Readonly
+      </a>
+      <a aria-label=" Readonly " class="no-underline" href="#readonly">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Add the
+    <code>
+     readonly
+    </code>
+    boolean attribute on an textarea to prevent modification of the textarea value.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="w-full sm:w-96"&gt;
+  &lt;label class="label label-text sr-only" for="textareaReadonly"&gt; Your bio &lt;/label&gt;
+  &lt;textarea class="textarea" placeholder="Hello!!!" id="textareaReadonly" readonly&gt;&lt;/textarea&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-full sm:w-96">
+        <label class="label label-text sr-only" for="textareaReadonly">
+         Your bio
+        </label>
+        <textarea class="textarea" id="textareaReadonly" placeholder="Hello!!!" readonly=""></textarea>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-full sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text sr-only"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaReadonly"</span>&gt; Your bio &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaReadonly"</span> <span style="color:#a6e22e">readonly</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="helper-text">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#helper-text">
+       Helper text
+      </a>
+      <a aria-label=" Helper text " class="no-underline" href="#helper-text">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic textarea example with helper text and hints.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;!-- Basic --&gt;
+&lt;div class="w-full sm:w-96"&gt;
+  &lt;label class="label label-text" for="textareaHelperTextDefault"&gt; Full Name &lt;/label&gt;
+  &lt;textarea class="textarea" placeholder="Hello!!!" id="textareaHelperTextDefault"&gt;&lt;/textarea&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Floating --&gt;
+&lt;div class="sm:w-96"&gt;
+  &lt;div class="label justify-end"&gt;
+    &lt;span class="label-text-alt"&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="relative"&gt;
+    &lt;textarea class="textarea textarea-floating peer" placeholder="Hello!!!" id="textareaHelperTextFloating"&gt;&lt;/textarea&gt;
+    &lt;label class="textarea-floating-label" for="textareaHelperTextFloating"&gt;Your bio&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Filled --&gt;
+
+&lt;div class="sm:w-96"&gt;
+  &lt;div class="label justify-end"&gt;
+    &lt;span class="label-text-alt"&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="relative"&gt;
+    &lt;textarea class="textarea textarea-filled peer" placeholder="Hello!!!" id="textareaHelperTextFilled"&gt;&lt;/textarea&gt;
+    &lt;label class="textarea-filled-label" for="textareaHelperTextFilled"&gt;Your bio&lt;/label&gt;
+    &lt;span class="textarea-filled-focused"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="label"&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class="label-text-alt"&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block space-y-4 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-full sm:w-96">
+        <label class="label label-text" for="textareaHelperTextDefault">
+         Full Name
+        </label>
+        <textarea class="textarea" id="textareaHelperTextDefault" placeholder="Hello!!!"></textarea>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="sm:w-96">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <textarea class="textarea textarea-floating peer" id="textareaHelperTextFloating" placeholder="Hello!!!"></textarea>
+         <label class="textarea-floating-label" for="textareaHelperTextFloating">
+          Your bio
+         </label>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="sm:w-96">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <textarea class="textarea textarea-filled peer" id="textareaHelperTextFilled" placeholder="Hello!!!"></textarea>
+         <label class="textarea-filled-label" for="textareaHelperTextFilled">
+          Your bio
+         </label>
+         <span class="textarea-filled-focused">
+         </span>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Basic --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-full sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHelperTextDefault"</span>&gt; Full Name &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHelperTextDefault"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Floating --&gt;</span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-floating peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHelperTextFloating"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHelperTextFloating"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#75715e">&lt;!-- Filled --&gt;</span>
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"sm:w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea textarea-filled peer"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Hello!!!"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHelperTextFilled"</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textareaHelperTextFilled"</span>&gt;Your bio&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"textarea-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/forms/switch/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Switch
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/advanced-forms/advanced-select/">
+     Advanced Select
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

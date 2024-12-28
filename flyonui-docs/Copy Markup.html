@@ -1,0 +1,2015 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     advanced forms
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Copy Markup
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     The Copy Markup Component adds extra fields, like address entries, simplifying form expansion and making it ideal for dynamic surveys and registrations.
+    </p>
+    <div class="mt-3 flex items-center gap-2">
+     <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" d="M17.6745 16.9224 12.6233 10.378C12.2167 9.85117 11.4185 9.8611 11.0251 10.3979L6.45728 16.631C6.26893 16.888 5.96935 17.0398 5.65069 17.0398H3.79114C2.9635 17.0398 2.49412 16.0919 2.99583 15.4336L11.0224 4.90319C11.4206 4.38084 12.2056 4.37762 12.608 4.89668L20.9829 15.6987C21.4923 16.3558 21.024 17.3114 20.1926 17.3114H18.4661C18.1562 17.3114 17.8638 17.1677 17.6745 16.9224zm-5.0879-1.33 2.309 2.7669C15.439 19.0105 14.976 20 14.1278 20H9.74075C8.9164 20 8.4461 19.0586 8.94116 18.3994l2.07804-2.7669C11.4065 15.1169 12.1734 15.0972 12.5866 15.5924z" fill="oklch(var(--p))" fill-rule="evenodd">
+      </path>
+     </svg>
+     <a aria-label="Component requires flyonui JavaScript" class="link link-animated link-primary flex items-center gap-2 font-medium" href="/docs/getting-started/quick-start/">
+      <span>
+       Require FlyonUI JS
+      </span>
+      <span class="icon-[tabler--external-link] size-5 pt-1">
+      </span>
+     </a>
+    </div>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="134" viewbox="0 0 178 134" width="178" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5515_6859)">
+      <path d="M18 134V.178814e-5" stroke="url(#paint0_linear_5515_6859)" stroke-opacity=".4">
+      </path>
+      <path d="M161 134V.178814e-5" stroke="url(#paint1_linear_5515_6859)" stroke-opacity=".4">
+      </path>
+      <path d="M178 19H.13113e-5" stroke="url(#paint2_linear_5515_6859)" stroke-opacity=".4">
+      </path>
+      <path d="M178 115H.13113e-5" stroke="url(#paint3_linear_5515_6859)" stroke-opacity=".4">
+      </path>
+      <rect fill="#76717f" fill-opacity=".06" height="28" rx="8" width="143" x="18" y="19">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".06" height="28" rx="8" width="143" x="18" y="51">
+      </rect>
+      <rect fill="oklch(var(--p))" height="8" rx="4" width="59" x="28" y="29">
+      </rect>
+      <rect fill="#3f404d" fill-opacity=".5" height="8" rx="4" width="37" x="28" y="61">
+      </rect>
+      <rect fill="oklch(var(--p))" height="32" rx="8" width="90" x="71" y="83">
+      </rect>
+      <rect fill="#fff" height="8" rx="4" width="58" x="87" y="95">
+      </rect>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5515_6859" x1="18.5" x2="18.4788" y1=".719035e-5" y2="134">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5515_6859" x1="161.5" x2="161.479" y1=".719035e-5" y2="134">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5515_6859" x1=".951539e-5" x2="178" y1="18.5" y2="18.5374">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5515_6859" x1=".951539e-5" x2="178" y1="114.5" y2="114.537">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5515_6859">
+       <rect fill="#fff" height="134" width="178">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          input
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Base class for input field.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Base class for select field.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="default">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     data-copy-markup
+    </code>
+    attribute defines the configuration for copying content. It has three key properties:
+   </p>
+   <ul>
+    <li>
+     <code>
+      targetSelector
+     </code>
+     : The element to be copied, specified by a CSS selector.
+    </li>
+    <li>
+     <code>
+      wrapperSelector
+     </code>
+     : The element where the copied content is placed.
+    </li>
+    <li>
+     <code>
+      limit
+     </code>
+     : The maximum number of times content can be copied.
+    </li>
+   </ul>
+   <p>
+    In this setup, the “Add Technology” button copies the content from
+    <code>
+     #content-for-copy
+    </code>
+    into the
+    <code>
+     #wrapper-for-copy
+    </code>
+    container, allowing a maximum of three copies. If the limit is reached, further copies are not allowed.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;p class=&quot;mb-4&quot;&gt;
+  Which technologies have you primarily used? &lt;span class=&quot;text-base-content/90 font-medium&quot;&gt;(Maximum three)&lt;/span&gt;
+&lt;/p&gt;
+
+&lt;div id=&quot;wrapper-for-copy&quot; class=&quot;max-w-xs space-y-3&quot;&gt;
+  &lt;input id=&quot;content-for-copy&quot; type=&quot;text&quot; class=&quot;input&quot; placeholder=&quot;Enter Technology Name&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;mt-4 flex max-w-xs justify-end&quot;&gt;
+  &lt;button
+    type=&quot;button&quot;
+    data-copy-markup='{
+    &quot;targetSelector&quot;: &quot;#content-for-copy&quot;,
+    &quot;wrapperSelector&quot;: &quot;#wrapper-for-copy&quot;,
+    &quot;limit&quot;: 3
+    }'
+    id=&quot;copy-content&quot;
+    class=&quot;btn btn-sm btn-primary&quot;
+  &gt;
+    &lt;span class=&quot;icon-[tabler--plus]&quot;&gt;&lt;/span&gt;
+    Add Technology
+  &lt;/button&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="mb-4">
+        Which technologies have you primarily used?
+        <span class="text-base-content/90 font-medium">
+         (Maximum three)
+        </span>
+       </p>
+       <div class="max-w-xs space-y-3" id="wrapper-for-copy">
+        <input class="input" id="content-for-copy" placeholder="Enter Technology Name" type="text"/>
+       </div>
+       <div class="mt-4 flex max-w-xs justify-end">
+        <button class="btn btn-sm btn-primary" data-copy-markup='{
+    "targetSelector": "#content-for-copy",
+    "wrapperSelector": "#wrapper-for-copy",
+    "limit": 3
+    }' id="copy-content" type="button">
+         <span class="icon-[tabler--plus]">
+         </span>
+         Add Technology
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-4"</span>&gt;
+</span></span><span style="display:flex"><span>  Which technologies have you primarily used? &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-medium"</span>&gt;(Maximum three)&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"wrapper-for-copy"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-xs space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"content-for-copy"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Enter Technology Name"</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex max-w-xs justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">data-copy-markup</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "targetSelector": "#content-for-copy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "wrapperSelector": "#wrapper-for-copy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "limit": 3
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    }'</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"copy-content"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>
+</span></span><span style="display:flex"><span>  &gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--plus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    Add Technology
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-select">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-select">
+       With select
+      </a>
+      <a aria-label=" With select " class="no-underline" href="#with-select">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Below example shows copy markup with select.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div id=&quot;wrapper-select-for-copy&quot; class=&quot;space-y-3&quot;&gt;
+  &lt;div id=&quot;content-select-for-copy&quot; class=&quot;flex items-end gap-3 max-sm:flex-col&quot;&gt;
+    &lt;div class=&quot;w-full sm:w-1/4&quot;&gt;
+      &lt;label class=&quot;label label-text&quot; for=&quot;select&quot;&gt; Options &lt;/label&gt;
+      &lt;select class=&quot;select&quot; aria-label=&quot;select option&quot; id=&quot;select&quot;&gt;
+        &lt;option disabled selected&gt;Choose option&lt;/option&gt;
+        &lt;option value=&quot;size&quot;&gt;Size&lt;/option&gt;
+        &lt;option value=&quot;color&quot;&gt;Color&lt;/option&gt;
+        &lt;option value=&quot;weight&quot;&gt;Weight&lt;/option&gt;
+        &lt;option value=&quot;smell&quot;&gt;Smell&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input w-full sm:w-3/4&quot; placeholder=&quot;Enter Value&quot; /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p class=&quot;mt-4 text-end&quot;&gt;
+  &lt;button
+    type=&quot;button&quot;
+    data-copy-markup='{
+      &quot;targetSelector&quot;: &quot;#content-select-for-copy&quot;,
+      &quot;wrapperSelector&quot;: &quot;#wrapper-select-for-copy&quot;,
+      &quot;limit&quot;: 4
+    }'
+    id=&quot;copy-select-content&quot;
+    class=&quot;btn btn-sm btn-primary&quot;
+  &gt;
+    Add another option
+  &lt;/button&gt;
+&lt;/p&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="space-y-3" id="wrapper-select-for-copy">
+        <div class="flex items-end gap-3 max-sm:flex-col" id="content-select-for-copy">
+         <div class="w-full sm:w-1/4">
+          <label class="label label-text" for="select">
+           Options
+          </label>
+          <select aria-label="select option" class="select" id="select">
+           <option disabled="" selected="">
+            Choose option
+           </option>
+           <option value="size">
+            Size
+           </option>
+           <option value="color">
+            Color
+           </option>
+           <option value="weight">
+            Weight
+           </option>
+           <option value="smell">
+            Smell
+           </option>
+          </select>
+         </div>
+         <input class="input w-full sm:w-3/4" placeholder="Enter Value" type="text"/>
+        </div>
+       </div>
+       <p class="mt-4 text-end">
+        <button class="btn btn-sm btn-primary" data-copy-markup='{
+      "targetSelector": "#content-select-for-copy",
+      "wrapperSelector": "#wrapper-select-for-copy",
+      "limit": 4
+    }' id="copy-select-content" type="button">
+         Add another option
+        </button>
+       </p>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"wrapper-select-for-copy"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"content-select-for-copy"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-end gap-3 max-sm:flex-col"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-full sm:w-1/4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt; Options &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select option"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Choose option&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"size"</span>&gt;Size&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"color"</span>&gt;Color&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"weight"</span>&gt;Weight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"smell"</span>&gt;Smell&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input w-full sm:w-3/4"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Enter Value"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 text-end"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">data-copy-markup</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">      "targetSelector": "#content-select-for-copy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">      "wrapperSelector": "#wrapper-select-for-copy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">      "limit": 4
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    }'</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"copy-select-content"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>
+</span></span><span style="display:flex"><span>  &gt;
+</span></span><span style="display:flex"><span>    Add another option
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="modals">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#modals">
+       Modals
+      </a>
+      <a aria-label=" Modals " class="no-underline" href="#modals">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Below example shows copy markup with select in modals.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;modal-with-copy-markup&quot; data-overlay=&quot;#modal-with-copy-markup&quot;&gt;Open modal&lt;/button&gt;
+
+&lt;div id=&quot;modal-with-copy-markup&quot; class=&quot;overlay modal overlay-open:opacity-100 hidden&quot; role=&quot;dialog&quot; tabindex=&quot;-1&quot;&gt;
+  &lt;div class=&quot;modal-dialog overlay-open:opacity-100&quot;&gt;
+    &lt;div class=&quot;modal-content&quot;&gt;
+      &lt;div class=&quot;modal-header&quot;&gt;
+        &lt;h3 class=&quot;modal-title&quot;&gt;Skill survey&lt;/h3&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-text btn-circle btn-sm absolute end-3 top-3&quot; aria-label=&quot;Close&quot; data-overlay=&quot;#modal-with-copy-markup&quot;&gt;
+          &lt;span class=&quot;icon-[tabler--x] size-4&quot;&gt;&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;modal-body grow space-y-3&quot;&gt;
+        &lt;p&gt;
+          Which technologies have you primarily used?
+          &lt;br /&gt;
+          &lt;span class=&quot;text-base-content/90 font-medium&quot;&gt;(Maximum four)&lt;/span&gt;
+        &lt;/p&gt;
+        &lt;div id=&quot;modal-wrapper-select-for-copy&quot; class=&quot;space-y-3&quot;&gt;
+          &lt;div id=&quot;modal-content-select-for-copy&quot;&gt;
+            &lt;select class=&quot;select&quot;&gt;
+              &lt;option disabled selected&gt;Choose Technology&lt;/option&gt;
+              &lt;option value=&quot;html&quot;&gt;HTML&lt;/option&gt;
+              &lt;option value=&quot;css&quot;&gt;CSS&lt;/option&gt;
+              &lt;option value=&quot;javascript&quot;&gt;JavaScript&lt;/option&gt;
+              &lt;option value=&quot;tailwindcss&quot;&gt;TailwindCSS&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;text-end&quot;&gt;
+          &lt;button
+            type=&quot;button&quot;
+            data-copy-markup='{
+              &quot;targetSelector&quot;: &quot;#modal-content-select-for-copy&quot;,
+              &quot;wrapperSelector&quot;: &quot;#modal-wrapper-select-for-copy&quot;,
+              &quot;limit&quot;: 4
+            }'
+            id=&quot;copy-select-with-modal-content&quot;
+            class=&quot;btn btn-sm btn-primary&quot;&gt;
+            Add another option
+          &lt;/button&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;modal-footer mt-16&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-soft btn-secondary&quot; data-overlay=&quot;#modal-with-copy-markup&quot;&gt;Close&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;Save changes&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <button aria-controls="modal-with-copy-markup" aria-expanded="false" aria-haspopup="dialog" class="btn btn-primary" data-overlay="#modal-with-copy-markup" type="button">
+        Open modal
+       </button>
+       <div class="overlay modal overlay-open:opacity-100 hidden" id="modal-with-copy-markup" role="dialog" tabindex="-1">
+        <div class="modal-dialog overlay-open:opacity-100">
+         <div class="modal-content">
+          <div class="modal-header">
+           <h3 class="modal-title">
+            Skill survey
+           </h3>
+           <button aria-label="Close" class="btn btn-text btn-circle btn-sm absolute end-3 top-3" data-overlay="#modal-with-copy-markup" type="button">
+            <span class="icon-[tabler--x] size-4">
+            </span>
+           </button>
+          </div>
+          <div class="modal-body grow space-y-3">
+           <p>
+            Which technologies have you primarily used?
+            <br/>
+            <span class="text-base-content/90 font-medium">
+             (Maximum four)
+            </span>
+           </p>
+           <div class="space-y-3" id="modal-wrapper-select-for-copy">
+            <div id="modal-content-select-for-copy">
+             <select class="select">
+              <option disabled="" selected="">
+               Choose Technology
+              </option>
+              <option value="html">
+               HTML
+              </option>
+              <option value="css">
+               CSS
+              </option>
+              <option value="javascript">
+               JavaScript
+              </option>
+              <option value="tailwindcss">
+               TailwindCSS
+              </option>
+             </select>
+            </div>
+           </div>
+           <p class="text-end">
+            <button class="btn btn-sm btn-primary" data-copy-markup='{
+              "targetSelector": "#modal-content-select-for-copy",
+              "wrapperSelector": "#modal-wrapper-select-for-copy",
+              "limit": 4
+            }' id="copy-select-with-modal-content" type="button">
+             Add another option
+            </button>
+           </p>
+          </div>
+          <div class="modal-footer mt-16">
+           <button class="btn btn-soft btn-secondary" data-overlay="#modal-with-copy-markup" type="button">
+            Close
+           </button>
+           <button class="btn btn-primary" type="button">
+            Save changes
+           </button>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">aria-haspopup</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dialog"</span> <span style="color:#a6e22e">aria-expanded</span><span style="color:#f92672">=</span><span style="color:#e6db74">"false"</span> <span style="color:#a6e22e">aria-controls</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-with-copy-markup"</span> <span style="color:#a6e22e">data-overlay</span><span style="color:#f92672">=</span><span style="color:#e6db74">"#modal-with-copy-markup"</span>&gt;Open modal&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-with-copy-markup"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"overlay modal overlay-open:opacity-100 hidden"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dialog"</span> <span style="color:#a6e22e">tabindex</span><span style="color:#f92672">=</span><span style="color:#e6db74">"-1"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-dialog overlay-open:opacity-100"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-content"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-header"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-title"</span>&gt;Skill survey&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-text btn-circle btn-sm absolute end-3 top-3"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Close"</span> <span style="color:#a6e22e">data-overlay</span><span style="color:#f92672">=</span><span style="color:#e6db74">"#modal-with-copy-markup"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--x] size-4"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-body grow space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>          Which technologies have you primarily used?
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">br</span> /&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-medium"</span>&gt;(Maximum four)&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-wrapper-select-for-copy"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-content-select-for-copy"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Choose Technology&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"html"</span>&gt;HTML&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"css"</span>&gt;CSS&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"javascript"</span>&gt;JavaScript&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>              &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tailwindcss"</span>&gt;TailwindCSS&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-end"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex"><span>            <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span>
+</span></span><span style="display:flex"><span>            <span style="color:#a6e22e">data-copy-markup</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">              "targetSelector": "#modal-content-select-for-copy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">              "wrapperSelector": "#modal-wrapper-select-for-copy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">              "limit": 4
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            }'</span>
+</span></span><span style="display:flex"><span>            <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"copy-select-with-modal-content"</span>
+</span></span><span style="display:flex"><span>            <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>&gt;
+</span></span><span style="display:flex"><span>            Add another option
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"modal-footer mt-16"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-soft btn-secondary"</span> <span style="color:#a6e22e">data-overlay</span><span style="color:#f92672">=</span><span style="color:#e6db74">"#modal-with-copy-markup"</span>&gt;Close&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span>&gt;Save changes&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-remove-option">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-remove-option">
+       With remove option
+      </a>
+      <a aria-label=" With remove option " class="no-underline" href="#with-remove-option">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Add an attribute named
+    <code>
+     data-copy-markup-delete-item
+    </code>
+    to any button within a component identified by a specific ID. This attribute will enable the button to delete the component when clicked.
+   </p>
+   <p>
+    Below example shows copy markup with remove(delete) option.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;p class=&quot;mb-4&quot;&gt;
+  Which technologies have you primarily used? &lt;span class=&quot;text-base-content/90 font-medium&quot;&gt;(Maximum three)&lt;/span&gt;
+&lt;/p&gt;
+  
+&lt;div id=&quot;wrapper-remove-for-copy-target&quot; class=&quot;max-w-sm space-y-3&quot;&gt;
+  &lt;div id=&quot;content-remove-for-copy-target&quot; class=&quot;flex items-center gap-2&quot;&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; placeholder=&quot;Enter Technology Name&quot; /&gt;
+    &lt;button class=&quot;btn btn-square btn-outline btn-error&quot; aria-label=&quot;delete button&quot; data-copy-markup-delete-item&gt;
+      &lt;span class=&quot;icon-[tabler--x]&quot;&gt;&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+  
+&lt;div class=&quot;flex max-w-sm justify-end gap-2 mt-4&quot;&gt;
+  &lt;button
+    type=&quot;button&quot;
+    data-copy-markup='{
+    &quot;targetSelector&quot;: &quot;#content-remove-for-copy-target&quot;,
+    &quot;wrapperSelector&quot;: &quot;#wrapper-remove-for-copy-target&quot;,
+    &quot;limit&quot;: 3
+    }'
+    id=&quot;copy-content-rem-btn&quot;
+    class=&quot;btn btn-sm btn-primary&quot;&gt;
+    &lt;span class=&quot;icon-[tabler--plus]&quot;&gt;&lt;/span&gt;
+    Add Technology
+  &lt;/button&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="mb-4">
+        Which technologies have you primarily used?
+        <span class="text-base-content/90 font-medium">
+         (Maximum three)
+        </span>
+       </p>
+       <div class="max-w-sm space-y-3" id="wrapper-remove-for-copy-target">
+        <div class="flex items-center gap-2" id="content-remove-for-copy-target">
+         <input class="input" placeholder="Enter Technology Name" type="text"/>
+         <button aria-label="delete button" class="btn btn-square btn-outline btn-error" data-copy-markup-delete-item="">
+          <span class="icon-[tabler--x]">
+          </span>
+         </button>
+        </div>
+       </div>
+       <div class="flex max-w-sm justify-end gap-2 mt-4">
+        <button class="btn btn-sm btn-primary" data-copy-markup='{
+    "targetSelector": "#content-remove-for-copy-target",
+    "wrapperSelector": "#wrapper-remove-for-copy-target",
+    "limit": 3
+    }' id="copy-content-rem-btn" type="button">
+         <span class="icon-[tabler--plus]">
+         </span>
+         Add Technology
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-4"</span>&gt;
+</span></span><span style="display:flex"><span>  Which technologies have you primarily used? &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-medium"</span>&gt;(Maximum three)&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"wrapper-remove-for-copy-target"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"content-remove-for-copy-target"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center gap-2"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Enter Technology Name"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-square btn-outline btn-error"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"delete button"</span> <span style="color:#a6e22e">data-copy-markup-delete-item</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--x]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex max-w-sm justify-end gap-2 mt-4"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">data-copy-markup</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "targetSelector": "#content-remove-for-copy-target",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "wrapperSelector": "#wrapper-remove-for-copy-target",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "limit": 3
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    }'</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"copy-content-rem-btn"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--plus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    Add Technology
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p>
+    <div class="flex items-center">
+     <h3 class="text-[1.25rem] !mt-0" id="destroy/reinitialize">
+      <span class="not-prose group relative flex items-center gap-1">
+       <a href="#destroy%2freinitialize">
+        Destroy/Reinitialize
+       </a>
+       <a aria-label=" Destroy/Reinitialize " class="no-underline" href="#destroy%2freinitialize">
+        <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+         <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+         </span>
+        </span>
+       </a>
+      </span>
+     </h3>
+     <span class="badge badge-sm badge-soft badge-primary rounded-full align-middle uppercase">
+      new
+     </span>
+    </div>
+    The
+    <code>
+     destroy
+    </code>
+    <a class="link link-primary" href="#destroy-method">
+     method
+    </a>
+    is provided to facilitate the destruction of a copy markup.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;p class=&quot;mb-4&quot;&gt;
+  Which technologies have you primarily used? &lt;span class=&quot;text-base-content/90 font-medium&quot;&gt;(Maximum three)&lt;/span&gt;
+&lt;/p&gt;
+
+&lt;div id=&quot;wrapper-for-copy-to-destroy&quot; class=&quot;w-full space-y-3&quot;&gt;
+  &lt;input id=&quot;content-for-copy-to-destroy&quot; type=&quot;text&quot; class=&quot;input&quot; placeholder=&quot;Enter Technology Name&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;mt-4 flex w-full justify-end&quot;&gt;
+  &lt;button
+    type=&quot;button&quot;
+    data-copy-markup='{
+    &quot;targetSelector&quot;: &quot;#content-for-copy-to-destroy&quot;,
+    &quot;wrapperSelector&quot;: &quot;#wrapper-for-copy-to-destroy&quot;,
+    &quot;limit&quot;: 3
+    }'
+    id=&quot;copy-markup-to-destroy&quot;
+    class=&quot;btn btn-sm btn-primary&quot;
+  &gt;
+    &lt;span class=&quot;icon-[tabler--plus]&quot;&gt;&lt;/span&gt;
+    Add Technology
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;mt-4 flex gap-3&quot;&gt;
+  &lt;button class=&quot;btn btn-primary&quot; id=&quot;destroy-btn&quot;&gt;Destroy&lt;/button&gt;
+  &lt;button class=&quot;btn btn-primary&quot; id=&quot;reinit-btn&quot; disabled&gt;Reinitialize&lt;/button&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', () =&gt; {
+    // Destroy and reinit variables
+    const copyBtn = document.querySelector('#copy-markup-to-destroy')
+    const destroyBtn = document.querySelector('#destroy-btn')
+    const reinitBtn = document.querySelector('#reinit-btn')
+
+    // Destroy usage
+    destroyBtn.addEventListener('click', () =&gt; {
+      const { element } = HSCopyMarkup.getInstance(copyBtn, true)
+
+      element.destroy()
+
+      destroyBtn.setAttribute('disabled', 'disabled')
+      reinitBtn.removeAttribute('disabled')
+    })
+
+    // Reinit usage
+    reinitBtn.addEventListener('click', () =&gt; {
+      HSCopyMarkup.autoInit()
+
+      reinitBtn.setAttribute('disabled', 'disabled')
+      destroyBtn.removeAttribute('disabled')
+    })
+  })
+&lt;/script&gt;
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="mb-4">
+        Which technologies have you primarily used?
+        <span class="text-base-content/90 font-medium">
+         (Maximum three)
+        </span>
+       </p>
+       <div class="w-full space-y-3" id="wrapper-for-copy-to-destroy">
+        <input class="input" id="content-for-copy-to-destroy" placeholder="Enter Technology Name" type="text"/>
+       </div>
+       <div class="mt-4 flex w-full justify-end">
+        <button class="btn btn-sm btn-primary" data-copy-markup='{
+    "targetSelector": "#content-for-copy-to-destroy",
+    "wrapperSelector": "#wrapper-for-copy-to-destroy",
+    "limit": 3
+    }' id="copy-markup-to-destroy" type="button">
+         <span class="icon-[tabler--plus]">
+         </span>
+         Add Technology
+        </button>
+       </div>
+       <div class="mt-4 flex gap-3">
+        <button class="btn btn-primary" id="destroy-btn">
+         Destroy
+        </button>
+        <button class="btn btn-primary" disabled="" id="reinit-btn">
+         Reinitialize
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-4"</span>&gt;
+</span></span><span style="display:flex"><span>  Which technologies have you primarily used? &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-medium"</span>&gt;(Maximum three)&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"wrapper-for-copy-to-destroy"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-full space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"content-for-copy-to-destroy"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Enter Technology Name"</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex w-full justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">data-copy-markup</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "targetSelector": "#content-for-copy-to-destroy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "wrapperSelector": "#wrapper-for-copy-to-destroy",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "limit": 3
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    }'</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"copy-markup-to-destroy"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>
+</span></span><span style="display:flex"><span>  &gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--plus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    Add Technology
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex gap-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"destroy-btn"</span>&gt;Destroy&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"reinit-btn"</span> <span style="color:#a6e22e">disabled</span>&gt;Reinitialize&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>    <span style="color:#75715e">// Destroy and reinit variables
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">copyBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#copy-markup-to-destroy'</span>)
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destroyBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#destroy-btn'</span>)
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reinitBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#reinit-btn'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#75715e">// Destroy usage
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSCopyMarkup</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#a6e22e">copyBtn</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>()
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">reinitBtn</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#75715e">// Reinit usage
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">reinitBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">HSCopyMarkup</span>.<span style="color:#a6e22e">autoInit</span>()
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">reinitBtn</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="javascript-behavior">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#javascript-behavior">
+       JavaScript behavior
+      </a>
+      <a aria-label=" JavaScript behavior " class="no-underline" href="#javascript-behavior">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="options">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#options">
+       Options
+      </a>
+      <a aria-label=" Options " class="no-underline" href="#options">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="not-prose custom-list mt-4 mb-6 flex items-start gap-4 alert alert-soft !bg-primary/10 alert-primary" role="alert">
+    <span class="icon-[tabler--info-circle] mt-px size-5 shrink-0 leading-none">
+    </span>
+    <span>
+     FlyonUI is powered by
+     <a class="link link-primary font-semibold" href="https://preline.co/plugins.html">
+      Preline’s
+     </a>
+     unstyled, headless Tailwind plugins to deliver accessible and responsive user interfaces.
+    </span>
+    <style>
+     .custom-list li::before{content:"-";margin-right:.5em}
+    </style>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          PARAMETERS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          OPTIONS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DEFAULT VALUE
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           data-copy-markup
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         Activate a Copy Markup by specifying on an element.
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           data-copy-markup-delete-item
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         Deletes targeted markup element on click.
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          :targetSelector
+         </code>
+        </td>
+        <td class="px-4">
+         Specifies the target element to copy. The value must be a valid selector.
+        </td>
+        <td class="px-4">
+         string
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          :wrapperSelector
+         </code>
+        </td>
+        <td class="px-4">
+         Specifies which element should be used for copying. The value must be a valid selector.
+        </td>
+        <td class="px-4">
+         string
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          :limit
+         </code>
+        </td>
+        <td class="px-4">
+         Specifies how many items you can copy until the button is disabled.
+        </td>
+        <td class="px-4">
+         number
+        </td>
+        <td class="px-4">
+         <code>
+          null
+         </code>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="methods">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#methods">
+       Methods
+      </a>
+      <a aria-label=" Methods " class="no-underline" href="#methods">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     HSCopyMarkup
+    </code>
+    object is contained within the global
+    <code>
+     window
+    </code>
+    object.
+   </p>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          METHOD
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          PUBLIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          delete(target)
+         </code>
+        </td>
+        <td class="px-4">
+         <div>
+          Remove the element associated to the
+          <code>
+           target
+          </code>
+          .
+          <ul class="m-0">
+           <li>
+            <code>
+             target
+            </code>
+            should be a Node.
+           </li>
+          </ul>
+         </div>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          destroy()
+         </code>
+        </td>
+        <td class="px-4">
+         Destroys the instance, removes generated markup (if any), removes added classes and attributes.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          STATIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          HSCopyMarkup.getInstance(target, isInstance)
+         </code>
+        </td>
+        <td class="px-4">
+         <div>
+          Returns the element associated to the
+          <code>
+           target
+          </code>
+          .
+          <ul class="m-0">
+           <li>
+            <code>
+             target
+            </code>
+            should be a Node or string (valid selector).
+           </li>
+           <li>
+            <code>
+             isInstance
+            </code>
+            boolean. Returns the instance instead of Node if
+            <code>
+             true
+            </code>
+            .
+           </li>
+          </ul>
+         </div>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h4 class="!mt-0 text-[1rem]" id="method-usage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#method-usage">
+       Method usage
+      </a>
+      <a aria-label=" Method usage " class="no-underline" href="#method-usage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <p>
+    Assign an ID to the button containing the
+    <code>
+     data-copy-markup
+    </code>
+    attribute, as demonstrated in the public method. To explore additional methods, you can copy them into the console.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;p class=&quot;mb-4&quot;&gt;
+  Which technologies have you primarily used? &lt;span class=&quot;text-base-content/90 font-medium&quot;&gt;(Maximum two)&lt;/span&gt;
+&lt;/p&gt;
+
+&lt;div id=&quot;wrapper-method&quot; class=&quot;max-w-sm space-y-3&quot;&gt;
+  &lt;div id=&quot;content-method&quot; class=&quot;flex gap-2&quot;&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; placeholder=&quot;Enter Technology Name&quot; /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;mt-4 flex max-w-sm flex-wrap justify-end gap-2&quot;&gt;
+  &lt;button
+    type=&quot;button&quot;
+    data-copy-markup='{
+    &quot;targetSelector&quot;: &quot;#content-method&quot;,
+    &quot;wrapperSelector&quot;: &quot;#wrapper-method&quot;,
+    &quot;limit&quot;: 2
+    }'
+    id=&quot;copy-method&quot;
+    class=&quot;btn btn-sm btn-primary&quot;
+  &gt;
+    &lt;span class=&quot;icon-[tabler--plus]&quot;&gt;&lt;/span&gt;
+    Add Technology
+  &lt;/button&gt;
+  &lt;button id=&quot;delete-method&quot; class=&quot;btn btn-sm btn-soft btn-error&quot;&gt;
+    &lt;span class=&quot;icon-[tabler--minus]&quot;&gt;&lt;/span&gt;
+    Remove Technology
+  &lt;/button&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', () =&gt; {
+    const deleteBtn = document.querySelector('#delete-method')
+
+    deleteBtn.addEventListener('click', () =&gt; {
+      const copyMarkup = new HSCopyMarkup(document.querySelector('#copy-method'))
+      copyMarkup.delete(document.querySelector('#content-method-0'))
+    })
+  })
+&lt;/script&gt;
+
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="mb-4">
+        Which technologies have you primarily used?
+        <span class="text-base-content/90 font-medium">
+         (Maximum two)
+        </span>
+       </p>
+       <div class="max-w-sm space-y-3" id="wrapper-method">
+        <div class="flex gap-2" id="content-method">
+         <input class="input" placeholder="Enter Technology Name" type="text"/>
+        </div>
+       </div>
+       <div class="mt-4 flex max-w-sm flex-wrap justify-end gap-2">
+        <button class="btn btn-sm btn-primary" data-copy-markup='{
+    "targetSelector": "#content-method",
+    "wrapperSelector": "#wrapper-method",
+    "limit": 2
+    }' id="copy-method" type="button">
+         <span class="icon-[tabler--plus]">
+         </span>
+         Add Technology
+        </button>
+        <button class="btn btn-sm btn-soft btn-error" id="delete-method">
+         <span class="icon-[tabler--minus]">
+         </span>
+         Remove Technology
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-4"</span>&gt;
+</span></span><span style="display:flex"><span>  Which technologies have you primarily used? &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-medium"</span>&gt;(Maximum two)&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"wrapper-method"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"content-method"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex gap-2"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Enter Technology Name"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex max-w-sm flex-wrap justify-end gap-2"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">data-copy-markup</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "targetSelector": "#content-method",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "wrapperSelector": "#wrapper-method",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "limit": 2
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    }'</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"copy-method"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>
+</span></span><span style="display:flex"><span>  &gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--plus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    Add Technology
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"delete-method"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-soft btn-error"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--minus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    Remove Technology
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">deleteBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#delete-method'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">deleteBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">copyMarkup</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HSCopyMarkup</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#copy-method'</span>))
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">copyMarkup</span>.<span style="color:#66d9ef">delete</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#content-method-0'</span>))
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p class="mt-10 mb-1.5 not-prose">
+    Toggle the field to type text (public method).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#75715e">// This method is used in above example.
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">deleteBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#delete-method'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">deleteBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">copyMarkup</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HSCopyMarkup</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#copy-method'</span>))
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">copyMarkup</span>.<span style="color:#66d9ef">delete</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#content-method-0'</span>))
+</span></span><span style="display:flex"><span>})</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`// This method is used in above example.
+const deleteBtn = document.querySelector('#delete-method')
+
+deleteBtn.addEventListener('click', () =&gt; {
+  const copyMarkup = new HSCopyMarkup(document.querySelector('#copy-method'))
+  copyMarkup.delete(document.querySelector('#content-method-0'))
+})`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <p class="mt-10 mb-1.5 not-prose">
+    Toggle the field to type text (mixed).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSCopyMarkup</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#copy-method'</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">deleteBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#delete-method'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">deleteBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#66d9ef">delete</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#content-method-0'</span>));
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const { element } = HSCopyMarkup.getInstance('#copy-method', true);
+const deleteBtn = document.querySelector('#delete-method');
+
+deleteBtn.addEventListener('click', () =&gt; {
+  element.delete(document.querySelector('#content-method-0'));
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <p class="mt-10 mb-1.5 not-prose" id="destroy-method">
+    Destroy instance.
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSCopyMarkup</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#copy-markup'</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destroyBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#destroy-btn'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>();
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const { element } = HSCopyMarkup.getInstance('#copy-markup', true);
+const destroyBtn = document.querySelector('#destroy-btn');
+
+destroyBtn.addEventListener('click', () =&gt; {
+  element.destroy();
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="events">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#events">
+       Events
+      </a>
+      <a aria-label=" Events " class="no-underline" href="#events">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          METHOD
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          RETURNING VALUE
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          on:copy
+         </code>
+        </td>
+        <td class="px-4">
+         Called after target element is copied.
+        </td>
+        <td class="px-4">
+         Copied element
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          on:delete
+         </code>
+        </td>
+        <td class="px-4">
+         Called after target element is deleted.
+        </td>
+        <td class="px-4">
+         Deleted element
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h4 class="!mt-0 text-[1rem]" id="event-usage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#event-usage">
+       Event usage
+      </a>
+      <a aria-label=" Event usage " class="no-underline" href="#event-usage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <p>
+    Assign an ID to the button containing the
+    <code>
+     data-copy-markup
+    </code>
+    attribute, and then use that ID to attach an event.
+The example below demonstrates a use case of event usage. You can view the output in the console.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;p class=&quot;mb-4&quot;&gt;
+  Which technologies have you primarily used? &lt;span class=&quot;text-base-content/90 font-medium&quot;&gt;(Maximum two)&lt;/span&gt;
+&lt;/p&gt;
+
+&lt;div id=&quot;wrapper-event&quot; class=&quot;max-w-sm space-y-3&quot;&gt;
+  &lt;input id=&quot;content-event&quot; type=&quot;text&quot; class=&quot;input --prevent-on-load-init&quot; placeholder=&quot;Enter Technology Name&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;mt-4 flex max-w-sm flex-wrap justify-end gap-2&quot;&gt;
+  &lt;button
+    type=&quot;button&quot;
+    data-copy-markup='{
+    &quot;targetSelector&quot;: &quot;#content-event&quot;,
+    &quot;wrapperSelector&quot;: &quot;#wrapper-event&quot;,
+    &quot;limit&quot;: 2
+    }'
+    id=&quot;copy-event&quot;
+    class=&quot;btn btn-sm btn-primary&quot;
+  &gt;
+    &lt;span class=&quot;icon-[tabler--plus]&quot;&gt;&lt;/span&gt;
+    Add Technology
+  &lt;/button&gt;
+  &lt;button id=&quot;delete-event&quot; class=&quot;btn btn-sm btn-soft btn-error&quot;&gt;
+    &lt;span class=&quot;icon-[tabler--minus]&quot;&gt;&lt;/span&gt;
+    Remove Technology
+  &lt;/button&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', () =&gt; {
+    const el = HSCopyMarkup.getInstance('#copy-event')
+    const deleteBtn2 = document.querySelector('#delete-event')
+
+    deleteBtn2.addEventListener('click', () =&gt; {
+      el.delete(document.querySelector('#content-event-0'))
+    })
+
+    el.on('copy', target =&gt; {
+      console.log('target:', target)
+    })
+    el.on('delete', target =&gt; {
+      console.log('target:', target)
+    })
+  })
+&lt;/script&gt;
+
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <p class="mb-4">
+        Which technologies have you primarily used?
+        <span class="text-base-content/90 font-medium">
+         (Maximum two)
+        </span>
+       </p>
+       <div class="max-w-sm space-y-3" id="wrapper-event">
+        <input class="input --prevent-on-load-init" id="content-event" placeholder="Enter Technology Name" type="text"/>
+       </div>
+       <div class="mt-4 flex max-w-sm flex-wrap justify-end gap-2">
+        <button class="btn btn-sm btn-primary" data-copy-markup='{
+    "targetSelector": "#content-event",
+    "wrapperSelector": "#wrapper-event",
+    "limit": 2
+    }' id="copy-event" type="button">
+         <span class="icon-[tabler--plus]">
+         </span>
+         Add Technology
+        </button>
+        <button class="btn btn-sm btn-soft btn-error" id="delete-event">
+         <span class="icon-[tabler--minus]">
+         </span>
+         Remove Technology
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-4"</span>&gt;
+</span></span><span style="display:flex"><span>  Which technologies have you primarily used? &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 font-medium"</span>&gt;(Maximum two)&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"wrapper-event"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"content-event"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input --prevent-on-load-init"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Enter Technology Name"</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex max-w-sm flex-wrap justify-end gap-2"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">data-copy-markup</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "targetSelector": "#content-event",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "wrapperSelector": "#wrapper-event",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    "limit": 2
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">    }'</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"copy-event"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary"</span>
+</span></span><span style="display:flex"><span>  &gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--plus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    Add Technology
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"delete-event"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-soft btn-error"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--minus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    Remove Technology
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSCopyMarkup</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#copy-event'</span>)
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">deleteBtn2</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#delete-event'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">deleteBtn2</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">el</span>.<span style="color:#66d9ef">delete</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#content-event-0'</span>))
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'copy'</span>, <span style="color:#a6e22e">target</span> =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">'target:'</span>, <span style="color:#a6e22e">target</span>)
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'delete'</span>, <span style="color:#a6e22e">target</span> =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">'target:'</span>, <span style="color:#a6e22e">target</span>)
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p class="mt-10 mb-1.5 not-prose">
+    Call any function on `copy` or `delete` example.
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSCopyMarkup</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#copy-event'</span>)
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">deleteBtn2</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#delete-event'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">deleteBtn2</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">el</span>.<span style="color:#66d9ef">delete</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#content-event-0'</span>))
+</span></span><span style="display:flex"><span>})
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'copy'</span>, <span style="color:#a6e22e">target</span> =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">'target:'</span>, <span style="color:#a6e22e">target</span>)
+</span></span><span style="display:flex"><span>})
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'delete'</span>, <span style="color:#a6e22e">target</span> =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">'target:'</span>, <span style="color:#a6e22e">target</span>)
+</span></span><span style="display:flex"><span>})</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const el = HSCopyMarkup.getInstance('#copy-event')
+const deleteBtn2 = document.querySelector('#delete-event')
+
+deleteBtn2.addEventListener('click', () =&gt; {
+  el.delete(document.querySelector('#content-event-0'))
+})
+
+el.on('copy', target =&gt; {
+  console.log('target:', target)
+})
+
+el.on('delete', target =&gt; {
+  console.log('target:', target)
+})`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/advanced-forms/combo-box/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Combo Box
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/advanced-forms/form-wizard/">
+     Form Wizard
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

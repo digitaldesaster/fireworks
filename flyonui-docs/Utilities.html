@@ -1,0 +1,544 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     customization
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Utilities
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Additional utility classes and CSS variables that FlyonUI uses for components and themes.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="60" viewbox="0 0 60 60" width="60" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_6475_117367)">
+      <mask height="60" id="mask0_6475_117367" maskunits="userSpaceOnUse" style="mask-type:luminance" width="60" x="0" y="0">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="#fff">
+       </path>
+      </mask>
+      <g mask="url(#mask0_6475_117367)">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="oklch(var(--bc))">
+       </path>
+       <path clip-rule="evenodd" d="M41.9953 38.7001 30.6315 24.6934C30.2248 24.1921 29.4567 24.2017 29.0627 24.7132L18.7058 38.158C18.5165 38.4038 18.2238 38.5478 17.9136 38.5478H11.621C10.7822 38.5478 10.3161 37.5771 10.8406 36.9225L29.0608 14.1819C29.459 13.6849 30.2141 13.6818 30.6164 14.1754L49.5749 37.4383C50.1072 38.0916 49.6424 39.0701 48.7997 39.0701H42.7719C42.4705 39.0701 42.1852 38.9341 41.9953 38.7001zm-11.436-3.8978 6.8236 7.779C37.9499 43.2276 37.4909 44.2407 36.6312 44.2407H23.6662c-.8355.0-1.3026-.963899999999995-.7849-1.6196l6.1413-7.779C29.4099 34.3516 30.1471 34.3325 30.5593 34.8023z" fill="url(#paint0_linear_6475_117367)" fill-rule="evenodd">
+       </path>
+      </g>
+      <path d="M45.0005 1.24933h-30c-7.59393.0-13.75001 6.15608-13.75001 13.74997v30c0 7.594 6.15608 13.75 13.75001 13.75h30c7.5939.0 13.75-6.156 13.75-13.75v-30c0-7.59389-6.1561-13.74997-13.75-13.74997z" stroke="url(#paint1_linear_6475_117367)" stroke-width="2">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_6475_117367" x1="30.2104" x2="30.2104" y1="13.8072" y2="44.2407">
+       <stop stop-color="oklch(var(--nc))">
+       </stop>
+       <stop offset="1" stop-color="oklch(var(--nc))" stop-opacity=".8">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_6475_117364" x1="40.0005" x2="40.0005" y1="9.99933" y2="69.9993">
+       <stop stop-color="#fff" stop-opacity=".28">
+       </stop>
+       <stop offset="1" stop-color="#fff" stop-opacity=".04">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_6475_117364">
+       <rect fill="#fff" height="60" transform="translate(10 10)" width="60">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] !mt-0 text-base-content/90" id="utility-classes-and-css-variables-in-flyonui">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#utility-classes-and-css-variables-in-flyonui">
+       Utility classes and CSS variables in FlyonUI
+      </a>
+      <a aria-label=" Utility classes and CSS variables in FlyonUI " class="no-underline" href="#utility-classes-and-css-variables-in-flyonui">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    FlyonUI offers a flexible system of utility classes and CSS variables, allowing you to seamlessly integrate components and themes into your project.
+   </p>
+   <p>
+    Below is an overview of the essential utility classes and variables used across FlyonUI components.
+   </p>
+   <div class="flex items-center">
+    <h3 class="text-[1.375rem] !mt-[1em] text-base-content/90" id="color-utility-classes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#color-utility-classes">
+       Color utility classes
+      </a>
+      <a aria-label=" Color utility classes " class="no-underline" href="#color-utility-classes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    All colors from FlyonUI, including the primary color, can be applied using standard Tailwind CSS utilities. These color utilities extend to various properties, ensuring you can style elements effectively.
+   </p>
+   <p>
+    For example, you can use the
+    <code>
+     primary
+    </code>
+    color class with any Tailwind CSS utility like so:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#a6e22e">bg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>      <span style="color:#75715e">// Background color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">to</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>      <span style="color:#75715e">// Gradient color 'to'
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">via</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>     <span style="color:#75715e">// Gradient color 'via'
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">from</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>    <span style="color:#75715e">// Gradient color 'from'
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>    <span style="color:#75715e">// Text color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ring</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>    <span style="color:#75715e">// Ring color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fill</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>    <span style="color:#75715e">// Fill color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">caret</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>   <span style="color:#75715e">// Caret color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stroke</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>  <span style="color:#75715e">// Stroke color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">border</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>  <span style="color:#75715e">// Border color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">divide</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>  <span style="color:#75715e">// Divider color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">accent</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>  <span style="color:#75715e">// Accent color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">shadow</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span>  <span style="color:#75715e">// Shadow color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">outline</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span> <span style="color:#75715e">// Outline color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">decoration</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span> <span style="color:#75715e">// Text decoration color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">placeholder</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span> <span style="color:#75715e">// Placeholder text color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ring</span><span style="color:#f92672">-</span><span style="color:#a6e22e">offset</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span> <span style="color:#75715e">// Ring offset color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex"><span><span style="color:#75715e">// Change opacity with ease
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">bg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">primary</span><span style="color:#f92672">/</span><span style="color:#ae81ff">50</span>    <span style="color:#75715e">// Background with 50% opacity
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.375rem] !mt-[1em] text-base-content/90" id="extended-border-radius-utilities">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#extended-border-radius-utilities">
+       Extended border radius utilities
+      </a>
+      <a aria-label=" Extended border radius utilities " class="no-underline" href="#extended-border-radius-utilities">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    FlyonUI includes extended border radius utilities that adapt based on the active theme, allowing for dynamic styling across different components. These custom radius classes are used to give unique shapes to elements like tooltips, buttons, and cards.
+   </p>
+   <p>
+    You can apply any Tailwind border-radius utility, such as
+    <code>
+     rounded-r-box
+    </code>
+    or
+    <code>
+     rounded-tr-btn
+    </code>
+    , to fit these classes:
+   </p>
+   <div class="flex w-full items-center justify-evenly gap-4 py-6">
+    <div class="text-bg-primary rounded-tooltip grid aspect-square w-28 place-content-center text-sm">
+     rounded-tooltip
+    </div>
+    <div class="text-bg-primary rounded-btn grid aspect-square w-28 place-content-center text-sm">
+     rounded-btn
+    </div>
+    <div class="text-bg-primary rounded-box grid aspect-square w-28 place-content-center text-sm">
+     rounded-box
+    </div>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#a6e22e">rounded</span><span style="color:#f92672">-</span><span style="color:#a6e22e">tooltip</span>  <span style="color:#75715e">// var(--rounded-tooltip) for small components like tooltips
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">rounded</span><span style="color:#f92672">-</span><span style="color:#a6e22e">btn</span>      <span style="color:#75715e">// var(--rounded-btn) for medium-sized elements like buttons and inputs
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">rounded</span><span style="color:#f92672">-</span><span style="color:#a6e22e">box</span>      <span style="color:#75715e">// var(--rounded-box) for large elements like cards and alerts
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.375rem] !mt-[1em] text-base-content/90" id="css-variables-for-customization">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#css-variables-for-customization">
+       CSS variables for customization
+      </a>
+      <a aria-label=" CSS variables for customization " class="no-underline" href="#css-variables-for-customization">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    FlyonUI uses a variety of CSS variables, allowing you to fine-tune components to fit your design needs. You can modify these variables within
+    <code>
+     tailwind.config.js
+    </code>
+    or directly via a class like
+    <code>
+     [--animation-btn:0]
+    </code>
+    .
+   </p>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="key-css-variables">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#key-css-variables">
+       Key CSS variables
+      </a>
+      <a aria-label=" Key CSS variables " class="no-underline" href="#key-css-variables">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">rounded</span><span style="color:#f92672">-</span><span style="color:#a6e22e">box</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">rem</span>; <span style="color:#75715e">// Border radius for large elements (e.g., cards)
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">rounded</span><span style="color:#f92672">-</span><span style="color:#a6e22e">btn</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0.5</span><span style="color:#a6e22e">rem</span>; <span style="color:#75715e">// Border radius for medium elements (e.g., buttons)
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">rounded</span><span style="color:#f92672">-</span><span style="color:#a6e22e">tooltip</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1.9</span><span style="color:#a6e22e">rem</span>; <span style="color:#75715e">// Border radius for small elements (e.g., tooltips)
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">animation</span><span style="color:#f92672">-</span><span style="color:#a6e22e">btn</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0.25</span><span style="color:#a6e22e">s</span>; <span style="color:#75715e">// Button click animation duration
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">animation</span><span style="color:#f92672">-</span><span style="color:#a6e22e">input</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0.2</span><span style="color:#a6e22e">s</span>; <span style="color:#75715e">// Animation duration for inputs (e.g., checkboxes, toggles)
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">btn</span><span style="color:#f92672">-</span><span style="color:#a6e22e">focus</span><span style="color:#f92672">-</span><span style="color:#a6e22e">scale</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0.95</span>; <span style="color:#75715e">// Button scale transformation on focus
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">border</span><span style="color:#f92672">-</span><span style="color:#a6e22e">btn</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">px</span>; <span style="color:#75715e">// Button border width
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">border</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">px</span>; <span style="color:#75715e">// Tab border width
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">radius</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0.5</span><span style="color:#a6e22e">rem</span>; <span style="color:#75715e">// Tab border radius
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="component-specific-css-variables">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#component-specific-css-variables">
+       Component-Specific CSS variables
+      </a>
+      <a aria-label=" Component-Specific CSS variables " class="no-underline" href="#component-specific-css-variables">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    Certain components in FlyonUI utilize their own CSS variables for more precise styling. These allow for targeted customization of individual components, providing a granular level of control over their appearance.
+   </p>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="tabs">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#tabs">
+       Tabs
+      </a>
+      <a aria-label=" Tabs " class="no-underline" href="#tabs">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">border</span> <span style="color:#75715e">// Border width for tabs
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">border</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span> <span style="color:#75715e">// Border color for tabs
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">padding</span> <span style="color:#75715e">// Horizontal padding for tabs
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">bg</span> <span style="color:#75715e">// Background color for lifted tabs
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">radius</span> <span style="color:#75715e">// Border radius for lifted tabs
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">grad</span> <span style="color:#75715e">// Radial gradient size for lifted tabs
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="radial-progress">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#radial-progress">
+       Radial progress
+      </a>
+      <a aria-label=" Radial progress " class="no-underline" href="#radial-progress">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">value</span> <span style="color:#75715e">// Progress value in the circle
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">size</span> <span style="color:#75715e">// Size of the progress circle
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">thickness</span> <span style="color:#75715e">// Thickness of the progress circle
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="tooltip">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#tooltip">
+       Tooltip
+      </a>
+      <a aria-label=" Tooltip " class="no-underline" href="#tooltip">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">tooltip</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span> <span style="color:#75715e">// Background color of the tooltip
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">tooltip</span><span style="color:#f92672">-</span><span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span> <span style="color:#75715e">// Text color of the tooltip
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="checkbox">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#checkbox">
+       Checkbox
+      </a>
+      <a aria-label=" Checkbox " class="no-underline" href="#checkbox">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">chkbg</span> <span style="color:#75715e">// Checkbox background color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">chkfg</span> <span style="color:#75715e">// Checkbox foreground color
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="switch">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#switch">
+       Switch
+      </a>
+      <a aria-label=" Switch " class="no-underline" href="#switch">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">tglbg</span> <span style="color:#75715e">// Toggle background color
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">handleoffset</span> <span style="color:#75715e">// Offset of the toggle handle
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="range-slider">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#range-slider">
+       Range slider
+      </a>
+      <a aria-label=" Range slider " class="no-underline" href="#range-slider">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">filler</span><span style="color:#f92672">-</span><span style="color:#a6e22e">size</span> <span style="color:#75715e">// Size of the range thumb
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">filler</span><span style="color:#f92672">-</span><span style="color:#a6e22e">offset</span> <span style="color:#75715e">// Offset of the range thumb
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">range</span><span style="color:#f92672">-</span><span style="color:#a6e22e">shdw</span> <span style="color:#75715e">// Shadow color of the range thumb
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="glass-effect">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#glass-effect">
+       Glass effect
+      </a>
+      <a aria-label=" Glass effect " class="no-underline" href="#glass-effect">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">glass</span><span style="color:#f92672">-</span><span style="color:#a6e22e">blur</span> <span style="color:#75715e">// Blur value for the glass effect
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">glass</span><span style="color:#f92672">-</span><span style="color:#a6e22e">opacity</span> <span style="color:#75715e">// Opacity of the glass effect
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">glass</span><span style="color:#f92672">-</span><span style="color:#a6e22e">border</span><span style="color:#f92672">-</span><span style="color:#a6e22e">opacity</span> <span style="color:#75715e">// Opacity of the glass border
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">glass</span><span style="color:#f92672">-</span><span style="color:#a6e22e">reflex</span><span style="color:#f92672">-</span><span style="color:#a6e22e">degree</span> <span style="color:#75715e">// Reflex angle on the glass
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">glass</span><span style="color:#f92672">-</span><span style="color:#a6e22e">reflex</span><span style="color:#f92672">-</span><span style="color:#a6e22e">opacity</span> <span style="color:#75715e">// Opacity of the reflex on the glass
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">glass</span><span style="color:#f92672">-</span><span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">shadow</span><span style="color:#f92672">-</span><span style="color:#a6e22e">opacity</span> <span style="color:#75715e">// Opacity of text shadow within glass elements
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="card/stats">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#card%2fstats">
+       Card/Stats
+      </a>
+      <a aria-label=" Card/Stats " class="no-underline" href="#card%2fstats">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">card</span><span style="color:#f92672">-</span><span style="color:#a6e22e">shadow</span> <span style="color:#75715e">// Card shadow property
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#f92672">--</span><span style="color:#a6e22e">card</span><span style="color:#f92672">-</span><span style="color:#a6e22e">border</span> <span style="color:#75715e">// Card border property
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h4 class="text-[1rem] !mt-[1em] text-base-content/90" id="waves">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#waves">
+       Waves
+      </a>
+      <a aria-label=" Waves " class="no-underline" href="#waves">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#f92672">--</span><span style="color:#a6e22e">wave</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span> <span style="color:#75715e">// Wave color property
+</span></span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="glass-effect-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#glass-effect-2">
+       Glass effect
+      </a>
+      <a aria-label=" Glass effect " class="no-underline" href="#glass-effect-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    Add a stunning matte glass effect to your components with the
+    <code>
+     glass
+    </code>
+    class. This class creates a frosted-glass appearance, perfect for creating modern, layered UI designs.
+   </p>
+   <div class="w-full rounded p-10 mb-4" style="background-image:url(https://cdn.flyonui.com/fy-assets/components/carousel/image-21.png)">
+    <div class="glass rounded-box grid h-40 w-full place-content-center">
+     Glass
+    </div>
+   </div>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"glass"</span>&gt;Glass&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="custom-js-component-modifiers">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#custom-js-component-modifiers">
+       Custom JS component modifiers
+      </a>
+      <a aria-label=" Custom JS component modifiers " class="no-underline" href="#custom-js-component-modifiers">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    These are custom modifiers created for headless JS components such as dropdown, overlay, tooltip etc. They work similarly to other TailwindCSS-like state or responsive modifiers such as
+    <code>
+     checked:
+    </code>
+    and
+    <code>
+     md:
+    </code>
+    .
+   </p>
+   <p>
+    These modifiers apply specific TailwindCSS utility classes when a particular state or condition is met in the component.
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">dropdown</span><span style="color:#f92672">-</span><span style="color:#a6e22e">open</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when the dropdown is open
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">removing</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an element is being removed
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">tooltip</span><span style="color:#f92672">-</span><span style="color:#a6e22e">shown</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when the tooltip is visible
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">accordion</span><span style="color:#f92672">-</span><span style="color:#a6e22e">item</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an accordion item is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">accordion</span><span style="color:#f92672">-</span><span style="color:#a6e22e">selected</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an accordion item is selected
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">collapse</span><span style="color:#f92672">-</span><span style="color:#a6e22e">open</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a collapse element is open
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">active</span><span style="color:#f92672">-</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a tab is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">overlay</span><span style="color:#f92672">-</span><span style="color:#a6e22e">open</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an overlay is open
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">overlay</span><span style="color:#f92672">-</span><span style="color:#a6e22e">layout</span><span style="color:#f92672">-</span><span style="color:#a6e22e">open</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an overlay layout is open
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">overlay</span><span style="color:#f92672">-</span><span style="color:#a6e22e">backdrop</span><span style="color:#f92672">-</span><span style="color:#a6e22e">open</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an overlay backdrop is open
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">scrollspy</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an element is active in scrollspy
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">carousel</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a carousel item is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">carousel</span><span style="color:#f92672">-</span><span style="color:#a6e22e">disabled</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a carousel item is disabled
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">selected</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when an element is selected
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">select</span><span style="color:#f92672">-</span><span style="color:#a6e22e">disabled</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a select element is disabled
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">select</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a select element is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">select</span><span style="color:#f92672">-</span><span style="color:#a6e22e">opened</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a select dropdown is opened
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">input</span><span style="color:#f92672">-</span><span style="color:#a6e22e">number</span><span style="color:#f92672">-</span><span style="color:#a6e22e">disabled</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a number input is disabled
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">pin</span><span style="color:#f92672">-</span><span style="color:#a6e22e">input</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a pin input field is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">password</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a password field is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stepper</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a stepper step is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stepper</span><span style="color:#f92672">-</span><span style="color:#a6e22e">success</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a stepper step is successful
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stepper</span><span style="color:#f92672">-</span><span style="color:#a6e22e">completed</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a stepper step is completed
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stepper</span><span style="color:#f92672">-</span><span style="color:#a6e22e">error</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a stepper step has an error
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stepper</span><span style="color:#f92672">-</span><span style="color:#a6e22e">processed</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a stepper step is processed
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stepper</span><span style="color:#f92672">-</span><span style="color:#a6e22e">disabled</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a stepper step is disabled
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">stepper</span><span style="color:#f92672">-</span><span style="color:#a6e22e">skipped</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a stepper step is skipped
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">strong</span><span style="color:#f92672">-</span><span style="color:#a6e22e">password</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a password is strong
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">strong</span><span style="color:#f92672">-</span><span style="color:#a6e22e">password</span><span style="color:#f92672">-</span><span style="color:#a6e22e">accepted</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a strong password is accepted
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">strong</span><span style="color:#f92672">-</span><span style="color:#a6e22e">password</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a strong password is actively being typed
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">combo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">box</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a combo box is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">combo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">box</span><span style="color:#f92672">-</span><span style="color:#a6e22e">selected</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a combo box item is selected
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">combo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">box</span><span style="color:#f92672">-</span><span style="color:#a6e22e">has</span><span style="color:#f92672">-</span><span style="color:#a6e22e">value</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a combo box has a value
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">combo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">box</span><span style="color:#f92672">-</span><span style="color:#a6e22e">tab</span><span style="color:#f92672">-</span><span style="color:#a6e22e">active</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a tab in the combo box is active
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#a6e22e">file</span><span style="color:#f92672">-</span><span style="color:#a6e22e">upload</span><span style="color:#f92672">-</span><span style="color:#a6e22e">complete</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">tw</span><span style="color:#f92672">-</span><span style="color:#a6e22e">utility</span><span style="color:#f92672">-</span><span style="color:#a6e22e">classes</span>} <span style="color:#75715e">// Applies TailwindCSS classes when a file upload is complete
+</span></span></span></code></pre>
+   </div>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/customization/icons/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Icons
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/customization/rtl/">
+     RTL
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

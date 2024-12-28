@@ -1,0 +1,1226 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     components
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Theme Controller
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     If a checkbox or radio input with the theme-controller class is present on the page, the page's theme will be set to the value of that input.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="152" viewbox="0 0 178 152" width="178" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_6613_131728)">
+      <path d="M18 152V18" stroke="url(#paint0_linear_6613_131728)" stroke-opacity=".4">
+      </path>
+      <path d="M161 152V18" stroke="url(#paint1_linear_6613_131728)" stroke-opacity=".4">
+      </path>
+      <path d="M178 37H.13113e-5" stroke="url(#paint2_linear_6613_131728)" stroke-opacity=".4">
+      </path>
+      <path d="M178 133H.13113e-5" stroke="url(#paint3_linear_6613_131728)" stroke-opacity=".4">
+      </path>
+      <rect fill="#76717f" fill-opacity=".06" height="96" rx="8" width="143" x="18" y="37">
+      </rect>
+      <rect fill="#474857" fill-opacity=".2" height="8" rx="4" width="86" x="31" y="50">
+      </rect>
+      <rect fill="oklch(var(--p))" height="8" rx="4" width="118" x="31" y="71">
+      </rect>
+      <rect fill="#474857" fill-opacity=".2" height="8" rx="4" width="43" x="31" y="92">
+      </rect>
+      <rect fill="#474857" fill-opacity=".2" height="8" rx="4" width="79" x="31" y="113">
+      </rect>
+      <rect fill="oklch(var(--p))" height="32" rx="8" width="90" x="71">
+      </rect>
+      <rect fill="#fff" height="8" rx="4" width="58" x="87" y="12">
+      </rect>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_6613_131728" x1="18.5" x2="18.4788" y1="18" y2="152">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_6613_131728" x1="161.5" x2="161.479" y1="18" y2="152">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_6613_131728" x1=".951539e-5" x2="178" y1="36.5" y2="36.5374">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_6613_131728" x1=".951539e-5" x2="178" y1="132.5" y2="132.537">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_6613_131728">
+       <rect fill="#fff" height="152" width="178">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          theme-controller
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         For a checkbox or radio button input intended to toggle the page theme.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <p>
+    The Theme Controller changes the theme using only CSS. You can use JavaScript to save the input state to the server or localStorage if you want it to persist across page refreshes.
+   </p>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="checkbox">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#checkbox">
+       Checkbox
+      </a>
+      <a aria-label=" Checkbox " class="no-underline" href="#checkbox">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use the
+    <code>
+     theme-controller
+    </code>
+    component class with a checkbox input to create a theme switcher that toggles between the default theme and the theme specified in the value.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText("&lt;input type=\"checkbox\" value=\"dark\" class=\"checkbox theme-controller\" /&gt;")' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <input class="checkbox theme-controller" type="checkbox" value="dark"/>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dark"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox theme-controller"</span> /&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="switch">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#switch">
+       Switch
+      </a>
+      <a aria-label=" Switch " class="no-underline" href="#switch">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Create a theme controller using a switch based on the example provided below.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText("&lt;input type=\"checkbox\" value=\"dark\" class=\"switch theme-controller\" /&gt;")' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <input class="switch theme-controller" type="checkbox" value="dark"/>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dark"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"switch theme-controller"</span> /&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-swap">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-swap">
+       Using swap
+      </a>
+      <a aria-label=" Using swap " class="no-underline" href="#using-swap">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below shows how to implement a theme controller using a switch component.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;label class="swap swap-rotate"&gt;
+  &lt;input type="checkbox" value="dark" class="theme-controller" /&gt;
+  &lt;span class="swap-off icon-[tabler--sun] size-7"&gt;&lt;/span&gt;
+  &lt;span class="swap-on icon-[tabler--moon] size-7"&gt;&lt;/span&gt;
+&lt;/label&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <label class="swap swap-rotate">
+        <input class="theme-controller" type="checkbox" value="dark"/>
+        <span class="swap-off icon-[tabler--sun] size-7">
+        </span>
+        <span class="swap-on icon-[tabler--moon] size-7">
+        </span>
+       </label>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"swap swap-rotate"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dark"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-controller"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"swap-off icon-[tabler--sun] size-7"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"swap-on icon-[tabler--moon] size-7"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">label</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-switch-with-text">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-switch-with-text">
+       Using switch with text
+      </a>
+      <a aria-label=" Using switch with text " class="no-underline" href="#using-switch-with-text">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below illustrates how to create a theme controller using a switch combined with text.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;label class="flex cursor-pointer gap-2"&gt;
+  &lt;span class="label-text"&gt;Light&lt;/span&gt;
+  &lt;input type="checkbox" value="dark" class="switch theme-controller" /&gt;
+  &lt;span class="label-text"&gt;Dark&lt;/span&gt;
+&lt;/label&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <label class="flex cursor-pointer gap-2">
+        <span class="label-text">
+         Light
+        </span>
+        <input class="switch theme-controller" type="checkbox" value="dark"/>
+        <span class="label-text">
+         Dark
+        </span>
+       </label>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex cursor-pointer gap-2"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text"</span>&gt;Light&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dark"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"switch theme-controller"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text"</span>&gt;Dark&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">label</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-switch-with-icons-inside">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-switch-with-icons-inside">
+       Using switch with icons inside
+      </a>
+      <a aria-label=" Using switch with icons inside " class="no-underline" href="#using-switch-with-icons-inside">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example provided shows how to build a theme controller using a switch that features icons.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;label class="relative inline-block"&gt;
+  &lt;input type="checkbox" value="dark" class="switch switch-primary theme-controller peer" /&gt;
+  &lt;span class="icon-[tabler--sun] peer-checked:text-primary-content absolute start-1 top-1 block size-4"&gt;&lt;/span&gt;
+  &lt;span class="icon-[tabler--moon] text-base-content peer-checked:text-base-content/90 absolute end-1 top-1 block size-4" &gt;&lt;/span&gt;
+&lt;/label&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <label class="relative inline-block">
+        <input class="switch switch-primary theme-controller peer" type="checkbox" value="dark"/>
+        <span class="icon-[tabler--sun] peer-checked:text-primary-content absolute start-1 top-1 block size-4">
+        </span>
+        <span class="icon-[tabler--moon] text-base-content peer-checked:text-base-content/90 absolute end-1 top-1 block size-4">
+        </span>
+       </label>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative inline-block"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dark"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"switch switch-primary theme-controller peer"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--sun] peer-checked:text-primary-content absolute start-1 top-1 block size-4"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--moon] text-base-content peer-checked:text-base-content/90 absolute end-1 top-1 block size-4"</span> &gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">label</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-a-switch-with-custom-colors">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-a-switch-with-custom-colors">
+       Using a switch with custom colors
+      </a>
+      <a aria-label=" Using a switch with custom colors " class="no-underline" href="#using-a-switch-with-custom-colors">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below shows how to build a theme controller using a switch with personalized colors.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText("&lt;input type=\"checkbox\" value=\"dark\" class=\"switch theme-controller bg-blue-100 [--tglbg:theme(colors.blue.600)] checked:bg-red-300\" /&gt;")' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <input class="switch theme-controller bg-blue-100 [--tglbg:theme(colors.blue.600)] checked:bg-red-300" type="checkbox" value="dark"/>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dark"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"switch theme-controller bg-blue-100 [--tglbg:theme(colors.blue.600)] checked:bg-red-300"</span> /&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-a-radio-input">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-a-radio-input">
+       Using a radio input
+      </a>
+      <a aria-label=" Using a radio input " class="no-underline" href="#using-a-radio-input">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Create a theme controller using a radio input based on the example below.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex flex-col gap-1"&gt;
+  &lt;div&gt;
+    &lt;div class="flex items-center justify-between gap-4"&gt;
+      &lt;label class="label label-text" for="defaultTheme"&gt;Default&lt;/label&gt;
+      &lt;input type="radio" name="theme-radios" class="radio theme-controller" id="defaultTheme" value="default" checked /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="flex items-center justify-between gap-4"&gt;
+      &lt;label class="label label-text" for="corporateTheme"&gt;Corporate&lt;/label&gt;
+      &lt;input type="radio" name="theme-radios" class="radio theme-controller" id="corporateTheme" value="corporate" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="flex items-center justify-between gap-4"&gt;
+      &lt;label class="label label-text" for="gourmentTheme"&gt;Gourmet&lt;/label&gt;
+      &lt;input type="radio" name="theme-radios" class="radio theme-controller" id="gourmentTheme" value="gourmet" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex flex-col gap-1">
+        <div>
+         <div class="flex items-center justify-between gap-4">
+          <label class="label label-text" for="defaultTheme">
+           Default
+          </label>
+          <input checked="" class="radio theme-controller" id="defaultTheme" name="theme-radios" type="radio" value="default"/>
+         </div>
+        </div>
+        <div>
+         <div class="flex items-center justify-between gap-4">
+          <label class="label label-text" for="corporateTheme">
+           Corporate
+          </label>
+          <input class="radio theme-controller" id="corporateTheme" name="theme-radios" type="radio" value="corporate"/>
+         </div>
+        </div>
+        <div>
+         <div class="flex items-center justify-between gap-4">
+          <label class="label label-text" for="gourmentTheme">
+           Gourmet
+          </label>
+          <input class="radio theme-controller" id="gourmentTheme" name="theme-radios" type="radio" value="gourmet"/>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col gap-1"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center justify-between gap-4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"defaultTheme"</span>&gt;Default&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-radios"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio theme-controller"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"defaultTheme"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"default"</span> <span style="color:#a6e22e">checked</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center justify-between gap-4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"corporateTheme"</span>&gt;Corporate&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-radios"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio theme-controller"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"corporateTheme"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"corporate"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center justify-between gap-4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"gourmentTheme"</span>&gt;Gourmet&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-radios"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio theme-controller"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"gourmentTheme"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"gourmet"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-a-radio-button">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-a-radio-button">
+       Using a radio button
+      </a>
+      <a aria-label=" Using a radio button " class="no-underline" href="#using-a-radio-button">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The example below shows how to create a theme controller using a radio button.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="join join-vertical"&gt;
+  &lt;input type="radio" name="theme-buttons" class="btn theme-controller join-item" aria-label="Default" value="default" checked /&gt;
+  &lt;input type="radio" name="theme-buttons" class="btn theme-controller join-item" aria-label="Corporate" value="corporate" /&gt;
+  &lt;input type="radio" name="theme-buttons" class="btn theme-controller join-item" aria-label="Gourmet" value="gourmet" /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="join join-vertical">
+        <input aria-label="Default" checked="" class="btn theme-controller join-item" name="theme-buttons" type="radio" value="default"/>
+        <input aria-label="Corporate" class="btn theme-controller join-item" name="theme-buttons" type="radio" value="corporate"/>
+        <input aria-label="Gourmet" class="btn theme-controller join-item" name="theme-buttons" type="radio" value="gourmet"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"join join-vertical"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-buttons"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn theme-controller join-item"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Default"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"default"</span> <span style="color:#a6e22e">checked</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-buttons"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn theme-controller join-item"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Corporate"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"corporate"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-buttons"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn theme-controller join-item"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Gourmet"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"gourmet"</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="using-a-dropdown">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#using-a-dropdown">
+       Using a dropdown
+      </a>
+      <a aria-label=" Using a dropdown " class="no-underline" href="#using-a-dropdown">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Here’s a ready-to-use example of a theme controller utilizing a dropdown menu.
+   </p>
+   <div class="not-prose custom-list mt-4 mb-6 flex items-start gap-4 alert alert-soft !bg-primary/10 alert-primary" role="alert">
+    <span class="icon-[tabler--info-circle] mt-px size-5 shrink-0 leading-none">
+    </span>
+    <span>
+     For more information about dropdowns, refer to the
+     <a class="link link-primary" href="/docs/overlays/dropdown/">
+      Dropdown
+     </a>
+     documentation.
+    </span>
+    <style>
+     .custom-list li::before{content:"-";margin-right:.5em}
+    </style>
+   </div>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="dropdown relative inline-flex [--auto-close:inside] rtl:[--placement:bottom-end]"&gt;
+  &lt;button id="dropdown-default" type="button" class="dropdown-toggle btn btn-primary" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown" &gt;
+    Dropdown
+    &lt;span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-default" &gt;
+    &lt;li&gt;
+      &lt;input type="radio" name="theme-dropdown" class="theme-controller btn btn-text w-full justify-start" aria-label="Default" value="default" checked /&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;input type="radio" name="theme-dropdown" class="theme-controller btn btn-text w-full justify-start" aria-label="Corporate" value="corporate" /&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;input type="radio" name="theme-dropdown" class="theme-controller btn btn-text w-full justify-start" aria-label="Gourmet" value="gourmet" /&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="dropdown relative inline-flex [--auto-close:inside] rtl:[--placement:bottom-end]">
+        <button aria-expanded="false" aria-haspopup="menu" aria-label="Dropdown" class="dropdown-toggle btn btn-primary" id="dropdown-default" type="button">
+         Dropdown
+         <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4">
+         </span>
+        </button>
+        <ul aria-labelledby="dropdown-default" aria-orientation="vertical" class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60" role="menu">
+         <li>
+          <input aria-label="Default" checked="" class="theme-controller btn btn-text w-full justify-start" name="theme-dropdown" type="radio" value="default"/>
+         </li>
+         <li>
+          <input aria-label="Corporate" class="theme-controller btn btn-text w-full justify-start" name="theme-dropdown" type="radio" value="corporate"/>
+         </li>
+         <li>
+          <input aria-label="Gourmet" class="theme-controller btn btn-text w-full justify-start" name="theme-dropdown" type="radio" value="gourmet"/>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dropdown relative inline-flex [--auto-close:inside] rtl:[--placement:bottom-end]"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dropdown-default"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"button"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dropdown-toggle btn btn-primary"</span> <span style="color:#a6e22e">aria-haspopup</span><span style="color:#f92672">=</span><span style="color:#e6db74">"menu"</span> <span style="color:#a6e22e">aria-expanded</span><span style="color:#f92672">=</span><span style="color:#e6db74">"false"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Dropdown"</span> &gt;
+</span></span><span style="display:flex"><span>    Dropdown
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dropdown-menu dropdown-open:opacity-100 hidden min-w-60"</span> <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">"menu"</span> <span style="color:#a6e22e">aria-orientation</span><span style="color:#f92672">=</span><span style="color:#e6db74">"vertical"</span> <span style="color:#a6e22e">aria-labelledby</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dropdown-default"</span> &gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-dropdown"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-controller btn btn-text w-full justify-start"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Default"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"default"</span> <span style="color:#a6e22e">checked</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-dropdown"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-controller btn btn-text w-full justify-start"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Corporate"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"corporate"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-dropdown"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"theme-controller btn btn-text w-full justify-start"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Gourmet"</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"gourmet"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="javascript-behavior">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#javascript-behavior">
+       JavaScript Behavior
+      </a>
+      <a aria-label=" JavaScript Behavior " class="no-underline" href="#javascript-behavior">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="saving-theme-preferences-in-local-storage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#saving-theme-preferences-in-local-storage">
+       Saving Theme Preferences in Local Storage
+      </a>
+      <a aria-label=" Saving Theme Preferences in Local Storage " class="no-underline" href="#saving-theme-preferences-in-local-storage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+    <span class="badge badge-sm badge-soft badge-primary rounded-full align-middle uppercase">
+     new
+    </span>
+   </div>
+   <div class="not-prose custom-list mt-4 mb-6 flex items-start gap-4 alert alert-soft !bg-primary/10 alert-primary" role="alert">
+    <span class="icon-[tabler--info-circle] mt-px size-5 shrink-0 leading-none">
+    </span>
+    <span>
+     The
+     <a class="link link-primary font-medium" href="https://github.com/saadeghi/theme-change" target="_blank">
+      theme-change
+     </a>
+     plugin by daisyUI is a powerful tool for implementing dynamic theme switching in your projects. It allows users to select, toggle, or customize themes while seamlessly saving their preferences in local storage for a consistent user experience.
+    </span>
+    <style>
+     .custom-list li::before{content:"-";margin-right:.5em}
+    </style>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="setup">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#setup">
+       Setup
+      </a>
+      <a aria-label=" Setup " class="no-underline" href="#setup">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Below are the comprehensively outlined steps you can follow to seamlessly integrate
+    <a class="link link-warning font-semibold" href="https://github.com/saadeghi/theme-change" target="_blank">
+     theme-change
+    </a>
+    into your project for efficient theme switching functionality with storing in local storage.
+   </p>
+   <ul class="timeline timeline-snap-icon timeline-compact timeline-vertical w-full mb-12 ps-0">
+    <li class="my-0 ps-0">
+     <div class="timeline-middle mb-2">
+      <span class="text-base-content/90 flex size-7 items-center justify-center rounded-full border font-semibold">
+       1
+      </span>
+     </div>
+     <div class="timeline-end mb-0 w-full rounded-lg p-4 m-0">
+      <div class="text-base-content/90 mb-3 font-semibold">
+       Step 1: Install theme-change
+      </div>
+      <p>
+       Install
+       <code>
+        theme-change
+       </code>
+       via npm.
+      </p>
+      <div class="relative">
+       <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none !mb-0 mt-2" x-data="{ tooltip: 'Copied!' }">
+        <div class="highlight">
+         <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-bash" data-lang="bash"><span style="display:flex"><span>npm i theme-change --save</span></span></code></pre>
+        </div>
+        <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick='navigator.clipboard.writeText("npm i theme-change --save")' x-tooltip.on.click="tooltip">
+         <span class="icon-[tabler--clipboard-copy] size-5">
+         </span>
+        </button>
+       </div>
+      </div>
+     </div>
+     <hr class="rounded-none border-transparent !w-0.5"/>
+    </li>
+    <li class="my-0 ps-0">
+     <div class="timeline-middle mb-2">
+      <span class="text-base-content/90 flex size-7 items-center justify-center rounded-full border font-semibold">
+       2
+      </span>
+     </div>
+     <div class="timeline-end mb-0 w-full rounded-lg p-4 m-0">
+      <div class="text-base-content/90 mb-3 font-semibold">
+       Step 2: Include it in javascript file.
+      </div>
+      <p>
+       To integrate theme-change, add the following
+       <code>
+        code
+       </code>
+       in your
+       <code>
+        javascript
+       </code>
+       file.
+      </p>
+      <div class="relative">
+       <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none !mb-0 mt-2" x-data="{ tooltip: 'Copied!' }">
+        <div class="highlight">
+         <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">themeChange</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">'theme-change'</span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">themeChange</span>()</span></span></code></pre>
+        </div>
+        <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`import { themeChange } from 'theme-change'
+themeChange()`)" x-tooltip.on.click="tooltip">
+         <span class="icon-[tabler--clipboard-copy] size-5">
+         </span>
+        </button>
+       </div>
+      </div>
+      <div class="text-base-content/90 my-3 font-semibold">
+       You can also use a CDN link.
+      </div>
+      <p>
+       Include the following
+       <code>
+        &lt;script&gt;
+       </code>
+       tag near the end of your
+       <code>
+        &lt;/body&gt;
+       </code>
+       section:
+      </p>
+      <div class="relative">
+       <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none !mb-0 mt-2" x-data="{ tooltip: 'Copied!' }">
+        <div class="highlight">
+         <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+        </div>
+        <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick='navigator.clipboard.writeText("&lt;script src=\"https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js\"&gt;&lt;/script&gt;")' x-tooltip.on.click="tooltip">
+         <span class="icon-[tabler--clipboard-copy] size-5">
+         </span>
+        </button>
+       </div>
+      </div>
+     </div>
+     <hr class="rounded-none border-transparent !w-0.5"/>
+    </li>
+    <li class="my-0 ps-0">
+     <div class="timeline-middle mb-2">
+      <span class="text-base-content/90 flex size-7 items-center justify-center rounded-full border font-semibold">
+       3
+      </span>
+     </div>
+     <div class="timeline-end mb-0 w-full rounded-lg p-4 m-0">
+      <div class="text-base-content/90 mb-3 font-semibold">
+       Step 3: Basic use case of theme-change.
+      </div>
+      <p>
+       The below example showcase the toggle functionality using the switch component.
+      </p>
+      <div class="relative">
+       <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none !mb-0 mt-2" x-data="{ tooltip: 'Copied!' }">
+        <div class="highlight">
+         <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">data-toggle-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">"luxury"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"switch"</span> /&gt;</span></span></code></pre>
+        </div>
+        <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick='navigator.clipboard.writeText("&lt;input type=\"checkbox\" data-toggle-theme=\"luxury\" class=\"switch\" /&gt;")' x-tooltip.on.click="tooltip">
+         <span class="icon-[tabler--clipboard-copy] size-5">
+         </span>
+        </button>
+       </div>
+      </div>
+     </div>
+    </li>
+   </ul>
+   <p>
+    The
+    <code>
+     theme-change
+    </code>
+    plugin offers three primary attributes to manage themes dynamically:
+   </p>
+   <ol>
+    <li>
+     <p>
+      <code>
+       data-set-theme="luxury"
+      </code>
+      <br/>
+      Use this attribute to set the theme directly for components such as buttons, radio buttons, and dropdowns. The theme is applied upon user interaction (e.g., clicking a button).
+     </p>
+    </li>
+    <li>
+     <p>
+      <code>
+       data-choose-theme
+      </code>
+      <br/>
+      This attribute is designed for
+      <code>
+       select
+      </code>
+      components. It dynamically applies the theme based on the selected option from a dropdown menu.
+     </p>
+    </li>
+    <li>
+     <p>
+      <code>
+       data-toggle-theme="soft"
+      </code>
+      <br/>
+      Ideal for toggle components like checkboxes and switches. This attribute allows users to switch between themes interactively by toggling the element.
+     </p>
+    </li>
+   </ol>
+   <p>
+    It also provides the
+    <code>
+     data-act-class="ACTIVECLASS"
+    </code>
+    attribute, which applies the specified
+    <code>
+     ACTIVECLASS
+    </code>
+    to the element when it is clicked or toggled.
+   </p>
+   <p>
+    For a live demonstration and detailed example of using FlyonUI with the
+    <code>
+     theme-change
+    </code>
+    plugin, check out this
+    <a class="link link-primary font-medium" href="https://stackblitz.com/edit/flyonui-theme-switcher-4dfjut-uyqsr9?file=index.html" target="_blank">
+     StackBlitz example
+    </a>
+    .
+   </p>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/components/swap/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Swap
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/components/timeline/">
+     Timeline
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

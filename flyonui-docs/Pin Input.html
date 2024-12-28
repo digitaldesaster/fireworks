@@ -1,0 +1,2155 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     advanced forms
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Pin Input
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     The Pin Input component enables quick entry for scenarios such as multi-factor authentication, offering features like regex validation and clipboard pasting.
+    </p>
+    <div class="mt-3 flex items-center gap-2">
+     <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" d="M17.6745 16.9224 12.6233 10.378C12.2167 9.85117 11.4185 9.8611 11.0251 10.3979L6.45728 16.631C6.26893 16.888 5.96935 17.0398 5.65069 17.0398H3.79114C2.9635 17.0398 2.49412 16.0919 2.99583 15.4336L11.0224 4.90319C11.4206 4.38084 12.2056 4.37762 12.608 4.89668L20.9829 15.6987C21.4923 16.3558 21.024 17.3114 20.1926 17.3114H18.4661C18.1562 17.3114 17.8638 17.1677 17.6745 16.9224zm-5.0879-1.33 2.309 2.7669C15.439 19.0105 14.976 20 14.1278 20H9.74075C8.9164 20 8.4461 19.0586 8.94116 18.3994l2.07804-2.7669C11.4065 15.1169 12.1734 15.0972 12.5866 15.5924z" fill="oklch(var(--p))" fill-rule="evenodd">
+      </path>
+     </svg>
+     <a aria-label="Component requires flyonui JavaScript" class="link link-animated link-primary flex items-center gap-2 font-medium" href="/docs/getting-started/quick-start/">
+      <span>
+       Require FlyonUI JS
+      </span>
+      <span class="icon-[tabler--external-link] size-5 pt-1">
+      </span>
+     </a>
+    </div>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="82" viewbox="0 0 237 82" width="237" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5515_6956)">
+      <rect fill="#76717f" fill-opacity=".06" height="48" rx="8" width="42" x="21" y="17">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".06" height="48" rx="8" width="42" x="72" y="17">
+      </rect>
+      <rect fill="oklch(var(--p))" fill-opacity=".1" height="48" rx="8" width="42" x="123" y="17">
+      </rect>
+      <rect fill="#76717f" fill-opacity=".06" height="48" rx="8" width="42" x="174" y="17">
+      </rect>
+      <path d="M42.213 48V37.974H39.801V36.669C40.563 36.669 41.166 36.606 41.61 36.48 42.06 36.348 42.387 36.156 42.591 35.904 42.801 35.652 42.921 35.346 42.951 34.986h1.494V48H42.213z" fill="#76717f" fill-opacity=".3">
+      </path>
+      <path d="M138.945 38.892C138.945 38.004 139.158 37.257 139.584 36.651 140.01 36.039 140.58 35.58 141.294 35.274 142.014 34.962 142.812 34.806 143.688 34.806 144.63 34.806 145.464 34.935 146.19 35.193 146.922 35.445 147.495 35.826 147.909 36.336 148.329 36.846 148.539 37.479 148.539 38.235 148.539 38.877 148.344 39.45 147.954 39.954 147.564 40.458 146.949 40.854 146.109 41.142 146.631 41.286 147.099 41.502 147.513 41.79 147.927 42.072 148.254 42.426 148.494 42.852 148.74 43.278 148.863 43.779 148.863 44.355 148.863 44.973 148.728 45.522 148.458 46.002 148.194 46.482 147.822 46.887 147.342 47.217 146.868 47.541 146.313 47.787 145.677 47.955 145.041 48.117 144.357 48.198 143.625 48.198 142.647 48.192 141.804 48.024 141.096 47.694 140.388 47.364 139.836 46.893 139.44 46.281 139.05 45.669 138.846 44.943 138.828 44.103H140.961C141.087 44.877 141.393 45.453 141.879 45.831c.492000000000019.372 1.089.558 1.791.558C144.252 46.389 144.756 46.302 145.182 46.128 145.608 45.948 145.935 45.702 146.163 45.39 146.397 45.078 146.514 44.715 146.514 44.301 146.514 43.863 146.388 43.488 146.136 43.176 145.89 42.864 145.551 42.624 145.119 42.456 144.687 42.288 144.201 42.198 143.661 42.186L142.455 42.15V40.368L143.571 40.323C144.087 40.305 144.54 40.206 144.93 40.026 145.326 39.846 145.635 39.609 145.857 39.315 146.079 39.021 146.19 38.691 146.19 38.325 146.19 37.989 146.085 37.686 145.875 37.416 145.671 37.146 145.38 36.936 145.002 36.786 144.624 36.63 144.177 36.552 143.661 36.552 143.223 36.552 142.812 36.63 142.428 36.786 142.044 36.942 141.726 37.194 141.474 37.542 141.228 37.884 141.093 38.334 141.069 38.892h-2.124z" fill="oklch(var(--p))">
+      </path>
+      <path d="M89.062 48V46.83 46.227C89.062 45.561 89.185 44.988 89.431 44.508 89.677 44.022 90.004 43.599 90.412 43.239 90.82 42.879 91.267 42.561 91.753 42.285 92.245 42.003 92.731 41.739 93.211 41.493 93.697 41.241 94.144 40.983 94.552 40.719 94.96 40.449 95.287 40.149 95.533 39.819 95.785 39.489 95.911 39.096 95.911 38.64 95.911 38.058 95.704 37.584 95.29 37.218 94.882 36.846 94.327 36.66 93.625 36.66 92.881 36.66 92.266 36.873 91.78 37.299 91.3 37.725 91.015 38.325 90.925 39.099H88.801C88.813 38.307 89.002 37.587 89.368 36.939S90.277 35.775 90.997 35.391C91.717 35.001 92.614 34.806 93.688 34.806 94.618 34.806 95.419 34.968 96.091 35.292 96.769 35.61 97.291 36.057 97.657 36.633 98.029 37.203 98.215 37.869 98.215 38.631 98.215 39.297 98.092 39.867 97.846 40.341 97.606 40.815 97.285 41.226 96.883 41.574 96.487 41.916 96.049 42.219 95.569 42.483 95.095 42.747 94.618 42.996 94.138 43.23 93.664 43.458 93.226 43.698 92.824 43.95 92.428 44.196 92.107 44.478 91.861 44.796 91.621 45.114 91.501 45.495 91.501 45.939v.189h6.741V48H89.062z" fill="#76717f" fill-opacity=".3">
+      </path>
+      <path d="M237 17H.715256e-5" stroke="url(#paint0_linear_5515_6956)" stroke-opacity=".4">
+      </path>
+      <path d="M237 65H.715256e-5" stroke="url(#paint1_linear_5515_6956)" stroke-opacity=".4">
+      </path>
+      <path d="M20 82V-.169873e-5" stroke="url(#paint2_linear_5515_6956)" stroke-opacity=".4">
+      </path>
+      <path d="M216 82V-.169873e-5" stroke="url(#paint3_linear_5515_6956)" stroke-opacity=".4">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5515_6956" x1=".126694e-4" x2="237" y1="16.5" y2="16.5663">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5515_6956" x1=".126694e-4" x2="237" y1="64.5" y2="64.5663">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5515_6956" x1="20.5" x2="20.4921" y1=".435075e-5" y2="82">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5515_6956" x1="216.5" x2="216.492" y1=".435075e-5" y2="82">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5515_6956">
+       <rect fill="#fff" height="82" width="237">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          pin-input
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Container style class.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          pin-input-underline
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Underline style.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          pin-input-active:{tw-utility-class}
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds tailwind classes when the pin input is active (triggered when the PIN has set up).
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          pin-input-sm
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Pin input with small size.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          pin-input-lg
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Pin input with large size.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic pin input example.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item autofocus /&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input aria-label="pin input" autofocus="" class="pin-input" data-pin-input-item="" type="text"/>
+        <input aria-label="pin input" class="pin-input" data-pin-input-item="" type="text"/>
+        <input aria-label="pin input" class="pin-input" data-pin-input-item="" type="text"/>
+        <input aria-label="pin input" class="pin-input" data-pin-input-item="" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> <span style="color:#a6e22e">autofocus</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="placeholder">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#placeholder">
+       Placeholder
+      </a>
+      <a aria-label=" Placeholder " class="no-underline" href="#placeholder">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Pin input with placeholder.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="types">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#types">
+       Types
+      </a>
+      <a aria-label=" Types " class="no-underline" href="#types">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="outline">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#outline">
+       Outline
+      </a>
+      <a aria-label=" Outline " class="no-underline" href="#outline">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Default pin input example.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="underline">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#underline">
+       Underline
+      </a>
+      <a aria-label=" Underline " class="no-underline" href="#underline">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Apply the
+    <code>
+     pin-input-underline
+    </code>
+    class to change the pin input style to an underline.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="sizes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#sizes">
+       Sizes
+      </a>
+      <a aria-label=" Sizes " class="no-underline" href="#sizes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="outline-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#outline-2">
+       Outline
+      </a>
+      <a aria-label=" Outline " class="no-underline" href="#outline-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Pin input has 3 size small default and large. Use
+    <code>
+     pin-input-sm
+    </code>
+    for small size and
+    <code>
+     pin-input-lg
+    </code>
+    for large size.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;
+
+&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input " placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;
+
+&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input "</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="underline-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#underline-2">
+       Underline
+      </a>
+      <a aria-label=" Underline " class="no-underline" href="#underline-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Underline pin input sizes example.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-sm" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;
+
+&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;
+
+&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input pin-input-underline pin-input-lg" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input pin-input-underline pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline pin-input-sm" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input pin-input-underline pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input pin-input-underline pin-input-lg" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-sm"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input pin-input-underline pin-input-lg"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="disabled">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#disabled">
+       Disabled
+      </a>
+      <a aria-label=" Disabled " class="no-underline" href="#disabled">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    To disable pointer events and prevent focusing, add the
+    <code>
+     disabled
+    </code>
+    boolean attribute to an input.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item disabled /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item disabled /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item disabled /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item disabled /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" disabled="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" disabled="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" disabled="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" disabled="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> <span style="color:#a6e22e">disabled</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> <span style="color:#a6e22e">disabled</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> <span style="color:#a6e22e">disabled</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> <span style="color:#a6e22e">disabled</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="length">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#length">
+       Length
+      </a>
+      <a aria-label=" Length " class="no-underline" href="#length">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Control the number of pin input as per you preference.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;
+
+&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;
+
+&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="input-type">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#input-type">
+       Input type
+      </a>
+      <a aria-label=" Input type " class="no-underline" href="#input-type">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    By default, this accepts both letters and numbers. To restrict input to numbers/letters only, set
+    <code>
+     "availableCharsRE"
+    </code>
+    to
+    <code>
+     "^[a-z]+$"
+    </code>
+    /
+    <code>
+     "^[0-9]+$"
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;flex space-x-3 rtl:space-x-reverse&quot; data-pin-input='{&quot;availableCharsRE&quot;: &quot;^[a-z]+$&quot;}'&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input='{"availableCharsRE": "^[a-z]+$"}'>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{"availableCharsRE": "^[a-z]+$"}'</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="regex-type">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#regex-type">
+       Regex type
+      </a>
+      <a aria-label=" Regex type " class="no-underline" href="#regex-type">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    To restrict the pin input to accept only specific numbers, you can use a regular expression. For example, to ensure the pin input accepts only the numbers 1 to 5, set
+    <code>
+     "availableCharsRE"
+    </code>
+    to
+    <code>
+     "^[1-5]+$"
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;flex space-x-3 rtl:space-x-reverse&quot; data-pin-input='{&quot;availableCharsRE&quot;: &quot;^[1-5]+$&quot;}'&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;text&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input='{"availableCharsRE": "^[1-5]+$"}'>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{"availableCharsRE": "^[1-5]+$"}'</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="protected">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#protected">
+       Protected
+      </a>
+      <a aria-label=" Protected " class="no-underline" href="#protected">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Conceal the entered value by setting the type attribute to “password”.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="password" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="password" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="password" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="password" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="password"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="password"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="password"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="password"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"password"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"password"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"password"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"password"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="display-number-keyboard">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#display-number-keyboard">
+       Display number keyboard
+      </a>
+      <a aria-label=" Display number keyboard " class="no-underline" href="#display-number-keyboard">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    To display a numeric keyboard on iOS (note: this does not apply for Android), Use
+    <code>
+     autocomplete="one-time-code"
+    </code>
+    and
+    <code>
+     type="tel"
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;flex space-x-3 rtl:space-x-reverse&quot; data-pin-input='{&quot;availableCharsRE&quot;: &quot;^[0-9]+$&quot;}'&gt;
+  &lt;input type=&quot;tel&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item  autocomplete=&quot;one-time-code&quot;/&gt;
+  &lt;input type=&quot;tel&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;tel&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+  &lt;input type=&quot;tel&quot; class=&quot;pin-input&quot; placeholder=&quot;○&quot; data-pin-input-item /&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input='{"availableCharsRE": "^[0-9]+$"}'>
+        <input autocomplete="one-time-code" class="pin-input" data-pin-input-item="" placeholder="○" type="tel"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="tel"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="tel"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="tel"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{"availableCharsRE": "^[0-9]+$"}'</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tel"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span>  <span style="color:#a6e22e">autocomplete</span><span style="color:#f92672">=</span><span style="color:#e6db74">"one-time-code"</span>/&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tel"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tel"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"tel"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="destroy/reinitialize">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#destroy%2freinitialize">
+       Destroy/Reinitialize
+      </a>
+      <a aria-label=" Destroy/Reinitialize " class="no-underline" href="#destroy%2freinitialize">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+    <span class="badge badge-sm badge-soft badge-primary rounded-full align-middle uppercase">
+     new
+    </span>
+   </div>
+   <p>
+    The
+    <code>
+     destroy
+    </code>
+    <a class="link link-primary" href="#destroy-method">
+     method
+    </a>
+    is provided to facilitate the destruction of a pin-input element.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div id="pin-input-to-destroy" class="flex space-x-3 rtl:space-x-reverse" data-pin-input&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" placeholder="○" data-pin-input-item /&gt;
+&lt;/div&gt;
+
+&lt;div class="mt-4 flex gap-3"&gt;
+  &lt;button class="btn btn-primary" id="destroy-btn"&gt;Destroy&lt;/button&gt;
+  &lt;button class="btn btn-primary" id="reinit-btn" disabled&gt;Reinitialize&lt;/button&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', () =&gt; {
+    ;(function () {
+      const pinInput = document.querySelector('#pin-input-to-destroy')
+      const destroy = document.querySelector('#destroy-btn')
+      const reinit = document.querySelector('#reinit-btn')
+
+      destroy.addEventListener('click', () =&gt; {
+        const { element } = HSPinInput.getInstance(pinInput, true)
+
+        element.destroy()
+
+        destroy.setAttribute('disabled', 'disabled')
+        reinit.removeAttribute('disabled')
+      })
+
+      reinit.addEventListener('click', () =&gt; {
+        HSPinInput.autoInit()
+
+        reinit.setAttribute('disabled', 'disabled')
+        destroy.removeAttribute('disabled')
+      })
+    })()
+  });
+&lt;/script&gt;
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="" id="pin-input-to-destroy">
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+        <input class="pin-input" data-pin-input-item="" placeholder="○" type="text"/>
+       </div>
+       <div class="mt-4 flex gap-3">
+        <button class="btn btn-primary" id="destroy-btn">
+         Destroy
+        </button>
+        <button class="btn btn-primary" disabled="" id="reinit-btn">
+         Reinitialize
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input-to-destroy"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"○"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex gap-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"destroy-btn"</span>&gt;Destroy&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"reinit-btn"</span> <span style="color:#a6e22e">disabled</span>&gt;Reinitialize&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>    ;(<span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pinInput</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#pin-input-to-destroy'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destroy</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#destroy-btn'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reinit</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#reinit-btn'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">destroy</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>        <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSPinInput</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#a6e22e">pinInput</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>()
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">destroy</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">reinit</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      })
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">reinit</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">HSPinInput</span>.<span style="color:#a6e22e">autoInit</span>()
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">reinit</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">destroy</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      })
+</span></span><span style="display:flex"><span>    })()
+</span></span><span style="display:flex"><span>  });
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="javascript-behavior">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#javascript-behavior">
+       JavaScript behavior
+      </a>
+      <a aria-label=" JavaScript behavior " class="no-underline" href="#javascript-behavior">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="options">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#options">
+       Options
+      </a>
+      <a aria-label=" Options " class="no-underline" href="#options">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="not-prose custom-list mt-4 mb-6 flex items-start gap-4 alert alert-soft !bg-primary/10 alert-primary" role="alert">
+    <span class="icon-[tabler--info-circle] mt-px size-5 shrink-0 leading-none">
+    </span>
+    <span>
+     FlyonUI is powered by
+     <a class="link link-primary font-semibold" href="https://preline.co/plugins.html">
+      Preline’s
+     </a>
+     unstyled, headless Tailwind plugins to deliver accessible and responsive user interfaces.
+    </span>
+    <style>
+     .custom-list li::before{content:"-";margin-right:.5em}
+    </style>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          PARAMETERS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          OPTIONS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DEFAULT VALUE
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           data-pin-input
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="text-pretty">
+          Activate a Pin Input by specifying on an element.
+         </span>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           :availableCharsRE
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="text-pretty">
+          String of regular expression for allowed characters.
+         </span>
+        </td>
+        <td class="px-4">
+         RegExp
+        </td>
+        <td class="px-4">
+         <code class="text-nowrap">
+          ^[a-zA-Z0-9]+$
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           data-pin-input-item
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="text-pretty">
+          Identifies the element in the container responsible for data entry.
+         </span>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="class-options">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#class-options">
+       Class Options
+      </a>
+      <a aria-label=" Class Options " class="no-underline" href="#class-options">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          PARAMETERS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          OPTIONS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DEFAULT VALUE
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           autofocus
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="text-pretty">
+          If one of the fields has this class, it will be focused when the page loads.
+         </span>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <p>
+    <div class="flex items-center">
+     <h3 class="text-[1.25rem] !mt-0" id="methods">
+      <span class="not-prose group relative flex items-center gap-1">
+       <a href="#methods">
+        Methods
+       </a>
+       <a aria-label=" Methods " class="no-underline" href="#methods">
+        <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+         <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+         </span>
+        </span>
+       </a>
+      </span>
+     </h3>
+    </div>
+    The
+    <code>
+     HSPinInput
+    </code>
+    object is contained within the global
+    <code>
+     window
+    </code>
+    object.
+   </p>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          METHOD
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          PUBLIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          destroy()
+         </code>
+        </td>
+        <td class="px-4">
+         Destroys the instance, removes generated markup (if any), removes added classes and attributes.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          STATIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          HSPinInput.getInstance(target, isInstance)
+         </code>
+        </td>
+        <td class="px-4">
+         <div>
+          Returns the element associated to the
+          <code>
+           target
+          </code>
+          .
+          <ul class="m-0">
+           <li>
+            <code>
+             target
+            </code>
+            should be a Node or string (valid selector).
+           </li>
+           <li>
+            <code>
+             isInstance
+            </code>
+            boolean. Returns the instance instead of Node if
+            <code>
+             true
+            </code>
+            .
+           </li>
+          </ul>
+         </div>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <p class="mt-10 mb-1.5 not-prose" id="destroy-method">
+    Destroy instance.
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSPinInput</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#pin-input'</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destroyBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#destroy-btn'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>();
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const { element } = HSPinInput.getInstance('#pin-input', true);
+const destroyBtn = document.querySelector('#destroy-btn');
+
+destroyBtn.addEventListener('click', () =&gt; {
+  element.destroy();
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="events">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#events">
+       Events
+      </a>
+      <a aria-label=" Events " class="no-underline" href="#events">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          METHOD
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          RETURNING VALUE
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          on:completed
+         </code>
+        </td>
+        <td class="px-4">
+         The event is triggered when the PIN has set up.
+        </td>
+        <td class="px-4">
+         Current value
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h4 class="!mt-0 text-[1rem]" id="event-usage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#event-usage">
+       Event usage
+      </a>
+      <a aria-label=" Event usage " class="no-underline" href="#event-usage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <p>
+    Assign an ID to
+    <code>
+     data-pin-input
+    </code>
+    , and you can then trigger an event using that ID.
+   </p>
+   <p>
+    Below is a demonstration of how to use the event. We’ve included JavaScript to handle the events, allowing it to execute when the corresponding event is fired. To test these events, monitor your console.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex space-x-3 rtl:space-x-reverse" data-pin-input id="pin-input-log"&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item autofocus /&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item /&gt;
+  &lt;input type="text" class="pin-input" aria-label="pin input" data-pin-input-item /&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', function () {
+    const el = HSPinInput.getInstance('#pin-input-log')
+    
+    el.on('completed', ({ instance }) =&gt; {
+      console.log('Hello')
+    })
+  })
+&lt;/script&gt;
+
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose justify-between flex-wrap flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex space-x-3 rtl:space-x-reverse" data-pin-input="" id="pin-input-log">
+        <input aria-label="pin input" autofocus="" class="pin-input" data-pin-input-item="" type="text"/>
+        <input aria-label="pin input" class="pin-input" data-pin-input-item="" type="text"/>
+        <input aria-label="pin input" class="pin-input" data-pin-input-item="" type="text"/>
+        <input aria-label="pin input" class="pin-input" data-pin-input-item="" type="text"/>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex space-x-3 rtl:space-x-reverse"</span> <span style="color:#a6e22e">data-pin-input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input-log"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> <span style="color:#a6e22e">autofocus</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin-input"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"pin input"</span> <span style="color:#a6e22e">data-pin-input-item</span> /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSPinInput</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#pin-input-log'</span>)
+</span></span><span style="display:flex"><span>    
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'completed'</span>, ({ <span style="color:#a6e22e">instance</span> }) =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">'Hello'</span>)
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p class="mt-12 mb-1.5 not-prose">
+    When pin input is completed example.
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSPinInput</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#pin-input-log'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">'completed'</span>, ({<span style="color:#a6e22e">instance</span>}) =&gt; {<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">"Hello"</span>)});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const el = HSPinInput.getInstance('#pin-input-log');
+
+el.on('completed', ({instance}) =&gt; {console.log(&quot;Hello&quot;)});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/advanced-forms/input-number/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Input Number
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/advanced-forms/strong-password/">
+     Strong Password
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

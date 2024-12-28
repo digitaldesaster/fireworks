@@ -1,0 +1,2635 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     advanced forms
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Toggle Count
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     The Toggle Count Component simplifies switching between different values, aiding comparison and decision-making on pricing pages.
+    </p>
+    <div class="mt-3 flex items-center gap-2">
+     <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" d="M17.6745 16.9224 12.6233 10.378C12.2167 9.85117 11.4185 9.8611 11.0251 10.3979L6.45728 16.631C6.26893 16.888 5.96935 17.0398 5.65069 17.0398H3.79114C2.9635 17.0398 2.49412 16.0919 2.99583 15.4336L11.0224 4.90319C11.4206 4.38084 12.2056 4.37762 12.608 4.89668L20.9829 15.6987C21.4923 16.3558 21.024 17.3114 20.1926 17.3114H18.4661C18.1562 17.3114 17.8638 17.1677 17.6745 16.9224zm-5.0879-1.33 2.309 2.7669C15.439 19.0105 14.976 20 14.1278 20H9.74075C8.9164 20 8.4461 19.0586 8.94116 18.3994l2.07804-2.7669C11.4065 15.1169 12.1734 15.0972 12.5866 15.5924z" fill="oklch(var(--p))" fill-rule="evenodd">
+      </path>
+     </svg>
+     <a aria-label="Component requires flyonui JavaScript" class="link link-animated link-primary flex items-center gap-2 font-medium" href="/docs/getting-started/quick-start/">
+      <span>
+       Require FlyonUI JS
+      </span>
+      <span class="icon-[tabler--external-link] size-5 pt-1">
+      </span>
+     </a>
+    </div>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="57" viewbox="0 0 160 57" width="160" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5515_7007)">
+      <rect fill="#76717f" fill-opacity=".06" height="28" rx="6" width="56" x="22" y="14">
+      </rect>
+      <rect fill="oklch(var(--p))" height="28" rx="6" width="56" x="82" y="14">
+      </rect>
+      <rect fill="#fff" height="6" rx="3" width="38" x="91" y="25">
+      </rect>
+      <rect fill="#474857" fill-opacity=".5" height="6" rx="3" width="38" x="31" y="25">
+      </rect>
+      <path d="M22 57V-.183284e-5" stroke="url(#paint0_linear_5515_7007)" stroke-opacity=".4">
+      </path>
+      <path d="M138 57V-.183284e-5" stroke="url(#paint1_linear_5515_7007)" stroke-opacity=".4">
+      </path>
+      <path d="M160 14H.798702e-5" stroke="url(#paint2_linear_5515_7007)" stroke-opacity=".4">
+      </path>
+      <path d="M160 42H.798702e-5" stroke="url(#paint3_linear_5515_7007)" stroke-opacity=".4">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5515_7007" x1="22.5" x2="22.4962" y1=".308924e-5" y2="57">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5515_7007" x1="138.5" x2="138.496" y1=".308924e-5" y2="57">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5515_7007" x1=".852802e-5" x2="160" y1="13.5" y2="13.5302">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5515_7007" x1=".852802e-5" x2="160" y1="41.5" y2="41.5302">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5515_7007">
+       <rect fill="#fff" height="57" width="160">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          switch
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Component class for switch.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-radio">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-radio">
+       With radio
+      </a>
+      <a aria-label=" With radio " class="no-underline" href="#with-radio">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic example of toggle count with radio input.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;mb-3 flex justify-center&quot;&gt;
+  &lt;div id=&quot;toggle-count&quot; class=&quot;border-base-content/20 flex gap-0.5 rounded-btn border p-0.5&quot;&gt;
+    &lt;label for=&quot;toggle-count-monthly&quot; class=&quot;btn btn-sm btn-text has-[:checked]:btn-active&quot;&gt;
+      &lt;span&gt;Monthly&lt;/span&gt;
+      &lt;input id=&quot;toggle-count-monthly&quot; name=&quot;toggle-count&quot; type=&quot;radio&quot; class=&quot;hidden&quot; checked=&quot;&quot; /&gt;
+    &lt;/label&gt;
+    &lt;label for=&quot;toggle-count-annual&quot; class=&quot;btn btn-sm btn-text has-[:checked]:btn-active&quot;&gt;
+      &lt;span&gt;Annually&lt;/span&gt;
+      &lt;input id=&quot;toggle-count-annual&quot; name=&quot;toggle-count&quot; type=&quot;radio&quot; class=&quot;hidden&quot; /&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4&quot;&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;p class=&quot;mb-1 font-medium&quot;&gt;Free&lt;/p&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count&quot;,
+          &quot;min&quot;: 0,
+          &quot;max&quot;: 0
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        0
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the basics for the business that are just getting started!&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;p class=&quot;mb-1 font-medium&quot;&gt;Essential&lt;/p&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count&quot;,
+          &quot;min&quot;: 15,
+          &quot;max&quot;: 159
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        15
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the essentials for the business that need some added support!&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;div class=&quot;flex justify-between&quot;&gt;
+      &lt;p class=&quot;mb-1 font-medium&quot;&gt;Standard&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count&quot;,
+          &quot;min&quot;: 60,
+          &quot;max&quot;: 699
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        60
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the standards for the businesses that need more growth.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;p class=&quot;mb-1 font-medium&quot;&gt;Pro&lt;/p&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count&quot;,
+          &quot;min&quot;: 100,
+          &quot;max&quot;: 999
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        100
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the advanced features with pro support &amp; customizations!&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="mb-3 flex justify-center">
+        <div class="border-base-content/20 flex gap-0.5 rounded-btn border p-0.5" id="toggle-count">
+         <label class="btn btn-sm btn-text has-[:checked]:btn-active" for="toggle-count-monthly">
+          <span>
+           Monthly
+          </span>
+          <input checked="" class="hidden" id="toggle-count-monthly" name="toggle-count" type="radio"/>
+         </label>
+         <label class="btn btn-sm btn-text has-[:checked]:btn-active" for="toggle-count-annual">
+          <span>
+           Annually
+          </span>
+          <input class="hidden" id="toggle-count-annual" name="toggle-count" type="radio"/>
+         </label>
+        </div>
+       </div>
+       <div class="border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4">
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <p class="mb-1 font-medium">
+          Free
+         </p>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count",
+          "min": 0,
+          "max": 0
+        }'>
+           0
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the basics for the business that are just getting started!
+         </p>
+        </div>
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <p class="mb-1 font-medium">
+          Essential
+         </p>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count",
+          "min": 15,
+          "max": 159
+        }'>
+           15
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the essentials for the business that need some added support!
+         </p>
+        </div>
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <div class="flex justify-between">
+          <p class="mb-1 font-medium">
+           Standard
+          </p>
+         </div>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count",
+          "min": 60,
+          "max": 699
+        }'>
+           60
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the standards for the businesses that need more growth.
+         </p>
+        </div>
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <p class="mb-1 font-medium">
+          Pro
+         </p>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count",
+          "min": 100,
+          "max": 999
+        }'>
+           100
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the advanced features with pro support &amp; customizations!
+         </p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-3 flex justify-center"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"border-base-content/20 flex gap-0.5 rounded-btn border p-0.5"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-monthly"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-text has-[:checked]:btn-active"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span>&gt;Monthly&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-monthly"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"hidden"</span> <span style="color:#a6e22e">checked</span><span style="color:#f92672">=</span><span style="color:#e6db74">""</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-annual"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-text has-[:checked]:btn-active"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span>&gt;Annually&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-annual"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"hidden"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Free&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 0,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 0
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        0
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the basics for the business that are just getting started!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Essential&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 15,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 159
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        15
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the essentials for the business that need some added support!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex justify-between"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Standard&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 60,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 699
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        60
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the standards for the businesses that need more growth.&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Pro&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 100,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 999
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        100
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the advanced features with pro support <span style="color:#960050;background-color:#1e0010">&amp;</span> customizations!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="with-switch">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#with-switch">
+       With switch
+      </a>
+      <a aria-label=" With switch " class="no-underline" href="#with-switch">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic example of toggle count with switch(checkbox) input.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;mb-4 flex justify-center&quot;&gt;
+  &lt;div class=&quot;flex items-center&quot;&gt;
+    &lt;label for=&quot;toggle-count-switch&quot; class=&quot;inline-block p-2&quot;&gt;
+      &lt;span class=&quot;text-sm cursor-pointer&quot;&gt;Monthly&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;input id=&quot;toggle-count-switch&quot; name=&quot;toggle-count-switch&quot; type=&quot;checkbox&quot; class=&quot;switch&quot; /&gt;
+    &lt;label for=&quot;toggle-count-switch&quot; class=&quot;inline-block p-2&quot;&gt;
+      &lt;span class=&quot;text-sm cursor-pointer&quot;&gt;Annually&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4&quot;&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;p class=&quot;mb-1 font-medium&quot;&gt;Free&lt;/p&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count-switch&quot;,
+          &quot;min&quot;: 0,
+          &quot;max&quot;: 0
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        0
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the basics for the business that are just getting started!&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;p class=&quot;mb-1 font-medium&quot;&gt;Essential&lt;/p&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count-switch&quot;,
+          &quot;min&quot;: 15,
+          &quot;max&quot;: 159
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        15
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the essentials for the business that need some added support!&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;div class=&quot;flex justify-between&quot;&gt;
+      &lt;p class=&quot;mb-1 font-medium&quot;&gt;Standard&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count-switch&quot;,
+          &quot;min&quot;: 60,
+          &quot;max&quot;: 699
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        60
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the standards for the businesses that need more growth.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+    &lt;p class=&quot;mb-1 font-medium&quot;&gt;Pro&lt;/p&gt;
+    &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+      &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+      &lt;p
+        data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-count-switch&quot;,
+          &quot;min&quot;: 100,
+          &quot;max&quot;: 999
+        }'
+        class=&quot;text-3xl sm:text-5xl&quot;&gt;
+        100
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm text-center&quot;&gt;All the advanced features with pro support &amp; customizations!&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="mb-4 flex justify-center">
+        <div class="flex items-center">
+         <label class="inline-block p-2" for="toggle-count-switch">
+          <span class="text-sm cursor-pointer">
+           Monthly
+          </span>
+         </label>
+         <input class="switch" id="toggle-count-switch" name="toggle-count-switch" type="checkbox"/>
+         <label class="inline-block p-2" for="toggle-count-switch">
+          <span class="text-sm cursor-pointer">
+           Annually
+          </span>
+         </label>
+        </div>
+       </div>
+       <div class="border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4">
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <p class="mb-1 font-medium">
+          Free
+         </p>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count-switch",
+          "min": 0,
+          "max": 0
+        }'>
+           0
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the basics for the business that are just getting started!
+         </p>
+        </div>
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <p class="mb-1 font-medium">
+          Essential
+         </p>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count-switch",
+          "min": 15,
+          "max": 159
+        }'>
+           15
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the essentials for the business that need some added support!
+         </p>
+        </div>
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <div class="flex justify-between">
+          <p class="mb-1 font-medium">
+           Standard
+          </p>
+         </div>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count-switch",
+          "min": 60,
+          "max": 699
+        }'>
+           60
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the standards for the businesses that need more growth.
+         </p>
+        </div>
+        <div class="flex flex-col items-center justify-center gap-2 p-4">
+         <p class="mb-1 font-medium">
+          Pro
+         </p>
+         <div class="text-base-content/90 flex gap-x-1 font-semibold">
+          <span class="text-xl">
+           $
+          </span>
+          <p class="text-3xl sm:text-5xl" data-toggle-count='{
+          "target": "#toggle-count-switch",
+          "min": 100,
+          "max": 999
+        }'>
+           100
+          </p>
+         </div>
+         <p class="text-sm text-center">
+          All the advanced features with pro support &amp; customizations!
+         </p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-4 flex justify-center"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-switch"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"inline-block p-2"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm cursor-pointer"</span>&gt;Monthly&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-switch"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-switch"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"switch"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-switch"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"inline-block p-2"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm cursor-pointer"</span>&gt;Annually&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Free&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count-switch",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 0,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 0
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        0
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the basics for the business that are just getting started!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Essential&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count-switch",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 15,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 159
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        15
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the essentials for the business that need some added support!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex justify-between"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Standard&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count-switch",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 60,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 699
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        60
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the standards for the businesses that need more growth.&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Pro&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-count-switch",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 100,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 999
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>        100
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the advanced features with pro support <span style="color:#960050;background-color:#1e0010">&amp;</span> customizations!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="pricing-cards">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#pricing-cards">
+       Pricing cards
+      </a>
+      <a aria-label=" Pricing cards " class="no-underline" href="#pricing-cards">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic example demonstrates use of toggle count in pricing cards.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;mb-3 flex justify-center&quot;&gt;
+  &lt;div id=&quot;toggle-price-count&quot; class=&quot;border-base-content/20 flex gap-0.5 rounded-btn border p-0.5&quot;&gt;
+    &lt;label for=&quot;toggle-price-count-monthly&quot; class=&quot;btn btn-sm btn-text has-[:checked]:btn-active&quot;&gt;
+      &lt;span&gt;Monthly&lt;/span&gt;
+      &lt;input id=&quot;toggle-price-count-monthly&quot; name=&quot;toggle-price-count&quot; type=&quot;radio&quot; class=&quot;hidden&quot; checked=&quot;&quot; /&gt;
+    &lt;/label&gt;
+    &lt;label for=&quot;toggle-price-count-annual&quot; class=&quot;btn btn-sm btn-text has-[:checked]:btn-active&quot;&gt;
+      &lt;span&gt;Annually&lt;/span&gt;
+      &lt;input id=&quot;toggle-price-count-annual&quot; name=&quot;toggle-price-count&quot; type=&quot;radio&quot; class=&quot;hidden&quot; /&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;grid grid-cols-1 items-center gap-2 sm:grid-cols-2 md:grid-cols-3&quot;&gt;
+  &lt;div class=&quot;card border-base-content/20 border shadow-none&quot;&gt;
+    &lt;div class=&quot;card-body gap-3 text-center&quot;&gt;
+      &lt;div&gt;
+        &lt;span class=&quot;text-base-content/90 text-xl font-medium &quot;&gt;Basic&lt;/span&gt;
+        &lt;p class=&quot;text-sm truncate&quot;&gt;A simple start for everyone&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;text-primary flex justify-center gap-x-1&quot;&gt;
+        &lt;span class=&quot;text-base-content/80 text-xl&quot;&gt;$&lt;/span&gt;
+        &lt;p
+          data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-price-count&quot;,
+          &quot;min&quot;: 3,
+          &quot;max&quot;: 29
+        }'
+          class=&quot;text-5xl font-semibold&quot;&gt;
+          3
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;ul class=&quot;text-sm space-y-3&quot;&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;100 responses a month&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Unlimited forms &amp; surveys&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Unlimited fields&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Basic form creation tools&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Up to 2 subdomains&lt;/span&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button class=&quot;btn btn-outline btn-sm btn-primary mt-4&quot;&gt;UPGRADE&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;card border-primary border shadow-none&quot;&gt;
+    &lt;div class=&quot;relative&quot;&gt;
+      &lt;span class=&quot;badge badge-soft badge-sm badge-primary absolute end-2 top-2&quot;&gt;Popular&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card-body gap-3 text-center&quot;&gt;
+      &lt;div&gt;
+        &lt;span class=&quot;text-base-content/90 text-xl font-medium &quot;&gt;Standard&lt;/span&gt;
+        &lt;p class=&quot;text-sm&quot;&gt;For small to medium businesses&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;text-primary flex justify-center gap-x-1&quot;&gt;
+        &lt;span class=&quot;text-base-content/80 text-xl&quot;&gt;$&lt;/span&gt;
+        &lt;p
+          data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-price-count&quot;,
+          &quot;min&quot;: 15,
+          &quot;max&quot;: 159
+        }'
+          class=&quot;text-5xl font-semibold&quot;&gt;
+          15
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;ul class=&quot;text-sm space-y-3&quot;&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Unlimited responses&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Unlimited forms &amp; surveys&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Instagram profile page&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Google Docs integration&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Custom Landing page&lt;/span&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button class=&quot;btn btn-sm btn-primary mt-4&quot;&gt;UPGRADE&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;card border-base-content/20 border shadow-none&quot;&gt;
+    &lt;div class=&quot;card-body gap-3 text-center&quot;&gt;
+      &lt;div&gt;
+        &lt;span class=&quot;text-base-content/90 text-xl font-medium&quot;&gt;Enterprise&lt;/span&gt;
+        &lt;p class=&quot;text-sm truncate&quot;&gt;Solution for big organizations&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;text-primary flex justify-center gap-x-1&quot;&gt;
+        &lt;span class=&quot;text-base-content/80 text-xl&quot;&gt;$&lt;/span&gt;
+        &lt;p
+          data-toggle-count='{
+          &quot;target&quot;: &quot;#toggle-price-count&quot;,
+          &quot;min&quot;: 79,
+          &quot;max&quot;: 999
+        }'
+          class=&quot;text-5xl font-semibold&quot;&gt;
+          79
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;ul class=&quot;text-sm space-y-3&quot;&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;PayPal payments&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Logic Jumps&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;File upload with 5GB storage&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Custom domain support&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;flex items-center space-x-3 rtl:space-x-reverse&quot;&gt;
+          &lt;span class=&quot;bg-primary/20 text-primary flex items-center justify-center rounded-full p-1&quot;&gt;
+            &lt;span class=&quot;icon-[tabler--arrow-right] size-4 rtl:rotate-180&quot;&gt;&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;text-base-content/80 truncate&quot;&gt;Stripe integration&lt;/span&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button class=&quot;btn btn-outline btn-sm btn-primary mt-4&quot;&gt;UPGRADE&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="mb-3 flex justify-center">
+        <div class="border-base-content/20 flex gap-0.5 rounded-btn border p-0.5" id="toggle-price-count">
+         <label class="btn btn-sm btn-text has-[:checked]:btn-active" for="toggle-price-count-monthly">
+          <span>
+           Monthly
+          </span>
+          <input checked="" class="hidden" id="toggle-price-count-monthly" name="toggle-price-count" type="radio"/>
+         </label>
+         <label class="btn btn-sm btn-text has-[:checked]:btn-active" for="toggle-price-count-annual">
+          <span>
+           Annually
+          </span>
+          <input class="hidden" id="toggle-price-count-annual" name="toggle-price-count" type="radio"/>
+         </label>
+        </div>
+       </div>
+       <div class="grid grid-cols-1 items-center gap-2 sm:grid-cols-2 md:grid-cols-3">
+        <div class="card border-base-content/20 border shadow-none">
+         <div class="card-body gap-3 text-center">
+          <div>
+           <span class="text-base-content/90 text-xl font-medium">
+            Basic
+           </span>
+           <p class="text-sm truncate">
+            A simple start for everyone
+           </p>
+          </div>
+          <div class="text-primary flex justify-center gap-x-1">
+           <span class="text-base-content/80 text-xl">
+            $
+           </span>
+           <p class="text-5xl font-semibold" data-toggle-count='{
+          "target": "#toggle-price-count",
+          "min": 3,
+          "max": 29
+        }'>
+            3
+           </p>
+          </div>
+          <ul class="text-sm space-y-3">
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             100 responses a month
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Unlimited forms &amp; surveys
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Unlimited fields
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Basic form creation tools
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Up to 2 subdomains
+            </span>
+           </li>
+          </ul>
+          <button class="btn btn-outline btn-sm btn-primary mt-4">
+           UPGRADE
+          </button>
+         </div>
+        </div>
+        <div class="card border-primary border shadow-none">
+         <div class="relative">
+          <span class="badge badge-soft badge-sm badge-primary absolute end-2 top-2">
+           Popular
+          </span>
+         </div>
+         <div class="card-body gap-3 text-center">
+          <div>
+           <span class="text-base-content/90 text-xl font-medium">
+            Standard
+           </span>
+           <p class="text-sm">
+            For small to medium businesses
+           </p>
+          </div>
+          <div class="text-primary flex justify-center gap-x-1">
+           <span class="text-base-content/80 text-xl">
+            $
+           </span>
+           <p class="text-5xl font-semibold" data-toggle-count='{
+          "target": "#toggle-price-count",
+          "min": 15,
+          "max": 159
+        }'>
+            15
+           </p>
+          </div>
+          <ul class="text-sm space-y-3">
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Unlimited responses
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Unlimited forms &amp; surveys
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Instagram profile page
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Google Docs integration
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Custom Landing page
+            </span>
+           </li>
+          </ul>
+          <button class="btn btn-sm btn-primary mt-4">
+           UPGRADE
+          </button>
+         </div>
+        </div>
+        <div class="card border-base-content/20 border shadow-none">
+         <div class="card-body gap-3 text-center">
+          <div>
+           <span class="text-base-content/90 text-xl font-medium">
+            Enterprise
+           </span>
+           <p class="text-sm truncate">
+            Solution for big organizations
+           </p>
+          </div>
+          <div class="text-primary flex justify-center gap-x-1">
+           <span class="text-base-content/80 text-xl">
+            $
+           </span>
+           <p class="text-5xl font-semibold" data-toggle-count='{
+          "target": "#toggle-price-count",
+          "min": 79,
+          "max": 999
+        }'>
+            79
+           </p>
+          </div>
+          <ul class="text-sm space-y-3">
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             PayPal payments
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Logic Jumps
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             File upload with 5GB storage
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Custom domain support
+            </span>
+           </li>
+           <li class="flex items-center space-x-3 rtl:space-x-reverse">
+            <span class="bg-primary/20 text-primary flex items-center justify-center rounded-full p-1">
+             <span class="icon-[tabler--arrow-right] size-4 rtl:rotate-180">
+             </span>
+            </span>
+            <span class="text-base-content/80 truncate">
+             Stripe integration
+            </span>
+           </li>
+          </ul>
+          <button class="btn btn-outline btn-sm btn-primary mt-4">
+           UPGRADE
+          </button>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-3 flex justify-center"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-price-count"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"border-base-content/20 flex gap-0.5 rounded-btn border p-0.5"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-price-count-monthly"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-text has-[:checked]:btn-active"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span>&gt;Monthly&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-price-count-monthly"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-price-count"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"hidden"</span> <span style="color:#a6e22e">checked</span><span style="color:#f92672">=</span><span style="color:#e6db74">""</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-price-count-annual"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-text has-[:checked]:btn-active"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span>&gt;Annually&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-price-count-annual"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-price-count"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"hidden"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"grid grid-cols-1 items-center gap-2 sm:grid-cols-2 md:grid-cols-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card border-base-content/20 border shadow-none"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card-body gap-3 text-center"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-xl font-medium "</span>&gt;Basic&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm truncate"</span>&gt;A simple start for everyone&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-primary flex justify-center gap-x-1"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-price-count",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 3,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 29
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-5xl font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>          3
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;100 responses a month&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Unlimited forms <span style="color:#960050;background-color:#1e0010">&amp;</span> surveys&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Unlimited fields&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Basic form creation tools&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Up to 2 subdomains&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-outline btn-sm btn-primary mt-4"</span>&gt;UPGRADE&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card border-primary border shadow-none"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"badge badge-soft badge-sm badge-primary absolute end-2 top-2"</span>&gt;Popular&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card-body gap-3 text-center"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-xl font-medium "</span>&gt;Standard&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm"</span>&gt;For small to medium businesses&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-primary flex justify-center gap-x-1"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-price-count",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 15,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 159
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-5xl font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>          15
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Unlimited responses&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Unlimited forms <span style="color:#960050;background-color:#1e0010">&amp;</span> surveys&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Instagram profile page&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Google Docs integration&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Custom Landing page&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-primary mt-4"</span>&gt;UPGRADE&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card border-base-content/20 border shadow-none"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card-body gap-3 text-center"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 text-xl font-medium"</span>&gt;Enterprise&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm truncate"</span>&gt;Solution for big organizations&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-primary flex justify-center gap-x-1"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "target": "#toggle-price-count",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "min": 79,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          "max": 999
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        }'</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-5xl font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>          79
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm space-y-3"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;PayPal payments&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Logic Jumps&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;File upload with 5GB storage&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Custom domain support&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex items-center space-x-3 rtl:space-x-reverse"</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"bg-primary/20 text-primary flex items-center justify-center rounded-full p-1"</span>&gt;
+</span></span><span style="display:flex"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--arrow-right] size-4 rtl:rotate-180"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/80 truncate"</span>&gt;Stripe integration&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-outline btn-sm btn-primary mt-4"</span>&gt;UPGRADE&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p>
+    <div class="flex items-center">
+     <h3 class="text-[1.25rem] !mt-0" id="destroy/reinitialize">
+      <span class="not-prose group relative flex items-center gap-1">
+       <a href="#destroy%2freinitialize">
+        Destroy/Reinitialize
+       </a>
+       <a aria-label=" Destroy/Reinitialize " class="no-underline" href="#destroy%2freinitialize">
+        <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+         <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+         </span>
+        </span>
+       </a>
+      </span>
+     </h3>
+     <span class="badge badge-sm badge-soft badge-primary rounded-full align-middle uppercase">
+      new
+     </span>
+    </div>
+    The
+    <code>
+     destroy
+    </code>
+    <a class="link link-primary" href="#destroy-method">
+     method
+    </a>
+    is provided to facilitate the destruction of a toggle count.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div id=&quot;toggle-count-destroy&quot;&gt;
+  &lt;div class=&quot;mb-3 flex justify-center&quot;&gt;
+    &lt;div id=&quot;toggle-count-example&quot; class=&quot;border-base-content/20 flex gap-0.5 rounded-btn border p-0.5&quot;&gt;
+      &lt;label for=&quot;toggle-count-monthly-based&quot; class=&quot;btn btn-sm btn-text has-[:checked]:btn-active&quot;&gt;
+        &lt;span&gt;Monthly&lt;/span&gt;
+        &lt;input id=&quot;toggle-count-monthly-based&quot; name=&quot;toggle-count-example&quot; type=&quot;radio&quot; class=&quot;hidden&quot; checked=&quot;&quot; /&gt;
+      &lt;/label&gt;
+      &lt;label for=&quot;toggle-count-annual-based&quot; class=&quot;btn btn-sm btn-text has-[:checked]:btn-active&quot;&gt;
+        &lt;span&gt;Annually&lt;/span&gt;
+        &lt;input id=&quot;toggle-count-annual-based&quot; name=&quot;toggle-count-example&quot; type=&quot;radio&quot; class=&quot;hidden&quot; /&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4&quot;&gt;
+    &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+      &lt;p class=&quot;mb-1 font-medium&quot;&gt;Free&lt;/p&gt;
+      &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+        &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+        &lt;p
+          data-toggle-count='{
+            &quot;target&quot;: &quot;#toggle-count-example&quot;,
+            &quot;min&quot;: 0,
+            &quot;max&quot;: 0
+          }'
+          class=&quot;text-3xl sm:text-5xl&quot;&gt;
+          0
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;text-sm text-center&quot;&gt;All the basics for the business that are just getting started!&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+      &lt;p class=&quot;mb-1 font-medium&quot;&gt;Essential&lt;/p&gt;
+      &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+        &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+        &lt;p
+          data-toggle-count='{
+            &quot;target&quot;: &quot;#toggle-count-example&quot;,
+            &quot;min&quot;: 15,
+            &quot;max&quot;: 159
+          }'
+          class=&quot;text-3xl sm:text-5xl&quot;&gt;
+          15
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;text-sm text-center&quot;&gt;All the essentials for the business that need some added support!&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+      &lt;div class=&quot;flex justify-between&quot;&gt;
+        &lt;p class=&quot;mb-1 font-medium&quot;&gt;Standard&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+        &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+        &lt;p
+          data-toggle-count='{
+            &quot;target&quot;: &quot;#toggle-count-example&quot;,
+            &quot;min&quot;: 60,
+            &quot;max&quot;: 699
+          }'
+          class=&quot;text-3xl sm:text-5xl&quot;&gt;
+          60
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;text-sm text-center&quot;&gt;All the standards for the businesses that need more growth.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;flex flex-col items-center justify-center gap-2 p-4&quot;&gt;
+      &lt;p class=&quot;mb-1 font-medium&quot;&gt;Pro&lt;/p&gt;
+      &lt;div class=&quot;text-base-content/90 flex gap-x-1 font-semibold&quot;&gt;
+        &lt;span class=&quot;text-xl&quot;&gt;$&lt;/span&gt;
+        &lt;p
+          data-toggle-count='{
+            &quot;target&quot;: &quot;#toggle-count-example&quot;,
+            &quot;min&quot;: 100,
+            &quot;max&quot;: 999
+          }'
+          class=&quot;text-3xl sm:text-5xl&quot;&gt;
+          100
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;text-sm text-center&quot;&gt;All the advanced features with pro support &amp; customizations!&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;mt-4 flex gap-3&quot;&gt;
+  &lt;button class=&quot;btn btn-primary&quot; id=&quot;destroy-btn&quot;&gt;Destroy&lt;/button&gt;
+  &lt;button class=&quot;btn btn-primary&quot; id=&quot;reinit-btn&quot; disabled&gt;Reinitialize&lt;/button&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', () =&gt; {
+    // Destroy and reinit variables
+    const toggleCounts = document.querySelectorAll('#toggle-count-destroy [data-toggle-count]')
+    const destroyBtn = document.querySelector('#destroy-btn')
+    const reinitBtn = document.querySelector('#reinit-btn')
+
+    // Destroy usage
+    destroyBtn.addEventListener('click', () =&gt; {
+      toggleCounts.forEach(el =&gt; {
+        const { element } = HSToggleCount.getInstance(el, true)
+
+        element.destroy()
+      })
+
+      destroyBtn.setAttribute('disabled', 'disabled')
+      reinitBtn.removeAttribute('disabled')
+    })
+
+    // Reinit usage
+    reinitBtn.addEventListener('click', () =&gt; {
+      HSToggleCount.autoInit()
+
+      reinitBtn.setAttribute('disabled', 'disabled')
+      destroyBtn.removeAttribute('disabled')
+    })
+  })
+&lt;/script&gt;
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div id="toggle-count-destroy">
+        <div class="mb-3 flex justify-center">
+         <div class="border-base-content/20 flex gap-0.5 rounded-btn border p-0.5" id="toggle-count-example">
+          <label class="btn btn-sm btn-text has-[:checked]:btn-active" for="toggle-count-monthly-based">
+           <span>
+            Monthly
+           </span>
+           <input checked="" class="hidden" id="toggle-count-monthly-based" name="toggle-count-example" type="radio"/>
+          </label>
+          <label class="btn btn-sm btn-text has-[:checked]:btn-active" for="toggle-count-annual-based">
+           <span>
+            Annually
+           </span>
+           <input class="hidden" id="toggle-count-annual-based" name="toggle-count-example" type="radio"/>
+          </label>
+         </div>
+        </div>
+        <div class="border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4">
+         <div class="flex flex-col items-center justify-center gap-2 p-4">
+          <p class="mb-1 font-medium">
+           Free
+          </p>
+          <div class="text-base-content/90 flex gap-x-1 font-semibold">
+           <span class="text-xl">
+            $
+           </span>
+           <p class="text-3xl sm:text-5xl" data-toggle-count='{
+            "target": "#toggle-count-example",
+            "min": 0,
+            "max": 0
+          }'>
+            0
+           </p>
+          </div>
+          <p class="text-sm text-center">
+           All the basics for the business that are just getting started!
+          </p>
+         </div>
+         <div class="flex flex-col items-center justify-center gap-2 p-4">
+          <p class="mb-1 font-medium">
+           Essential
+          </p>
+          <div class="text-base-content/90 flex gap-x-1 font-semibold">
+           <span class="text-xl">
+            $
+           </span>
+           <p class="text-3xl sm:text-5xl" data-toggle-count='{
+            "target": "#toggle-count-example",
+            "min": 15,
+            "max": 159
+          }'>
+            15
+           </p>
+          </div>
+          <p class="text-sm text-center">
+           All the essentials for the business that need some added support!
+          </p>
+         </div>
+         <div class="flex flex-col items-center justify-center gap-2 p-4">
+          <div class="flex justify-between">
+           <p class="mb-1 font-medium">
+            Standard
+           </p>
+          </div>
+          <div class="text-base-content/90 flex gap-x-1 font-semibold">
+           <span class="text-xl">
+            $
+           </span>
+           <p class="text-3xl sm:text-5xl" data-toggle-count='{
+            "target": "#toggle-count-example",
+            "min": 60,
+            "max": 699
+          }'>
+            60
+           </p>
+          </div>
+          <p class="text-sm text-center">
+           All the standards for the businesses that need more growth.
+          </p>
+         </div>
+         <div class="flex flex-col items-center justify-center gap-2 p-4">
+          <p class="mb-1 font-medium">
+           Pro
+          </p>
+          <div class="text-base-content/90 flex gap-x-1 font-semibold">
+           <span class="text-xl">
+            $
+           </span>
+           <p class="text-3xl sm:text-5xl" data-toggle-count='{
+            "target": "#toggle-count-example",
+            "min": 100,
+            "max": 999
+          }'>
+            100
+           </p>
+          </div>
+          <p class="text-sm text-center">
+           All the advanced features with pro support &amp; customizations!
+          </p>
+         </div>
+        </div>
+       </div>
+       <div class="mt-4 flex gap-3">
+        <button class="btn btn-primary" id="destroy-btn">
+         Destroy
+        </button>
+        <button class="btn btn-primary" disabled="" id="reinit-btn">
+         Reinitialize
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-destroy"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-3 flex justify-center"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-example"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"border-base-content/20 flex gap-0.5 rounded-btn border p-0.5"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-monthly-based"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-text has-[:checked]:btn-active"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span>&gt;Monthly&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-monthly-based"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-example"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"hidden"</span> <span style="color:#a6e22e">checked</span><span style="color:#f92672">=</span><span style="color:#e6db74">""</span> /&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-annual-based"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-sm btn-text has-[:checked]:btn-active"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span>&gt;Annually&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-annual-based"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-example"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"hidden"</span> /&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"border-base-content/20 grid grid-cols-1 items-center rounded-xl border sm:grid-cols-2 md:grid-cols-4"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Free&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "target": "#toggle-count-example",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "min": 0,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "max": 0
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          }'</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>          0
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the basics for the business that are just getting started!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Essential&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "target": "#toggle-count-example",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "min": 15,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "max": 159
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          }'</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>          15
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the essentials for the business that need some added support!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex justify-between"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Standard&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "target": "#toggle-count-example",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "min": 60,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "max": 699
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          }'</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>          60
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the standards for the businesses that need more growth.&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col items-center justify-center gap-2 p-4"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-1 font-medium"</span>&gt;Pro&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 flex gap-x-1 font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-xl"</span>&gt;$&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>        &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "target": "#toggle-count-example",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "min": 100,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">            "max": 999
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">          }'</span>
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-3xl sm:text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>          100
+</span></span><span style="display:flex"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-sm text-center"</span>&gt;All the advanced features with pro support <span style="color:#960050;background-color:#1e0010">&amp;</span> customizations!&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mt-4 flex gap-3"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"destroy-btn"</span>&gt;Destroy&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-primary"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"reinit-btn"</span> <span style="color:#a6e22e">disabled</span>&gt;Reinitialize&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>    <span style="color:#75715e">// Destroy and reinit variables
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">toggleCounts</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">'#toggle-count-destroy [data-toggle-count]'</span>)
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destroyBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#destroy-btn'</span>)
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reinitBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#reinit-btn'</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#75715e">// Destroy usage
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">toggleCounts</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">el</span> =&gt; {
+</span></span><span style="display:flex"><span>        <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSToggleCount</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#a6e22e">el</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>()
+</span></span><span style="display:flex"><span>      })
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">reinitBtn</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>    <span style="color:#75715e">// Reinit usage
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">reinitBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">HSToggleCount</span>.<span style="color:#a6e22e">autoInit</span>()
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">reinitBtn</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">'disabled'</span>, <span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">removeAttribute</span>(<span style="color:#e6db74">'disabled'</span>)
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="options-usage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#options-usage">
+       Options usage
+      </a>
+      <a aria-label=" Options usage " class="no-underline" href="#options-usage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="duration">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#duration">
+       Duration
+      </a>
+      <a aria-label=" Duration " class="no-underline" href="#duration">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Assign the value of the
+    <code>
+     data-toggle-count
+    </code>
+    attribute as an object. Within this object, set the
+    <code>
+     duration
+    </code>
+    option to
+    <code>
+     number
+    </code>
+    to set counting speed(animation). By default, its value is
+    <code>
+     700
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;card w-40&quot;&gt;
+  &lt;div class=&quot;text-base-content/90 card-body font-semibold&quot;&gt;
+    &lt;p
+      data-toggle-count='{
+        &quot;target&quot;: &quot;#toggle-duration-usage&quot;,
+        &quot;min&quot;: 10,
+        &quot;max&quot;: 100,
+        &quot;duration&quot;:100
+      }'
+      class=&quot;mb-2 text-center text-5xl&quot;&gt;
+      10
+    &lt;/p&gt;
+    &lt;input id=&quot;toggle-duration-usage&quot; name=&quot;toggle-count-method&quot; type=&quot;checkbox&quot; class=&quot;switch switch-primary mx-auto&quot; aria-label=&quot;toggle count&quot; /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="card w-40">
+        <div class="text-base-content/90 card-body font-semibold">
+         <p class="mb-2 text-center text-5xl" data-toggle-count='{
+        "target": "#toggle-duration-usage",
+        "min": 10,
+        "max": 100,
+        "duration":100
+      }'>
+          10
+         </p>
+         <input aria-label="toggle count" class="switch switch-primary mx-auto" id="toggle-duration-usage" name="toggle-count-method" type="checkbox"/>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card w-40"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 card-body font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        "target": "#toggle-duration-usage",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        "min": 10,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        "max": 100,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        "duration":100
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">      }'</span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mb-2 text-center text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>      10
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-duration-usage"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-method"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"switch switch-primary mx-auto"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle count"</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="javascript-behavior">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#javascript-behavior">
+       JavaScript behavior
+      </a>
+      <a aria-label=" JavaScript behavior " class="no-underline" href="#javascript-behavior">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="options">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#options">
+       Options
+      </a>
+      <a aria-label=" Options " class="no-underline" href="#options">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <div class="not-prose custom-list mt-4 mb-6 flex items-start gap-4 alert alert-soft !bg-primary/10 alert-primary" role="alert">
+    <span class="icon-[tabler--info-circle] mt-px size-5 shrink-0 leading-none">
+    </span>
+    <span>
+     FlyonUI is powered by
+     <a class="link link-primary font-semibold" href="https://preline.co/plugins.html">
+      Preline’s
+     </a>
+     unstyled, headless Tailwind plugins to deliver accessible and responsive user interfaces.
+    </span>
+    <style>
+     .custom-list li::before{content:"-";margin-right:.5em}
+    </style>
+   </div>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          PARAMETERS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          OPTIONS
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DEFAULT VALUE
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="text-nowrap">
+          <code>
+           data-toggle-count
+          </code>
+         </span>
+        </td>
+        <td class="px-4">
+         Activate a Toggle Count by specifying on an element.
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          :target
+         </code>
+         (required)
+        </td>
+        <td class="px-4">
+         Specifies default number.
+        </td>
+        <td class="px-4">
+         string
+        </td>
+        <td class="px-4">
+         <code>
+          -
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          :min
+         </code>
+        </td>
+        <td class="px-4">
+         Specifies the target element to copy. The value must be a valid selector.
+        </td>
+        <td class="px-4">
+         number
+        </td>
+        <td class="px-4">
+         <code>
+          0
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          :max
+         </code>
+        </td>
+        <td class="px-4">
+         Specifies the number to which the count up will go.
+        </td>
+        <td class="px-4">
+         number
+        </td>
+        <td class="px-4">
+         <code>
+          0
+         </code>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          :duration
+         </code>
+        </td>
+        <td class="px-4">
+         Counting speed (animation).
+        </td>
+        <td class="px-4">
+         number
+        </td>
+        <td class="px-4">
+         <code>
+          700
+         </code>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="methods">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#methods">
+       Methods
+      </a>
+      <a aria-label=" Methods " class="no-underline" href="#methods">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     HSToggleCount
+    </code>
+    object is contained within the global
+    <code>
+     window
+    </code>
+    object.
+   </p>
+   <div class="border-base-content/10 rounded-box my-8 border p-2">
+    <div class="enhanced-scrollbar [&amp;::-webkit-scrollbar-track]:bg-base-200 [&amp;::-webkit-scrollbar-thumb]:bg-secondary/50 w-full overflow-x-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="text-sm font-semibold uppercase">
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          METHOD
+         </div>
+        </th>
+        <th class="text-nowrap p-0 *:last:px-4">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          DESCRIPTION
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          PUBLIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          countUp()
+         </code>
+        </td>
+        <td class="px-4">
+         Force count up.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          countDown()
+         </code>
+        </td>
+        <td class="px-4">
+         Force count down.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          destroy()
+         </code>
+        </td>
+        <td class="px-4">
+         Destroys the instance, removes generated markup (if any), removes added classes and attributes.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4" colspan="2">
+         <span class="text-base-content/90 font-semibold">
+          STATIC METHODS
+         </span>
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <code>
+          HSToggleCount.getInstance(target, isInstance)
+         </code>
+        </td>
+        <td class="px-4">
+         <div>
+          Returns the element associated to the
+          <code>
+           target
+          </code>
+          .
+          <ul class="m-0">
+           <li>
+            <code>
+             target
+            </code>
+            should be a Node or string (valid selector).
+           </li>
+           <li>
+            <code>
+             isInstance
+            </code>
+            boolean. Returns the instance instead of Node if
+            <code>
+             true
+            </code>
+            .
+           </li>
+          </ul>
+         </div>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h4 class="!mt-0 text-[1rem]" id="method-usage">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#method-usage">
+       Method usage
+      </a>
+      <a aria-label=" Method usage " class="no-underline" href="#method-usage">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h4>
+   </div>
+   <p>
+    Assign an ID to the button containing the
+    <code>
+     data-toggle-count
+    </code>
+    attribute, as demonstrated in the public method. To explore additional methods, you can copy them into the console.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+      <button @click="activeTab = 2" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       JS
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;card w-40&quot;&gt;
+  &lt;div class=&quot;text-base-content/90 card-body font-semibold&quot;&gt;
+    &lt;input id=&quot;toggle-input-method&quot; name=&quot;toggle-count-method&quot; type=&quot;checkbox&quot; class=&quot;hidden&quot; /&gt;
+    &lt;p
+      id=&quot;toggle-count-method&quot;
+      data-toggle-count='{
+        &quot;target&quot;: &quot;#toggle-input-method&quot;,
+        &quot;min&quot;: 10,
+        &quot;max&quot;: 100
+      }'
+      class=&quot;text-center text-5xl&quot;&gt;
+      10
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;flex justify-between p-2 pt-0&quot;&gt;
+    &lt;button id=&quot;count-down-method&quot; class=&quot;btn btn-soft btn-error btn-square&quot; aria-label=&quot;decrement&quot;&gt;
+      &lt;span class=&quot;icon-[tabler--minus]&quot;&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button id=&quot;count-up-method&quot; class=&quot;btn btn-soft btn-primary btn-square&quot; aria-label=&quot;increment&quot;&gt;
+      &lt;span class=&quot;icon-[tabler--plus]&quot;&gt;&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+       <button :class="{ 'flex': activeTab === 2, 'hidden': activeTab !== 2 }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`
+&lt;script&gt;
+  window.addEventListener('load', function () {
+    const toggleCount = new HSToggleCount(document.querySelector('#toggle-count-method'))
+    const countUpBtn = document.querySelector('#count-up-method')
+    const countDownBtn = document.querySelector('#count-down-method')
+    
+    countUpBtn.addEventListener('click', () =&gt; {
+      toggleCount.countUp()
+    })
+    countDownBtn.addEventListener('click', () =&gt; {
+      toggleCount.countDown()
+    })
+  })
+&lt;/script&gt;
+
+`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="card w-40">
+        <div class="text-base-content/90 card-body font-semibold">
+         <input class="hidden" id="toggle-input-method" name="toggle-count-method" type="checkbox"/>
+         <p class="text-center text-5xl" data-toggle-count='{
+        "target": "#toggle-input-method",
+        "min": 10,
+        "max": 100
+      }' id="toggle-count-method">
+          10
+         </p>
+        </div>
+        <div class="flex justify-between p-2 pt-0">
+         <button aria-label="decrement" class="btn btn-soft btn-error btn-square" id="count-down-method">
+          <span class="icon-[tabler--minus]">
+          </span>
+         </button>
+         <button aria-label="increment" class="btn btn-soft btn-primary btn-square" id="count-up-method">
+          <span class="icon-[tabler--plus]">
+          </span>
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"card w-40"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-base-content/90 card-body font-semibold"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-input-method"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-method"</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"checkbox"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"hidden"</span> /&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">p</span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"toggle-count-method"</span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">data-toggle-count</span><span style="color:#f92672">=</span><span style="color:#e6db74">'{
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        "target": "#toggle-input-method",
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        "min": 10,
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">        "max": 100
+</span></span></span><span style="display:flex"><span><span style="color:#e6db74">      }'</span>
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"text-center text-5xl"</span>&gt;
+</span></span><span style="display:flex"><span>      10
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex justify-between p-2 pt-0"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"count-down-method"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-soft btn-error btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"decrement"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--minus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"count-up-method"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"btn btn-soft btn-primary btn-square"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"increment"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"icon-[tabler--plus]"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 2 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 2">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div class="highlight">
+       <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex"><span>  window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'load'</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">toggleCount</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HSToggleCount</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#toggle-count-method'</span>))
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countUpBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#count-up-method'</span>)
+</span></span><span style="display:flex"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countDownBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#count-down-method'</span>)
+</span></span><span style="display:flex"><span>    
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">countUpBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">toggleCount</span>.<span style="color:#a6e22e">countUp</span>()
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">countDownBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>      <span style="color:#a6e22e">toggleCount</span>.<span style="color:#a6e22e">countDown</span>()
+</span></span><span style="display:flex"><span>    })
+</span></span><span style="display:flex"><span>  })
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">script</span>&gt;</span></span></code></pre>
+      </div>
+     </div>
+    </div>
+   </section>
+   <p class="mt-10 mb-1.5 not-prose">
+    Force count up (public method).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#75715e">// This method is used in above example.
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">toggleCount</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HSToggleCount</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#toggle-count-method'</span>));
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countUpBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#count-up-method'</span>);
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countDownBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#count-down-method'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">countUpBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">toggleCount</span>.<span style="color:#a6e22e">countUp</span>();
+</span></span><span style="display:flex"><span>});
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">countDownBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">toggleCount</span>.<span style="color:#a6e22e">countDown</span>();
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`// This method is used in above example.
+const toggleCount = new HSToggleCount(document.querySelector('#toggle-count-method'));
+const countUpBtn = document.querySelector('#count-up-method');
+const countDownBtn = document.querySelector('#count-down-method');
+
+countUpBtn.addEventListener('click', () =&gt; {
+  toggleCount.countUp();
+});
+
+countDownBtn.addEventListener('click', () =&gt; {
+  toggleCount.countDown();
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <p class="mt-10 mb-1.5 not-prose">
+    Force count up (mixed).
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSToggleCount</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#toggle-count-method'</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countUpBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#count-up-method'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">countUpBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">countUp</span>();
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const { element } = HSToggleCount.getInstance('#toggle-count-method', true);
+const countUpBtn = document.querySelector('#count-up-method');
+
+countUpBtn.addEventListener('click', () =&gt; {
+  element.countUp();
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+   <p class="mt-10 mb-1.5 not-prose" id="destroy-method">
+    Destroy instance.
+   </p>
+   <div class="relative">
+    <div class="prose enhanced-scrollbar mb-6 max-w-none overflow-x-auto rounded-lg max-md:rounded-b-none" x-data="{ tooltip: 'Copied!' }">
+     <div class="highlight">
+      <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">element</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">HSToggleCount</span>.<span style="color:#a6e22e">getInstance</span>(<span style="color:#e6db74">'#toggle-count-destroy'</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destroyBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">'#destroy-btn'</span>);
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">destroyBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">'click'</span>, () =&gt; {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">destroy</span>();
+</span></span><span style="display:flex"><span>});</span></span></code></pre>
+     </div>
+     <button aria-label="Copy to clipboard" class="btn btn-secondary btn-xs absolute right-0 top-0.5 m-2 me-3 h-7 w-7 cursor-pointer p-0" onclick="navigator.clipboard.writeText(`const { element } = HSToggleCount.getInstance('#toggle-count-destroy', true);
+const destroyBtn = document.querySelector('#destroy-btn');
+
+destroyBtn.addEventListener('click', () =&gt; {
+  element.destroy();
+});`)" x-tooltip.on.click="tooltip">
+      <span class="icon-[tabler--clipboard-copy] size-5">
+      </span>
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/advanced-forms/strong-password/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Strong Password
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/advanced-forms/toggle-password/">
+     Toggle Password
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

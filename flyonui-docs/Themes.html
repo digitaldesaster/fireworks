@@ -1,0 +1,980 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     customization
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Themes
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Discover how to customize the default theme and understand the fundamentals of theming in FlyonUI.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="60" viewbox="0 0 60 60" width="60" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_6475_117367)">
+      <mask height="60" id="mask0_6475_117367" maskunits="userSpaceOnUse" style="mask-type:luminance" width="60" x="0" y="0">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="#fff">
+       </path>
+      </mask>
+      <g mask="url(#mask0_6475_117367)">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="oklch(var(--bc))">
+       </path>
+       <path clip-rule="evenodd" d="M41.9953 38.7001 30.6315 24.6934C30.2248 24.1921 29.4567 24.2017 29.0627 24.7132L18.7058 38.158C18.5165 38.4038 18.2238 38.5478 17.9136 38.5478H11.621C10.7822 38.5478 10.3161 37.5771 10.8406 36.9225L29.0608 14.1819C29.459 13.6849 30.2141 13.6818 30.6164 14.1754L49.5749 37.4383C50.1072 38.0916 49.6424 39.0701 48.7997 39.0701H42.7719C42.4705 39.0701 42.1852 38.9341 41.9953 38.7001zm-11.436-3.8978 6.8236 7.779C37.9499 43.2276 37.4909 44.2407 36.6312 44.2407H23.6662c-.8355.0-1.3026-.963899999999995-.7849-1.6196l6.1413-7.779C29.4099 34.3516 30.1471 34.3325 30.5593 34.8023z" fill="url(#paint0_linear_6475_117367)" fill-rule="evenodd">
+       </path>
+      </g>
+      <path d="M45.0005 1.24933h-30c-7.59393.0-13.75001 6.15608-13.75001 13.74997v30c0 7.594 6.15608 13.75 13.75001 13.75h30c7.5939.0 13.75-6.156 13.75-13.75v-30c0-7.59389-6.1561-13.74997-13.75-13.74997z" stroke="url(#paint1_linear_6475_117367)" stroke-width="2">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_6475_117367" x1="30.2104" x2="30.2104" y1="13.8072" y2="44.2407">
+       <stop stop-color="oklch(var(--nc))">
+       </stop>
+       <stop offset="1" stop-color="oklch(var(--nc))" stop-opacity=".8">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_6475_117364" x1="40.0005" x2="40.0005" y1="9.99933" y2="69.9993">
+       <stop stop-color="#fff" stop-opacity=".28">
+       </stop>
+       <stop offset="1" stop-color="#fff" stop-opacity=".04">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_6475_117364">
+       <rect fill="#fff" height="60" transform="translate(10 10)" width="60">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] !mt-px text-base-content/90" id="flyonui-themes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#flyonui-themes">
+       FlyonUI Themes
+      </a>
+      <a aria-label=" FlyonUI Themes " class="no-underline" href="#flyonui-themes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    <strong>
+     How to use FlyonUI themes?
+    </strong>
+   </p>
+   <p>
+    FlyonUI comes with several themes that you can use effortlessly. Each theme defines a set of colors applied across all FlyonUI elements. To use a theme, add its name in
+    <code>
+     tailwind.config.js
+    </code>
+    and activate it by adding the
+    <code>
+     data-theme
+    </code>
+    attribute to the
+    <code>
+     HTML
+    </code>
+    tag:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">"light"</span>, <span style="color:#e6db74">"dark"</span>, <span style="color:#e6db74">"gourmet"</span>]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <br/>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">"gourmet"</span>&gt;&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="list-of-themes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#list-of-themes">
+       List of themes
+      </a>
+      <a aria-label=" List of themes " class="no-underline" href="#list-of-themes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="rounded-box grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    <div class="border-base-content/20 hover:border-base-content/40 rounded-box theme-button overflow-hidden border outline outline-2 outline-offset-2 outline-transparent">
+     <div class="bg-base-100 text-base-content w-full cursor-pointer p-4" data-theme="light" onclick='toggleTheme(this.getAttribute("data-theme"))'>
+      <div class="not-prose text-base-content/90 text-lg font-semibold capitalize">
+       light
+      </div>
+      <div class="grid grid-cols-3 grid-rows-3 gap-1">
+       <div class="bg-primary col-span-2 flex items-center justify-center rounded">
+        <div class="text-primary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="flex">
+        <div class="bg-base-200 w-1/2 rounded-s-md">
+        </div>
+        <div class="bg-base-300 w-1/2 rounded-e-md">
+        </div>
+       </div>
+       <div class="bg-secondary flex aspect-square items-center justify-center rounded">
+        <div class="text-secondary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-accent flex aspect-square items-center justify-center rounded">
+        <div class="text-accent-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-success flex aspect-square items-center justify-center rounded">
+        <div class="text-success-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-error flex aspect-square items-center justify-center rounded">
+        <div class="text-error-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-warning flex aspect-square items-center justify-center rounded">
+        <div class="text-warning-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-info flex aspect-square items-center justify-center rounded">
+        <div class="text-info-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="border-base-content/20 hover:border-base-content/40 rounded-box theme-button overflow-hidden border outline outline-2 outline-offset-2 outline-transparent">
+     <div class="bg-base-100 text-base-content w-full cursor-pointer p-4" data-theme="dark" onclick='toggleTheme(this.getAttribute("data-theme"))'>
+      <div class="not-prose text-base-content/90 text-lg font-semibold capitalize">
+       dark
+      </div>
+      <div class="grid grid-cols-3 grid-rows-3 gap-1">
+       <div class="bg-primary col-span-2 flex items-center justify-center rounded">
+        <div class="text-primary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="flex">
+        <div class="bg-base-200 w-1/2 rounded-s-md">
+        </div>
+        <div class="bg-base-300 w-1/2 rounded-e-md">
+        </div>
+       </div>
+       <div class="bg-secondary flex aspect-square items-center justify-center rounded">
+        <div class="text-secondary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-accent flex aspect-square items-center justify-center rounded">
+        <div class="text-accent-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-success flex aspect-square items-center justify-center rounded">
+        <div class="text-success-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-error flex aspect-square items-center justify-center rounded">
+        <div class="text-error-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-warning flex aspect-square items-center justify-center rounded">
+        <div class="text-warning-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-info flex aspect-square items-center justify-center rounded">
+        <div class="text-info-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="border-base-content/20 hover:border-base-content/40 rounded-box theme-button overflow-hidden border outline outline-2 outline-offset-2 outline-transparent">
+     <div class="bg-base-100 text-base-content w-full cursor-pointer p-4" data-theme="gourmet" onclick='toggleTheme(this.getAttribute("data-theme"))'>
+      <div class="not-prose text-base-content/90 text-lg font-semibold capitalize">
+       gourmet
+      </div>
+      <div class="grid grid-cols-3 grid-rows-3 gap-1">
+       <div class="bg-primary col-span-2 flex items-center justify-center rounded">
+        <div class="text-primary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="flex">
+        <div class="bg-base-200 w-1/2 rounded-s-md">
+        </div>
+        <div class="bg-base-300 w-1/2 rounded-e-md">
+        </div>
+       </div>
+       <div class="bg-secondary flex aspect-square items-center justify-center rounded">
+        <div class="text-secondary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-accent flex aspect-square items-center justify-center rounded">
+        <div class="text-accent-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-success flex aspect-square items-center justify-center rounded">
+        <div class="text-success-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-error flex aspect-square items-center justify-center rounded">
+        <div class="text-error-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-warning flex aspect-square items-center justify-center rounded">
+        <div class="text-warning-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-info flex aspect-square items-center justify-center rounded">
+        <div class="text-info-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="border-base-content/20 hover:border-base-content/40 rounded-box theme-button overflow-hidden border outline outline-2 outline-offset-2 outline-transparent">
+     <div class="bg-base-100 text-base-content w-full cursor-pointer p-4" data-theme="corporate" onclick='toggleTheme(this.getAttribute("data-theme"))'>
+      <div class="not-prose text-base-content/90 text-lg font-semibold capitalize">
+       corporate
+      </div>
+      <div class="grid grid-cols-3 grid-rows-3 gap-1">
+       <div class="bg-primary col-span-2 flex items-center justify-center rounded">
+        <div class="text-primary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="flex">
+        <div class="bg-base-200 w-1/2 rounded-s-md">
+        </div>
+        <div class="bg-base-300 w-1/2 rounded-e-md">
+        </div>
+       </div>
+       <div class="bg-secondary flex aspect-square items-center justify-center rounded">
+        <div class="text-secondary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-accent flex aspect-square items-center justify-center rounded">
+        <div class="text-accent-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-success flex aspect-square items-center justify-center rounded">
+        <div class="text-success-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-error flex aspect-square items-center justify-center rounded">
+        <div class="text-error-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-warning flex aspect-square items-center justify-center rounded">
+        <div class="text-warning-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-info flex aspect-square items-center justify-center rounded">
+        <div class="text-info-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="border-base-content/20 hover:border-base-content/40 rounded-box theme-button overflow-hidden border outline outline-2 outline-offset-2 outline-transparent">
+     <div class="bg-base-100 text-base-content w-full cursor-pointer p-4" data-theme="luxury" onclick='toggleTheme(this.getAttribute("data-theme"))'>
+      <div class="not-prose text-base-content/90 text-lg font-semibold capitalize">
+       luxury
+      </div>
+      <div class="grid grid-cols-3 grid-rows-3 gap-1">
+       <div class="bg-primary col-span-2 flex items-center justify-center rounded">
+        <div class="text-primary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="flex">
+        <div class="bg-base-200 w-1/2 rounded-s-md">
+        </div>
+        <div class="bg-base-300 w-1/2 rounded-e-md">
+        </div>
+       </div>
+       <div class="bg-secondary flex aspect-square items-center justify-center rounded">
+        <div class="text-secondary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-accent flex aspect-square items-center justify-center rounded">
+        <div class="text-accent-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-success flex aspect-square items-center justify-center rounded">
+        <div class="text-success-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-error flex aspect-square items-center justify-center rounded">
+        <div class="text-error-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-warning flex aspect-square items-center justify-center rounded">
+        <div class="text-warning-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-info flex aspect-square items-center justify-center rounded">
+        <div class="text-info-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="border-base-content/20 hover:border-base-content/40 rounded-box theme-button overflow-hidden border outline outline-2 outline-offset-2 outline-transparent">
+     <div class="bg-base-100 text-base-content w-full cursor-pointer p-4" data-theme="soft" onclick='toggleTheme(this.getAttribute("data-theme"))'>
+      <div class="not-prose text-base-content/90 text-lg font-semibold capitalize">
+       soft
+      </div>
+      <div class="grid grid-cols-3 grid-rows-3 gap-1">
+       <div class="bg-primary col-span-2 flex items-center justify-center rounded">
+        <div class="text-primary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="flex">
+        <div class="bg-base-200 w-1/2 rounded-s-md">
+        </div>
+        <div class="bg-base-300 w-1/2 rounded-e-md">
+        </div>
+       </div>
+       <div class="bg-secondary flex aspect-square items-center justify-center rounded">
+        <div class="text-secondary-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-accent flex aspect-square items-center justify-center rounded">
+        <div class="text-accent-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-success flex aspect-square items-center justify-center rounded">
+        <div class="text-success-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-error flex aspect-square items-center justify-center rounded">
+        <div class="text-error-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-warning flex aspect-square items-center justify-center rounded">
+        <div class="text-warning-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+       <div class="bg-info flex aspect-square items-center justify-center rounded">
+        <div class="text-info-content text-lg font-semibold">
+         A
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <br/>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">"light"</span>, <span style="color:#e6db74">"dark"</span>, <span style="color:#e6db74">"gourmet"</span>, <span style="color:#e6db74">"corporate"</span>, <span style="color:#e6db74">"luxury"</span>, <span style="color:#e6db74">"soft"</span>]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <br/>
+   <p>
+    The default theme is
+    <code>
+     light
+    </code>
+    (or
+    <code>
+     dark
+    </code>
+    for dark mode), but you can
+    <a class="link link-primary" href="/docs/customization/config/">
+     change the default theme from tailwind.config.js
+    </a>
+    .
+   </p>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="font-family">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#font-family">
+       Font family
+      </a>
+      <a aria-label=" Font family " class="no-underline" href="#font-family">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <br/>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex"><span>      <span style="color:#e6db74">"light"</span>, <span style="color:#75715e">// Default font family
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">"dark"</span>, <span style="color:#75715e">// Default font family
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">"gourmet"</span>, <span style="color:#75715e">// fontFamily: 'Rubik'
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">"corporate"</span>, <span style="color:#75715e">// fontFamily: 'Public Sans'
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">"luxury"</span>, <span style="color:#75715e">// fontFamily: 'Archivo'
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">"soft"</span> <span style="color:#75715e">// fontFamily: 'Montserrat'
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>    ]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <br/>
+   <p>
+    The light and dark themes use the default
+    <code>
+     font-sans
+    </code>
+    font family, as specified in the
+    <a href="https://tailwindcss.com/docs/font-family">
+     official Tailwind documentation
+    </a>
+    . To customize the default font family, refer to the
+    <a href="https://tailwindcss.com/docs/font-family#customizing-the-default-font">
+     Tailwind guide
+    </a>
+    .
+   </p>
+   <p>
+    The following font families are important when using the
+    <code>
+     gourmet
+    </code>
+    ,
+    <code>
+     corporate
+    </code>
+    ,
+    <code>
+     luxury
+    </code>
+    , or
+    <code>
+     soft
+    </code>
+    themes.
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Gourmet : 'Rubik' --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">link</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stylesheet"</span>
+</span></span><span style="display:flex"><span>  /&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Corporate : 'Public Sans' --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">link</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stylesheet"</span>
+</span></span><span style="display:flex"><span>  /&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Luxury : 'Archivo' --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">link</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://fonts.googleapis.com/css?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stylesheet"</span>
+</span></span><span style="display:flex"><span>  /&gt;
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">&lt;!-- Soft : 'Montserrat' --&gt;</span>
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">link</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">"https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"</span>
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">"stylesheet"</span>
+</span></span><span style="display:flex"><span>  /&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-remove-unused-themes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-remove-unused-themes">
+       How to remove unused themes?
+      </a>
+      <a aria-label=" How to remove unused themes? " class="no-underline" href="#how-to-remove-unused-themes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    You can include only the themes you want in your project, reducing the size of your CSS file. In the example below:
+   </p>
+   <ul>
+    <li>
+     <code>
+      gourmet
+     </code>
+     will be the default theme for light mode.
+    </li>
+    <li>
+     <code>
+      dark
+     </code>
+     will be the default theme for dark mode.
+    </li>
+    <li>
+     <code>
+      soft
+     </code>
+     can be applied to any HTML tag using
+     <code>
+      data-theme='soft'
+     </code>
+     .
+    </li>
+   </ul>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">"gourmet"</span>, <span style="color:#e6db74">"dark"</span>, <span style="color:#e6db74">"soft"</span>]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-disable-all-themes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-disable-all-themes">
+       How to disable all themes?
+      </a>
+      <a aria-label=" How to disable all themes? " class="no-underline" href="#how-to-disable-all-themes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    If you only want the default light and dark themes, set the
+    <code>
+     themes
+    </code>
+    config to
+    <code>
+     false
+    </code>
+    .
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <br/>
+   <p>
+    If you don’t want to include any themes and wish to disable all colors, set the
+    <code>
+     themes
+    </code>
+    config to an empty array.
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> []
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-use-a-theme-only-for-a-section-of-a-page">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-use-a-theme-only-for-a-section-of-a-page">
+       How to use a theme only for a section of a page?
+      </a>
+      <a aria-label=" How to use a theme only for a section of a page? " class="no-underline" href="#how-to-use-a-theme-only-for-a-section-of-a-page">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    Add
+    <code>
+     data-theme='THEME_NAME'
+    </code>
+    to any element, and everything inside will adopt that theme. You can nest themes without any limits, forcing specific sections to use distinct themes.
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">"dark"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">"light"</span>&gt;
+</span></span><span style="display:flex"><span>    This div will always use the light theme.
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">"corporate"</span>&gt;This span will always use the corporate theme!&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-add-a-new-custom-theme">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-add-a-new-custom-theme">
+       How to add a new custom theme?
+      </a>
+      <a aria-label=" How to add a new custom theme? " class="no-underline" href="#how-to-add-a-new-custom-theme">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    You can add a new theme in the
+    <code>
+     tailwind.config.js
+    </code>
+    file. In the example below, we added a new theme called
+    <code>
+     mytheme
+    </code>
+    , and we’re also including the
+    <code>
+     dark
+    </code>
+    and
+    <code>
+     gourmet
+    </code>
+    themes.
+   </p>
+   <ul>
+    <li>
+     The first theme (
+     <code>
+      mytheme
+     </code>
+     ) will be the default theme.
+    </li>
+    <li>
+     The
+     <code>
+      dark
+     </code>
+     theme will be the default for dark mode.
+    </li>
+   </ul>
+   <p>
+    Here, we define the necessary colors. Other colors (like button focus or text color on a
+    <code>
+     primary
+    </code>
+    button) will be generated automatically.
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex"><span>      {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">mytheme</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">primary</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#a991f7"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">secondary</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#f6d860"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">accent</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#37cdbe"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">neutral</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#3d4451"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#e6db74">"base-100"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#ffffff"</span>
+</span></span><span style="display:flex"><span>        }
+</span></span><span style="display:flex"><span>      },
+</span></span><span style="display:flex"><span>      <span style="color:#e6db74">"dark"</span>,
+</span></span><span style="display:flex"><span>      <span style="color:#e6db74">"gourmet"</span>
+</span></span><span style="display:flex"><span>    ]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="css-variables-in-flyonui-themes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#css-variables-in-flyonui-themes">
+       CSS variables in FlyonUI themes
+      </a>
+      <a aria-label=" CSS variables in FlyonUI themes " class="no-underline" href="#css-variables-in-flyonui-themes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    FlyonUI themes offer a few optional CSS variables for customizing design elements per theme:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex"><span>      {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">mytheme</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">primary</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#a991f7"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">secondary</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#f6d860"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">accent</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#37cdbe"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">neutral</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#3d4451"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#e6db74">"base-100"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#ffffff"</span>,
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>          <span style="color:#e6db74">"--rounded-box"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"1rem"</span>, <span style="color:#75715e">// border-radius for large boxes
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--rounded-btn"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"0.5rem"</span>, <span style="color:#75715e">// border-radius for buttons
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--rounded-tooltip"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"1.9rem"</span>, <span style="color:#75715e">// border-radius for tooltip
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--animation-btn"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"0.25s"</span>, <span style="color:#75715e">// button click animation duration
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--animation-input"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"0.2s"</span>, <span style="color:#75715e">// input animation duration (e.g., checkboxes, switch)
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--btn-focus-scale"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"0.95"</span>, <span style="color:#75715e">// button scale transform on focus
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--border-btn"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"1px"</span>, <span style="color:#75715e">// button border width
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--tab-border"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"1px"</span>, <span style="color:#75715e">// tab border width
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>          <span style="color:#e6db74">"--tab-radius"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"0.5rem"</span> <span style="color:#75715e">// tab border-radius
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex"><span>      }
+</span></span><span style="display:flex"><span>    ]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="custom-css-for-a-flyonui-theme">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#custom-css-for-a-flyonui-theme">
+       Custom CSS for a FlyonUI theme
+      </a>
+      <a aria-label=" Custom CSS for a FlyonUI theme " class="no-underline" href="#custom-css-for-a-flyonui-theme">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    You can apply custom styles to FlyonUI themes using CSS:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-css" data-lang="css"><span style="display:flex"><span><span style="color:#f92672">[</span><span style="color:#f92672">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">"mytheme"</span><span style="color:#f92672">]</span> .<span style="color:#a6e22e">btn</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#66d9ef">border-width</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex"><span>  <span style="color:#66d9ef">border-color</span>: <span style="color:#66d9ef">black</span>;
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-customize-an-existing-theme">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-customize-an-existing-theme">
+       How to customize an existing theme?
+      </a>
+      <a aria-label=" How to customize an existing theme? " class="no-underline" href="#how-to-customize-an-existing-theme">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    In your
+    <code>
+     tailwind.config.js
+    </code>
+    , you can require an existing FlyonUI theme and override certain colors. In the example below, we require and spread the
+    <code>
+     light
+    </code>
+    theme, then modify its
+    <code>
+     primary
+    </code>
+    and
+    <code>
+     secondary
+    </code>
+    colors:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex"><span>      {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">light</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>          ...<span style="color:#a6e22e">require</span>(<span style="color:#e6db74">"flyonui/src/theming/themes"</span>)[<span style="color:#e6db74">"light"</span>],
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">primary</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"blue"</span>,
+</span></span><span style="display:flex"><span>          <span style="color:#a6e22e">secondary</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"teal"</span>
+</span></span><span style="display:flex"><span>        }
+</span></span><span style="display:flex"><span>      }
+</span></span><span style="display:flex"><span>    ]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-add-custom-styles-for-a-specific-theme">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-add-custom-styles-for-a-specific-theme">
+       How to add custom styles for a specific theme?
+      </a>
+      <a aria-label=" How to add custom styles for a specific theme? " class="no-underline" href="#how-to-add-custom-styles-for-a-specific-theme">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    You can write custom styles for your elements for a specific theme. In this example, the
+    <code>
+     .btn-twitter
+    </code>
+    class will have the style only when the light theme is active.
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#75715e">//...
+</span></span></span><span style="display:flex"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex"><span>      {
+</span></span><span style="display:flex"><span>        <span style="color:#a6e22e">light</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>          ...<span style="color:#a6e22e">require</span>(<span style="color:#e6db74">"flyonui/src/theming/themes"</span>)[<span style="color:#e6db74">"light"</span>],
+</span></span><span style="display:flex"><span>          <span style="color:#e6db74">".btn-twitter"</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>            <span style="color:#e6db74">"background-color"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#1EA1F1"</span>,
+</span></span><span style="display:flex"><span>            <span style="color:#e6db74">"border-color"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#1EA1F1"</span>
+</span></span><span style="display:flex"><span>          },
+</span></span><span style="display:flex"><span>          <span style="color:#e6db74">".btn-twitter:hover"</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>            <span style="color:#e6db74">"background-color"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#1C96E1"</span>,
+</span></span><span style="display:flex"><span>            <span style="color:#e6db74">"border-color"</span><span style="color:#f92672">:</span> <span style="color:#e6db74">"#1C96E1"</span>
+</span></span><span style="display:flex"><span>          }
+</span></span><span style="display:flex"><span>        }
+</span></span><span style="display:flex"><span>      }
+</span></span><span style="display:flex"><span>    ]
+</span></span><span style="display:flex"><span>  }
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-apply-tailwinds-dark-selector-for-specific-themes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-apply-tailwinds-dark-selector-for-specific-themes">
+       How to apply Tailwind's 'dark:' selector for specific themes?
+      </a>
+      <a aria-label=" How to apply Tailwind's 'dark:' selector for specific themes? " class="no-underline" href="#how-to-apply-tailwinds-dark-selector-for-specific-themes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    FlyonUI can be configured to use Tailwind’s
+    <code>
+     dark:
+    </code>
+    selector. To achieve this, modify your
+    <code>
+     tailwind.config.js
+    </code>
+    file to include the
+    <code>
+     darkMode
+    </code>
+    parameter. The
+    <code>
+     dark:
+    </code>
+    selector will apply to the FlyonUI theme you designate as dark. In the example below, the ’luxury’ theme is the dark theme:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-js" data-lang="js"><span style="display:flex"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">'./src/**/*.{astro,html,svelte,vue,js,ts,jsx,tsx}'</span>],
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">require</span>(<span style="color:#e6db74">'flyonui'</span>)],
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">theme</span><span style="color:#f92672">:</span> { ... },
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">flyonui</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex"><span>    <span style="color:#a6e22e">themes</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">'soft'</span>, <span style="color:#e6db74">'luxury'</span>]
+</span></span><span style="display:flex"><span>  },
+</span></span><span style="display:flex"><span>  <span style="color:#a6e22e">darkMode</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">'class'</span>, <span style="color:#e6db74">'[data-theme="luxury"]'</span>]
+</span></span><span style="display:flex"><span>}
+</span></span></code></pre>
+   </div>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/customization/colors/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Colors
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/customization/icons/">
+     Icons
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

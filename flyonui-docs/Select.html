@@ -1,0 +1,3043 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     forms
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Tailwind CSS
+Select
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     A select element is utilized to choose a value from a range of options.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="88" viewbox="0 0 230 88" width="230" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_5515_6740)">
+      <rect fill="#76717f" fill-opacity=".06" height="48" rx="8" width="180" x="25" y="20">
+      </rect>
+      <rect fill="oklch(var(--p))" height="8" rx="4" width="70" x="42.5" y="40">
+      </rect>
+      <path d="M179 41.5l5 5 5-5" stroke="#3f404d" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".5" stroke-width="1.5">
+      </path>
+      <path d="M25 88V-.953674e-6" stroke="url(#paint0_linear_5515_6740)" stroke-opacity=".4">
+      </path>
+      <path d="M205 88V-.953674e-6" stroke="url(#paint1_linear_5515_6740)" stroke-opacity=".4">
+      </path>
+      <path d="M230 20H-.411272e-5" stroke="url(#paint2_linear_5515_6740)" stroke-opacity=".4">
+      </path>
+      <path d="M230 68H-.411272e-5" stroke="url(#paint3_linear_5515_6740)" stroke-opacity=".4">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_5515_6740" x1="25.5" x2="25.4909" y1=".47261e-5" y2="88.0001">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_5515_6740" x1="205.5" x2="205.491" y1=".47261e-5" y2="88.0001">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint2_linear_5515_6740" x1=".122952e-4" x2="230" y1="19.5" y2="19.5624">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint3_linear_5515_6740" x1=".122952e-4" x2="230" y1="67.5" y2="67.5624">
+       <stop stop-color="#76717f" stop-opacity="0">
+       </stop>
+       <stop offset=".245" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset=".75" stop-color="#3f404d" stop-opacity=".5">
+       </stop>
+       <stop offset="1" stop-color="#76717f" stop-opacity="0">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_5515_6740">
+       <rect fill="#fff" height="88" width="230">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="border-base-content/10 rounded-box mb-8 border p-2">
+    <div class="enhanced-scrollbar max-h-[300px] overflow-x-auto overflow-y-auto [&amp;::-webkit-scrollbar]:h-2">
+     <table class="my-0">
+      <thead class="bg-base-100 sticky top-0 border-b-0">
+       <tr class="font-semibold uppercase">
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Class Name
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Type
+         </div>
+        </th>
+        <th class="p-0">
+         <div class="border-base-content/25 border-b py-2.5 ps-4 text-start">
+          Description
+         </div>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          label
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         For helper text.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Basic select field.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-floating
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Floating select field.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-filled
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Select with background color and floating label.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-floating-label
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Floats the label to the top.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-filled-label
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Keeps the label at the top.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-filled-focused
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-sm rounded-full">
+          Component
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds animation to the bottom border of a floating filled select.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-xs
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Smaller select size.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-sm
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Smaller select size.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          select-lg
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-primary badge-sm rounded-full">
+          Responsive
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Larger select size.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          is-valid
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds success style to the input.
+        </td>
+       </tr>
+       <tr class="border-base-content/10">
+        <td class="px-4">
+         <span class="whitespace-nowrap font-mono">
+          is-invalid
+         </span>
+        </td>
+        <td class="px-4">
+         <span class="badge badge-outline badge-sm rounded-full">
+          Modifier
+         </span>
+        </td>
+        <td class="min-w-44 px-4">
+         Adds error style to the input.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="basic-example">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#basic-example">
+       Basic example
+      </a>
+      <a aria-label=" Basic example " class="no-underline" href="#basic-example">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Basic select example.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;select class=&quot;select max-w-sm appearance-none&quot; aria-label=&quot;select&quot;&gt;
+  &lt;option disabled selected&gt;Pick your favorite Movie&lt;/option&gt;
+  &lt;option&gt;The Godfather&lt;/option&gt;
+  &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+  &lt;option&gt;Pulp Fiction&lt;/option&gt;
+  &lt;option&gt;The Dark Knight&lt;/option&gt;
+  &lt;option&gt;Schindler's List&lt;/option&gt;
+&lt;/select&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <select aria-label="select" class="select max-w-sm appearance-none">
+        <option disabled="" selected="">
+         Pick your favorite Movie
+        </option>
+        <option>
+         The Godfather
+        </option>
+        <option>
+         The Shawshank Redemption
+        </option>
+        <option>
+         Pulp Fiction
+        </option>
+        <option>
+         The Dark Knight
+        </option>
+        <option>
+         Schindler's List
+        </option>
+       </select>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select max-w-sm appearance-none"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">select</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="type">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#type">
+       Type
+      </a>
+      <a aria-label=" Type " class="no-underline" href="#type">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default-2">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     &lt;select&gt;
+    </code>
+    element’s customization options are primarily confined to its initial appearance. Due to browser constraints, modifications to the appearance of
+    <code>
+     &lt;option&gt;
+    </code>
+    elements within the dropdown are not possible.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;w-96&quot;&gt;
+  &lt;label class=&quot;label label-text&quot; for=&quot;favorite-simpson&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+  &lt;select class=&quot;select&quot; id=&quot;favorite-simpson&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-96">
+        <label class="label label-text" for="favorite-simpson">
+         Pick your favorite Movie
+        </label>
+        <select class="select" id="favorite-simpson">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"favorite-simpson"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"favorite-simpson"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="floating-label">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#floating-label">
+       Floating label
+      </a>
+      <a aria-label=" Floating label " class="no-underline" href="#floating-label">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    The
+    <code>
+     label
+    </code>
+    remains in its floated position at all times, unlike with
+    <code>
+     input
+    </code>
+    elements. Pair
+    <code>
+     select-floating
+    </code>
+    with your
+    <code>
+     select
+    </code>
+    element and
+    <code>
+     select-floating-label
+    </code>
+    for the label.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;relative w-full&quot;&gt;
+  &lt;select class=&quot;select select-floating max-w-sm&quot; aria-label=&quot;Select floating label&quot; id=&quot;selectFloating&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label class=&quot;select-floating-label&quot; for=&quot;selectFloating&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="relative w-full">
+        <select aria-label="Select floating label" class="select select-floating max-w-sm" id="selectFloating">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <label class="select-floating-label" for="selectFloating">
+         Pick your favorite Movie
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative w-full"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-floating max-w-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Select floating label"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloating"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloating"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="filled-select">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#filled-select">
+       Filled select
+      </a>
+      <a aria-label=" Filled select " class="no-underline" href="#filled-select">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Apply the
+    <code>
+     select-filled
+    </code>
+    class to give your select element a background, and use
+    <code>
+     select-filled-label
+    </code>
+    for the label that will float above the text.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;relative w-full max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-filled max-w-sm&quot; aria-label=&quot;Filled select&quot; id=&quot;selectFilled&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class=&quot;select-filled-focused&quot;&gt;&lt;/span&gt;
+  &lt;label class=&quot;select-filled-label&quot; for=&quot;selectFilled&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="relative w-full max-w-sm">
+        <select aria-label="Filled select" class="select select-filled max-w-sm" id="selectFilled">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <span class="select-filled-focused">
+        </span>
+        <label class="select-filled-label" for="selectFilled">
+         Pick your favorite Movie
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative w-full max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-filled max-w-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Filled select"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilled"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilled"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="size">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#size">
+       Size
+      </a>
+      <a aria-label=" Size " class="no-underline" href="#size">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="default-3">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#default-3">
+       Default
+      </a>
+      <a aria-label=" Default " class="no-underline" href="#default-3">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Default select has 4 size default, small and large.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;select class=&quot;select select-xs max-w-sm&quot; aria-label=&quot;select&quot;&gt;
+  &lt;option disabled selected&gt;Pick your favorite Movie&lt;/option&gt;
+  &lt;option&gt;The Godfather&lt;/option&gt;
+  &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+  &lt;option&gt;Pulp Fiction&lt;/option&gt;
+  &lt;option&gt;The Dark Knight&lt;/option&gt;
+  &lt;option&gt;Schindler's List&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;select class=&quot;select select-sm max-w-sm&quot; aria-label=&quot;select&quot;&gt;
+  &lt;option disabled selected&gt;Pick your favorite Movie&lt;/option&gt;
+  &lt;option&gt;The Godfather&lt;/option&gt;
+  &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+  &lt;option&gt;Pulp Fiction&lt;/option&gt;
+  &lt;option&gt;The Dark Knight&lt;/option&gt;
+  &lt;option&gt;Schindler's List&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;select class=&quot;select max-w-sm&quot; aria-label=&quot;select&quot;&gt;
+  &lt;option disabled selected&gt;Pick your favorite Movie&lt;/option&gt;
+  &lt;option&gt;The Godfather&lt;/option&gt;
+  &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+  &lt;option&gt;Pulp Fiction&lt;/option&gt;
+  &lt;option&gt;The Dark Knight&lt;/option&gt;
+  &lt;option&gt;Schindler's List&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;select class=&quot;select select-lg max-w-sm&quot; aria-label=&quot;select&quot;&gt;
+  &lt;option disabled selected&gt;Pick your favorite Movie&lt;/option&gt;
+  &lt;option&gt;The Godfather&lt;/option&gt;
+  &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+  &lt;option&gt;Pulp Fiction&lt;/option&gt;
+  &lt;option&gt;The Dark Knight&lt;/option&gt;
+  &lt;option&gt;Schindler's List&lt;/option&gt;
+&lt;/select&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <select aria-label="select" class="select select-xs max-w-sm">
+        <option disabled="" selected="">
+         Pick your favorite Movie
+        </option>
+        <option>
+         The Godfather
+        </option>
+        <option>
+         The Shawshank Redemption
+        </option>
+        <option>
+         Pulp Fiction
+        </option>
+        <option>
+         The Dark Knight
+        </option>
+        <option>
+         Schindler's List
+        </option>
+       </select>
+       <select aria-label="select" class="select select-sm max-w-sm">
+        <option disabled="" selected="">
+         Pick your favorite Movie
+        </option>
+        <option>
+         The Godfather
+        </option>
+        <option>
+         The Shawshank Redemption
+        </option>
+        <option>
+         Pulp Fiction
+        </option>
+        <option>
+         The Dark Knight
+        </option>
+        <option>
+         Schindler's List
+        </option>
+       </select>
+       <select aria-label="select" class="select max-w-sm">
+        <option disabled="" selected="">
+         Pick your favorite Movie
+        </option>
+        <option>
+         The Godfather
+        </option>
+        <option>
+         The Shawshank Redemption
+        </option>
+        <option>
+         Pulp Fiction
+        </option>
+        <option>
+         The Dark Knight
+        </option>
+        <option>
+         Schindler's List
+        </option>
+       </select>
+       <select aria-label="select" class="select select-lg max-w-sm">
+        <option disabled="" selected="">
+         Pick your favorite Movie
+        </option>
+        <option>
+         The Godfather
+        </option>
+        <option>
+         The Shawshank Redemption
+        </option>
+        <option>
+         Pulp Fiction
+        </option>
+        <option>
+         The Dark Knight
+        </option>
+        <option>
+         Schindler's List
+        </option>
+       </select>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-xs max-w-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-sm max-w-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select max-w-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-lg max-w-sm"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">select</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="floating-label-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#floating-label-2">
+       Floating label
+      </a>
+      <a aria-label=" Floating label " class="no-underline" href="#floating-label-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Floating select has 3 sizes example.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-sm  select-floating&quot; id=&quot;selectFloatingSmall&quot; aria-label=&quot;floating label&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label class=&quot;select-floating-label&quot; for=&quot;selectFloatingSmall&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-floating&quot; id=&quot;selectFloatingDefault&quot; aria-label=&quot;floating label&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label class=&quot;select-floating-label&quot; for=&quot;selectFloatingDefault&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-lg select-floating&quot; id=&quot;selectFloatingLarge&quot; aria-label=&quot;floating label&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label class=&quot;select-floating-label&quot; for=&quot;selectFloatingLarge&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="relative max-w-sm">
+        <select aria-label="floating label" class="select select-sm select-floating" id="selectFloatingSmall">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <label class="select-floating-label" for="selectFloatingSmall">
+         Pick your favorite Movie
+        </label>
+       </div>
+       <div class="relative max-w-sm">
+        <select aria-label="floating label" class="select select-floating" id="selectFloatingDefault">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <label class="select-floating-label" for="selectFloatingDefault">
+         Pick your favorite Movie
+        </label>
+       </div>
+       <div class="relative max-w-sm">
+        <select aria-label="floating label" class="select select-lg select-floating" id="selectFloatingLarge">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <label class="select-floating-label" for="selectFloatingLarge">
+         Pick your favorite Movie
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-sm  select-floating"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingSmall"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"floating label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingSmall"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-floating"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingDefault"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"floating label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingDefault"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-lg select-floating"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingLarge"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"floating label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingLarge"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="filled-select-2">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#filled-select-2">
+       Filled select
+      </a>
+      <a aria-label=" Filled select " class="no-underline" href="#filled-select-2">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Filled select has 3 sizes example.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-sm select-filled&quot; id=&quot;selectFilledSmall&quot; aria-label=&quot;Filled select&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class=&quot;select-filled-focused&quot;&gt;&lt;/span&gt;
+  &lt;label class=&quot;select-filled-label&quot; for=&quot;selectFilledSmall&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-filled&quot; id=&quot;selectFilledDefault&quot; aria-label=&quot;Filled select&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class=&quot;select-filled-focused&quot;&gt;&lt;/span&gt;
+  &lt;label class=&quot;select-filled-label&quot; for=&quot;selectFilledDefault&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-lg select-filled&quot; id=&quot;selectFilledLarge&quot; aria-label=&quot;Filled select&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class=&quot;select-filled-focused&quot;&gt;&lt;/span&gt;
+  &lt;label class=&quot;select-filled-label&quot; for=&quot;selectFilledLarge&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="relative max-w-sm">
+        <select aria-label="Filled select" class="select select-sm select-filled" id="selectFilledSmall">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <span class="select-filled-focused">
+        </span>
+        <label class="select-filled-label" for="selectFilledSmall">
+         Pick your favorite Movie
+        </label>
+       </div>
+       <div class="relative max-w-sm">
+        <select aria-label="Filled select" class="select select-filled" id="selectFilledDefault">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <span class="select-filled-focused">
+        </span>
+        <label class="select-filled-label" for="selectFilledDefault">
+         Pick your favorite Movie
+        </label>
+       </div>
+       <div class="relative max-w-sm">
+        <select aria-label="Filled select" class="select select-lg select-filled" id="selectFilledLarge">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <span class="select-filled-focused">
+        </span>
+        <label class="select-filled-label" for="selectFilledLarge">
+         Pick your favorite Movie
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-sm select-filled"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledSmall"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Filled select"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledSmall"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-filled"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledDefault"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Filled select"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledDefault"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-lg select-filled"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledLarge"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Filled select"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledLarge"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="validation-states">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#validation-states">
+       Validation states
+      </a>
+      <a aria-label=" Validation states " class="no-underline" href="#validation-states">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="success-state">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#success-state">
+       Success state
+      </a>
+      <a aria-label=" Success state " class="no-underline" href="#success-state">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Success state which can be added by using class
+    <code>
+     is-valid
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;max-w-sm&quot;&gt;
+  &lt;label class=&quot;label label-text&quot; for=&quot;selectStateSuccessDefault&quot;&gt; Full Name &lt;/label&gt;
+  &lt;select class=&quot;select is-valid&quot; id=&quot;selectStateSuccessDefault&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;div class=&quot;label&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;max-w-sm&quot;&gt;
+  &lt;div class=&quot;label justify-end&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;relative&quot;&gt;
+    &lt;select class=&quot;select is-valid select-floating&quot; id=&quot;selectStateSuccessFloating&quot;&gt;
+      &lt;option&gt;The Godfather&lt;/option&gt;
+      &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+      &lt;option&gt;Pulp Fiction&lt;/option&gt;
+      &lt;option&gt;The Dark Knight&lt;/option&gt;
+      &lt;option&gt;Schindler's List&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;label class=&quot;select-floating-label&quot; for=&quot;selectStateSuccessFloating&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;label&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;max-w-sm&quot;&gt;
+  &lt;div class=&quot;label justify-end&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;relative&quot;&gt;
+    &lt;select class=&quot;select is-valid select-filled&quot; id=&quot;selectStateSuccessFilled&quot;&gt;
+      &lt;option&gt;The Godfather&lt;/option&gt;
+      &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+      &lt;option&gt;Pulp Fiction&lt;/option&gt;
+      &lt;option&gt;The Dark Knight&lt;/option&gt;
+      &lt;option&gt;Schindler's List&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;span class=&quot;select-filled-focused&quot;&gt;&lt;/span&gt;
+    &lt;label class=&quot;select-filled-label&quot; for=&quot;selectStateSuccessFilled&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;label&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="max-w-sm">
+        <label class="label label-text" for="selectStateSuccessDefault">
+         Full Name
+        </label>
+        <select class="select is-valid" id="selectStateSuccessDefault">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="max-w-sm">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <select class="select is-valid select-floating" id="selectStateSuccessFloating">
+          <option>
+           The Godfather
+          </option>
+          <option>
+           The Shawshank Redemption
+          </option>
+          <option>
+           Pulp Fiction
+          </option>
+          <option>
+           The Dark Knight
+          </option>
+          <option>
+           Schindler's List
+          </option>
+         </select>
+         <label class="select-floating-label" for="selectStateSuccessFloating">
+          Pick your favorite Movie
+         </label>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="max-w-sm">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <select class="select is-valid select-filled" id="selectStateSuccessFilled">
+          <option>
+           The Godfather
+          </option>
+          <option>
+           The Shawshank Redemption
+          </option>
+          <option>
+           Pulp Fiction
+          </option>
+          <option>
+           The Dark Knight
+          </option>
+          <option>
+           Schindler's List
+          </option>
+         </select>
+         <span class="select-filled-focused">
+         </span>
+         <label class="select-filled-label" for="selectStateSuccessFilled">
+          Pick your favorite Movie
+         </label>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateSuccessDefault"</span>&gt; Full Name &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select is-valid"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateSuccessDefault"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select is-valid select-floating"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateSuccessFloating"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateSuccessFloating"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select is-valid select-filled"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateSuccessFilled"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateSuccessFilled"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="error-state">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#error-state">
+       Error state
+      </a>
+      <a aria-label=" Error state " class="no-underline" href="#error-state">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Error state can be added using class
+    <code>
+     is-invalid
+    </code>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;max-w-sm&quot;&gt;
+  &lt;label class=&quot;label label-text&quot; for=&quot;selectStateErrorDefault&quot;&gt; Full Name &lt;/label&gt;
+  &lt;select class=&quot;select is-invalid&quot; id=&quot;selectStateErrorDefault&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;div class=&quot;label&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;max-w-sm&quot;&gt;
+  &lt;div class=&quot;label justify-end&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;relative&quot;&gt;
+    &lt;select class=&quot;select is-invalid select-floating&quot; id=&quot;selectStateErrorFloating&quot;&gt;
+      &lt;option&gt;The Godfather&lt;/option&gt;
+      &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+      &lt;option&gt;Pulp Fiction&lt;/option&gt;
+      &lt;option&gt;The Dark Knight&lt;/option&gt;
+      &lt;option&gt;Schindler's List&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;label class=&quot;select-floating-label&quot; for=&quot;selectStateErrorFloating&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;label&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;max-w-sm&quot;&gt;
+  &lt;div class=&quot;label justify-end&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Top Right label&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;relative&quot;&gt;
+    &lt;select class=&quot;select is-invalid select-filled&quot; id=&quot;selectStateErrorFilled&quot;&gt;
+      &lt;option&gt;The Godfather&lt;/option&gt;
+      &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+      &lt;option&gt;Pulp Fiction&lt;/option&gt;
+      &lt;option&gt;The Dark Knight&lt;/option&gt;
+      &lt;option&gt;Schindler's List&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;span class=&quot;select-filled-focused&quot;&gt;&lt;/span&gt;
+    &lt;label class=&quot;select-filled-label&quot; for=&quot;selectStateErrorFilled&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;label&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Left label&lt;/span&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Bottom Right label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="max-w-sm">
+        <label class="label label-text" for="selectStateErrorDefault">
+         Full Name
+        </label>
+        <select class="select is-invalid" id="selectStateErrorDefault">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="max-w-sm">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <select class="select is-invalid select-floating" id="selectStateErrorFloating">
+          <option>
+           The Godfather
+          </option>
+          <option>
+           The Shawshank Redemption
+          </option>
+          <option>
+           Pulp Fiction
+          </option>
+          <option>
+           The Dark Knight
+          </option>
+          <option>
+           Schindler's List
+          </option>
+         </select>
+         <label class="select-floating-label" for="selectStateErrorFloating">
+          Pick your favorite Movie
+         </label>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+       <div class="max-w-sm">
+        <div class="label justify-end">
+         <span class="label-text-alt">
+          Top Right label
+         </span>
+        </div>
+        <div class="relative">
+         <select class="select is-invalid select-filled" id="selectStateErrorFilled">
+          <option>
+           The Godfather
+          </option>
+          <option>
+           The Shawshank Redemption
+          </option>
+          <option>
+           Pulp Fiction
+          </option>
+          <option>
+           The Dark Knight
+          </option>
+          <option>
+           Schindler's List
+          </option>
+         </select>
+         <span class="select-filled-focused">
+         </span>
+         <label class="select-filled-label" for="selectStateErrorFilled">
+          Pick your favorite Movie
+         </label>
+        </div>
+        <div class="label">
+         <span class="label-text-alt">
+          Bottom Left label
+         </span>
+         <span class="label-text-alt">
+          Bottom Right label
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateErrorDefault"</span>&gt; Full Name &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select is-invalid"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateErrorDefault"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select is-invalid select-floating"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateErrorFloating"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateErrorFloating"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label justify-end"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Top Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select is-invalid select-filled"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateErrorFilled"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectStateErrorFilled"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Left label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Bottom Right label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="shape">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#shape">
+       Shape
+      </a>
+      <a aria-label=" Shape " class="no-underline" href="#shape">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="pilled-select">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#pilled-select">
+       Pilled select
+      </a>
+      <a aria-label=" Pilled select " class="no-underline" href="#pilled-select">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use the
+    <code>
+     rounded-full
+    </code>
+    utility class to make select’s circular. The default shape of the select but can be altered by using TailwindCSS
+    <a class="link link-primary" href="https://tailwindcss.com/docs/border-radius" target="_blank">
+     Border Radius
+    </a>
+    .
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;select class=&quot;select max-w-72 max-w-sm rounded-full&quot; aria-label=&quot;Pilled select&quot;&gt;
+  &lt;option disabled selected&gt;Pick your favorite Movie&lt;/option&gt;
+  &lt;option&gt;The Godfather&lt;/option&gt;
+  &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+  &lt;option&gt;Pulp Fiction&lt;/option&gt;
+  &lt;option&gt;The Dark Knight&lt;/option&gt;
+  &lt;option&gt;Schindler's List&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;div class=&quot;relative&quot;&gt;
+  &lt;select class=&quot;select select-floating max-w-sm rounded-full&quot; id=&quot;selectFloatingPilled&quot; aria-label=&quot;Pilled select&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label class=&quot;select-floating-label&quot; for=&quot;selectFloatingPilled&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select select-filled rounded-full&quot; id=&quot;selectFilledPilled&quot; aria-label=&quot;Pilled select&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label class=&quot;select-filled-label rounded-full&quot; for=&quot;selectFilledPilled&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <select aria-label="Pilled select" class="select max-w-72 max-w-sm rounded-full">
+        <option disabled="" selected="">
+         Pick your favorite Movie
+        </option>
+        <option>
+         The Godfather
+        </option>
+        <option>
+         The Shawshank Redemption
+        </option>
+        <option>
+         Pulp Fiction
+        </option>
+        <option>
+         The Dark Knight
+        </option>
+        <option>
+         Schindler's List
+        </option>
+       </select>
+       <div class="relative">
+        <select aria-label="Pilled select" class="select select-floating max-w-sm rounded-full" id="selectFloatingPilled">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <label class="select-floating-label" for="selectFloatingPilled">
+         Pick your favorite Movie
+        </label>
+       </div>
+       <div class="relative max-w-sm">
+        <select aria-label="Pilled select" class="select select-filled rounded-full" id="selectFilledPilled">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <label class="select-filled-label rounded-full" for="selectFilledPilled">
+         Pick your favorite Movie
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select max-w-72 max-w-sm rounded-full"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Pilled select"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-floating max-w-sm rounded-full"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingPilled"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Pilled select"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFloatingPilled"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select select-filled rounded-full"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledPilled"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Pilled select"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label rounded-full"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectFilledPilled"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h2 class="text-[1.125rem] font-semibold text-primary !my-px" id="illustrations">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#illustrations">
+       Illustrations
+      </a>
+      <a aria-label=" Illustrations " class="no-underline" href="#illustrations">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="label-and-helper-text">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#label-and-helper-text">
+       Label and helper text
+      </a>
+      <a aria-label=" Label and helper text " class="no-underline" href="#label-and-helper-text">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Use the
+    <code>
+     label
+    </code>
+    class along with
+    <code>
+     label-text
+    </code>
+    for the main label and
+    <code>
+     label-text-alt
+    </code>
+    for helper text, applying styling through Tailwind CSS classes.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;w-96&quot;&gt;
+  &lt;label class=&quot;label label-text&quot; for=&quot;selectHelperText&quot;&gt; Pick your favorite Movie &lt;/label&gt;
+  &lt;select class=&quot;select&quot; id=&quot;selectHelperText&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;div class=&quot;label&quot;&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Sub label&lt;/span&gt;
+    &lt;span class=&quot;label-text-alt&quot;&gt;Sub label&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-96">
+        <label class="label label-text" for="selectHelperText">
+         Pick your favorite Movie
+        </label>
+        <select class="select" id="selectHelperText">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <div class="label">
+         <span class="label-text-alt">
+          Sub label
+         </span>
+         <span class="label-text-alt">
+          Sub label
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectHelperText"</span>&gt; Pick your favorite Movie &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectHelperText"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Sub label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label-text-alt"</span>&gt;Sub label&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="hidden-label">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#hidden-label">
+       Hidden label
+      </a>
+      <a aria-label=" Hidden label " class="no-underline" href="#hidden-label">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    <code>
+     label
+    </code>
+    elements hidden using the
+    <code>
+     .sr-only
+    </code>
+    class.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div class=&quot;w-96&quot;&gt;
+  &lt;div class=&quot;label label-text sr-only&quot; for=&quot;selectHiddenLabel&quot;&gt; Pick your favorite Movie &lt;/div&gt;
+  &lt;select class=&quot;select&quot; id=&quot;selectHiddenLabel&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-96">
+        <div class="label label-text sr-only" for="selectHiddenLabel">
+         Pick your favorite Movie
+        </div>
+        <select class="select" id="selectHiddenLabel">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text sr-only"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectHiddenLabel"</span>&gt; Pick your favorite Movie &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectHiddenLabel"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="disabled">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#disabled">
+       Disabled
+      </a>
+      <a aria-label=" Disabled " class="no-underline" href="#disabled">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Disable a
+    <code>
+     select
+    </code>
+    element by adding the
+    <code>
+     disabled
+    </code>
+    attribute, making it non-selectable.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;select class=&quot;select disabled w-96&quot; aria-label=&quot;Disabled select&quot;&gt;
+  &lt;option disabled selected&gt;Pick your favorite Movie&lt;/option&gt;
+  &lt;option&gt;The Godfather&lt;/option&gt;
+  &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+  &lt;option&gt;Pulp Fiction&lt;/option&gt;
+  &lt;option&gt;The Dark Knight&lt;/option&gt;
+  &lt;option&gt;Schindler's List&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select disabled select-floating&quot; id=&quot;selectDisabledFloating&quot; aria-label=&quot;Disabled select&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label class=&quot;select-floating-label&quot; for=&quot;selectDisabledFloating&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;relative max-w-sm&quot;&gt;
+  &lt;select class=&quot;select disabled select-filled&quot; id=&quot;selectDisabledFilled&quot; aria-label=&quot;Disabled select&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class=&quot;select-filled-focused&quot;&gt;&lt;/span&gt;
+  &lt;label class=&quot;select-filled-label&quot; for=&quot;selectDisabledFilled&quot;&gt;Pick your favorite Movie&lt;/label&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose !block space-y-4 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <select aria-label="Disabled select" class="select disabled w-96">
+        <option disabled="" selected="">
+         Pick your favorite Movie
+        </option>
+        <option>
+         The Godfather
+        </option>
+        <option>
+         The Shawshank Redemption
+        </option>
+        <option>
+         Pulp Fiction
+        </option>
+        <option>
+         The Dark Knight
+        </option>
+        <option>
+         Schindler's List
+        </option>
+       </select>
+       <div class="relative max-w-sm">
+        <select aria-label="Disabled select" class="select disabled select-floating" id="selectDisabledFloating">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <label class="select-floating-label" for="selectDisabledFloating">
+         Pick your favorite Movie
+        </label>
+       </div>
+       <div class="relative max-w-sm">
+        <select aria-label="Disabled select" class="select disabled select-filled" id="selectDisabledFilled">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+        <span class="select-filled-focused">
+        </span>
+        <label class="select-filled-label" for="selectDisabledFilled">
+         Pick your favorite Movie
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select disabled w-96"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Disabled select"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">disabled</span> <span style="color:#a6e22e">selected</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select disabled select-floating"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectDisabledFloating"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Disabled select"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-floating-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectDisabledFloating"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>
+</span></span><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"relative max-w-sm"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select disabled select-filled"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectDisabledFilled"</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Disabled select"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-focused"</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select-filled-label"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"selectDisabledFilled"</span>&gt;Pick your favorite Movie&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="datalist">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#datalist">
+       Datalist
+      </a>
+      <a aria-label=" Datalist " class="no-underline" href="#datalist">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Associate a
+    <code>
+     datalist
+    </code>
+    element with an
+    <code>
+     input
+    </code>
+    to provide a list of suggested options, allowing users to select from predefined choices or enter a custom value.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="flex flex-col"&gt;
+  &lt;label for="exampleDataList" class="label label-text"&gt;Datalist example&lt;/label&gt;
+  &lt;input class="input max-w-sm" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." /&gt;
+  &lt;datalist id="datalistOptions"&gt;
+    &lt;option value="San Francisco"&gt;&lt;/option&gt;
+    &lt;option value="New York"&gt;&lt;/option&gt;
+    &lt;option value="Seattle"&gt;&lt;/option&gt;
+    &lt;option value="Los Angeles"&gt;&lt;/option&gt;
+    &lt;option value="Chicago"&gt;&lt;/option&gt;
+  &lt;/datalist&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex-col gap-6 flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="flex flex-col">
+        <label class="label label-text" for="exampleDataList">
+         Datalist example
+        </label>
+        <input class="input max-w-sm" id="exampleDataList" list="datalistOptions" placeholder="Type to search..."/>
+        <datalist id="datalistOptions">
+         <option value="San Francisco">
+         </option>
+         <option value="New York">
+         </option>
+         <option value="Seattle">
+         </option>
+         <option value="Los Angeles">
+         </option>
+         <option value="Chicago">
+         </option>
+        </datalist>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"flex flex-col"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"exampleDataList"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span>&gt;Datalist example&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"input max-w-sm"</span> <span style="color:#a6e22e">list</span><span style="color:#f92672">=</span><span style="color:#e6db74">"datalistOptions"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"exampleDataList"</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Type to search..."</span> /&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">datalist</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"datalistOptions"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"San Francisco"</span>&gt;&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"New York"</span>&gt;&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Seattle"</span>&gt;&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Los Angeles"</span>&gt;&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Chicago"</span>&gt;&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">datalist</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="multiple">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#multiple">
+       Multiple
+      </a>
+      <a aria-label=" Multiple " class="no-underline" href="#multiple">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Enable the selection of multiple options in a
+    <code>
+     select
+    </code>
+    element by adding the
+    <code>
+     multiple
+    </code>
+    attribute.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick="navigator.clipboard.writeText(`&lt;div&gt;
+  &lt;label class=&quot;label label-text&quot; for=&quot;fav-movies&quot;&gt;Pick your favorite Movies:&lt;/label&gt;
+  &lt;select multiple class=&quot;select rounded-md&quot; name=&quot;fav-movies&quot; id=&quot;fav-movies&quot;&gt;
+    &lt;option&gt;The Godfather&lt;/option&gt;
+    &lt;option&gt;The Shawshank Redemption&lt;/option&gt;
+    &lt;option&gt;Pulp Fiction&lt;/option&gt;
+    &lt;option&gt;The Dark Knight&lt;/option&gt;
+    &lt;option&gt;Schindler's List&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;`)" x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div>
+        <label class="label label-text" for="fav-movies">
+         Pick your favorite Movies:
+        </label>
+        <select class="select rounded-md" id="fav-movies" multiple="" name="fav-movies">
+         <option>
+          The Godfather
+         </option>
+         <option>
+          The Shawshank Redemption
+         </option>
+         <option>
+          Pulp Fiction
+         </option>
+         <option>
+          The Dark Knight
+         </option>
+         <option>
+          Schindler's List
+         </option>
+        </select>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"fav-movies"</span>&gt;Pick your favorite Movies:&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">multiple</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select rounded-md"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"fav-movies"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"fav-movies"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Godfather&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Shawshank Redemption&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Pulp Fiction&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;The Dark Knight&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">option</span>&gt;Schindler's List&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="flex items-center">
+    <h3 class="text-[1.25rem] !mt-0" id="optgroup">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#optgroup">
+       Optgroup
+      </a>
+      <a aria-label=" Optgroup " class="no-underline" href="#optgroup">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h3>
+   </div>
+   <p>
+    Utilize the
+    <code>
+     optgroup
+    </code>
+    element to group
+    <code>
+     option
+    </code>
+    elements together within a
+    <code>
+     select
+    </code>
+    dropdown, creating organized sections.
+   </p>
+   <section class="border-neutral/10 rounded-box my-4 flex flex-col gap-4 border p-3 sm:p-6 md:my-8" x-data="{ activeTab: 0, isRtl: false }">
+    <div class="not-prose flex items-center justify-between gap-4">
+     <div class="bg-base-200 rounded-btn relative flex p-0.5">
+      <div class="rounded-btn bg-base-100 absolute h-8 w-20 shadow transition-transform duration-300 ease-in-out" x-bind:class="{
+        'translate-x-0': activeTab === 0,
+        'translate-x-full': activeTab === 1,
+        'translate-x-[200%]': activeTab === 2
+      }">
+      </div>
+      <button @click="activeTab = 0" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       Preview
+      </button>
+      <button @click="activeTab = 1" class="rounded-btn text-base-content z-[1] h-8 w-20">
+       HTML
+      </button>
+     </div>
+     <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" x-data="{ tooltip: 'Copied!' }">
+       <button :class="{ 'flex': activeTab === 0 || activeTab === 1, 'hidden': !(activeTab === 0 || activeTab === 1) }" class="h-9.5 max-sm:size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] items-center gap-2 border px-4 max-sm:justify-center max-sm:p-0" onclick='navigator.clipboard.writeText(`&lt;div class="w-96"&gt;
+  &lt;label class="label label-text" for="technologies"&gt;Choose a technology:&lt;/label&gt;
+  &lt;select class="select max-w-sm" name="technologies" id="technologies"&gt;
+    &lt;optgroup label="Frontend Technologies"&gt;
+      &lt;option value="html"&gt;HTML&lt;/option&gt;
+      &lt;option value="css"&gt;CSS&lt;/option&gt;
+      &lt;option value="javascript"&gt;JavaScript&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Backend Technologies"&gt;
+      &lt;option value="nodejs"&gt;Node.js&lt;/option&gt;
+      &lt;option value="python"&gt;Python&lt;/option&gt;
+      &lt;option value="java"&gt;Java&lt;/option&gt;
+    &lt;/optgroup&gt;
+  &lt;/select&gt;
+&lt;/div&gt;`)' x-tooltip.on.click="tooltip">
+        <span class="icon-[tabler--copy] size-5">
+        </span>
+        <span class="max-sm:hidden">
+         Copy
+        </span>
+       </button>
+      </div>
+      <button @click="isRtl = !isRtl; $refs.previewFrame.setAttribute('dir', isRtl ? 'rtl' : 'ltr');" class="size-9.5 border-neutral/10 rounded-btn text-base-content hover:bg-neutral/[0.03] flex items-center justify-center gap-2 border max-sm:hidden">
+       <span class="text-sm" x-text="isRtl ? 'LTR' : 'RTL'">
+       </span>
+      </button>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 0 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 0">
+     <div :dir="isRtl ? 'rtl' : 'ltr'" class="overflow-hidden" id="previewFrame" x-ref="previewFrame">
+      <div class="bg-base-200/20 border-neutral/10 rounded-box not-prose flex w-full flex-[1_0_0] flex-wrap gap-3 border p-3 sm:p-6">
+       <div class="w-96">
+        <label class="label label-text" for="technologies">
+         Choose a technology:
+        </label>
+        <select class="select max-w-sm" id="technologies" name="technologies">
+         <optgroup label="Frontend Technologies">
+          <option value="html">
+           HTML
+          </option>
+          <option value="css">
+           CSS
+          </option>
+          <option value="javascript">
+           JavaScript
+          </option>
+         </optgroup>
+         <optgroup label="Backend Technologies">
+          <option value="nodejs">
+           Node.js
+          </option>
+          <option value="python">
+           Python
+          </option>
+          <option value="java">
+           Java
+          </option>
+         </optgroup>
+        </select>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div :class="{ '!block': activeTab === 1 }" class="hidden" x-show.transition.in.opacity.duration.600="activeTab === 1">
+     <div class="enhanced-scrollbar rounded-box relative max-h-80 overflow-x-auto overflow-y-auto">
+      <div id="html-code">
+       <div class="highlight">
+        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"w-96"</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"label label-text"</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">"technologies"</span>&gt;Choose a technology:&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"select max-w-sm"</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">"technologies"</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">"technologies"</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">optgroup</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Frontend Technologies"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"html"</span>&gt;HTML&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"css"</span>&gt;CSS&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"javascript"</span>&gt;JavaScript&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">optgroup</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;<span style="color:#f92672">optgroup</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">"Backend Technologies"</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"nodejs"</span>&gt;Node.js&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"python"</span>&gt;Python&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>      &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">"java"</span>&gt;Java&lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex"><span>    &lt;/<span style="color:#f92672">optgroup</span>&gt;
+</span></span><span style="display:flex"><span>  &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex"><span>&lt;/<span style="color:#f92672">div</span>&gt;</span></span></code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/forms/range/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Range
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/forms/switch/">
+     Switch
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>

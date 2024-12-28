@@ -1,0 +1,1072 @@
+<article class="lg:border-base-content/10 xl:border-e xl:pe-8 relative px-0 py-4 sm:py-8 lg:border-s lg:ps-8">
+ <div class="mx-auto w-full min-w-0">
+  <div class="rounded-box ring-primary/20 to-primary/10 from-base-100/10 w-full gap-6 bg-gradient-to-br p-6 text-start ring-1 sm:flex">
+   <div class="flex flex-col gap-1.5 sm:w-7/12">
+    <p class="text-primary text-lg font-semibold capitalize">
+     customization
+    </p>
+    <h1 class="text-base-content/90 text-4xl font-bold capitalize leading-tight">
+     Colors
+    </h1>
+    <p class="text-base-content/80 mt-2 text-base font-normal">
+     Explore FlyonUI's color system with semantic classes and CSS variables.
+    </p>
+   </div>
+   <div class="flex grow items-center justify-center max-sm:mt-5 max-sm:justify-start">
+    <svg fill="none" height="60" viewbox="0 0 60 60" width="60" xmlns="http://www.w3.org/2000/svg">
+     <g clip-path="url(#clip0_6475_117367)">
+      <mask height="60" id="mask0_6475_117367" maskunits="userSpaceOnUse" style="mask-type:luminance" width="60" x="0" y="0">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="#fff">
+       </path>
+      </mask>
+      <g mask="url(#mask0_6475_117367)">
+       <path d="M45 0H15C6.71573.0.0 6.71573.0 15V45c0 8.2843 6.71573 15 15 15H45c8.2843.0 15-6.7157 15-15V15C60 6.71573 53.2843.0 45 0z" fill="oklch(var(--bc))">
+       </path>
+       <path clip-rule="evenodd" d="M41.9953 38.7001 30.6315 24.6934C30.2248 24.1921 29.4567 24.2017 29.0627 24.7132L18.7058 38.158C18.5165 38.4038 18.2238 38.5478 17.9136 38.5478H11.621C10.7822 38.5478 10.3161 37.5771 10.8406 36.9225L29.0608 14.1819C29.459 13.6849 30.2141 13.6818 30.6164 14.1754L49.5749 37.4383C50.1072 38.0916 49.6424 39.0701 48.7997 39.0701H42.7719C42.4705 39.0701 42.1852 38.9341 41.9953 38.7001zm-11.436-3.8978 6.8236 7.779C37.9499 43.2276 37.4909 44.2407 36.6312 44.2407H23.6662c-.8355.0-1.3026-.963899999999995-.7849-1.6196l6.1413-7.779C29.4099 34.3516 30.1471 34.3325 30.5593 34.8023z" fill="url(#paint0_linear_6475_117367)" fill-rule="evenodd">
+       </path>
+      </g>
+      <path d="M45.0005 1.24933h-30c-7.59393.0-13.75001 6.15608-13.75001 13.74997v30c0 7.594 6.15608 13.75 13.75001 13.75h30c7.5939.0 13.75-6.156 13.75-13.75v-30c0-7.59389-6.1561-13.74997-13.75-13.74997z" stroke="url(#paint1_linear_6475_117367)" stroke-width="2">
+      </path>
+     </g>
+     <defs>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_6475_117367" x1="30.2104" x2="30.2104" y1="13.8072" y2="44.2407">
+       <stop stop-color="oklch(var(--nc))">
+       </stop>
+       <stop offset="1" stop-color="oklch(var(--nc))" stop-opacity=".8">
+       </stop>
+      </lineargradient>
+      <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear_6475_117364" x1="40.0005" x2="40.0005" y1="9.99933" y2="69.9993">
+       <stop stop-color="#fff" stop-opacity=".28">
+       </stop>
+       <stop offset="1" stop-color="#fff" stop-opacity=".04">
+       </stop>
+      </lineargradient>
+      <clippath id="clip0_6475_117364">
+       <rect fill="#fff" height="60" transform="translate(10 10)" width="60">
+       </rect>
+      </clippath>
+     </defs>
+    </svg>
+   </div>
+  </div>
+  <div class="js-toc-content prose prose-pre:shadow-md prose-h3:mb-0 prose-h4:mb-0 prose-p:mt-0 mt-10 max-w-none">
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] !mt-px text-base-content/90" id="overview">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#overview">
+       Overview
+      </a>
+      <a aria-label=" Overview " class="no-underline" href="#overview">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    FlyonUI offers a robust and flexible color system that allows you to manage themes and colors seamlessly. Instead of relying on hard-coded utility color classes like:
+   </p>
+   <ul>
+    <li>
+     <code>
+      bg-red-500
+     </code>
+    </li>
+    <li>
+     <code>
+      bg-lime-500
+     </code>
+    </li>
+    <li>
+     <code>
+      bg-fuchsia-500
+     </code>
+    </li>
+   </ul>
+   <p>
+    FlyonUI encourages the use of
+    <strong>
+     semantic color utility classes
+    </strong>
+    such as:
+   </p>
+   <ul>
+    <li>
+     <code>
+      bg-primary
+     </code>
+    </li>
+    <li>
+     <code>
+      bg-info
+     </code>
+    </li>
+    <li>
+     <code>
+      bg-error
+     </code>
+    </li>
+   </ul>
+   <p>
+    These semantic classes simplify theme customization and management across multiple modes (e.g., dark or light themes). Each theme dynamically assigns colors to these classes via CSS variables, allowing your design to adapt effortlessly to theme changes.
+   </p>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="why-use-semantic-color-naming">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#why-use-semantic-color-naming">
+       Why use semantic color naming?
+      </a>
+      <a aria-label=" Why use semantic color naming? " class="no-underline" href="#why-use-semantic-color-naming">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    Using
+    <strong>
+     semantic color names
+    </strong>
+    provides a more organized, consistent approach to your design system. Instead of randomly picking colors for each component, you define a palette with specific roles (e.g.,
+    <code>
+     primary
+    </code>
+    ,
+    <code>
+     secondary
+    </code>
+    ). This approach ensures:
+   </p>
+   <ul>
+    <li>
+     <strong>
+      Consistency:
+     </strong>
+     Enforces a unified color palette across your UI.
+    </li>
+    <li>
+     <strong>
+      Theming Flexibility:
+     </strong>
+     Allows for seamless switching between themes, with colors automatically adapting through CSS variables.
+    </li>
+    <li>
+     <strong>
+      Scalability:
+     </strong>
+     Easily extend the system to support multiple themes (beyond just light and dark) by simply modifying a few CSS variables.
+    </li>
+   </ul>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="available-color-options-in-flyonui">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#available-color-options-in-flyonui">
+       Available color options in FlyonUI
+      </a>
+      <a aria-label=" Available color options in FlyonUI " class="no-underline" href="#available-color-options-in-flyonui">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    FlyonUI provides a comprehensive list of color options, which can be used either within themes or as utility classes. Below is a table of available color options, along with examples of how to use them.
+   </p>
+   <div class="not-prose w-full overflow-x-auto border border-base-content/25 rounded-box">
+    <table class="table">
+     <thead>
+      <tr>
+       <th>
+        Color name
+       </th>
+       <th>
+        Required or optional
+       </th>
+       <th>
+        Example use
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-primary size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          primary
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Primary color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-outline badge-xs rounded-full">
+         Required
+        </span>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-primary
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--p))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-primary-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          primary-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the primary color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the primary color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-primary-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--pc))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-secondary size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          secondary
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Secondary color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-outline badge-xs rounded-full">
+         Required
+        </span>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-secondary
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--s))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-secondary-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          secondary-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the secondary color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the secondary color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-secondary-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--sc))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-accent size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          accent
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Accent color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-outline badge-xs rounded-full">
+         Required
+        </span>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-accent
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--a))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-accent-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          accent-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the accent color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the accent color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-accent-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--ac))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-neutral size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          neutral
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Neutral color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-outline badge-xs rounded-full">
+         Required
+        </span>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-neutral
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--n))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-neutral-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          neutral-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the neutral color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the neutral color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-neutral-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--nc))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="base-100 border border-base-content/10 size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          base-100
+         </p>
+         <p class="text-base-content/50 text-sm">
+          The page’s base shade, applied to empty background areas.
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-outline badge-xs rounded-full">
+         Required
+        </span>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-base-100
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--b1))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-base-200 size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          base-200
+         </p>
+         <p class="text-base-content/50 text-sm">
+          A little darker variant of base color
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         Will be a darker tone of base-100 if not specified
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-base-200
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--b2))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-base-300 size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          base-300
+         </p>
+         <p class="text-base-content/50 text-sm">
+          A even more darker variant of base color
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         Will be a darker tone of base-200 if not specified
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-base-300
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--b3))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-base-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          base-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the base color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the base color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-base-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--bc))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-base-shadow size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          base-shadow
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Used to creates consistent shadows with varying depths
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a little darker variant of the `base-100` color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-base-shadow
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--bs))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-info size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          info
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Info color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, default blue color will be added.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-info
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--in))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-info-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          info-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the info color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the info color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-info-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--inc))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-success size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          success
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Success color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, default green color will be added.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-success
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--su))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-success-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          success-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the success color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the success color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-success-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--suc))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-warning size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          warning
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Warning color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, default orange color will be added.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-warning
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--wa))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-warning-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          warning-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the warning color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the warning color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-warning-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--wac))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4">
+        <span class="bg-error size-5 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          error
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Error color
+         </p>
+        </div>
+       </td>
+       <td>
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, default red color will be added.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-error
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--er))
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <td class="flex items-center gap-4 text-wrap">
+        <span class="bg-error-content size-5 shrink-0 border border-base-content/10 rounded-full p-0">
+        </span>
+        <div>
+         <p class="font-medium">
+          error-content
+         </p>
+         <p class="text-base-content/50 text-sm">
+          Foreground color to apply over the error color.
+         </p>
+        </div>
+       </td>
+       <td class="text-wrap">
+        <span class="badge badge-soft badge-xs mb-1 rounded-full">
+         Optional
+        </span>
+        <p class="text-base-content/50 text-sm">
+         If not specified, a readable variant of the error color is applied.
+        </p>
+       </td>
+       <td>
+        <div class="text-base-content/50 mb-1">
+         Class name:
+         <span class="badge badge-soft badge-xs rounded-full">
+          bg-error-content
+         </span>
+        </div>
+        <div class="text-base-content/50">
+         CSS variable:
+         <span class="badge badge-soft badge-xs rounded-full">
+          oklch(var(--erc))
+         </span>
+        </div>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="how-to-apply-flyonui-colors">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#how-to-apply-flyonui-colors">
+       How to apply FlyonUI colors?
+      </a>
+      <a aria-label=" How to apply FlyonUI colors? " class="no-underline" href="#how-to-apply-flyonui-colors">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    FlyonUI components come with predefined color utility classes. To apply colors to your components, simply use one of these classes:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"badge badge-primary"</span>&gt;Badge&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span></code></pre>
+   </div>
+   <p class="not-prose my-4">
+    Or for input elements:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-html" data-lang="html"><span style="display:flex"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio"</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">"radio radio-primary"</span> /&gt;
+</span></span></code></pre>
+   </div>
+   <div class="flex items-center">
+    <h2 class="text-[1.5rem] font-bold mt-[1.5em] text-base-content/90" id="available-utility-classes">
+     <span class="not-prose group relative flex items-center gap-1">
+      <a href="#available-utility-classes">
+       Available utility classes
+      </a>
+      <a aria-label=" Available utility classes " class="no-underline" href="#available-utility-classes">
+       <span class="top-0 -start-5 absolute inline-block flex-shrink-0">
+        <span class="icon-[tabler--hash] text-primary/60 size-4 opacity-0 transition-all duration-400 ease-in-out lg:group-hover:opacity-100 hover:text-primary">
+        </span>
+       </span>
+      </a>
+     </span>
+    </h2>
+   </div>
+   <p>
+    FlyonUI’s color utilities follow a similar pattern to Tailwind’s default color utilities. You can easily apply colors to various aspects of your UI using the following syntax:
+   </p>
+   <div class="highlight">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" tabindex="0"><code class="language-PHP" data-lang="PHP"><span style="display:flex"><span><span style="color:#a6e22e">bg</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">to</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">via</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">from</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">text</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">ring</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">fill</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">caret</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">stroke</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">border</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">divide</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">accent</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">shadow</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">outline</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">decoration</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">placeholder</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span><span style="display:flex"><span><span style="color:#a6e22e">ring</span><span style="color:#f92672">-</span><span style="color:#a6e22e">offset</span><span style="color:#f92672">-</span>{<span style="color:#a6e22e">COLOR_NAME</span>}
+</span></span></code></pre>
+   </div>
+   <p class="not-prose my-4">
+    For example:
+   </p>
+   <ul>
+    <li>
+     <strong>
+      Background color
+     </strong>
+     :
+     <code>
+      bg-primary
+     </code>
+    </li>
+    <li>
+     <strong>
+      Text color
+     </strong>
+     :
+     <code>
+      text-secondary
+     </code>
+    </li>
+    <li>
+     <strong>
+      Border color
+     </strong>
+     :
+     <code>
+      border-accent
+     </code>
+    </li>
+    <li>
+     <strong>
+      Shadow color
+     </strong>
+     :
+     <code>
+      shadow-primary
+     </code>
+    </li>
+   </ul>
+   <p>
+    With this system, you can easily apply semantic colors throughout your UI, making theme switching and color management intuitive and scalable.
+   </p>
+  </div>
+  <div class="my-6 flex items-center justify-between sm:my-10">
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-0.5 font-medium capitalize no-underline" href="/docs/customization/config/">
+     <span class="icon-[tabler--chevron-left] size-4 transition-transform group-hover:-translate-x-1">
+     </span>
+     Config
+    </a>
+   </div>
+   <div>
+    <a class="link hover:link-primary group flex items-center gap-1 font-medium capitalize no-underline" href="/docs/customization/themes/">
+     Themes
+     <span class="icon-[tabler--chevron-right] size-4 transition-transform group-hover:translate-x-1">
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</article>
