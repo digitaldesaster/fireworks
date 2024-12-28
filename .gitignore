@@ -1,5 +1,37 @@
-node_modules/
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.py[cod]
+*$py.class
+
+# Virtual Environment
 .venv/
-.env
+venv/
+ENV/
+
+# Node
+node_modules/
 package-lock.json
+
+# Environment Variables
+.env
+.env.*
+
+# System Files
 .DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Build/Distribution
+dist/
+build/
+*.egg-info/
+
+package-lock.json
