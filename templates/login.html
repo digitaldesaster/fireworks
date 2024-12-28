@@ -17,7 +17,8 @@
           <p class="text-base-content/60 mt-2">Please sign in to continue</p>
         </div>
 
-        <form method="POST" action="{{ url_for('login') }}">
+        <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <div class="space-y-6">
             <div class="form-control">
               <label class="label" for="email">
@@ -31,6 +32,7 @@
                 placeholder="your@email.com"
                 value="{{ email if email }}"
                 required
+                autocomplete="email"
               />
             </div>
 
@@ -45,6 +47,7 @@
                 class="input input-bordered w-full"
                 placeholder="••••••••"
                 required
+                autocomplete="current-password"
               />
               <label class="label">
                 <a href="#" class="label-text-alt link link-hover"

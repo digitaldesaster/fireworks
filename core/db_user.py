@@ -4,13 +4,17 @@ from werkzeug.security import generate_password_hash, \
      check_password_hash
 
 from core.db_document import *
+from flask_login import UserMixin
 
-class User(Document):
+class User(Document, UserMixin):
     firstname = StringField()
     name = StringField()
     email = StringField()
     pw_hash = StringField()
     role = StringField()
+
+    def get_id(self):
+        return str(self.email)
 
 def hash_password(password):
     return (generate_password_hash(password))

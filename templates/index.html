@@ -49,6 +49,7 @@
                   method="post"
                   class="w-full"
                 >
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                   <button type="submit" class="dropdown-item w-full text-left">
                     <span class="icon-[tabler--logout] size-5 shrink-0"></span>
                     Logout
