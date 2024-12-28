@@ -21,7 +21,7 @@
 
         {% if status == 'error' %}
         <div class="alert alert-error mb-4">
-          <span>{{ error_message if error_message else 'Registration failed. Please check your input.' }}</span>
+          <span>{{ message if message else 'Registration failed. Please check your input.' }}</span>
         </div>
         {% endif %}
 

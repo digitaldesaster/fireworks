@@ -37,7 +37,7 @@ def create_user(firstname, name, email, password, role='user'):
     try:
         # Check if user exists first
         if User.objects(email=email).first():
-            return {'error': 'user exists'}
+            return {'status': 'error', 'message': 'user exists'}
 
         # Create new user
         user = User(
@@ -49,70 +49,53 @@ def create_user(firstname, name, email, password, role='user'):
         )
         user.save()
         logger.info(f"User created successfully: {email}")
-        return {'ok': 'user created', 'id': str(user.id)}
+        return {'status': 'ok', 'message': 'user created', 'id': str(user.id)}
 
     except ValidationError as e:
         logger.error(f"Validation error creating user {email}: {str(e)}")
-        return {'error': 'Invalid user data provided'}
+        return {'status': 'error', 'message': 'Invalid user data provided'}
     except NotUniqueError as e:
         logger.error(f"Duplicate email error for {email}")
-        return {'error': 'user exists'}
+        return {'status': 'error', 'message': 'user exists'}
     except OperationError as e:
         logger.error(f"Database operation error creating user {email}: {str(e)}")
-        return {'error': 'Database error occurred'}
+        return {'status': 'error', 'message': 'Database error occurred'}
     except Exception as e:
         logger.error(f"Unexpected error creating user {email}: {str(e)}")
-        return {'error': 'An unexpected error occurred'}
+        return {'status': 'error', 'message': 'An unexpected error occurred'}
 
 def delete_user(email, password):
     try:
         user = User.objects(email=email).first()
         if not user:
-            return {'error': 'user does not exist'}
+            return {'status': 'error', 'message': 'user does not exist'}
         
         if not check_password_hash(user.pw_hash, password):
-            return {'error': 'incorrect password'}
+            return {'status': 'error', 'message': 'incorrect password'}
         
         user.delete()
         logger.info(f"User deleted successfully: {email}")
-        return {'ok': 'deleted'}
+        return {'status': 'ok', 'message': 'user deleted'}
     except Exception as e:
         logger.error(f"Error deleting user {email}: {str(e)}")
-        return {'error': 'Failed to delete user'}
+        return {'status': 'error', 'message': 'Failed to delete user'}
 
 def update_password(email, password, new_password):
     try:
         user = User.objects(email=email).first()
         if not user:
-            return {'error': 'user does not exist'}
+            return {'status': 'error', 'message': 'user does not exist'}
 
         if not check_password_hash(user.pw_hash, password):
-            return {'error': 'incorrect password'}
+            return {'status': 'error', 'message': 'incorrect password'}
 
         user.pw_hash = hash_password(new_password)
         user.save()
         logger.info(f"Password updated successfully for user: {email}")
-        return {'ok': 'password updated'}
+        return {'status': 'ok', 'message': 'password updated'}
     except ValidationError as e:
         logger.error(f"Validation error updating password for {email}: {str(e)}")
-        return {'error': 'Invalid password format'}
+        return {'status': 'error', 'message': 'Invalid password format'}
     except Exception as e:
         logger.error(f"Error updating password for {email}: {str(e)}")
-        return {'error': 'Failed to update password'}
-
-# for i in range(1, 101):
-#     username = f"User{i}"
-#     name = f"Name{i}"
-#     email = f"user{i}.name@gmail.com"
-#     password = '12345'
-
-#     # Create user with generated data
-#     create_user(username, name, email, password, role='user')
-
-#print (check_password('alexander.fillips@gmail.com','Standard!!'))
-
-
-#create_user('Alex', 'Fillips', 'alexander.fillips@gmail.com', 'Standard!!',role = 'admin')
-
-#for user in User.objects():
-#	print (user.to_json())
+        return {'status': 'error', 'message': 'Failed to update password'}

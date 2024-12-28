@@ -20,18 +20,17 @@ def do_register(request):
 
         if not all([firstname, name, email, password]):
             return render_template('register.html', status='error', 
-                                error_message='All fields are required')
+                                message='All fields are required')
             
         if len(password) < 8:
             return render_template('register.html', status='error',
-                                error_message='Password must be at least 8 characters')
+                                message='Password must be at least 8 characters')
 
         result = db_user.create_user(firstname, name, email, password)
         
-        if 'error' in result:
-            error_message = 'Email already exists' if result['error'] == 'user exists' else 'Registration failed'
+        if result['status'] == 'error':
             return render_template('register.html', status='error',
-                                error_message=error_message)
+                                message=result['message'])
             
         return redirect(url_for('login'))
     
@@ -50,7 +49,7 @@ def do_login(request):
             login_user(user, remember=remember, duration=timedelta(days=30) if remember else None)
             return redirect(url_for('index'))
         else:
-            return render_template('login.html', status='error')
+            return render_template('login.html', status='error', message=status['message'])
     else:
         return render_template('login.html')
 

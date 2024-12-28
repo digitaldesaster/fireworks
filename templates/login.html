@@ -69,7 +69,7 @@
 
             {% if status == 'error' %}
             <div class="alert alert-error">
-              <span>Invalid email or password</span>
+              <span>{{ message if message else 'Invalid email or password' }}</span>
             </div>
             {% endif %}
 
