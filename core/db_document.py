@@ -103,7 +103,9 @@ class Filter(DynamicDocument):
     def to_json(self):
         return mongoToJson(self)
 
-
+#example of a DynamicDocument with all available fields
+#fields are then used in the form_elements.html to create the form
+#the fields are then used in the db_crud.py to create the document
 class Testing(DynamicDocument):
     name = StringField(required=True, min_length=1)
     email = StringField(required=True, min_length=1)
@@ -123,10 +125,48 @@ class Testing(DynamicDocument):
     
     meta = {'queryset_class': CustomQuerySet}
     
+    #these are the search fields for the search field in the document list overview page
     def searchFields(self):
         return ['name', 'email', 'firstname']
         
     def fields(self, list_order = False):
+        # Field Types Documentation needs these corrections:
+        
+        # SingleLine: Text input field with 'input' class
+        # MultiLine: Textarea field with 'textarea' class
+        # CheckBox: Switch toggle with 'switch switch-primary' class
+        # SimpleListField: Select dropdown with 'select max-w-sm' class
+        # AdvancedListField: Enhanced select dropdown with 'select max-w-sm' class
+        # Date: Flatpickr date picker with 'input max-w-sm' class (format: DD.MM.YYYY)
+        # IntField: Number input with 'input' class
+        # FloatField: Number input with 'input' class
+        # FileField: File upload with 'input max-w-sm' class
+        # ButtonField: Button with 'btn btn-primary' class
+        # DocumentField: Search field with 'searchField' class and dropdown functionality
+
+        # Additional Field Properties:
+        # id: Used for element identification (required for all fields)
+        # value: Current field value
+        # value_id: (DocumentField only) ID of selected document
+        # SimpleListField: (SimpleListField only) Array of {value, name} objects
+        # AdvancedListField: (AdvancedListField only) Array of {value, name} objects
+
+        #full_width is used to create a full width field in the form
+        #if full_width is set to True, the field will take up the full width of the form
+        #if full_width is set to False, the field will take up half the width of the form
+        #required is used to make the field required in the form
+
+        #list of fields for the form
+        #SingleLine is a single line text field (input type text)
+        #MultiLine is a multi line text field (input type textarea)
+        #CheckBox is a checkbox field (input type checkbox, we are using a switch in the frontend)
+        #SimpleListField is a simple list field (input type select)
+        #AdvancedListField is a advanced list field (input type select with search)
+        #DateField is a date field (input type date, this uses Flatpickr and flatpickr.js needs to be included in the frontend)
+        #IntField is a integer field (input type number)
+        #FloatField is a float field (input type number)
+        #FileField is a file field (input type file)
+
         name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
         email = {'name': 'email', 'label': 'Email', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
         salutation = {'name': 'salutation', 'label': 'Anrede', 'class': '', 'type': 'SimpleListField', 'full_width': False}
@@ -141,10 +181,12 @@ class Testing(DynamicDocument):
         user_search = {'name': 'user_search', 'label': 'User', 'class': '', 'type': 'DocumentField', 'full_width': False, 'module': 'user', 'document_field': 'email'}
         files = {'name': 'files', 'label': 'Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
         more_files = {'name': 'more_files', 'label': 'More Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
-        link = {'name': 'link', 'label': 'Link', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/d/testing'}
+        link = {'name': 'link', 'label': 'Link', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/d/index'}
 
+        #fields in the overview table of the collection
         if list_order:
             return [name, email, firstname]
+        #fields in the form
         return [name, email, salutation, firstname, comment, active, newsletter, event_date, 
                 age_int, salary_float, ai_provider, user_search, files, more_files, link]
 
