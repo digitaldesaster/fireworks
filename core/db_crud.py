@@ -13,29 +13,31 @@ from db_default import getCounter
 from bson import ObjectId
 
 def createDocument(form_data, document):
+    print(f"[DEBUG] Initial form_data type: {type(form_data)}, content: {form_data}")
+    
     # Remove csrf_token before processing
     form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
-
-    print(f"[DEBUG] form_data after csrf removal: {form_data}")
+    print(f"[DEBUG] Processed form_data: {form_data}")
     
     try:
-        for key in form_data.keys():
-            # Add this before other conditions
-            if key.endswith('_hidden'):
-                if not key.startswith('csrf'):  # Avoid csrf token
-                    base_key = key.replace('_hidden', '')
-                    if form_data[key]:  # If we have an ID
-                        document[f"{base_key}_id"] = form_data[key]  # Store ID
-                    continue
+        # Initialize document with default values if it's a new document
+        if isinstance(document, type):
+            # If document is a class, instantiate it
+            document = document()
+        else:
+            # If document is already an instance, use it directly
+            document = document
 
-            # Handle switch/checkbox fields
+        for key in form_data.keys():
+            # Skip None or empty list values
+            if form_data[key] is None or (isinstance(form_data[key], list) and not form_data[key]):
+                continue
+
+            # Handle hidden fields for document references
             if key.endswith('_hidden'):
                 base_key = key.replace('_hidden', '')
-                if '_search' not in base_key:
-                    if base_key in form_data:
-                        document[base_key] = form_data[base_key]  # Will be "On" if checked
-                    else:
-                        document[base_key] = "Off"  # Default to Off if unchecked
+                if form_data[key]:  # If we have an ID
+                    document[f"{base_key}_id"] = form_data[key]
                 continue
 
             # Skip empty fields to allow default values or validation to handle them
@@ -46,40 +48,46 @@ def createDocument(form_data, document):
             if '_date' in key:
                 try:
                     document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
-                except:
-                    return {'status': 'error', 'message': 'error preparing form date field'}
+                except ValueError as e:
+                    print(f"[DEBUG] Date parsing error: {str(e)}")
+                    return {'status': 'error', 'message': f'Invalid date format for field {key}'}
             elif '_int' in key:
-                document[key] = int(form_data[key]) if form_data[key] else None
+                try:
+                    document[key] = int(form_data[key]) if form_data[key] else None
+                except ValueError:
+                    return {'status': 'error', 'message': f'Invalid integer value for field {key}'}
             elif '_float' in key:
-                document[key] = float(form_data[key]) if form_data[key] else None
+                try:
+                    document[key] = float(form_data[key]) if form_data[key] else None
+                except ValueError:
+                    return {'status': 'error', 'message': f'Invalid float value for field {key}'}
             elif key != 'id':
                 document[key] = form_data[key]
 
         print(f"[DEBUG] Final document state before save: {document.to_mongo()}")
 
+        # Handle counter if needed
         try:
             counter_name = document.getCounterName()
             counter = getCounter(counter_name)
             document[counter_name] = counter
-        except:
-            pass
+        except Exception as e:
+            print(f"[DEBUG] Counter error: {str(e)}")
+            # Continue without counter if it fails
 
-        try:
-            created_by = 'Admin'#session['user_name']
-            document['created_date'] = datetime.datetime.now()
-            document['created_by'] = created_by
-        except:
-            return {'status' : 'error', 'message' : 'user_name not in session'}
+        # Set created info
+        document['created_date'] = datetime.datetime.now()
+        document['created_by'] = 'Admin'  # Or get from session
 
         try:
             document.save()
-            return {'status' : 'ok','message' :'', 'data' : document.to_json()}
+            return {'status': 'ok', 'message': '', 'data': document.to_json()}
         except ValidationError as e:
-            print(f"Validation error: {str(e)}")
-            return {'status' : 'error', 'message' : f'validation error: {str(e)}','data':document.to_json()}
+            print(f"[DEBUG] Validation error: {str(e)}")
+            return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
         except Exception as e:
-            print(f"Error saving document: {str(e)}")
-            return {'status' : 'error', 'message' : f'document not created: {str(e)}' }
+            print(f"[DEBUG] Save error: {str(e)}")
+            return {'status': 'error', 'message': f'document not created: {str(e)}'}
 
     except Exception as e:
         print(f"[DEBUG] Error in createDocument: {str(e)}")

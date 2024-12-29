@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort
 from core import auth
 from datetime import timedelta
 import os
 from flask_login import LoginManager, current_user, login_required
 from core.db_user import User
 from flask_wtf.csrf import CSRFProtect
+import json
 
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument
@@ -84,15 +85,29 @@ def list(name):
 
 # Route to download a file
 @app.route('/download_file/<file_id>')
+@login_required
 def download_file(file_id):
+	try:
 		data = getFile(file_id)
 		if data['status'] == 'ok':
-				data = json.loads(data['data'])
-				path = data['path']
-				filename = file_id + '.' + data['file_type']
-				return send_from_directory(path, filename)
+			file_data = json.loads(data['data'])
+			path = file_data['path']
+			filename = f"{file_id}.{file_data['file_type'].lower()}"
+			original_filename = file_data['name']
+			
+			print(f"[DEBUG] Attempting to send file: {path}/{filename}")
+			return send_from_directory(
+				path, 
+				filename,
+				as_attachment=True,
+				download_name=original_filename
+			)
 		else:
-				return jsonify({'status': 'error', 'message': 'File not found'})
+			print(f"[DEBUG] File not found: {file_id}")
+			abort(404)
+	except Exception as e:
+		print(f"[DEBUG] Error in download_file: {str(e)}")
+		abort(500)
 
 if __name__ == '__main__':
 	app.run(debug=True)

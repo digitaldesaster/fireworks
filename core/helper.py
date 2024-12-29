@@ -23,7 +23,7 @@ current_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 
 from flask import render_template, redirect, url_for, jsonify
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv','md'])
 
 def getRequestData(request):
     limit = request.args.get('limit')
@@ -145,8 +145,6 @@ def getList(name, request, return_json=False):
 def handleDocument(name, id, request, return_json=False):
     try:
         print(f"[DEBUG] Starting handleDocument with name={name}, id={id}")
-        data=[]
-        page=[]
         default = getDefaults(name)
 
         if default == None:
@@ -156,7 +154,26 @@ def handleDocument(name, id, request, return_json=False):
         print(f"[DEBUG] Got defaults: document_name={default.document_name}, collection_name={default.collection_name}")
         mode = default.document_name
 
-        page = {'title' : default.page_name_document + 'add', 'collection_title' : default.collection_title, 'document_name' : default.document_name, 'document_url' : default.document_url, 'collection_url' : default.collection_url}
+        # Initialize empty document data for new documents
+        data = {}
+        if not id:
+            print("[DEBUG] Creating new document")
+            try:
+                # Initialize a new document instance
+                doc = default.document()
+                data = json.loads(doc.to_json())
+                data['id'] = ''  # Empty ID for new document
+            except Exception as e:
+                print(f"[DEBUG] Error initializing new document: {str(e)}")
+
+        page = {
+            'title': f"{default.page_name_document} {'add' if not id else 'save'}",
+            'collection_title': default.collection_title,
+            'document_name': default.document_name,
+            'document_url': default.document_url,
+            'collection_url': default.collection_url,
+            'document_title': default.page_name_document
+        }
 
         file_status = upload_files(request, default.collection_name, id)
         print(f"[DEBUG] File status: {file_status}")
@@ -292,30 +309,45 @@ def getElements(data, document):
 
     return fillElements(elements,data)
 
-def fillElements(elements,data):
-    
-    if data != []:
-        for element in elements:
-            for key in data.keys():
-                if key == element['name']:
-                    element['value'] = data[key]
-                    if element['type'] == 'DocumentField':
-                        id = data [key]
-                        if id!='0815':
-                            element['value'] = getDocumentName(element['value'],element['module'],element['document_field'])
-                            element['document_id'] = id
-                            element['url'] = url_for('doc',name=element['module'],id=id)
-                        else:
-                            element['value'] = ''
-
+def fillElements(elements, data):
+    # Check if data is empty or None
+    if not data or not isinstance(data, dict):
+        return elements
+        
+    for element in elements:
+        if element['name'] in data:
+            element['value'] = data[element['name']]
+            if element['type'] == 'DocumentField':
+                id = data.get(f"{element['name']}_id", '')  # Get ID with fallback to empty string
+                if id and id != '0815':
+                    element['value'] = getDocumentName(data[element['name']], element['module'], element['document_field'])
+                    element['document_id'] = id
+                    element['url'] = url_for('doc', name=element['module'], id=id)
+                else:
+                    element['value'] = ''
 
     return elements
     
 def htmlFormToDict(form_data):
-    data = {}
-    for key in form_data.keys():
-        data[key] = form_data.getlist(key)[0]
-    return data
+    if not form_data:
+        return {}
+        
+    try:
+        # Handle ImmutableMultiDict from Flask
+        if hasattr(form_data, 'getlist'):
+            return {key: form_data.getlist(key)[0] for key in form_data.keys()}
+        # Handle regular dict
+        elif isinstance(form_data, dict):
+            return form_data
+        # Handle list of dicts with name/value pairs
+        elif isinstance(form_data, list):
+            return {item['name']: item['value'] for item in form_data if 'name' in item and 'value' in item}
+        else:
+            print(f"[DEBUG] Unexpected form_data type: {type(form_data)}")
+            return {}
+    except Exception as e:
+        print(f"[DEBUG] Error in htmlFormToDict: {str(e)}")
+        return {}
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS

@@ -5,6 +5,7 @@ from core.db_connect import *
 from core.db_modules import *
 from core.db_date import dbDates
 import json
+import os
 
 def searchDocuments(collection, searchFields,start = 0, limit = 10, search = '',filter='',product_name='',mode=''):
     searchAnd = []
@@ -75,20 +76,47 @@ def searchDocuments(collection, searchFields,start = 0, limit = 10, search = '',
 
 
 def getFile(file_id):
-    file = File.objects(id=file_id).first()
-    if file !=None:
-        return {'status' : 'ok','message' :'', 'data' : file.to_json()}
-    else:
-        return {'status' : 'error', 'message' : 'no file found' }
+    try:
+        file = File.objects(id=file_id).first()
+        if file is not None:
+            # Verify file exists on disk
+            file_path = os.path.join(file.path, f"{file_id}.{file.file_type}")
+            if os.path.exists(file_path):
+                return {'status': 'ok', 'message': '', 'data': file.to_json()}
+            else:
+                print(f"[DEBUG] Physical file not found at: {file_path}")
+                return {'status': 'error', 'message': 'Physical file not found'}
+        else:
+            print(f"[DEBUG] No file record found for id: {file_id}")
+            return {'status': 'error', 'message': 'File record not found'}
+    except Exception as e:
+        print(f"[DEBUG] Error in getFile: {str(e)}")
+        return {'status': 'error', 'message': f'Error retrieving file: {str(e)}'}
 
 
-def getDocumentsByID(collection,name, start=0, limit = 10,id=''):
-    if id !='':
-        recordsTotal = collection.objects(__raw__ = {name: {'$regex': id}}).count()
-        documents = collection.objects(__raw__ = {name: {'$regex': id}}).skip(start).limit(limit)
-        return processDocuments(documents,recordsTotal,start,limit)
-    else:
-        return processDocuments(None, recordsTotal,start,limit)
+def getDocumentsByID(collection, name, start=0, limit=10, id=''):
+    if not id:
+        # Return empty result set when no id is provided
+        return {
+            'status': 'ok',
+            'message': '',
+            'data': '[]',
+            'recordsTotal': 0,
+            'limit': limit,
+            'prev': 0,
+            'next': None,
+            'start': 0,
+            'end': 0,
+            'last': None
+        }
+        
+    try:
+        recordsTotal = collection.objects(__raw__={name: {'$regex': id}}).count()
+        documents = collection.objects(__raw__={name: {'$regex': id}}).skip(start).limit(limit)
+        return processDocuments(documents, recordsTotal, start, limit)
+    except Exception as e:
+        print(f"[DEBUG] Error in getDocumentsByID: {str(e)}")
+        return {'status': 'error', 'message': 'Error retrieving documents'}
 
 def getDocumentName(id, mode,field):
     default = getDefaults(mode)
@@ -128,35 +156,35 @@ def getMailTemplates(category):
     except:
         return []
 
-def processDocuments(documents, recordsTotal,start,limit):
+def processDocuments(documents, recordsTotal, start, limit):
+    print('processDocuments')
+    
+    # Handle case where documents is None or recordsTotal is not defined
+    if documents is None or recordsTotal is None:
+        return {'status': 'error', 'message': 'no documents found'}
 
-    print ('processDocuments')
+    # Calculate pagination values
+    prev = max(0, start - limit) if start - limit > -1 else 0
+    next = start + limit if start + limit < recordsTotal else None
+    last = recordsTotal - limit if recordsTotal > limit else None
+    
+    # Adjust start and end values
+    end = min(start + limit, recordsTotal)
+    display_start = start + 1 if recordsTotal > 0 else start
 
-    prev = 0
-    if start - limit > -1:
-        prev = start - limit
+    return {
+        'status': 'ok',
+        'message': '',
+        'data': documents.to_json(),
+        'recordsTotal': recordsTotal,
+        'limit': limit,
+        'prev': prev,
+        'next': next,
+        'start': display_start,
+        'end': end,
+        'last': last
+    }
 
-    last = None
-
-    i = start
-    z = 0
-
-    next = 0
-    if start + limit < recordsTotal:
-        next = start + limit
-        last = recordsTotal - limit
-
-    end = start + limit
-
-    if recordsTotal > 0:
-        start = start + 1
-        if end > recordsTotal:
-            end = recordsTotal
-
-
-    if documents != None:
-        return {'status' : 'ok','message' :'', 'data' : documents.to_json(),'recordsTotal' : recordsTotal, 'limit' : limit,'prev' : prev, 'next' : next, 'start' : start,'end' : end,'last' : last}
-    return {'status' : 'error', 'message' : 'no documents found' }
 def getFilterDict(filter_id):
     data = []
     try:

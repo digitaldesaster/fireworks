@@ -117,7 +117,6 @@ class Testing(DynamicDocument):
     salary_float = FloatField(default=None, null=True)
     ai_provider = StringField(default='')
     user_search = StringField(default='')
-    user_search_id = StringField(default='')
     files = StringField(default='')
     more_files = StringField(default='')
     link = StringField(default='')
