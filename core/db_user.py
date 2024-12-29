@@ -2,23 +2,13 @@
 # -*- coding: utf-8 -*-
 from werkzeug.security import generate_password_hash, check_password_hash
 from core.db_document import *
-from flask_login import UserMixin
+
 import logging
 from mongoengine.errors import NotUniqueError, ValidationError, OperationError
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-class User(Document, UserMixin):
-    firstname = StringField(required=True)
-    name = StringField(required=True)
-    email = StringField(required=True, unique=True)
-    pw_hash = StringField(required=True)
-    role = StringField(required=True, default='user')
-
-    def get_id(self):
-        return str(self.email)
 
 def hash_password(password):
     return generate_password_hash(password)

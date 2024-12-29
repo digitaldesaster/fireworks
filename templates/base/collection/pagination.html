@@ -1,0 +1,124 @@
+{% if total != null %}
+<div class="flex items-center justify-between px-4 py-3">
+  <div class="flex items-center">
+    <nav class="flex items-center gap-x-1" aria-label="Pagination">
+      {% if prev != null and prev != None %}
+      <a
+        href="{{collection_url}}?start=0&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline btn-primary"
+        aria-label="First"
+      >
+        <span
+          class="icon-[tabler--chevrons-left] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+        <span class="hidden sm:inline">First</span>
+      </a>
+      <a
+        href="{{collection_url}}?start={{prev}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline btn-primary"
+        aria-label="Previous"
+      >
+        <span
+          class="icon-[tabler--chevron-left] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+        <span class="hidden sm:inline">Previous</span>
+      </a>
+      {% endif %}
+
+      <div class="flex items-center gap-x-1">
+        <!-- Page numbers would go here -->
+      </div>
+
+      {% if next %}
+      <a
+        href="{{collection_url}}?start={{next}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline btn-primary"
+        aria-label="Next"
+      >
+        <span class="hidden sm:inline">Next</span>
+        <span
+          class="icon-[tabler--chevron-right] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+      </a>
+      {% endif %} {% if last != null and last != None %}
+      <a
+        href="{{collection_url}}?start={{last}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline btn-primary"
+        aria-label="Last"
+      >
+        <span class="hidden sm:inline">Last</span>
+        <span
+          class="icon-[tabler--chevrons-right] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="ml-4 text-sm text-gray-500">
+      {% if total > 0 %} Showing
+      <span class="font-medium">{{start}}</span>
+      to
+      <span class="font-medium">{{end}}</span>
+      of
+      <span class="font-medium">{{total}}</span>
+      results {% else %} No results found {% endif %}
+    </div>
+
+    <!-- Limit dropdown -->
+    <div class="dropdown relative inline-flex rtl:[--placement:bottom-end] ml-4">
+      <button
+        id="dropdown-default"
+        type="button"
+        class="dropdown-toggle btn btn-primary"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        aria-label="Limit"
+      >
+        Limit
+        <span
+          class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"
+        ></span>
+      </button>
+      <ul
+        aria-labelledby="dropdown-default"
+        aria-orientation="vertical"
+        class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
+        role="menu"
+      >
+        <li>
+          <a
+            class="dropdown-item"
+            href="{{collection_url}}?start=0&limit=5&search={{search}}&filter={{filter}}"
+          >
+            5 Items
+          </a>
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            href="{{collection_url}}?start=0&limit=10&search={{search}}&filter={{filter}}"
+          >
+            10 Items
+          </a>
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            href="{{collection_url}}?start=0&limit=20&search={{search}}&filter={{filter}}"
+          >
+            20 Items
+          </a>
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            href="{{collection_url}}?start=0&limit=50&search={{search}}&filter={{filter}}"
+          >
+            50 Items
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}

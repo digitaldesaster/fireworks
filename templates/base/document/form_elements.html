@@ -1,0 +1,157 @@
+{% for element in elements %}
+<div
+  class="{{ 'w-full' if element.full_width else 'w-full md:w-1/2' }} px-3 mb-6 md:mb-0"
+>
+  <label
+    for="{{ element.id }}"
+    class="label label-text"
+  >
+    {{ element.label }}
+  </label>
+
+  {% if element.type == 'ButtonField' %}
+  <a href="{{element.link}}/{{document.id}}"
+    ><button
+      type="button"
+      class="btn btn-primary"
+    >
+      {{element.label}}
+    </button></a
+  >
+  {% endif %} {% if element.type == 'FileField' %}
+  <input
+    class="input max-w-sm"
+    id="{{element.id}}"
+    type="file"
+    name="files_{{element.id}}"
+    multiple
+  />
+  {% for file in element.value %} {% if file.element_id == element.id %}
+  <div id="{{file.document_id}}" class="flex items-center justify-between mt-2">
+    <span class="mt-1 text-sm text-gray-600">
+      <a
+        href="{{url_for('download_file',file_id=file.id)}}"
+        class="text-blue-600 hover:text-blue-500"
+        target="_blank"
+      >
+        {{ file.name }}
+      </a>
+    </span>
+    <button
+      id="{{file.id}}"
+      document_id="{{file.document_id}}"
+      class="delete_file bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"
+    >
+      Delete
+    </button>
+  </div>
+  {% endif %} {% endfor %} {% endif %} {% if element.type=='DocumentField' %}
+  <!-- Search Field -->
+  <input
+    type="hidden"
+    value="{{element.value_id if element.value_id else document.get(element.name + '_id', '')}}"
+    name="{{ element.name }}_hidden"
+    id="{{ element.name }}_hidden"
+  />
+  <input
+    id="{{element.id}}"
+    name="{{element.name}}"
+    value="{{element.value if element.value else document.get(element.name, '')}}"
+    module="{{element.module}}"
+    document_field="{{element.document_field}}"
+    type="text"
+    placeholder="Search..."
+    class="searchField bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+  />
+
+  <!-- Dropdown Menu -->
+  <div
+    id="dropdownMenu"
+    class="z-10 hidden bg-white rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
+  >
+    <ul id="userList" class="py-2 text-gray-700"></ul>
+  </div>
+  {% endif %} {% if element.type == 'IntField' or element.type =='FloatField' %}
+
+  <div class="max-w-sm mx-auto">
+    <input
+      type="text"
+      id="{{element.id}}"
+      name="{{element.name}}"
+      value="{{element.value if element.value is not none else ''}}"
+      class="input"
+    />
+  </div>
+
+  {% endif %} {% if element.type == 'Date' %}
+
+  <input
+    type="text"
+    class="input max-w-sm"
+    placeholder="DD.MM.YYYY"
+    id="flatpickr-date"
+    name="{{element.name}}"
+    value="{{element.value if element.value is not none else ''}}"
+  />
+
+  {% endif %} {% if element.type == 'CheckBox' %}
+  <label class="inline-flex items-center mb-5 cursor-pointer">
+    <input
+      type="hidden"
+      name="{{ element.name }}_hidden"
+      value="Off"
+    />
+    <input
+      type="checkbox"
+      name="{{ element.name }}"
+      class="switch switch-primary"
+      value="On"
+      {% if element.value == "On" %}checked{% endif %}
+    />
+  </label>
+  {% endif %} {% if element.type =='SimpleListField' %}
+  <select
+    class="select max-w-sm appearance-none"
+    aria-label="select"
+    id="{{element.id}}"
+    name="{{element.name}}"
+  >
+    {% for item in element.SimpleListField %} {% if item.value == element.value %}
+    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
+    {% else %}
+    <option value="{{item.value}}">{{item.name}}</option>
+    {% endif %} {% endfor %}
+  </select>
+  {% endif %} {% if element.type=='AdvancedListField' %}
+  <select class="select max-w-sm appearance-none" aria-label="select" id="{{element.id}}" name="{{element.name}}">
+    {% for item in element.AdvancedListField %} {% if item.value == element.value %}
+    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
+    {% else %}
+    <option value="{{item.value}}">{{item.name}}</option>
+    {% endif %} {% endfor %}
+  </select>
+  {% endif %} {% if element.type == 'SingleLine' %}
+  <input
+    id="{{ element.id }}"
+    name="{{ element.name }}"
+    type="text"
+    value="{{ element.value }}"
+    placeholder="{{ element.label }}"
+    class="input"
+    {% if element.required %}required{% endif %}
+  />
+  {% elif element.type == 'MultiLine' %}
+  <textarea
+    id="{{ element.id }}"
+    name="{{ element.name }}"
+    rows="4"
+    placeholder="{{ element.label }}"
+    class="textarea"
+    {% if element.required %}required{% endif %}
+  >{{ element.value if element.value is not none else '' }}</textarea>
+  {% endif %}
+    <!-- {% if element.required %}
+    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+    {% endif %} -->
+</div>
+{% endfor %}

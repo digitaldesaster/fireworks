@@ -1,0 +1,51 @@
+<nav class="navbar rounded-box shadow">
+  <div class="w-full flex items-center justify-between">
+    <div class="navbar-start">
+      <a
+        class="link text-base-content/90 link-neutral text-xl font-semibold no-underline"
+        href="#"
+        >Flask</a
+      >
+    </div>
+    <div class="navbar-end">
+      <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
+        <button
+          id="dropdown-avatar"
+          type="button"
+          class="dropdown-toggle"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-label="User menu"
+        >
+          <div class="avatar placeholder">
+            <div class="bg-primary text-primary-content w-10 rounded-full">
+              <span class="text-sm font-bold"
+                >{{ current_user.firstname[0] }}{{ current_user.name[0] }}</span
+              >
+            </div>
+          </div>
+        </button>
+        <ul
+          class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="dropdown-avatar"
+        >
+          <li>
+            <form action="{{ url_for('logout') }}" method="post" class="w-full">
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+              />
+              <button type="submit" class="dropdown-item w-full text-left">
+                <span class="icon-[tabler--logout] size-5 shrink-0"></span>
+                Logout
+              </button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

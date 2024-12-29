@@ -1,0 +1,44 @@
+<div class="w-full overflow-x-auto">
+  {% include('/base/collection/pagination.html') %}
+  <table class="table">
+    <thead>
+      <tr>
+        {% for header in table_header %}
+        <th class="{{header.class}}">{{header.label}}</th>
+        {% endfor %}
+        <th class="w-16">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for document in table_content %}
+      <tr>
+        {% for field in document %}
+        <td class="{% if field.type == 'ButtonField' %}p-4{% endif %}">
+          {% if field.type == 'ButtonField' %}
+          <div class="flex justify-start items-center">
+            <a href="{{field.link}}/{{field.id}}" class="w-full">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm {{field.class}} truncate"
+              >
+                {{field.label}}
+              </button>
+            </a>
+          </div>
+          {% else %} {{field.value}} {% endif %}
+        </td>
+        {% endfor %}
+        <td class="w-8">
+          <a
+            href="{{document_url}}/{{document[0].id}}"
+            class="btn btn-primary btn-sm"
+          >
+            <span class="icon-[tabler--edit] size-4"></span>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% include('/base/collection/pagination.html') %}
+</div>

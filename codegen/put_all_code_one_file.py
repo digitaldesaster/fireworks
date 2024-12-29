@@ -19,7 +19,7 @@ def parse_code_to_markdown(file_structure: dict, output_file: str) -> None:
                     outfile.write("```\n")
                     outfile.write(file.read())
                     outfile.write("\n```\n\n")
-            # Handle directory
+            # Handle directory and subdirectories
             elif os.path.isdir(adjusted_path):
                 for root, _, files in os.walk(adjusted_path):
                     if '__pycache__' in root:
@@ -28,7 +28,8 @@ def parse_code_to_markdown(file_structure: dict, output_file: str) -> None:
                         file_path = os.path.join(root, file)
                         try:
                             with open(file_path, 'r', encoding='utf-8', errors='ignore') as dir_file:
-                                outfile.write(f"## {file_path}\n\n")
+                                relative_path = os.path.relpath(file_path, start=os.path.join("..", path))
+                                outfile.write(f"## {relative_path}\n\n")
                                 outfile.write("```\n")
                                 outfile.write(dir_file.read())
                                 outfile.write("\n```\n\n")

@@ -4,6 +4,7 @@ module.exports = {
     "./templates/**/*.html",
     "./static/js/**/*.js",
     "./node_modules/flyonui/dist/js/*.js", // Added FlyonUI JS components path
+    "./node_modules/flatpickr/**/*.js",
   ],
   theme: {
     extend: {},
@@ -11,9 +12,10 @@ module.exports = {
   plugins: [
     require("flyonui"),
     require("flyonui/plugin"), // For FlyonUI JS components
-    require('tailwindcss-motion'), // Added motion plugin
+    require("tailwindcss-motion"), // Added motion plugin
   ],
   flyonui: {
     themes: ["light", "dark", "gourmet"],
+    vendors: true, // Enable vendor-specific CSS generation
   },
 };
