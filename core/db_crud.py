@@ -12,44 +12,45 @@ from flask import session
 from db_default import getCounter
 from bson import ObjectId
 
-def createDocument(form_data, document):
-    print(f"[DEBUG] Initial form_data type: {type(form_data)}, content: {form_data}")
-    
+def createDocument(form_data, document, request=None):
+    print(f"[DEBUG] Starting createDocument with form_data keys: {form_data.keys()}")
     # Remove csrf_token before processing
     form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
-    print(f"[DEBUG] Processed form_data: {form_data}")
     
     try:
         # Initialize document with default values if it's a new document
         if isinstance(document, type):
-            # If document is a class, instantiate it
             document = document()
-        else:
-            # If document is already an instance, use it directly
-            document = document
+        
+        # Handle counter if needed
+        try:
+            counter_name = document.getCounterName()
+            counter = getCounter(counter_name)
+            document[counter_name] = counter
+        except Exception as e:
+            print(f"[DEBUG] Counter error: {str(e)}")
 
+        # Process all non-file fields
         for key in form_data.keys():
-            # Skip None or empty list values
+            if key.startswith('files_'):
+                continue
+                
             if form_data[key] is None or (isinstance(form_data[key], list) and not form_data[key]):
                 continue
 
-            # Handle hidden fields for document references
             if key.endswith('_hidden'):
                 base_key = key.replace('_hidden', '')
-                if form_data[key]:  # If we have an ID
+                if form_data[key]:
                     document[f"{base_key}_id"] = form_data[key]
                 continue
 
-            # Skip empty fields to allow default values or validation to handle them
             if form_data[key] == '':
                 continue
 
-            # Handle different field types
             if '_date' in key:
                 try:
                     document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
                 except ValueError as e:
-                    print(f"[DEBUG] Date parsing error: {str(e)}")
                     return {'status': 'error', 'message': f'Invalid date format for field {key}'}
             elif '_int' in key:
                 try:
@@ -64,24 +65,15 @@ def createDocument(form_data, document):
             elif key != 'id':
                 document[key] = form_data[key]
 
-        print(f"[DEBUG] Final document state before save: {document.to_mongo()}")
-
-        # Handle counter if needed
-        try:
-            counter_name = document.getCounterName()
-            counter = getCounter(counter_name)
-            document[counter_name] = counter
-        except Exception as e:
-            print(f"[DEBUG] Counter error: {str(e)}")
-            # Continue without counter if it fails
-
         # Set created info
         document['created_date'] = datetime.datetime.now()
-        document['created_by'] = 'Admin'  # Or get from session
+        document['created_by'] = 'Admin'
 
+        # Save document first to get an ID
         try:
             document.save()
             return {'status': 'ok', 'message': '', 'data': document.to_json()}
+            
         except ValidationError as e:
             print(f"[DEBUG] Validation error: {str(e)}")
             return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
@@ -204,7 +196,7 @@ def getDocument(id, document, collection):
             document = collection.objects(__raw__={'_id': {'$oid': id}}).first()
         
         if document is not None:
-            print(f"[DEBUG] Found document: {document.to_json()}")
+            #print(f"[DEBUG] Found document: {document.to_json()}")
             return {'status': 'ok', 'message': '', 'data': document.to_json()}
         else:
             # Let's print all documents in collection to debug

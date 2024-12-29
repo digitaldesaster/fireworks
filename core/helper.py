@@ -174,9 +174,6 @@ def handleDocument(name, id, request, return_json=False):
             'collection_url': default.collection_url,
             'document_title': default.page_name_document
         }
-
-        file_status = upload_files(request, default.collection_name, id)
-        print(f"[DEBUG] File status: {file_status}")
         
         form_data = htmlFormToDict(request.form)
         print(f"[DEBUG] Form data: {form_data}")
@@ -192,11 +189,13 @@ def handleDocument(name, id, request, return_json=False):
                 data = updateDocument(form_data, default.document, default.collection)
             else:
                 print('[DEBUG] Creating new Document')
-                data = createDocument(form_data, default.document)
+                data = createDocument(form_data, default.document, request)
 
             if (data['status'] == 'ok'):
                 data = json.loads(data['data'])
                 data['id'] = data['_id']['$oid']
+                file_status = upload_files(request, default.collection_name, data['id'])
+                print(f"[DEBUG] File status: {file_status}")
                 if return_json:
                     return json.dumps(data)
                 return redirect(url_for('doc', name=default.document_name) + '/' + data['id'])
@@ -236,7 +235,7 @@ def handleDocument(name, id, request, return_json=False):
 
         print("[DEBUG] Getting elements")
         elements = getElements(data, default.document)
-        print(f"[DEBUG] Elements: {elements}")
+        #print(f"[DEBUG] Elements: {elements}")
         return render_template('/base/document/form.html', elements=elements, menu=default.menu, page=page, document=data, mode=mode, category_fields=category_fields)
     except Exception as e:
         print(f"[DEBUG] Error in handleDocument: {str(e)}")
