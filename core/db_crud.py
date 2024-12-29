@@ -157,19 +157,34 @@ def updateDocument(form_data, document, collection):
 def eraseDocument(id, document, collection):
     try:
         print(f"[DEBUG] Attempting to delete document with id={id}")
-        # Convert string id to ObjectId
         object_id = ObjectId(id)
         document = collection.objects(_id=object_id).first()
         
         if document is not None:
             print(f"[DEBUG] Found document to delete: {document.to_json()}")
+            
+            # Handle file deletion for both File collection and associated files
             if collection == File:
+                # Direct file document deletion
                 try:
                     file_path = document.path + id + "." + document.file_type
                     os.remove(file_path)
                     print(f"[DEBUG] Deleted associated file: {file_path}")
                 except FileNotFoundError:
                     print('[DEBUG] File not found, continuing with document deletion')
+            else:
+                # Delete associated files from File collection
+                associated_files = File.objects(document_id=str(id))
+                for file_doc in associated_files:
+                    try:
+                        file_path = file_doc.path + str(file_doc.id) + "." + file_doc.file_type
+                        os.remove(file_path)
+                        file_doc.delete()
+                        print(f"[DEBUG] Deleted associated file: {file_path}")
+                    except FileNotFoundError:
+                        print(f'[DEBUG] File not found for {file_doc.id}, continuing with deletion')
+                    except Exception as e:
+                        print(f'[DEBUG] Error deleting associated file: {str(e)}')
                     
             document.delete()
             print(f"[DEBUG] Document deleted successfully")
