@@ -52,8 +52,8 @@ def getDefaults(name):
         defaults = ['user', 'users', 'User','Users', User, User(), 'users']
     elif name == 'file' or name == 'files':
         defaults = ['file', 'files', 'File','Files', File, File(), 'files']
-    elif name == 'testing':
-        defaults = ['testing', 'testing', 'Testing','Testing', Testing, Testing(), 'testing']
+    elif name == 'example':
+        defaults = ['example', 'example', 'Example','Example', Example, Example(), 'example']
 
     if defaults:
         d = Default()
@@ -138,7 +138,7 @@ class Filter(DynamicDocument):
 #example of a DynamicDocument with all available fields
 #fields are then used in the form_elements.html to create the form
 #the fields are then used in the db_crud.py to create the document
-class Testing(DynamicDocument):
+class Example(DynamicDocument):
     name = StringField(required=True, min_length=1)
     email = StringField(required=True, min_length=1)
     salutation = StringField(default='')
