@@ -1,13 +1,14 @@
 # app.py
 
 ```
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort
 from core import auth
 from datetime import timedelta
 import os
 from flask_login import LoginManager, current_user, login_required
 from core.db_user import User
 from flask_wtf.csrf import CSRFProtect
+import json
 
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument
@@ -77,25 +78,39 @@ def delete_document():
 
 # Route to return a list of documents
 @app.route('/list/<name>')
-@app.route('/list/<name>/<return_format>')
 @login_required
-def list(name, return_format='html'):
-		if return_format == 'json':
-				return getList(name, request, return_json=True)
-		else:
-				return getList(name, request)
+def list(name):
+	# Check if JSON mode is requested via query parameter
+	mode = request.args.get('mode')
+	if mode == 'json':
+		return getList(name, request, return_json=True)
+	return getList(name, request)
 
 # Route to download a file
 @app.route('/download_file/<file_id>')
+@login_required
 def download_file(file_id):
+	try:
 		data = getFile(file_id)
 		if data['status'] == 'ok':
-				data = json.loads(data['data'])
-				path = data['path']
-				filename = file_id + '.' + data['file_type']
-				return send_from_directory(path, filename)
+			file_data = json.loads(data['data'])
+			path = file_data['path']
+			filename = f"{file_id}.{file_data['file_type'].lower()}"
+			original_filename = file_data['name']
+			
+			print(f"[DEBUG] Attempting to send file: {path}/{filename}")
+			return send_from_directory(
+				path, 
+				filename,
+				as_attachment=True,
+				download_name=original_filename
+			)
 		else:
-				return jsonify({'status': 'error', 'message': 'File not found'})
+			print(f"[DEBUG] File not found: {file_id}")
+			abort(404)
+	except Exception as e:
+		print(f"[DEBUG] Error in download_file: {str(e)}")
+		abort(500)
 
 if __name__ == '__main__':
 	app.run(debug=True)
@@ -111,6 +126,7 @@ module.exports = {
     "./templates/**/*.html",
     "./static/js/**/*.js",
     "./node_modules/flyonui/dist/js/*.js", // Added FlyonUI JS components path
+    "./node_modules/flatpickr/**/*.js",
   ],
   theme: {
     extend: {},
@@ -118,10 +134,11 @@ module.exports = {
   plugins: [
     require("flyonui"),
     require("flyonui/plugin"), // For FlyonUI JS components
-    require('tailwindcss-motion'), // Added motion plugin
+    require("tailwindcss-motion"), // Added motion plugin
   ],
   flyonui: {
     themes: ["light", "dark", "gourmet"],
+    vendors: true, // Enable vendor-specific CSS generation
   },
 };
 
@@ -405,6 +422,10 @@ for i in range(1, 20):
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/output.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/flatpickr.min.css') }}"
   />
 </head>
 
@@ -719,75 +740,6 @@ for i in range(1, 20):
 
 ```
 
-## base/document/form_items.html
-
-```
-{% for position in document.positions %}
-<tr id="itemList_{{position.pos_nr}}">
-  <td class="col-sm-1 col-md-1"><input class="item" type="hidden" name="item_{{position.pos_nr}}" id="item_{{position.pos_nr}}" value="{{position.pos_nr}}"><div class="pos" id = "pos_{{position.pos_nr}}">{{position.pos_nr}}</div></td>
-  <td class="col-sm-2 col-md-2">
-    <input type="hidden" name="itemid_{{position.pos_nr}}" id="itemid_{{position.pos_nr}}" value="{{position.item_id}}">
-    <input type="hidden" name="optional_{{position.pos_nr}}" id="optional_{{position.pos_nr}}" value="{{position.optional}}">
-    {% if position.optional=='true' %}
-    <div id = "itemidtext_{{position.pos_nr}}">{{position.item_id}}<br><span class="label label-danger">Optional</span></div>
-    {% else %}
-    <div id = "itemidtext_{{position.pos_nr}}">{{position.item_id}}</div>
-    {% endif %}
-
-    </td>
-  <td class="col-sm-3 col-md-4">
-    <input type="hidden" name="name_{{position.pos_nr}}" id="name_{{position.pos_nr}}" value="{{position.name}}">
-    <input type="hidden" name="description_{{position.pos_nr}}" id="description_{{position.pos_nr}}" value="{{position.description}}">
-    <div id = "itemtext_{{position.pos_nr}}">{{position.name}}<br>
-      {% if position.description%}
-        {{position.description}}
-      {% endif %}
-
-    </div>
-    </td>
-  <td class="col-sm-2 col-md-2"><input type="text" class="maxlength-input form-control price" data-placement="bottom-right-inside" id="price_{{position.pos_nr}}" name="price_{{position.pos_nr}}" placeholder="" value="{{position.price}}">
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <input type="text" class="maxlength-input form-control amount" data-placement="bottom-right-inside" id="amount_{{position.pos_nr}}" maxlength="3" name="amount_{{position.pos_nr}}" placeholder="" value="{{position.amount}}">
-
-  </td>
-  <td class="col-sm-2 col-md-2">
-    <input type="text" class="maxlength-input form-control" data-placement="bottom-right-inside" id="total_{{position.pos_nr}}" name="total_{{position.pos_nr}}" placeholder="" value="{{position.total}}" readonly="readonly">
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-danger icon wb-minus removeItemField" aria-hidden="true" id="removeItemField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-primary icon wb-plus addItemField" aria-hidden="true" id="addItemField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-primary icon fa-comment addCommentField" aria-hidden="true" id="addCommentField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-primary icon wb-edit editItemField" aria-hidden="true" id="editItemField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href="" data-target="#searchItemModal" data-toggle="modal"><i class="btn btn-xs btn-outline btn-primary icon fa-refresh searchItemField" aria-hidden="true" id="searchItemField_{{position.pos_nr}}"></i></a>
-  </td>
-</tr>
-{% if position.comment !='' %}
-<tr id="commentRow_{{position.pos_nr}}">
-  <td colspan="6">
-  <textarea style="resize:None;" class="form-control" id="comment_{{position.pos_nr}}" name="comment_{{position.pos_nr}}" rows="3" placeholder="">{{position.comment}}</textarea>
-  </td>
-  <td>
-    <a href=""><i class="btn btn-xs btn-outline btn-danger icon wb-minus removeComment" aria-hidden="true" id="removeComment_{{position.pos_nr}}"></i></a>
-    </td>
-</tr>
-{% endif %}
-{% endfor %}
-
-```
-
 ## base/document/form.html
 
 ```
@@ -797,8 +749,8 @@ for i in range(1, 20):
   <body>
     {% include('/main/nav.html') %}
 
-    <section class="bg-gray-50 p-4 flex items-center">
-      <div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+    <section class="bg-gray-50 p-6 flex items-center">
+      <div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full lg:w-3/4">
         <!-- Start coding here -->
         <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
           <div class="flex items-center justify-center pt-4 px-4">
@@ -916,14 +868,25 @@ for i in range(1, 20):
       </div>
     </section>
     <script>
+      window.addEventListener("load", function () {
+        // Basic
+        flatpickr("#flatpickr-date", {
+          monthSelectorType: "static",
+          locale: "de",
+          dateFormat: "d.m.Y",
+        });
+      });
+    </script>
+    <script>
       document.addEventListener('DOMContentLoaded', function() {
 
         {% include 'base/document/js/delete_document.js' %}
-        {% include 'base/document/js/checkbox.js' %}
         {% include 'base/document/js/search_field.js' %}
 
       });
     </script>
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/flatpickr.min.js') }}"></script>
   </body>
 </html>
 
@@ -938,7 +901,7 @@ for i in range(1, 20):
 >
   <label
     for="{{ element.id }}"
-    class="block mt-3 mb-1 text-sm font-medium text-gray-900"
+    class="label label-text"
   >
     {{ element.label }}
   </label>
@@ -947,14 +910,14 @@ for i in range(1, 20):
   <a href="{{element.link}}/{{document.id}}"
     ><button
       type="button"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+      class="btn btn-primary"
     >
       {{element.label}}
     </button></a
   >
   {% endif %} {% if element.type == 'FileField' %}
   <input
-    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+    class="input max-w-sm"
     id="{{element.id}}"
     type="file"
     name="files_{{element.id}}"
@@ -983,14 +946,14 @@ for i in range(1, 20):
   <!-- Search Field -->
   <input
     type="hidden"
-    value="{{element.document_id}}"
+    value="{{element.value_id if element.value_id else document.get(element.name + '_id', '')}}"
     name="{{ element.name }}_hidden"
     id="{{ element.name }}_hidden"
   />
   <input
     id="{{element.id}}"
     name="{{element.name}}"
-    value="{{element.value}}"
+    value="{{element.value if element.value else document.get(element.name, '')}}"
     module="{{element.module}}"
     document_field="{{element.document_field}}"
     type="text"
@@ -1012,82 +975,53 @@ for i in range(1, 20):
       type="text"
       id="{{element.id}}"
       name="{{element.name}}"
-      value="{{element.value}}"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      value="{{element.value if element.value is not none else ''}}"
+      class="input"
     />
   </div>
 
   {% endif %} {% if element.type == 'Date' %}
 
-  <div class="relative max-w-sm">
-    <div
-      class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-    >
-      <svg
-        class="w-4 h-4 text-gray-500 dark:text-gray-400"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-        />
-      </svg>
-    </div>
-    <input
-      datepicker
-      datepicker-buttons
-      datepicker-autoselect-today
-      datepicker-autohide
-      datepicker-format="dd.mm.yyyy"
-      name="{{element.name}}"
-      value="{{element.value}}"
-      type="text"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      placeholder="Select date"
-    />
-  </div>
+  <input
+    type="text"
+    class="input max-w-sm"
+    placeholder="DD.MM.YYYY"
+    id="flatpickr-date"
+    name="{{element.name}}"
+    value="{{element.value if element.value is not none else ''}}"
+  />
 
   {% endif %} {% if element.type == 'CheckBox' %}
   <label class="inline-flex items-center mb-5 cursor-pointer">
     <input
       type="hidden"
-      value="{{element.value}}"
       name="{{ element.name }}_hidden"
-      id="{{ element.name }}_hidden"
+      value="Off"
     />
     <input
       type="checkbox"
       name="{{ element.name }}"
-      class="sr-only peer checkbox-toggle"
-      {% if element.value == "on" %}checked{% endif %}
+      class="switch switch-primary"
+      value="On"
+      {% if element.value == "On" %}checked{% endif %}
     />
-    <div
-      class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-blue-600"
-    ></div>
   </label>
   {% endif %} {% if element.type =='SimpleListField' %}
   <select
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+    class="select max-w-sm appearance-none"
+    aria-label="select"
     id="{{element.id}}"
     name="{{element.name}}"
   >
-    {% for item in element.SimpleListField %} {% if item.value == element.value
-    %}
+    {% for item in element.SimpleListField %} {% if item.value == element.value %}
     <option value="{{item.value}}" selected="selected">{{item.name}}</option>
     {% else %}
     <option value="{{item.value}}">{{item.name}}</option>
     {% endif %} {% endfor %}
   </select>
   {% endif %} {% if element.type=='AdvancedListField' %}
-  <select
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-    id="{{element.id}}"
-    name="{{element.name}}"
-  >
-    {% for item in element.AdvancedListField %} {% if item.value ==
-    element.value %}
+  <select class="select max-w-sm appearance-none" aria-label="select" id="{{element.id}}" name="{{element.name}}">
+    {% for item in element.AdvancedListField %} {% if item.value == element.value %}
     <option value="{{item.value}}" selected="selected">{{item.name}}</option>
     {% else %}
     <option value="{{item.value}}">{{item.name}}</option>
@@ -1100,13 +1034,8 @@ for i in range(1, 20):
     type="text"
     value="{{ element.value }}"
     placeholder="{{ element.label }}"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-    {%
-    if
-    element.required
-    %}required{%
-    endif
-    %}
+    class="input"
+    {% if element.required %}required{% endif %}
   />
   {% elif element.type == 'MultiLine' %}
   <textarea
@@ -1114,19 +1043,13 @@ for i in range(1, 20):
     name="{{ element.name }}"
     rows="4"
     placeholder="{{ element.label }}"
-    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-    {%
-    if
-    element.required
-    %}required{%
-    endif
-    %}
-  >
-{{ element.value }}</textarea
-  >
-  {% endif %} {% if element.required %}
-  <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+    class="textarea"
+    {% if element.required %}required{% endif %}
+  >{{ element.value if element.value is not none else '' }}</textarea>
   {% endif %}
+    <!-- {% if element.required %}
+    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+    {% endif %} -->
 </div>
 {% endfor %}
 
@@ -1135,83 +1058,81 @@ for i in range(1, 20):
 ## base/document/js/search_field.js
 
 ```
-document.querySelectorAll('.searchField').forEach(searchField => {
-    searchField.addEventListener('input', function() {
-        const query = this.value;
-        const module = this.getAttribute('module');  // Get the module attribute value
-        const document_field = this.getAttribute('document_field'); 
-        const dropdown = this.nextElementSibling;
-        const userList = dropdown.querySelector('#userList');
-        const document_field_hidden = document.getElementById(this.name + '_hidden');
-        document_field_hidden.value = "";
-        if (query.length > 3) {
-            // Construct the URL using the module value
-            const url = `{{ url_for("list", name="__MODULE__", mode="json") }}`.replace('__MODULE__', module);
+document.querySelectorAll(".searchField").forEach((searchField) => {
+  searchField.addEventListener("input", function () {
+    const query = this.value;
+    const module = this.getAttribute("module"); // Get the module attribute value
+    const document_field = this.getAttribute("document_field");
+    const dropdown = this.nextElementSibling;
+    const userList = dropdown.querySelector("#userList");
+    const document_field_hidden = document.getElementById(
+      this.name + "_hidden",
+    );
 
-            // Fetch users from the server based on the search query
-            fetch(`${url}?search=${encodeURIComponent(query)}&limit=100`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === "ok" && data.message === "success") {
-                        dropdown.classList.remove('hidden');
-                        console.log(data);  // Log the result
-                        userList.innerHTML = '';  // Clear the existing list
+    // Clear hidden field if search field is empty
+    if (!query || query.length === 0) {
+      document_field_hidden.value = "";
+      document_field.value = "";
+      dropdown.classList.add("hidden");
+      return;
+    }
 
-                        // Check if data.data is an array before iterating
-                        if (Array.isArray(data.data)) {
-                            // Append users to the list
-                            data.data.forEach(user => {
-                                const userItem = document.createElement('li');
-                                userItem.innerHTML = `
+    if (query.length > 3) {
+      // Construct the URL using the module value
+      const url =
+        `{{ url_for("list", name="__MODULE__", mode="json") }}`.replace(
+          "__MODULE__",
+          module,
+        );
+
+      // Fetch users from the server based on the search query
+      fetch(`${url}&search=${encodeURIComponent(query)}&limit=100`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "ok" && data.message === "success") {
+            dropdown.classList.remove("hidden");
+            console.log(data); // Log the result
+            userList.innerHTML = ""; // Clear the existing list
+
+            // Check if data.data is an array before iterating
+            if (Array.isArray(data.data)) {
+              // Append users to the list
+              data.data.forEach((user) => {
+                const userItem = document.createElement("li");
+                userItem.innerHTML = `
                                     <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">
                                         ${user[document_field]}
                                     </a>
                                 `;
-                                userItem.addEventListener('click', function(event) {
-                                    event.preventDefault();
-                                    searchField.value = user[document_field];
-                                    document_field_hidden.value = user.id;
-                                    dropdown.classList.add('hidden');
-                                });
-                                userList.appendChild(userItem);
-                            });
-
-                            // Log the length of the userList to verify
-                            console.log(`Number of users appended: ${userList.children.length}`);
-
-                        } else {
-                            console.error('Error: data.data is not an array');
-                        }
-                    } else {
-                        console.error('Error: Unexpected response format');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);  // Log error message
+                userItem.addEventListener("click", function (event) {
+                  event.preventDefault();
+                  searchField.value = user[document_field];
+                  document_field_hidden.value = user.id;
+                  dropdown.classList.add("hidden");
                 });
-        } else {
-            
-            dropdown.classList.add('hidden');
-        }
-    });
+                userList.appendChild(userItem);
+              });
+
+              // Log the length of the userList to verify
+              console.log(
+                `Number of users appended: ${userList.children.length}`,
+              );
+            } else {
+              console.error("Error: data.data is not an array");
+            }
+          } else {
+            console.error("Error: Unexpected response format");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error); // Log error message
+        });
+    } else {
+      dropdown.classList.add("hidden");
+    }
+  });
 });
 
-```
-
-## base/document/js/checkbox.js
-
-```
-const checkboxes = document.querySelectorAll(".checkbox-toggle");
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener("change", function() {
-        const hiddenInput = document.getElementById(this.name + '_hidden');
-        if (this.checked) {
-            hiddenInput.value = 'on';
-        } else {
-            hiddenInput.value = 'off';
-        }
-    });
-});
 ```
 
 ## base/document/js/delete_document.js
@@ -1525,6 +1446,7 @@ from core.db_connect import *
 from core.db_modules import *
 from core.db_date import dbDates
 import json
+import os
 
 def searchDocuments(collection, searchFields,start = 0, limit = 10, search = '',filter='',product_name='',mode=''):
     searchAnd = []
@@ -1595,20 +1517,47 @@ def searchDocuments(collection, searchFields,start = 0, limit = 10, search = '',
 
 
 def getFile(file_id):
-    file = File.objects(id=file_id).first()
-    if file !=None:
-        return {'status' : 'ok','message' :'', 'data' : file.to_json()}
-    else:
-        return {'status' : 'error', 'message' : 'no file found' }
+    try:
+        file = File.objects(id=file_id).first()
+        if file is not None:
+            # Verify file exists on disk
+            file_path = os.path.join(file.path, f"{file_id}.{file.file_type}")
+            if os.path.exists(file_path):
+                return {'status': 'ok', 'message': '', 'data': file.to_json()}
+            else:
+                print(f"[DEBUG] Physical file not found at: {file_path}")
+                return {'status': 'error', 'message': 'Physical file not found'}
+        else:
+            print(f"[DEBUG] No file record found for id: {file_id}")
+            return {'status': 'error', 'message': 'File record not found'}
+    except Exception as e:
+        print(f"[DEBUG] Error in getFile: {str(e)}")
+        return {'status': 'error', 'message': f'Error retrieving file: {str(e)}'}
 
 
-def getDocumentsByID(collection,name, start=0, limit = 10,id=''):
-    if id !='':
-        recordsTotal = collection.objects(__raw__ = {name: {'$regex': id}}).count()
-        documents = collection.objects(__raw__ = {name: {'$regex': id}}).skip(start).limit(limit)
-        return processDocuments(documents,recordsTotal,start,limit)
-    else:
-        return processDocuments(None, recordsTotal,start,limit)
+def getDocumentsByID(collection, name, start=0, limit=10, id=''):
+    if not id:
+        # Return empty result set when no id is provided
+        return {
+            'status': 'ok',
+            'message': '',
+            'data': '[]',
+            'recordsTotal': 0,
+            'limit': limit,
+            'prev': 0,
+            'next': None,
+            'start': 0,
+            'end': 0,
+            'last': None
+        }
+        
+    try:
+        recordsTotal = collection.objects(__raw__={name: {'$regex': id}}).count()
+        documents = collection.objects(__raw__={name: {'$regex': id}}).skip(start).limit(limit)
+        return processDocuments(documents, recordsTotal, start, limit)
+    except Exception as e:
+        print(f"[DEBUG] Error in getDocumentsByID: {str(e)}")
+        return {'status': 'error', 'message': 'Error retrieving documents'}
 
 def getDocumentName(id, mode,field):
     default = getDefaults(mode)
@@ -1648,35 +1597,35 @@ def getMailTemplates(category):
     except:
         return []
 
-def processDocuments(documents, recordsTotal,start,limit):
+def processDocuments(documents, recordsTotal, start, limit):
+    print('processDocuments')
+    
+    # Handle case where documents is None or recordsTotal is not defined
+    if documents is None or recordsTotal is None:
+        return {'status': 'error', 'message': 'no documents found'}
 
-    print ('processDocuments')
+    # Calculate pagination values
+    prev = max(0, start - limit) if start - limit > -1 else 0
+    next = start + limit if start + limit < recordsTotal else None
+    last = recordsTotal - limit if recordsTotal > limit else None
+    
+    # Adjust start and end values
+    end = min(start + limit, recordsTotal)
+    display_start = start + 1 if recordsTotal > 0 else start
 
-    prev = 0
-    if start - limit > -1:
-        prev = start - limit
+    return {
+        'status': 'ok',
+        'message': '',
+        'data': documents.to_json(),
+        'recordsTotal': recordsTotal,
+        'limit': limit,
+        'prev': prev,
+        'next': next,
+        'start': display_start,
+        'end': end,
+        'last': last
+    }
 
-    last = None
-
-    i = start
-    z = 0
-
-    next = 0
-    if start + limit < recordsTotal:
-        next = start + limit
-        last = recordsTotal - limit
-
-    end = start + limit
-
-    if recordsTotal > 0:
-        start = start + 1
-        if end > recordsTotal:
-            end = recordsTotal
-
-
-    if documents != None:
-        return {'status' : 'ok','message' :'', 'data' : documents.to_json(),'recordsTotal' : recordsTotal, 'limit' : limit,'prev' : prev, 'next' : next, 'start' : start,'end' : end,'last' : last}
-    return {'status' : 'error', 'message' : 'no documents found' }
 def getFilterDict(filter_id):
     data = []
     try:
@@ -1811,9 +1760,9 @@ current_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 # logging.basicConfig(format='%(asctime)s %(message)s\n\r',filename=current_path+'import_leads.log', level=logging.INFO,filemode='w')
 
 
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, jsonify
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv','md'])
 
 def getRequestData(request):
     limit = request.args.get('limit')
@@ -1877,7 +1826,7 @@ def loadData(mydata):
         return data,start,end,prev,next,recordsTotal,last
     return None
 
-def getList(name, request,return_json=False):
+def getList(name, request, return_json=False):
 
     default = getDefaults(name)
 
@@ -1904,10 +1853,19 @@ def getList(name, request,return_json=False):
     processedData = loadData(mydata)
 
     if processedData:
-        data,start,end,prev,next,recordsTotal,last = processedData
+        data, start, end, prev, next, recordsTotal, last = processedData
         if return_json:
-            return json.dumps({'status' : 'ok','message' :'success', 'data' : data,'recordsTotal' : recordsTotal, 'prev': prev, 'next': next, 'last': last, 'start': start, 'end': end})
-
+            return jsonify({
+                'status': 'ok',
+                'message': 'success',
+                'data': data,
+                'recordsTotal': recordsTotal,
+                'prev': prev,
+                'next': next,
+                'last': last,
+                'start': start,
+                'end': end
+            })
 
     
 
@@ -1926,8 +1884,6 @@ def getList(name, request,return_json=False):
 def handleDocument(name, id, request, return_json=False):
     try:
         print(f"[DEBUG] Starting handleDocument with name={name}, id={id}")
-        data=[]
-        page=[]
         default = getDefaults(name)
 
         if default == None:
@@ -1937,10 +1893,26 @@ def handleDocument(name, id, request, return_json=False):
         print(f"[DEBUG] Got defaults: document_name={default.document_name}, collection_name={default.collection_name}")
         mode = default.document_name
 
-        page = {'title' : default.page_name_document + 'add', 'collection_title' : default.collection_title, 'document_name' : default.document_name, 'document_url' : default.document_url, 'collection_url' : default.collection_url}
+        # Initialize empty document data for new documents
+        data = {}
+        if not id:
+            print("[DEBUG] Creating new document")
+            try:
+                # Initialize a new document instance
+                doc = default.document()
+                data = json.loads(doc.to_json())
+                data['id'] = ''  # Empty ID for new document
+            except Exception as e:
+                print(f"[DEBUG] Error initializing new document: {str(e)}")
 
-        file_status = upload_files(request, default.collection_name, id)
-        print(f"[DEBUG] File status: {file_status}")
+        page = {
+            'title': f"{default.page_name_document} {'add' if not id else 'save'}",
+            'collection_title': default.collection_title,
+            'document_name': default.document_name,
+            'document_url': default.document_url,
+            'collection_url': default.collection_url,
+            'document_title': default.page_name_document
+        }
         
         form_data = htmlFormToDict(request.form)
         print(f"[DEBUG] Form data: {form_data}")
@@ -1956,11 +1928,13 @@ def handleDocument(name, id, request, return_json=False):
                 data = updateDocument(form_data, default.document, default.collection)
             else:
                 print('[DEBUG] Creating new Document')
-                data = createDocument(form_data, default.document)
+                data = createDocument(form_data, default.document, request)
 
             if (data['status'] == 'ok'):
                 data = json.loads(data['data'])
                 data['id'] = data['_id']['$oid']
+                file_status = upload_files(request, default.collection_name, data['id'])
+                print(f"[DEBUG] File status: {file_status}")
                 if return_json:
                     return json.dumps(data)
                 return redirect(url_for('doc', name=default.document_name) + '/' + data['id'])
@@ -2000,7 +1974,7 @@ def handleDocument(name, id, request, return_json=False):
 
         print("[DEBUG] Getting elements")
         elements = getElements(data, default.document)
-        print(f"[DEBUG] Elements: {elements}")
+        #print(f"[DEBUG] Elements: {elements}")
         return render_template('/base/document/form.html', elements=elements, menu=default.menu, page=page, document=data, mode=mode, category_fields=category_fields)
     except Exception as e:
         print(f"[DEBUG] Error in handleDocument: {str(e)}")
@@ -2073,30 +2047,45 @@ def getElements(data, document):
 
     return fillElements(elements,data)
 
-def fillElements(elements,data):
-    
-    if data != []:
-        for element in elements:
-            for key in data.keys():
-                if key == element['name']:
-                    element['value'] = data[key]
-                    if element['type'] == 'DocumentField':
-                        id = data [key]
-                        if id!='0815':
-                            element['value'] = getDocumentName(element['value'],element['module'],element['document_field'])
-                            element['document_id'] = id
-                            element['url'] = url_for('doc',name=element['module'],id=id)
-                        else:
-                            element['value'] = ''
-
+def fillElements(elements, data):
+    # Check if data is empty or None
+    if not data or not isinstance(data, dict):
+        return elements
+        
+    for element in elements:
+        if element['name'] in data:
+            element['value'] = data[element['name']]
+            if element['type'] == 'DocumentField':
+                id = data.get(f"{element['name']}_id", '')  # Get ID with fallback to empty string
+                if id and id != '0815':
+                    element['value'] = getDocumentName(data[element['name']], element['module'], element['document_field'])
+                    element['document_id'] = id
+                    element['url'] = url_for('doc', name=element['module'], id=id)
+                else:
+                    element['value'] = ''
 
     return elements
     
 def htmlFormToDict(form_data):
-    data = {}
-    for key in form_data.keys():
-        data[key] = form_data.getlist(key)[0]
-    return data
+    if not form_data:
+        return {}
+        
+    try:
+        # Handle ImmutableMultiDict from Flask
+        if hasattr(form_data, 'getlist'):
+            return {key: form_data.getlist(key)[0] for key in form_data.keys()}
+        # Handle regular dict
+        elif isinstance(form_data, dict):
+            return form_data
+        # Handle list of dicts with name/value pairs
+        elif isinstance(form_data, list):
+            return {item['name']: item['value'] for item in form_data if 'name' in item and 'value' in item}
+        else:
+            print(f"[DEBUG] Unexpected form_data type: {type(form_data)}")
+            return {}
+    except Exception as e:
+        print(f"[DEBUG] Error in htmlFormToDict: {str(e)}")
+        return {}
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -2274,6 +2263,7 @@ class User(DynamicDocument, UserMixin):
     modified_by = StringField()
     modified_date = DateTimeField()
     salutation = StringField()
+    comment = StringField()
     meta = {
         'collection': 'user',
         'queryset_class': CustomQuerySet
@@ -2285,11 +2275,11 @@ class User(DynamicDocument, UserMixin):
         salutation = {'name' :  'salutation', 'label' : 'Anrede', 'class' : '', 'type' : 'SimpleListField','full_width':False}
         firstname = {'name' :  'firstname', 'label' : 'Vorname', 'class' : '', 'type' : 'SingleLine', 'full_width':False}
         name = {'name' :  'name', 'label' : 'Nachname', 'class' : '', 'type' : 'SingleLine','full_width':False}
-       
+        comment = {'name' :  'comment', 'label' : 'Kommentar', 'class' : '', 'type' : 'MultiLine','full_width':True}
         if list_order != None and list_order == True:
             #fields in the overview table of the collection
             return [firstname,name,email]
-        return [email,salutation,firstname,name]
+        return [email,salutation,firstname,name,comment]
     def to_json(self):
         return mongoToJson(self)
     def get_id(self):
@@ -2327,30 +2317,70 @@ class Filter(DynamicDocument):
     def to_json(self):
         return mongoToJson(self)
 
-
+#example of a DynamicDocument with all available fields
+#fields are then used in the form_elements.html to create the form
+#the fields are then used in the db_crud.py to create the document
 class Testing(DynamicDocument):
     name = StringField(required=True, min_length=1)
     email = StringField(required=True, min_length=1)
     salutation = StringField(default='')
     firstname = StringField(default='')
     comment = StringField(default='')
-    active = StringField(default='off')
-    newsletter = StringField(default='off')
-    event_date = DateField(default=None)
-    age_int = IntField(default=None)
-    salary_float = FloatField(default=None)
+    active = StringField(default='Off')
+    newsletter = StringField(default='Off')
+    event_date = DateField(default=None, null=True)
+    age_int = IntField(default=None, null=True)
+    salary_float = FloatField(default=None, null=True)
     ai_provider = StringField(default='')
-    user = StringField(default='')
+    user_search = StringField(default='')
     files = StringField(default='')
     more_files = StringField(default='')
     link = StringField(default='')
     
     meta = {'queryset_class': CustomQuerySet}
     
+    #these are the search fields for the search field in the document list overview page
     def searchFields(self):
         return ['name', 'email', 'firstname']
         
     def fields(self, list_order = False):
+        # Field Types Documentation needs these corrections:
+        
+        # SingleLine: Text input field with 'input' class
+        # MultiLine: Textarea field with 'textarea' class
+        # CheckBox: Switch toggle with 'switch switch-primary' class
+        # SimpleListField: Select dropdown with 'select max-w-sm' class
+        # AdvancedListField: Enhanced select dropdown with 'select max-w-sm' class
+        # Date: Flatpickr date picker with 'input max-w-sm' class (format: DD.MM.YYYY)
+        # IntField: Number input with 'input' class
+        # FloatField: Number input with 'input' class
+        # FileField: File upload with 'input max-w-sm' class
+        # ButtonField: Button with 'btn btn-primary' class
+        # DocumentField: Search field with 'searchField' class and dropdown functionality
+
+        # Additional Field Properties:
+        # id: Used for element identification (required for all fields)
+        # value: Current field value
+        # value_id: (DocumentField only) ID of selected document
+        # SimpleListField: (SimpleListField only) Array of {value, name} objects
+        # AdvancedListField: (AdvancedListField only) Array of {value, name} objects
+
+        #full_width is used to create a full width field in the form
+        #if full_width is set to True, the field will take up the full width of the form
+        #if full_width is set to False, the field will take up half the width of the form
+        #required is used to make the field required in the form
+
+        #list of fields for the form
+        #SingleLine is a single line text field (input type text)
+        #MultiLine is a multi line text field (input type textarea)
+        #CheckBox is a checkbox field (input type checkbox, we are using a switch in the frontend)
+        #SimpleListField is a simple list field (input type select)
+        #AdvancedListField is a advanced list field (input type select with search)
+        #DateField is a date field (input type date, this uses Flatpickr and flatpickr.js needs to be included in the frontend)
+        #IntField is a integer field (input type number)
+        #FloatField is a float field (input type number)
+        #FileField is a file field (input type file)
+
         name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
         email = {'name': 'email', 'label': 'Email', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
         salutation = {'name': 'salutation', 'label': 'Anrede', 'class': '', 'type': 'SimpleListField', 'full_width': False}
@@ -2362,15 +2392,17 @@ class Testing(DynamicDocument):
         age_int = {'name': 'age_int', 'label': 'Alter', 'class': 'hidden-xs', 'type': 'IntField', 'full_width': False}
         salary_float = {'name': 'salary_float', 'label': 'Gehalt', 'class': 'hidden-xs', 'type': 'FloatField', 'full_width': False}
         ai_provider = {'name': 'ai_provider', 'label': 'Firma', 'class': 'hidden-xs', 'type': 'AdvancedListField', 'full_width': False}
-        user = {'name': 'user', 'label': 'User', 'class': '', 'type': 'DocumentField', 'full_width': False, 'module': 'user', 'document_field': 'email'}
+        user_search = {'name': 'user_search', 'label': 'User', 'class': '', 'type': 'DocumentField', 'full_width': False, 'module': 'user', 'document_field': 'email'}
         files = {'name': 'files', 'label': 'Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
         more_files = {'name': 'more_files', 'label': 'More Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
         link = {'name': 'link', 'label': 'Link', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/d/testing'}
 
+        #fields in the overview table of the collection
         if list_order:
             return [name, email, firstname]
+        #fields in the form
         return [name, email, salutation, firstname, comment, active, newsletter, event_date, 
-                age_int, salary_float, ai_provider, user, files, more_files, link]
+                age_int, salary_float, ai_provider, user_search, files, more_files, link]
 
     def to_json(self):
         return mongoToJson(self)
@@ -2475,114 +2507,142 @@ from flask import session
 from db_default import getCounter
 from bson import ObjectId
 
-def createDocument(form_data,document):
-    #print json.dumps(form_data)
+def createDocument(form_data, document, request=None):
+    print(f"[DEBUG] Starting createDocument with form_data keys: {form_data.keys()}")
+    # Remove csrf_token before processing
+    form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
+    
     try:
+        # Initialize document with default values if it's a new document
+        if isinstance(document, type):
+            document = document()
+        
+        # Handle counter if needed
+        try:
+            counter_name = document.getCounterName()
+            counter = getCounter(counter_name)
+            document[counter_name] = counter
+        except Exception as e:
+            print(f"[DEBUG] Counter error: {str(e)}")
+
+        # Process all non-file fields
         for key in form_data.keys():
-            #print key
+            if key.startswith('files_'):
+                continue
+                
+            if form_data[key] is None or (isinstance(form_data[key], list) and not form_data[key]):
+                continue
+
+            if key.endswith('_hidden'):
+                base_key = key.replace('_hidden', '')
+                if form_data[key]:
+                    document[f"{base_key}_id"] = form_data[key]
+                continue
+
+            if form_data[key] == '':
+                continue
+
             if '_date' in key:
                 try:
-                    if form_data[key] !='':
-                        document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y")
-                    else:
-                        document[key] = ''
-                except:
-                    return {'status' : 'error', 'message' : 'error preparing form date field'}
-            elif not '_hidden' in key and key !='id' :
+                    document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
+                except ValueError as e:
+                    return {'status': 'error', 'message': f'Invalid date format for field {key}'}
+            elif '_int' in key:
+                try:
+                    document[key] = int(form_data[key]) if form_data[key] else None
+                except ValueError:
+                    return {'status': 'error', 'message': f'Invalid integer value for field {key}'}
+            elif '_float' in key:
+                try:
+                    document[key] = float(form_data[key]) if form_data[key] else None
+                except ValueError:
+                    return {'status': 'error', 'message': f'Invalid float value for field {key}'}
+            elif key != 'id':
                 document[key] = form_data[key]
-    except:
-        return {'status' : 'error', 'message' : 'error preparing form data'}
 
-    try:
-        counter_name = document.getCounterName()
-        counter = getCounter(counter_name)
-        document[counter_name] = counter
-    except:
-        pass
-
-    try:
-        created_by = 'Admin'#session['user_name']
+        # Set created info
         document['created_date'] = datetime.datetime.now()
-        document['created_by'] = created_by
-    except:
-        return {'status' : 'error', 'message' : 'user_name not in session'}
+        document['created_by'] = 'Admin'
 
-    try:
-        document.save()
-        return {'status' : 'ok','message' :'', 'data' : document.to_json()}
-    except ValidationError as e:
-        print((str(e)))
-        return {'status' : 'error', 'message' : 'validation error','data':document.to_json()}
-    except:
-        return {'status' : 'error', 'message' : 'contact not created' }
+        # Save document first to get an ID
+        try:
+            document.save()
+            return {'status': 'ok', 'message': '', 'data': document.to_json()}
+            
+        except ValidationError as e:
+            print(f"[DEBUG] Validation error: {str(e)}")
+            return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
+        except Exception as e:
+            print(f"[DEBUG] Save error: {str(e)}")
+            return {'status': 'error', 'message': f'document not created: {str(e)}'}
+
+    except Exception as e:
+        print(f"[DEBUG] Error in createDocument: {str(e)}")
+        return {'status': 'error', 'message': f'Error creating document: {str(e)}'}
 
 def updateDocument(form_data, document, collection):
+    # Remove csrf_token before processing
+    form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
+    
     try:
         print(f"[DEBUG] Updating document with id={form_data['id']}")
-        # Convert string id to ObjectId
         object_id = ObjectId(form_data['id'])
         document = collection.objects(_id=object_id).first()
         
         if document is None:
-            print(f"[DEBUG] Document not found with id={form_data['id']}")
             return {'status': 'error', 'message': 'document not found'}
 
-        print(f"[DEBUG] Found document to update: {document.to_json()}")
-        
-        try:
-            for key in form_data.keys():
-                #workaround for checkbox fields, checkbox fields are not in the form data if they are unchecked. check value is 'on', on check value should be 'off'
-                if '_hidden' in key:
-                    new_key = key.replace('_hidden', '')
-                    if new_key in form_data:
-                        document[new_key] = form_data[key]
-                    else:
-                        document[new_key] = ''
-                elif '_int' in key:
-                    if form_data[key] !='':
-                        if form_data[key].find('.') != -1:
-                            form_data[key]=form_data[key].split('.')[0]
-                        if form_data[key].find(',') != -1:
-                            form_data[key]=form_data[key].split(',')[0]
-                        document[key] = int(form_data[key])
-                    else:
-                        document[key] = None
-                elif '_float' in key:
-                    if form_data[key] !='':
-                        form_data[key] = form_data[key].replace(',','.')
-                        document[key] = float(form_data[key])
-                    else:
-                        document[key] = None
-                elif '_date' in key:
-                    try:
-                        if form_data[key] !='':
-                            document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y")
-                        else:
-                            document[key] = None
-                    except:
-                        return {'status': 'error', 'message': 'error preparing form date field'}
-                else:
-                    hidden_key = key + '_hidden'
-                    if not hidden_key in form_data and key != 'id':  # Skip the id field
-                        document[key] = form_data[key]
-        except Exception as e:
-            print(f"[DEBUG] Error preparing form data: {str(e)}")
-            return {'status': 'error', 'message': f'error preparing form data: {str(e)}'}
+        for key in form_data.keys():
+            if key == 'id':  # Skip id field
+                continue
 
+            # Handle document search fields
+            if key.endswith('_hidden'):
+                base_key = key.replace('_hidden', '')
+                if '_search' in base_key:
+                    # Clear both the search field and its ID if hidden field is empty
+                    if not form_data[key]:
+                        document[base_key] = ''
+                        document[f"{base_key}_id"] = ''
+                    else:
+                        document[f"{base_key}_id"] = form_data[key]
+                else:
+                    if base_key in form_data:
+                        document[base_key] = form_data[base_key]  # Will be "On" if checked
+                    else:
+                        document[base_key] = "Off"  # Default to Off if unchecked
+                continue
+
+            # Handle different field types
+            if '_date' in key:
+                try:
+                    document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
+                except:
+                    return {'status': 'error', 'message': 'error preparing form date field'}
+            elif '_int' in key:
+                document[key] = int(form_data[key]) if form_data[key] else None
+            elif '_float' in key:
+                document[key] = float(form_data[key].replace(',','.')) if form_data[key] else None
+            else:
+                document[key] = form_data[key]
+
+        # Update modified info
         try:
-            modified_by = 'Admin'  # session['user_name']
+            modified_by = 'Admin'
             document['modified_date'] = datetime.datetime.now()
             document['modified_by'] = modified_by
-        except Exception as e:
-            print(f"[DEBUG] Error setting modified info: {str(e)}")
+        except:
             return {'status': 'error', 'message': 'error setting modified info'}
 
+        # Save document
         try:
             document.save()
-            print(f"[DEBUG] Document updated successfully")
             return {'status': 'ok', 'message': '', 'data': document.to_json()}
+        except ValidationError as e:
+            print(f"Validation error: {str(e)}")
+            return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
         except Exception as e:
-            print(f"[DEBUG] Error saving document: {str(e)}")
+            print(f"Error saving document: {str(e)}")
             return {'status': 'error', 'message': f'error saving document: {str(e)}'}
             
     except Exception as e:
@@ -2592,19 +2652,34 @@ def updateDocument(form_data, document, collection):
 def eraseDocument(id, document, collection):
     try:
         print(f"[DEBUG] Attempting to delete document with id={id}")
-        # Convert string id to ObjectId
         object_id = ObjectId(id)
         document = collection.objects(_id=object_id).first()
         
         if document is not None:
             print(f"[DEBUG] Found document to delete: {document.to_json()}")
+            
+            # Handle file deletion for both File collection and associated files
             if collection == File:
+                # Direct file document deletion
                 try:
                     file_path = document.path + id + "." + document.file_type
                     os.remove(file_path)
                     print(f"[DEBUG] Deleted associated file: {file_path}")
                 except FileNotFoundError:
                     print('[DEBUG] File not found, continuing with document deletion')
+            else:
+                # Delete associated files from File collection
+                associated_files = File.objects(document_id=str(id))
+                for file_doc in associated_files:
+                    try:
+                        file_path = file_doc.path + str(file_doc.id) + "." + file_doc.file_type
+                        os.remove(file_path)
+                        file_doc.delete()
+                        print(f"[DEBUG] Deleted associated file: {file_path}")
+                    except FileNotFoundError:
+                        print(f'[DEBUG] File not found for {file_doc.id}, continuing with deletion')
+                    except Exception as e:
+                        print(f'[DEBUG] Error deleting associated file: {str(e)}')
                     
             document.delete()
             print(f"[DEBUG] Document deleted successfully")
@@ -2631,7 +2706,7 @@ def getDocument(id, document, collection):
             document = collection.objects(__raw__={'_id': {'$oid': id}}).first()
         
         if document is not None:
-            print(f"[DEBUG] Found document: {document.to_json()}")
+            #print(f"[DEBUG] Found document: {document.to_json()}")
             return {'status': 'ok', 'message': '', 'data': document.to_json()}
         else:
             # Let's print all documents in collection to debug

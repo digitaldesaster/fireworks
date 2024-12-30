@@ -4,12 +4,11 @@
 import json,os,csv
 from core.db_helper import *
 from core.db_crud import getDocument, updateDocument, createDocument, eraseDocument
-from core.db_modules import getDefaults
 from core.db_default import Setting, getDefaultList
     
 import datetime
 
-from core.db_document import File
+from core.db_document import File, getDefaults
 
 from werkzeug.utils import secure_filename
 

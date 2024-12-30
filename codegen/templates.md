@@ -7,6 +7,7 @@ module.exports = {
     "./templates/**/*.html",
     "./static/js/**/*.js",
     "./node_modules/flyonui/dist/js/*.js", // Added FlyonUI JS components path
+    "./node_modules/flatpickr/**/*.js",
   ],
   theme: {
     extend: {},
@@ -14,10 +15,11 @@ module.exports = {
   plugins: [
     require("flyonui"),
     require("flyonui/plugin"), // For FlyonUI JS components
-    require('tailwindcss-motion'), // Added motion plugin
+    require("tailwindcss-motion"), // Added motion plugin
   ],
   flyonui: {
     themes: ["light", "dark", "gourmet"],
+    vendors: true, // Enable vendor-specific CSS generation
   },
 };
 
@@ -301,6 +303,10 @@ for i in range(1, 20):
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/output.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/flatpickr.min.css') }}"
   />
 </head>
 
@@ -615,75 +621,6 @@ for i in range(1, 20):
 
 ```
 
-## base/document/form_items.html
-
-```
-{% for position in document.positions %}
-<tr id="itemList_{{position.pos_nr}}">
-  <td class="col-sm-1 col-md-1"><input class="item" type="hidden" name="item_{{position.pos_nr}}" id="item_{{position.pos_nr}}" value="{{position.pos_nr}}"><div class="pos" id = "pos_{{position.pos_nr}}">{{position.pos_nr}}</div></td>
-  <td class="col-sm-2 col-md-2">
-    <input type="hidden" name="itemid_{{position.pos_nr}}" id="itemid_{{position.pos_nr}}" value="{{position.item_id}}">
-    <input type="hidden" name="optional_{{position.pos_nr}}" id="optional_{{position.pos_nr}}" value="{{position.optional}}">
-    {% if position.optional=='true' %}
-    <div id = "itemidtext_{{position.pos_nr}}">{{position.item_id}}<br><span class="label label-danger">Optional</span></div>
-    {% else %}
-    <div id = "itemidtext_{{position.pos_nr}}">{{position.item_id}}</div>
-    {% endif %}
-
-    </td>
-  <td class="col-sm-3 col-md-4">
-    <input type="hidden" name="name_{{position.pos_nr}}" id="name_{{position.pos_nr}}" value="{{position.name}}">
-    <input type="hidden" name="description_{{position.pos_nr}}" id="description_{{position.pos_nr}}" value="{{position.description}}">
-    <div id = "itemtext_{{position.pos_nr}}">{{position.name}}<br>
-      {% if position.description%}
-        {{position.description}}
-      {% endif %}
-
-    </div>
-    </td>
-  <td class="col-sm-2 col-md-2"><input type="text" class="maxlength-input form-control price" data-placement="bottom-right-inside" id="price_{{position.pos_nr}}" name="price_{{position.pos_nr}}" placeholder="" value="{{position.price}}">
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <input type="text" class="maxlength-input form-control amount" data-placement="bottom-right-inside" id="amount_{{position.pos_nr}}" maxlength="3" name="amount_{{position.pos_nr}}" placeholder="" value="{{position.amount}}">
-
-  </td>
-  <td class="col-sm-2 col-md-2">
-    <input type="text" class="maxlength-input form-control" data-placement="bottom-right-inside" id="total_{{position.pos_nr}}" name="total_{{position.pos_nr}}" placeholder="" value="{{position.total}}" readonly="readonly">
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-danger icon wb-minus removeItemField" aria-hidden="true" id="removeItemField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-primary icon wb-plus addItemField" aria-hidden="true" id="addItemField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-primary icon fa-comment addCommentField" aria-hidden="true" id="addCommentField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href=""><i class="btn btn-xs btn-outline btn-primary icon wb-edit editItemField" aria-hidden="true" id="editItemField_{{position.pos_nr}}"></i></a>
-
-  </td>
-  <td class="col-sm-1 col-md-1">
-    <a href="" data-target="#searchItemModal" data-toggle="modal"><i class="btn btn-xs btn-outline btn-primary icon fa-refresh searchItemField" aria-hidden="true" id="searchItemField_{{position.pos_nr}}"></i></a>
-  </td>
-</tr>
-{% if position.comment !='' %}
-<tr id="commentRow_{{position.pos_nr}}">
-  <td colspan="6">
-  <textarea style="resize:None;" class="form-control" id="comment_{{position.pos_nr}}" name="comment_{{position.pos_nr}}" rows="3" placeholder="">{{position.comment}}</textarea>
-  </td>
-  <td>
-    <a href=""><i class="btn btn-xs btn-outline btn-danger icon wb-minus removeComment" aria-hidden="true" id="removeComment_{{position.pos_nr}}"></i></a>
-    </td>
-</tr>
-{% endif %}
-{% endfor %}
-
-```
-
 ## base/document/form.html
 
 ```
@@ -693,8 +630,8 @@ for i in range(1, 20):
   <body>
     {% include('/main/nav.html') %}
 
-    <section class="bg-gray-50 p-4 flex items-center">
-      <div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+    <section class="bg-gray-50 p-6 flex items-center">
+      <div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full lg:w-3/4">
         <!-- Start coding here -->
         <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
           <div class="flex items-center justify-center pt-4 px-4">
@@ -812,14 +749,25 @@ for i in range(1, 20):
       </div>
     </section>
     <script>
+      window.addEventListener("load", function () {
+        // Basic
+        flatpickr("#flatpickr-date", {
+          monthSelectorType: "static",
+          locale: "de",
+          dateFormat: "d.m.Y",
+        });
+      });
+    </script>
+    <script>
       document.addEventListener('DOMContentLoaded', function() {
 
         {% include 'base/document/js/delete_document.js' %}
-        {% include 'base/document/js/checkbox.js' %}
         {% include 'base/document/js/search_field.js' %}
 
       });
     </script>
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/flatpickr.min.js') }}"></script>
   </body>
 </html>
 
@@ -834,7 +782,7 @@ for i in range(1, 20):
 >
   <label
     for="{{ element.id }}"
-    class="block mt-3 mb-1 text-sm font-medium text-gray-900"
+    class="label label-text"
   >
     {{ element.label }}
   </label>
@@ -843,14 +791,14 @@ for i in range(1, 20):
   <a href="{{element.link}}/{{document.id}}"
     ><button
       type="button"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+      class="btn btn-primary"
     >
       {{element.label}}
     </button></a
   >
   {% endif %} {% if element.type == 'FileField' %}
   <input
-    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+    class="input max-w-sm"
     id="{{element.id}}"
     type="file"
     name="files_{{element.id}}"
@@ -879,14 +827,14 @@ for i in range(1, 20):
   <!-- Search Field -->
   <input
     type="hidden"
-    value="{{element.document_id}}"
+    value="{{element.value_id if element.value_id else document.get(element.name + '_id', '')}}"
     name="{{ element.name }}_hidden"
     id="{{ element.name }}_hidden"
   />
   <input
     id="{{element.id}}"
     name="{{element.name}}"
-    value="{{element.value}}"
+    value="{{element.value if element.value else document.get(element.name, '')}}"
     module="{{element.module}}"
     document_field="{{element.document_field}}"
     type="text"
@@ -908,82 +856,53 @@ for i in range(1, 20):
       type="text"
       id="{{element.id}}"
       name="{{element.name}}"
-      value="{{element.value}}"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      value="{{element.value if element.value is not none else ''}}"
+      class="input"
     />
   </div>
 
   {% endif %} {% if element.type == 'Date' %}
 
-  <div class="relative max-w-sm">
-    <div
-      class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-    >
-      <svg
-        class="w-4 h-4 text-gray-500 dark:text-gray-400"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-        />
-      </svg>
-    </div>
-    <input
-      datepicker
-      datepicker-buttons
-      datepicker-autoselect-today
-      datepicker-autohide
-      datepicker-format="dd.mm.yyyy"
-      name="{{element.name}}"
-      value="{{element.value}}"
-      type="text"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      placeholder="Select date"
-    />
-  </div>
+  <input
+    type="text"
+    class="input max-w-sm"
+    placeholder="DD.MM.YYYY"
+    id="flatpickr-date"
+    name="{{element.name}}"
+    value="{{element.value if element.value is not none else ''}}"
+  />
 
   {% endif %} {% if element.type == 'CheckBox' %}
   <label class="inline-flex items-center mb-5 cursor-pointer">
     <input
       type="hidden"
-      value="{{element.value}}"
       name="{{ element.name }}_hidden"
-      id="{{ element.name }}_hidden"
+      value="Off"
     />
     <input
       type="checkbox"
       name="{{ element.name }}"
-      class="sr-only peer checkbox-toggle"
-      {% if element.value == "on" %}checked{% endif %}
+      class="switch switch-primary"
+      value="On"
+      {% if element.value == "On" %}checked{% endif %}
     />
-    <div
-      class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-blue-600"
-    ></div>
   </label>
   {% endif %} {% if element.type =='SimpleListField' %}
   <select
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+    class="select max-w-sm appearance-none"
+    aria-label="select"
     id="{{element.id}}"
     name="{{element.name}}"
   >
-    {% for item in element.SimpleListField %} {% if item.value == element.value
-    %}
+    {% for item in element.SimpleListField %} {% if item.value == element.value %}
     <option value="{{item.value}}" selected="selected">{{item.name}}</option>
     {% else %}
     <option value="{{item.value}}">{{item.name}}</option>
     {% endif %} {% endfor %}
   </select>
   {% endif %} {% if element.type=='AdvancedListField' %}
-  <select
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-    id="{{element.id}}"
-    name="{{element.name}}"
-  >
-    {% for item in element.AdvancedListField %} {% if item.value ==
-    element.value %}
+  <select class="select max-w-sm appearance-none" aria-label="select" id="{{element.id}}" name="{{element.name}}">
+    {% for item in element.AdvancedListField %} {% if item.value == element.value %}
     <option value="{{item.value}}" selected="selected">{{item.name}}</option>
     {% else %}
     <option value="{{item.value}}">{{item.name}}</option>
@@ -996,13 +915,8 @@ for i in range(1, 20):
     type="text"
     value="{{ element.value }}"
     placeholder="{{ element.label }}"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-    {%
-    if
-    element.required
-    %}required{%
-    endif
-    %}
+    class="input"
+    {% if element.required %}required{% endif %}
   />
   {% elif element.type == 'MultiLine' %}
   <textarea
@@ -1010,19 +924,13 @@ for i in range(1, 20):
     name="{{ element.name }}"
     rows="4"
     placeholder="{{ element.label }}"
-    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-    {%
-    if
-    element.required
-    %}required{%
-    endif
-    %}
-  >
-{{ element.value }}</textarea
-  >
-  {% endif %} {% if element.required %}
-  <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+    class="textarea"
+    {% if element.required %}required{% endif %}
+  >{{ element.value if element.value is not none else '' }}</textarea>
   {% endif %}
+    <!-- {% if element.required %}
+    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+    {% endif %} -->
 </div>
 {% endfor %}
 
@@ -1031,83 +939,81 @@ for i in range(1, 20):
 ## base/document/js/search_field.js
 
 ```
-document.querySelectorAll('.searchField').forEach(searchField => {
-    searchField.addEventListener('input', function() {
-        const query = this.value;
-        const module = this.getAttribute('module');  // Get the module attribute value
-        const document_field = this.getAttribute('document_field'); 
-        const dropdown = this.nextElementSibling;
-        const userList = dropdown.querySelector('#userList');
-        const document_field_hidden = document.getElementById(this.name + '_hidden');
-        document_field_hidden.value = "";
-        if (query.length > 3) {
-            // Construct the URL using the module value
-            const url = `{{ url_for("list", name="__MODULE__", mode="json") }}`.replace('__MODULE__', module);
+document.querySelectorAll(".searchField").forEach((searchField) => {
+  searchField.addEventListener("input", function () {
+    const query = this.value;
+    const module = this.getAttribute("module"); // Get the module attribute value
+    const document_field = this.getAttribute("document_field");
+    const dropdown = this.nextElementSibling;
+    const userList = dropdown.querySelector("#userList");
+    const document_field_hidden = document.getElementById(
+      this.name + "_hidden",
+    );
 
-            // Fetch users from the server based on the search query
-            fetch(`${url}?search=${encodeURIComponent(query)}&limit=100`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === "ok" && data.message === "success") {
-                        dropdown.classList.remove('hidden');
-                        console.log(data);  // Log the result
-                        userList.innerHTML = '';  // Clear the existing list
+    // Clear hidden field if search field is empty
+    if (!query || query.length === 0) {
+      document_field_hidden.value = "";
+      document_field.value = "";
+      dropdown.classList.add("hidden");
+      return;
+    }
 
-                        // Check if data.data is an array before iterating
-                        if (Array.isArray(data.data)) {
-                            // Append users to the list
-                            data.data.forEach(user => {
-                                const userItem = document.createElement('li');
-                                userItem.innerHTML = `
+    if (query.length > 3) {
+      // Construct the URL using the module value
+      const url =
+        `{{ url_for("list", name="__MODULE__", mode="json") }}`.replace(
+          "__MODULE__",
+          module,
+        );
+
+      // Fetch users from the server based on the search query
+      fetch(`${url}&search=${encodeURIComponent(query)}&limit=100`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "ok" && data.message === "success") {
+            dropdown.classList.remove("hidden");
+            console.log(data); // Log the result
+            userList.innerHTML = ""; // Clear the existing list
+
+            // Check if data.data is an array before iterating
+            if (Array.isArray(data.data)) {
+              // Append users to the list
+              data.data.forEach((user) => {
+                const userItem = document.createElement("li");
+                userItem.innerHTML = `
                                     <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">
                                         ${user[document_field]}
                                     </a>
                                 `;
-                                userItem.addEventListener('click', function(event) {
-                                    event.preventDefault();
-                                    searchField.value = user[document_field];
-                                    document_field_hidden.value = user.id;
-                                    dropdown.classList.add('hidden');
-                                });
-                                userList.appendChild(userItem);
-                            });
-
-                            // Log the length of the userList to verify
-                            console.log(`Number of users appended: ${userList.children.length}`);
-
-                        } else {
-                            console.error('Error: data.data is not an array');
-                        }
-                    } else {
-                        console.error('Error: Unexpected response format');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);  // Log error message
+                userItem.addEventListener("click", function (event) {
+                  event.preventDefault();
+                  searchField.value = user[document_field];
+                  document_field_hidden.value = user.id;
+                  dropdown.classList.add("hidden");
                 });
-        } else {
-            
-            dropdown.classList.add('hidden');
-        }
-    });
+                userList.appendChild(userItem);
+              });
+
+              // Log the length of the userList to verify
+              console.log(
+                `Number of users appended: ${userList.children.length}`,
+              );
+            } else {
+              console.error("Error: data.data is not an array");
+            }
+          } else {
+            console.error("Error: Unexpected response format");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error); // Log error message
+        });
+    } else {
+      dropdown.classList.add("hidden");
+    }
+  });
 });
 
-```
-
-## base/document/js/checkbox.js
-
-```
-const checkboxes = document.querySelectorAll(".checkbox-toggle");
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener("change", function() {
-        const hiddenInput = document.getElementById(this.name + '_hidden');
-        if (this.checked) {
-            hiddenInput.value = 'on';
-        } else {
-            hiddenInput.value = 'off';
-        }
-    });
-});
 ```
 
 ## base/document/js/delete_document.js

@@ -3,6 +3,7 @@
 from core.db_connect import *
 from bson import json_util, ObjectId
 from flask_login import UserMixin
+from flask import url_for
 
 #Date Fields must be named name_date, e.g. contact_date
 #This is to make sure that string dates like 01.01.2016 are saved as date objects
@@ -38,6 +39,37 @@ def mongoToJson(document):
 class CustomQuerySet(QuerySet):
     def to_json(self):
         return "[%s]" % (",".join([doc.to_json() for doc in self]))
+
+class Default(DynamicDocument):
+    document_name = StringField(default='')
+    
+def getDefaults(name):
+    defaults = None
+    
+    if name == 'filter':
+        defaults = ['filter', 'filter', 'Filter','Filter', Filter, Filter(), 'settings']
+    elif name == 'user' or name == 'users':
+        defaults = ['user', 'users', 'User','Users', User, User(), 'users']
+    elif name == 'file' or name == 'files':
+        defaults = ['file', 'files', 'File','Files', File, File(), 'files']
+    elif name == 'testing':
+        defaults = ['testing', 'testing', 'Testing','Testing', Testing, Testing(), 'testing']
+
+    if defaults:
+        d = Default()
+        d.document_name = defaults[0]
+        d.document_url = url_for('doc',name = defaults[0])
+        d.collection_name = defaults[1]
+        d.collection_url = url_for('list',name = defaults[1])
+        d.page_name_document = defaults[2]
+        d.page_name_collection = defaults[3]
+        d.collection_title = defaults[3]
+        d.collection = defaults[4]
+        d.document = defaults[5]
+        d.menu = {defaults[6] : 'open active',defaults[1] : 'open active'}
+        return d
+    else:
+        return None
 
 class User(DynamicDocument, UserMixin):
     firstname = StringField()
