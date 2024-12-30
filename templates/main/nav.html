@@ -7,7 +7,17 @@
         >Flask</a
       >
     </div>
-    <div class="navbar-end">
+    <div class="navbar-end gap-6">
+      <a
+        class="btn btn-soft btn-outline"
+        href="{{ url_for('list', name='users') }}"
+        >Users</a
+      >
+      <a
+        class="btn btn-soft btn-outline"
+        href="{{ url_for('list', name='examples') }}"
+        >Examples</a
+      >
       <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
         <button
           id="dropdown-avatar"

@@ -52,8 +52,8 @@ def getDefaults(name):
         defaults = ['user', 'users', 'User','Users', User, User(), 'users']
     elif name == 'file' or name == 'files':
         defaults = ['file', 'files', 'File','Files', File, File(), 'files']
-    elif name == 'example':
-        defaults = ['example', 'example', 'Example','Example', Example, Example(), 'example']
+    elif name == 'example' or name == 'examples':
+        defaults = ['example', 'examples', 'Example','Example', Example, Example(), 'examples']
 
     if defaults:
         d = Default()
