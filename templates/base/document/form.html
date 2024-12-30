@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
   {% include('/main/header.html') %}
-  <body>
+  <body class="bg-gray-50 min-h-screen">
     {% include('/main/nav.html') %}
 
-    <section class="bg-gray-50 p-6 flex items-center">
+    <section class="p-6 flex items-center">
       <div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full lg:w-3/4">
         <!-- Start coding here -->
         <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
@@ -22,6 +22,8 @@
               />
               <input type="hidden" name="id" value="{{document.id}}" />
 
+              <h1 class="text-2xl font-bold">{{page.title}}</h1>
+              <hr class="my-4" />
               <div class="flex flex-wrap -mx-3 mb-6">
                 {% include('/base/document/form_elements.html') %}
               </div>

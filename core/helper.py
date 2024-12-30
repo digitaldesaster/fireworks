@@ -166,7 +166,7 @@ def handleDocument(name, id, request, return_json=False):
                 print(f"[DEBUG] Error initializing new document: {str(e)}")
 
         page = {
-            'title': f"{default.page_name_document} {'add' if not id else 'save'}",
+            'title': f"{'Add' if not id else 'Edit'} {default.page_name_document}",
             'collection_title': default.collection_title,
             'document_name': default.document_name,
             'document_url': default.document_url,
@@ -209,7 +209,7 @@ def handleDocument(name, id, request, return_json=False):
                 data = getDocument(id, default.document, default.collection)
                 print(f"[DEBUG] getDocument result: {data}")
                 if (data['status'] == 'ok'):
-                    page = {'title': default.page_name_document + ' speichern', 'collection_title': default.collection_title, 'document_name': default.document_name, 'document_url': default.document_url, 'collection_url': default.collection_url, 'document_title': default.page_name_document}
+                    page = {'title': 'Edit ' + default.page_name_document, 'collection_title': default.collection_title, 'document_name': default.document_name, 'document_url': default.document_url, 'collection_url': default.collection_url, 'document_title': default.page_name_document}
                     data = json.loads(data['data'])
                     data['id'] = data['_id']['$oid']
                     
