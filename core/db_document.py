@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from core.db_connect import *
-from bson import json_util, ObjectId
+from bson import json_util
 from flask_login import UserMixin
 from flask import url_for
 
@@ -47,7 +47,7 @@ def getDefaults(name):
     defaults = None
     
     if name == 'filter':
-        defaults = ['filter', 'filter', 'Filter','Filter', Filter, Filter(), 'settings']
+        defaults = ['filter', 'filter', 'Filter','Filter', Filter, Filter(), 'filters']
     elif name == 'user' or name == 'users':
         defaults = ['user', 'users', 'User','Users', User, User(), 'users']
     elif name == 'file' or name == 'files':

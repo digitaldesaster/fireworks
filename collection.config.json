@@ -1,0 +1,42 @@
+{
+  "filter": {
+    "document_name": "filter",
+    "collection_name": "filter",
+    "page_name_document": "Filter",
+    "page_name_collection": "Filter",
+    "menu": {
+      "settings": "open active",
+      "filter": "open active"
+    }
+  },
+  "user": {
+    "document_name": "user",
+    "collection_name": "users",
+    "page_name_document": "User",
+    "page_name_collection": "Users",
+    "menu": {
+      "users": "open active",
+      "users": "open active"
+    }
+  },
+  "file": {
+    "document_name": "file",
+    "collection_name": "files",
+    "page_name_document": "File",
+    "page_name_collection": "Files",
+    "menu": {
+      "files": "open active",
+      "files": "open active"
+    }
+  },
+  "example": {
+    "document_name": "example",
+    "collection_name": "examples",
+    "page_name_document": "Example",
+    "page_name_collection": "Example",
+    "menu": {
+      "examples": "open active",
+      "examples": "open active"
+    }
+  }
+}

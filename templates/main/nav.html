@@ -1,4 +1,4 @@
-<nav class="navbar rounded-box shadow">
+<nav class="navbar rounded-box shadow relative z-50">
   <div class="w-full flex items-center justify-between">
     <div class="navbar-start">
       <a
@@ -12,53 +12,92 @@
       </a>
     </div>
     <div class="navbar-end gap-6">
-      <a
-        class="btn btn-soft btn-outline"
-        href="{{ url_for('list', name='users') }}"
-        >Users</a
+      <button
+        class="btn btn-sm btn-base-content sm:hidden"
+        hx-get="#"
+        hx-trigger="click"
+        hx-swap="none"
+        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
       >
-      <a
-        class="btn btn-soft btn-outline"
-        href="{{ url_for('list', name='examples') }}"
-        >Examples</a
+        <span class="icon-[tabler--menu-2] size-5"></span>
+      </button>
+      <div
+        id="mobile-menu"
+        class="hidden sm:flex sm:items-center fixed sm:relative inset-x-4 sm:inset-x-0 top-20 sm:top-0 flex-col sm:flex-row gap-4 bg-base-100 sm:bg-transparent p-4 sm:p-0 rounded-box shadow-lg sm:shadow-none z-50"
       >
-      <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
-        <button
-          id="dropdown-avatar"
-          type="button"
-          class="dropdown-toggle"
-          aria-haspopup="menu"
-          aria-expanded="false"
-          aria-label="User menu"
-        >
-          <div class="avatar placeholder">
-            <div class="bg-primary text-primary-content w-10 rounded-full">
-              <span class="text-sm font-bold"
-                >{{ current_user.firstname[0] }}{{ current_user.name[0] }}</span
-              >
-            </div>
+        <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-2 sm:gap-4">
+          <a
+            class="btn btn-soft btn-outline hover:btn-primary w-full sm:w-auto {% if request.endpoint == 'list' and request.view_args.name == 'users' %}btn-primary{% endif %}"
+            href="{{ url_for('list', name='users') }}"
+            >Users</a
+          >
+          <a
+            class="btn btn-soft btn-outline hover:btn-primary w-full sm:w-auto {% if request.endpoint == 'list' and request.view_args.name == 'examples' %}btn-primary{% endif %}"
+            href="{{ url_for('list', name='examples') }}"
+            >Examples</a
+          >
+          <!-- Mobile Logout Button -->
+          <form
+            action="{{ url_for('logout') }}"
+            method="post"
+            class="sm:hidden w-full"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <button
+              type="submit"
+              class="btn btn-soft btn-outline hover:btn-primary w-full"
+            >
+              <span class="icon-[tabler--logout] size-5 shrink-0 mr-2"></span>
+              Logout
+            </button>
+          </form>
+          <!-- Desktop Avatar Dropdown -->
+          <div
+            class="dropdown relative hidden sm:inline-flex rtl:[--placement:bottom-end]"
+          >
+            <button
+              id="dropdown-avatar"
+              type="button"
+              class="dropdown-toggle"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-label="User menu"
+            >
+              <div class="avatar placeholder">
+                <div class="bg-primary text-primary-content w-10 rounded-full">
+                  <span class="text-sm font-bold"
+                    >{{ current_user.firstname[0] }}{{ current_user.name[0]
+                    }}</span
+                  >
+                </div>
+              </div>
+            </button>
+            <ul
+              class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="dropdown-avatar"
+            >
+              <li>
+                <form
+                  action="{{ url_for('logout') }}"
+                  method="post"
+                  class="w-full"
+                >
+                  <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                  />
+                  <button type="submit" class="dropdown-item w-full text-left">
+                    <span class="icon-[tabler--logout] size-5 shrink-0"></span>
+                    Logout
+                  </button>
+                </form>
+              </li>
+            </ul>
           </div>
-        </button>
-        <ul
-          class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="dropdown-avatar"
-        >
-          <li>
-            <form action="{{ url_for('logout') }}" method="post" class="w-full">
-              <input
-                type="hidden"
-                name="csrf_token"
-                value="{{ csrf_token() }}"
-              />
-              <button type="submit" class="dropdown-item w-full text-left">
-                <span class="icon-[tabler--logout] size-5 shrink-0"></span>
-                Logout
-              </button>
-            </form>
-          </li>
-        </ul>
+        </div>
       </div>
     </div>
   </div>
