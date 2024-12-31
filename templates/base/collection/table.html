@@ -1,44 +1,60 @@
-<div class="w-full overflow-x-auto">
+<div class="flex flex-col gap-4">
   {% include('/base/collection/pagination.html') %}
-  <table class="table">
-    <thead>
-      <tr>
-        {% for header in table_header %}
-        <th class="{{header.class}}">{{header.label}}</th>
-        {% endfor %}
-        <th class="w-16">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for document in table_content %}
-      <tr>
-        {% for field in document %}
-        <td class="{% if field.type == 'ButtonField' %}p-4{% endif %}">
-          {% if field.type == 'ButtonField' %}
-          <div class="flex justify-start items-center">
-            <a href="{{field.link}}/{{field.id}}" class="w-full">
-              <button
-                type="button"
-                class="btn btn-primary btn-outline btn-sm {{field.class}} truncate"
-              >
-                {{field.label}}
-              </button>
-            </a>
-          </div>
-          {% else %} {{field.value}} {% endif %}
-        </td>
-        {% endfor %}
-        <td class="w-8">
-          <a
-            href="{{document_url}}/{{document[0].id}}"
-            class="btn btn-primary btn-sm btn-outline"
+  <div
+    class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700"
+  >
+    <table class="table border-collapse w-full">
+      <thead>
+        <tr>
+          {% for header in table_header %}
+          <th
+            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-slate-200 dark:border-slate-700 last:border-r-0"
           >
-            <span class="icon-[tabler--edit] size-4"></span>
-          </a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+            {{header.label}}
+          </th>
+          {% endfor %}
+          <th
+            class="w-16 px-4 py-3 text-right border-b border-slate-200 dark:border-slate-700"
+          >
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for document in table_content %}
+        <tr
+          class="{% if not loop.last %}border-b border-slate-200 dark:border-slate-700{% endif %}"
+        >
+          {% for field in document %}
+          <td
+            class="font-normal leading-normal px-4 py-2 border-r border-slate-200 dark:border-slate-700 last:border-r-0"
+          >
+            {% if field.type == 'ButtonField' %}
+            <div class="flex justify-start items-center">
+              <a href="{{field.link}}/{{field.id}}" class="w-full">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-outline btn-sm {{field.class}} truncate"
+                >
+                  {{field.label}}
+                </button>
+              </a>
+            </div>
+            {% else %} {{field.value}} {% endif %}
+          </td>
+          {% endfor %}
+          <td class="w-16 px-4 py-2 text-right">
+            <a
+              href="{{document_url}}/{{document[0].id}}"
+              class="btn btn-primary btn-sm btn-outline"
+            >
+              <span class="icon-[tabler--edit] size-4"></span>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   {% include('/base/collection/pagination.html') %}
 </div>

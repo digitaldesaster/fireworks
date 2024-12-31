@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import json,os,csv
-from core.db_helper import *
+from core.db_helper import searchDocuments, getFile, getDocumentsByID, getFilter, getMailTemplates, processDocuments, getFilterDict, getDocumentName
 from core.db_crud import getDocument, updateDocument, createDocument, eraseDocument
 from core.db_default import Setting, getDefaultList
+from core.db_document import File, getDefaults
     
 import datetime
-
-from core.db_document import File, getDefaults
 
 from werkzeug.utils import secure_filename
 

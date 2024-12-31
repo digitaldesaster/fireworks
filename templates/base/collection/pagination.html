@@ -1,6 +1,6 @@
 {% if total != null %}
-<div class="flex items-center justify-between px-4 py-3">
-  <div class="flex items-center">
+<div class="flex items-center justify-between">
+  <div class="flex items-center gap-4">
     <nav class="flex items-center gap-x-1" aria-label="Pagination">
       {% if prev != null and prev != None %}
       <a
@@ -54,7 +54,7 @@
       {% endif %}
     </nav>
 
-    <div class="ml-4 text-sm text-gray-500">
+    <div class="text-sm text-gray-500">
       {% if total > 0 %} Showing
       <span class="font-medium">{{start}}</span>
       to
@@ -65,9 +65,7 @@
     </div>
 
     <!-- Limit dropdown -->
-    <div
-      class="dropdown relative inline-flex rtl:[--placement:bottom-end] ml-4"
-    >
+    <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
       <button
         id="dropdown-default"
         type="button"
