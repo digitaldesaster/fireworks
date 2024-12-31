@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from core.db_connect import *
-from core.db_modules import *
 from core.db_date import dbDates
-from core.db_document import File, getDefaults
+from core.db_document import File, getDefaults, Filter
 import json
 import os
 
@@ -142,19 +141,19 @@ def getFilter(category):
     except:
         return []
 
-def getMailTemplates(category):
-    data = []
-    try:
-        templates = MailTemplate.objects(category = category)
-        if templates != None :
-            for template in templates:
-                #print filter
-                name = template.name
-                template_id = str(template.id)
-                data.append({'name' : name,'id' : template_id})
-            return data
-    except:
-        return []
+# def getMailTemplates(category):
+#     data = []
+#     try:
+#         templates = MailTemplate.objects(category = category)
+#         if templates != None :
+#             for template in templates:
+#                 #print filter
+#                 name = template.name
+#                 template_id = str(template.id)
+#                 data.append({'name' : name,'id' : template_id})
+#             return data
+#     except:
+#         return []
 
 def processDocuments(documents, recordsTotal, start, limit):
     print('processDocuments')
