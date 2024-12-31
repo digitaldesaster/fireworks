@@ -1,6 +1,6 @@
 {% if total != null %}
-<div class="flex items-center justify-between">
-  <div class="flex items-center gap-4">
+<div class="flex flex-wrap items-center justify-between gap-2">
+  <div class="flex flex-wrap items-center gap-2 sm:gap-4">
     <nav class="flex items-center gap-x-1" aria-label="Pagination">
       {% if prev != null and prev != None %}
       <a
@@ -63,62 +63,62 @@
       <span class="font-medium">{{total}}</span>
       results {% else %} No results found {% endif %}
     </div>
+  </div>
 
-    <!-- Limit dropdown -->
-    <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
-      <button
-        id="dropdown-default"
-        type="button"
-        class="dropdown-toggle btn btn-primary btn-outline"
-        aria-haspopup="menu"
-        aria-expanded="false"
-        aria-label="Limit"
-      >
-        Limit
-        <span
-          class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"
-        ></span>
-      </button>
-      <ul
-        aria-labelledby="dropdown-default"
-        aria-orientation="vertical"
-        class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
-        role="menu"
-      >
-        <li>
-          <a
-            class="dropdown-item"
-            href="{{collection_url}}?start=0&limit=5&search={{search}}&filter={{filter}}"
-          >
-            5 Items
-          </a>
-        </li>
-        <li>
-          <a
-            class="dropdown-item"
-            href="{{collection_url}}?start=0&limit=10&search={{search}}&filter={{filter}}"
-          >
-            10 Items
-          </a>
-        </li>
-        <li>
-          <a
-            class="dropdown-item"
-            href="{{collection_url}}?start=0&limit=20&search={{search}}&filter={{filter}}"
-          >
-            20 Items
-          </a>
-        </li>
-        <li>
-          <a
-            class="dropdown-item"
-            href="{{collection_url}}?start=0&limit=50&search={{search}}&filter={{filter}}"
-          >
-            50 Items
-          </a>
-        </li>
-      </ul>
-    </div>
+  <!-- Limit dropdown -->
+  <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
+    <button
+      id="dropdown-default"
+      type="button"
+      class="dropdown-toggle btn btn-primary btn-outline"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-label="Limit"
+    >
+      Limit
+      <span
+        class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"
+      ></span>
+    </button>
+    <ul
+      aria-labelledby="dropdown-default"
+      aria-orientation="vertical"
+      class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
+      role="menu"
+    >
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=5&search={{search}}&filter={{filter}}"
+        >
+          5 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=10&search={{search}}&filter={{filter}}"
+        >
+          10 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=20&search={{search}}&filter={{filter}}"
+        >
+          20 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=50&search={{search}}&filter={{filter}}"
+        >
+          50 Items
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
 {% endif %}
