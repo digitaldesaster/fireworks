@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full">
   {% include('/main/header.html') %}
   <head>
     <meta charset="UTF-8" />
@@ -7,13 +7,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Chat</title>
   </head>
-  <body class="bg-gray-50">
+  <body class="min-h-full flex flex-col bg-gray-50">
     {% include('/main/nav.html') %}
 
-    <section class="flex items-center pb-4">
-      <div class="px-10 w-full">
+    <section class="flex-1 flex items-start overflow-y-auto">
+      <div class="px-4 md:px-10 w-full">
         <!-- Start coding here -->
-        <div class="relative min-h-screen pb-32">
+        <div class="relative min-h-[calc(100vh-8rem)] pb-32">
           <main id="main">
             <div id="chat_messages_container">
               {% include '/chat/chat_messages.html' %}
@@ -55,16 +55,22 @@
       var models = {{ config.models | tojson | safe}};
 
       var selected_model = models[0]['model'];
+      var selected_model_name = models[0]['name'];
+      var selectedModelElement = document.getElementById('selected_model');
 
-      // Überprüfe, ob ein Eintrag mit dem Schlüssel vorhanden ist
+      // Check localStorage for saved model
       if (localStorage.getItem('selected_model') !== null) {
         selected_model = localStorage.getItem('selected_model');
+        // Find the corresponding model name
+        const model = models.find(m => m.model === selected_model);
+        if (model) {
+          selected_model_name = model.name;
+        }
         console.log('model_in_storage:' + selected_model)
       }
 
-      var selectedModelElement = document.getElementById('selected_model');
-      selectedModelElement.innerText = selected_model;
-
+      // Update model display in chat UI
+      selectedModelElement.innerText = selected_model_name;
 
       console.log(messages);
       console.log(models);
@@ -94,10 +100,14 @@
 
         if (event.target.classList.contains('model')) {
           selected_model = event.target.id;
+          selected_model_name = event.target.dataset.name;
           localStorage.setItem('selected_model', selected_model);
-          selectedModelElement.innerText = selected_model;
-          const modelSelector = FlowbiteInstances.getInstance('Dropdown', 'modelSelector');
-          modelSelector.hide();
+          // Update model display in chat UI
+          selectedModelElement.innerText = selected_model_name;
+          const modelSelectorButton = document.getElementById('modelSelectorButton');
+          if (modelSelectorButton) {
+            modelSelectorButton.click(); // Close the dropdown
+          }
         }
 
 
