@@ -6,6 +6,8 @@ from core.db_helper import searchDocuments, getFile, getDocumentsByID, getFilter
 from core.db_crud import getDocument, updateDocument, createDocument, eraseDocument
 from core.db_default import Setting, getDefaultList
 from core.db_document import File, getDefaults
+
+import PyPDF2
     
 import datetime
 
@@ -440,20 +442,26 @@ def combine_pdfs_to_text(files):
                 try:
                     with open(file_path, 'rb') as pdf_file:
                         pdf_reader = PyPDF2.PdfReader(pdf_file)
-                        combined_text += f"Content of File: {file['name']}.{file['file_type'].lower()}\n"
+                        combined_text += f"Content of File: {file['name']}\n"
                         combined_text += "-" * 50 + "\n"
                         for page_num in range(len(pdf_reader.pages)):
                             page = pdf_reader.pages[page_num]
                             text = page.extract_text()
                             if text:
-                                combined_text += text
+                                # Clean and format the extracted text
+                                text = ' '.join(text.split())  # Remove extra whitespace
+                                text = text.replace(' .', '.').replace(' ,', ',')  # Fix common spacing issues
+                                # Split into paragraphs and format
+                                paragraphs = text.split('\n')
+                                formatted_text = '\n\n'.join(p.strip() for p in paragraphs if p.strip())
+                                combined_text += formatted_text
                             else:
                                 combined_text += "[No text found on this page]\n"
-                            combined_text += "\n"
+                            combined_text += "\n\n"
                         combined_text += "-" * 50 + "\n\n"
                 except Exception as e:
                     result["status"] = "error"
-                    result["data"] = f"Error reading {file['document_id']}.{file['file_type'].lower()}: {e}"
+                    result["data"] = f"Error reading {file['name']}: {e}"
                     return result
         result["status"] = "ok"
         result["data"] = combined_text

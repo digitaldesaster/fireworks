@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  {% include('/main/header.html') %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>Chat</title>
+  </head>
+  <body class="bg-gray-50">
+    {% include('/main/nav.html') %}
+
+    <section class="flex items-center pb-4">
+      <div class="px-10 w-full">
+        <!-- Start coding here -->
+        <div class="relative min-h-screen pb-32">
+          <main id="main">
+            <div id="chat_messages_container">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            <div id="selected_prompts_container">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            <div id="chat_history_container" class="hidden"></div>
+            <div id="prompts_container" class="hidden"></div>
+            <div id="create_prompt_container" class="hidden"></div>
+            <div id="chat_ui_container">{% include '/chat/chat_ui.html' %}</div>
+          </main>
+
+          <!-- Bot Message Template -->
+          <template id="bot-message-template">
+            {% include '/chat/bot_message_template.html' %}
+          </template>
+
+          <!-- User Message Template -->
+          <template id="user-message-template">
+            {% include '/chat/user_message_template.html' %}
+          </template>
+
+          <template id="code_template">
+            {% include '/chat/code_block_template.html' %}
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      var systemMessage = "{{ config.system_message }}";
+      var welcomeMessage = "{{ config.welcome_message }}";
+      var username = "{{ config.username }}";
+      var chat_started = "{{ config.chat_started }}";
+      var use_prompt_template = "{{config.use_prompt_template}}";
+
+      var messages = {{ config.messages | tojson | safe }};
+      var models = {{ config.models | tojson | safe}};
+
+      var selected_model = models[0]['model'];
+
+      // Überprüfe, ob ein Eintrag mit dem Schlüssel vorhanden ist
+      if (localStorage.getItem('selected_model') !== null) {
+        selected_model = localStorage.getItem('selected_model');
+        console.log('model_in_storage:' + selected_model)
+      }
+
+      var selectedModelElement = document.getElementById('selected_model');
+      selectedModelElement.innerText = selected_model;
+
+
+      console.log(messages);
+      console.log(models);
+
+      document.addEventListener('click', function (e) {
+
+        if (e.target.closest('#prompts .prompt')) {
+
+          // Fill the textarea with the text content of the clicked element
+          var chatInput = document.getElementById('chat_input');
+          if (chatInput) {
+            chatInput.value = e.target.textContent; // Set the value of the textarea
+          }
+
+          // Programmatically click the button with id 'chat_button'
+          var chatButton = document.getElementById('chat_button');
+          if (chatButton) {
+            chatButton.click();
+          }
+
+          // Optionally, remove the div with the id 'prompts' after the actions are performed
+          var promptsDiv = document.getElementById('prompts');
+          if (promptsDiv) {
+            promptsDiv.remove();
+          }
+        }
+
+        if (event.target.classList.contains('model')) {
+          selected_model = event.target.id;
+          localStorage.setItem('selected_model', selected_model);
+          selectedModelElement.innerText = selected_model;
+          const modelSelector = FlowbiteInstances.getInstance('Dropdown', 'modelSelector');
+          modelSelector.hide();
+        }
+
+
+      });
+
+      function showElementById(elementId) {
+        const element = document.getElementById(elementId);
+        if (element && element.classList.contains('hidden')) {
+          element.classList.remove('hidden');
+        }
+      }
+
+
+      function hideElements() {
+        const uiElements = [
+          'prompts_container',
+          'selected_prompts_container',
+          'create_prompt_container',
+          'chat_history_container',
+          'chat_messages_container',
+          'chat_ui_container'
+        ];
+
+        uiElements.forEach(elementId => {
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.classList.add('hidden');
+          }
+        });
+      }
+
+      function loadElements(id, url) {
+        fetch(url)
+          .then(response => response.text())
+          .then(data => {
+            let container = document.getElementById(id);
+            container.innerHTML = data;
+            if (container.classList.contains('hidden')) {
+              container.classList.remove('hidden');
+            }
+
+
+            // Alle Buttons mit der Klasse "selected_prompt" auswählen
+            const selectedPromptButtons = document.querySelectorAll('.selected_prompt');
+
+            // Überprüfen, ob Buttons mit der Klasse "selected_prompt" vorhanden sind
+            if (selectedPromptButtons.length > 0) {
+              // Für jeden Button einen Klick-Eventlistener hinzufügen
+              selectedPromptButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                  console.log(button.id);
+                  window.location.href = "{{url_for('dms_chat.chat')}}" + "prompt/" + button.id;
+                });
+              });
+            } else {
+              console.log('Keine Buttons mit der Klasse "selected_prompt" gefunden.');
+            }
+
+
+
+            const promptForm = document.getElementById('promptForm');
+
+            if (promptForm) {
+              console.log('promptForm added!');
+              promptForm.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Prevent the default form submission behavior
+
+                let _name = document.getElementById('name').value;
+                let _system_message = document.getElementById('system_message').value;
+                let _prompt = document.getElementById('prompt').value;
+
+                try {
+                  const response = await fetch('/chat/add_prompt', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ _name, _system_message, _prompt }),
+                  });
+
+                  if (response.ok) {
+                    console.log('Prompt saved successfully');
+                    let url = "{{url_for('list',name='prompts')}}";
+                    hideElements();
+                    id = 'prompts_container'
+                    loadElements(id, url);
+                    // You can add additional logic here, such as resetting the form or displaying a success message
+                  } else {
+                    console.error('Error saving prompt:', response.status);
+                  }
+                } catch (error) {
+                  console.error('Error:', error);
+                }
+              });
+            }
+
+
+
+
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }
+    </script>
+
+    <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+  </body>
+</html>

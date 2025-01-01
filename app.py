@@ -14,6 +14,11 @@ from core.db_helper import getFile
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
+
+# Import and register the chat blueprint
+from ai.ai_chat import dms_chat
+app.register_blueprint(dms_chat, url_prefix='/chat')
+
 # Initialize Flask-Login with proper session durations
 login_manager = LoginManager()
 login_manager.init_app(app)

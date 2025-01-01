@@ -54,6 +54,12 @@ def getDefaults(name):
         defaults = ['file', 'files', 'File','Files', File, File(), 'files']
     elif name == 'example' or name == 'examples':
         defaults = ['example', 'examples', 'Example','Example', Example, Example(), 'examples']
+    elif name == 'model' or name == 'models':
+        defaults = ['model', 'models', 'Model','Models', Model, Model(), 'models']
+    elif name == 'history':
+        defaults = ['history', 'history', 'History','Histories', History, History(), 'history']
+    elif name == 'prompt' or name == 'prompts':
+        defaults = ['prompt', 'prompts', 'Prompt','Prompts', Prompt, Prompt(), 'prompts']
 
     if defaults:
         d = Default()
@@ -221,6 +227,76 @@ class Example(DynamicDocument):
         #fields in the form
         return [name, email, salutation, firstname, comment, active, newsletter, event_date, 
                 age_int, salary_float, ai_provider, user_search, files, more_files, link]
+
+    def to_json(self):
+        return mongoToJson(self)
+
+#AI Documents
+#AI Chat Bot Code
+class Model(DynamicDocument):
+    provider = StringField(required=True, min_length=1)
+    model = StringField(required=True, min_length=1)
+    name = StringField(required=True, min_length=1)
+
+    meta = {'queryset_class': CustomQuerySet}
+
+    def searchFields(self):
+        return ['provider', 'model', 'name']
+
+    def fields(self, list_order=False):
+        provider = {'name': 'provider', 'label': 'Provider', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        model = {'name': 'model', 'label': 'Model', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+
+        if list_order:
+            return [name, provider, model]
+        return [name, provider, model]
+
+    def to_json(self):
+        return mongoToJson(self)
+
+class History(DynamicDocument):
+    username = StringField()
+    chat_started = IntField()
+    messages = StringField()
+    first_message = StringField()
+    link = StringField(default='')
+    def searchFields(self):
+        return ['messages','first_message']
+    def fields(self, list_order=False):
+        username = {'name': 'username', 'label': 'Username', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
+        chat_started = {'name': 'chat_started', 'label': ' Started', 'class': '', 'type': 'IntField', 'required': True, 'full_width': False}
+        first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
+        messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
+        link = {'name' :  'link', 'label' : 'Chat', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/history'}
+        if list_order:
+            return [username, first_message,chat_started,link]
+        return [username,first_message,chat_started, messages,link]
+        
+class Prompt(DynamicDocument):
+    name = StringField(required=True, min_length=1)
+    welcome_message = StringField(required=True, min_length=1)
+    system_message = StringField(required=True, min_length=1)
+    prompt = StringField(required=True, min_length=1)
+    link = StringField(default='')
+    files = StringField(default='')
+
+    meta = {'queryset_class': CustomQuerySet}
+
+    def searchFields(self):
+        return ['name', 'system_message', 'prompt']
+
+    def fields(self, list_order=False):
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        welcome_message = {'name': 'welcome_message', 'label': 'Welcome Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
+        system_message = {'name': 'system_message', 'label': 'System Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
+        prompt = {'name': 'prompt', 'label': 'Prompt', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
+        link = {'name' :  'link', 'label' : 'Use Prompt', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/prompt'}
+        files = {'name' :  'files', 'label' : 'Files', 'class' : 'hidden-xs', 'type' : 'FileField','full_width':True}
+
+        if list_order:
+            return [name,welcome_message, system_message, prompt,link]
+        return [name,welcome_message, system_message, prompt,files,link]
 
     def to_json(self):
         return mongoToJson(self)

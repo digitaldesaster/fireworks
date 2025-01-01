@@ -3,7 +3,7 @@
     <div class="navbar-start">
       <a
         class="link text-base-content/90 link-primary text-xl font-semibold no-underline flex items-center gap-2"
-        href="#"
+        href="{{ url_for('index') }}"
       >
         <span
           class="icon-[tabler--location-star] bg-primary text-primary-content size-6 rounded-full"
@@ -28,13 +28,18 @@
         <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-2 sm:gap-4">
           <a
             class="btn btn-soft btn-outline hover:btn-primary w-full sm:w-auto {% if request.endpoint == 'list' and request.view_args.name == 'users' %}btn-primary{% endif %}"
-            href="{{ url_for('list', name='users') }}"
-            >Users</a
+            href="{{ url_for('dms_chat.chat') }}"
+            >Chat</a
+          >
+          <a
+            class="btn btn-soft btn-outline hover:btn-primary w-full sm:w-auto {% if request.endpoint == 'list' and request.view_args.name == 'users' %}btn-primary{% endif %}"
+            href="{{ url_for('list', name='prompts') }}"
+            >Prompts</a
           >
           <a
             class="btn btn-soft btn-outline hover:btn-primary w-full sm:w-auto {% if request.endpoint == 'list' and request.view_args.name == 'examples' %}btn-primary{% endif %}"
-            href="{{ url_for('list', name='examples') }}"
-            >Examples</a
+            href="{{ url_for('list', name='history') }}"
+            >History</a
           >
           <!-- Mobile Logout Button -->
           <form
