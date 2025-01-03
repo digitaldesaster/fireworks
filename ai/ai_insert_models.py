@@ -6,7 +6,7 @@ import sys
 # Add parent directory to Python path to find core module
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ai_document import Model
+from core.db_document import Model
 from core.db_connect import *
 
 models = [
@@ -16,8 +16,8 @@ models = [
   {'provider':'together','model':'meta-llama/Llama-2-70b-chat-hf','name':'meta-llama-2-70b'},
   {'provider':'anthropic','model':'claude-3-haiku-20240307','name':'claude-3-haiku'},
   {'provider':'anthropic','model':'claude-3-opus-20240229','name':'claude-3-opus'},
-   {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'}
-  
+   {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'},
+   {'provider':'deepseek','model':'deepseek-chat','name':'deepseek-chat'},
   
   ]
 

@@ -218,7 +218,7 @@ async function streamMessage() {
     chatInput.readOnly = true;
 
     // Instantly add a bot message template to be filled with streamed content
-    const botMessageElement = addBotMessage(""); // Initially empty
+    const botMessageElement = addBotMessage("..."); // Initially empty
     let accumulatedResponse = ""; // Variable to accumulate the streamed response
 
     try {
@@ -311,7 +311,12 @@ function addBotMessage(text) {
     .getElementById("bot-message-template")
     .content.cloneNode(true);
   const contentElement = template.querySelector(".content");
-  contentElement.textContent = text;
+  if (text == "...") {
+    contentElement.innerHTML =
+      '<span class="loading loading-dots loading-xs"></span>';
+  } else {
+    contentElement.textContent = text;
+  }
   document.getElementById("chat_messages").appendChild(template);
   return contentElement; // Return the element that will contain the bot message text
 }

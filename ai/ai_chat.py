@@ -18,7 +18,7 @@ from core.db_document import File, History, Model
 
 from core.db_connect import *
 
-from ai.ai_llm_helper import streamChatGPT
+from ai.ai_llm_helper import llm_call
 
 # Import the getConfig function from db_chat.py
 #from db.db_chat import getConfig
@@ -92,8 +92,7 @@ def chat(prompt_id=None, history_id=None):
 @dms_chat.route('/stream', methods=['POST'])
 def stream():
     data = request.get_json()
-    print(data)
-    response_stream = streamChatGPT(data['messages'], data['model'])
+    response_stream = llm_call(data['messages'], data['model'])
     return Response(response_stream, mimetype='text/event-stream')
 
 
@@ -106,7 +105,6 @@ def save_chat():
     chat_history = History.objects(username=username,
                                    chat_started=chat_started)
     if len(chat_history) == 1:
-        print(messages)
         chat_history = chat_history[0]
         chat_history.messages = messages
         chat_history.save()
