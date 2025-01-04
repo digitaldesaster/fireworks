@@ -13,8 +13,8 @@ from flask_wtf.csrf import CSRFProtect
 # Append the db directory to the system path for module imports
 sys.path.append('db')
 
-from core.helper import handleDocument, combine_pdfs_to_text
-from core.db_document import File, History, Model
+from core.helper import handleDocument, prepare_context_from_files
+from core.db_document import File, History, Model, Prompt
 
 from core.db_connect import *
 
@@ -55,13 +55,16 @@ def chat(prompt_id=None, history_id=None):
 
     config['username'] = "alexander.fillips@gmail.com"
     config['chat_started'] = int(time.time())
+    config['history'] = []
+    config['latest_prompts'] = []
 
     if prompt_id:
         prompt = json.loads(
             handleDocument('prompt', prompt_id, request, return_json=True))
         files = json.loads(File.objects(document_id=prompt['id']).to_json())
         
-        context = combine_pdfs_to_text(files)
+        #only pdf/txt files are supported for now
+        context = prepare_context_from_files(files)
         if context['status'] == "ok":
             if prompt['system_message'].find("{context}") != -1:
                 prompt['system_message'] = prompt['system_message'].replace(
@@ -85,6 +88,13 @@ def chat(prompt_id=None, history_id=None):
         config['chat_started'] = history['chat_started']
         config['username'] = history['username']
         config['messages'] = json.loads(history['messages'])
+    else:
+        chat_history = History.objects().order_by('-id').limit(3)
+        if chat_history:
+            config['history'] = chat_history
+        latest_prompts = Prompt.objects().order_by('-id').limit(3)
+        if latest_prompts:
+            config['latest_prompts'] = latest_prompts
 
     return render_template('/chat/chat.html', config=config)
 
