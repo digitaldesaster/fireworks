@@ -9,37 +9,6 @@
       </a>
     </div>
     <div class="navbar-end flex items-center space-x-4">
-      {% if request.path.startswith('/chat') %}
-      <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
-        <button
-          id="modelSelectorButton"
-          type="button"
-          class="btn btn-soft btn-outline hover:btn-primary w-full sm:w-auto"
-          aria-haspopup="menu"
-          aria-expanded="false"
-        >
-          Model
-        </button>
-        <ul
-          class="dropdown-menu dropdown-open:opacity-100 hidden min-w-44"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="modelSelectorButton"
-        >
-          {% for model in config.models %}
-          <li>
-            <button
-              id="{{ model.model }}"
-              data-name="{{ model.name }}"
-              class="model dropdown-item w-full text-left"
-            >
-              {{ model.name }}
-            </button>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
       <button
         class="btn btn-sm btn-base-content sm:hidden ml-4"
         onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
