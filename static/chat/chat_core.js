@@ -81,7 +81,25 @@ function initChatMessages() {
   }
 }
 
+function appendImage(container, imageData) {
+  const img = document.createElement("img");
+  img.src = imageData.image_url.url;
+  img.className = "w-16 h-auto rounded-lg";
+  container.appendChild(img);
+}
+
 function appendData(text, botMessageElement) {
+  if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(botMessageElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(botMessageElement, item);
+      }
+    });
+    return;
+  }
+
   const codeRegex = /```([\s\S]*?)```/g;
   let lastIndex = 0;
   let match;
@@ -314,21 +332,44 @@ function addBotMessage(text) {
     .getElementById("bot-message-template")
     .content.cloneNode(true);
   const contentElement = template.querySelector(".content");
+
   if (text == "...") {
     contentElement.innerHTML =
       '<span class="loading loading-dots loading-xs"></span>';
+  } else if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(contentElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(contentElement, item);
+      }
+    });
   } else {
     contentElement.textContent = text;
   }
+
   document.getElementById("chat_messages").appendChild(template);
-  return contentElement; // Return the element that will contain the bot message text
+  return contentElement;
 }
 
 function addUserMessage(text) {
   const template = document
     .getElementById("user-message-template")
     .content.cloneNode(true);
-  template.querySelector(".content").textContent = text;
+  const contentElement = template.querySelector(".content");
+
+  if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(contentElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(contentElement, item);
+      }
+    });
+  } else {
+    contentElement.textContent = text;
+  }
+
   document.getElementById("chat_messages").appendChild(template);
   scrollToBottom();
 }
@@ -413,19 +454,13 @@ document
             },
           ];
           messages.push({ role: "user", content: userMessage });
+          addUserMessage(userMessage); // Display the message with image
+          streamMessage(); // Automatically trigger AI response
         } else {
           userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
           messages.push({ role: "system", content: userMessage });
+          addBotMessage("File uploaded successfully: " + fileName);
         }
-
-        // Add assistant confirmation message
-        messages.push({
-          role: "assistant",
-          content: "File uploaded successfully: " + fileName,
-        });
-
-        // Display in chat UI
-        addBotMessage("File uploaded successfully: " + fileName);
 
         // Update display text to show count
         document.getElementById("file-name-display").textContent =
