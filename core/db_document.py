@@ -268,9 +268,9 @@ class History(DynamicDocument):
         chat_started = {'name': 'chat_started', 'label': ' Started', 'class': '', 'type': 'IntField', 'required': True, 'full_width': False}
         first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
         messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
-        link = {'name' :  'link', 'label' : 'Chat', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/history'}
+        link = {'name' :  'link', 'label' : 'Resume Chat', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/history'}
         if list_order:
-            return [username, first_message,chat_started,link]
+            return [link,first_message]
         return [username,first_message,chat_started, messages,link]
         
 class Prompt(DynamicDocument):
@@ -295,7 +295,7 @@ class Prompt(DynamicDocument):
         files = {'name' :  'files', 'label' : 'Files', 'class' : 'hidden-xs', 'type' : 'FileField','full_width':True}
 
         if list_order:
-            return [name,welcome_message, system_message, prompt,link]
+            return [link,name,prompt]
         return [name,welcome_message, system_message, prompt,files,link]
 
     def to_json(self):

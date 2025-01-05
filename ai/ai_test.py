@@ -18,4 +18,4 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 #response = llm_call(messages, model, stream=False)
 #print(response)
 
-#History.objects().delete()
+History.objects().delete()

@@ -1,6 +1,7 @@
 let isInCodeBlock = false;
 let currentCodeElement = null;
 let stop_stream = false;
+let uploadedFilesCount = 0;
 
 function appendCodeBlock(container, codeContent) {
   const codeElement = createCodeElement();
@@ -67,13 +68,11 @@ function initChatMessages() {
       messages.splice(1, 1);
       console.log(messages);
     } else {
-      // Use for...of to iterate over the elements of the array directly
       for (const message of messages) {
-        // Check if the role of the message is either 'system' or 'assistant'
-        if (["system", "assistant"].includes(message["role"])) {
+        if (message["role"] === "assistant") {
           const botMessageElement = addBotMessage("");
           appendData(message["content"], botMessageElement);
-        } else {
+        } else if (message["role"] === "user") {
           addUserMessage(message["content"]);
         }
       }
@@ -209,6 +208,10 @@ async function streamMessage() {
     .getAttribute("content");
 
   if (userMessage !== "") {
+    // Remove prompts div if it exists
+    const promptsDiv = document.getElementById("prompts");
+    if (promptsDiv) promptsDiv.remove();
+
     messages.push({ role: "user", content: userMessage });
     addUserMessage(userMessage); // Display the user message in the chat
     chatInput.value = ""; // Clear the input field after sending the message
@@ -355,3 +358,71 @@ document.getElementById("reset_button").addEventListener("click", function () {
 });
 
 document.getElementById("stop_button").addEventListener("click", stopStreaming);
+
+document
+  .getElementById("file-upload")
+  .addEventListener("change", async function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const fileName = file.name;
+    document.getElementById("file-name-display").textContent = "Uploading...";
+
+    // Get CSRF token
+    const csrfToken = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute("content");
+
+    // Create FormData and append file
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/chat/upload", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrfToken,
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.status === "ok") {
+        console.log("File uploaded successfully");
+        uploadedFilesCount++;
+
+        // Remove prompts div if it exists
+        const promptsDiv = document.getElementById("prompts");
+        if (promptsDiv) promptsDiv.remove();
+
+        // Create user message with file content
+        const userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
+
+        // Add to messages array
+        messages.push({ role: "system", content: userMessage });
+        messages.push({
+          role: "assistant",
+          content: "File uploaded successfully: " + fileName,
+        });
+
+        // Display in chat UI
+        addBotMessage("File uploaded successfully: " + fileName);
+
+        // Update display text to show count
+        document.getElementById("file-name-display").textContent =
+          `${uploadedFilesCount} ${uploadedFilesCount === 1 ? "File" : "Files"} Uploaded`;
+
+        // Store the file_id for later use
+        document.getElementById("file-upload").dataset.fileId = result.file_id;
+      } else {
+        console.error("Upload failed:", result.message);
+        document.getElementById("file-name-display").textContent =
+          "Upload failed: " + result.message;
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      document.getElementById("file-name-display").textContent =
+        "Upload error: " + error.message;
+    }
+  });

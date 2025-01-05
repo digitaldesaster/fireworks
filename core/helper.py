@@ -427,7 +427,8 @@ def prepFilterData(form_data):
     form_data['filter'] = db_fields
     return form_data
 
-def combine_pdfs_to_text(files):
+#only pdf/txt files are supported for now
+def prepare_context_from_files(files):
     result = {
         "status": "",
         "data": "",
@@ -436,9 +437,16 @@ def combine_pdfs_to_text(files):
     combined_text = ""
     try:
         for file in files:
-            if file['file_type'].lower() == 'pdf':
+            # Convert MongoDB document to dict if needed
+            if hasattr(file, 'to_mongo'):
+                file = file.to_mongo()
+                file_id = str(file['_id'])
+            else:
                 file_id = file['_id']['$oid']
-                file_path = f"{file['path']}{file_id}.{file['file_type'].lower()}"
+
+            file_path = os.path.join(file['path'], f"{file_id}.{file['file_type'].lower()}")
+            
+            if file['file_type'].lower() == 'pdf':
                 try:
                     with open(file_path, 'rb') as pdf_file:
                         pdf_reader = PyPDF2.PdfReader(pdf_file)
@@ -448,10 +456,8 @@ def combine_pdfs_to_text(files):
                             page = pdf_reader.pages[page_num]
                             text = page.extract_text()
                             if text:
-                                # Clean and format the extracted text
-                                text = ' '.join(text.split())  # Remove extra whitespace
-                                text = text.replace(' .', '.').replace(' ,', ',')  # Fix common spacing issues
-                                # Split into paragraphs and format
+                                text = ' '.join(text.split())
+                                text = text.replace(' .', '.').replace(' ,', ',')
                                 paragraphs = text.split('\n')
                                 formatted_text = '\n\n'.join(p.strip() for p in paragraphs if p.strip())
                                 combined_text += formatted_text
@@ -459,6 +465,18 @@ def combine_pdfs_to_text(files):
                                 combined_text += "[No text found on this page]\n"
                             combined_text += "\n\n"
                         combined_text += "-" * 50 + "\n\n"
+                except Exception as e:
+                    result["status"] = "error"
+                    result["data"] = f"Error reading {file['name']}: {e}"
+                    return result
+            elif file['file_type'].lower() == 'txt':
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as txt_file:
+                        text = txt_file.read()
+                        combined_text += f"Content of File: {file['name']}\n"
+                        combined_text += "-" * 50 + "\n"
+                        combined_text += text
+                        combined_text += "\n\n" + "-" * 50 + "\n\n"
                 except Exception as e:
                     result["status"] = "error"
                     result["data"] = f"Error reading {file['name']}: {e}"
@@ -472,4 +490,60 @@ def combine_pdfs_to_text(files):
 
     return result
 
+def upload_file(file, category='history'):
+    """Handle file upload for chat functionality and return file context"""
+    try:
+        if not file or file.filename == '':
+            return {'status': 'error', 'message': 'No file selected'}
+            
+        if not allowed_file(file.filename):
+            return {'status': 'error', 'message': 'File type not allowed'}
+            
+        filename = secure_filename(file.filename)
+        file_type = filename.rsplit('.', 1)[1].lower()
+        
+        if file_type not in ['pdf', 'txt']:
+            return {'status': 'error', 'message': 'Only PDF and TXT files are supported'}
+            
+        # Fix the filepath to use absolute path
+        base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        filepath = os.path.join(base_path, 'core', 'documents', category)
+        print(f"[DEBUG] Upload path: {filepath}")
+        
+        if not os.path.exists(filepath):
+            print(f"[DEBUG] Creating directory: {filepath}")
+            os.makedirs(filepath)
+            
+        fileDB = File(
+            name=filename,
+            path=filepath,
+            category=category,
+            file_type=file_type
+        )
+        fileDB.save()
+        fileID = getDocumentID(fileDB)
+        
+        file_save_path = os.path.join(filepath, f"{fileID}.{file_type}")
+        print(f"[DEBUG] Saving file to: {file_save_path}")
+        file.save(file_save_path)
+        
+        # Get context immediately after saving
+        context = prepare_context_from_files([fileDB])
+        print(f"[DEBUG] Context result: {context}")
+        
+        if context['status'] == 'ok':
+            return {
+                'status': 'ok',
+                'file_id': fileID,
+                'filename': filename,
+                'file_type': file_type,
+                'content': context['data'],
+                'character_count': context['character_count']
+            }
+        else:
+            return context
+            
+    except Exception as e:
+        print(f"[DEBUG] Upload error: {str(e)}")
+        return {'status': 'error', 'message': str(e)}
 

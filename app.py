@@ -6,9 +6,10 @@ from flask_login import LoginManager, current_user, login_required
 from core.db_user import User
 from flask_wtf.csrf import CSRFProtect
 import json
+from werkzeug.utils import secure_filename
 
 # Import functions from helper.py and db_helper.py
-from core.helper import getList, handleDocument, deleteDocument
+from core.helper import getList, handleDocument, deleteDocument, upload_file
 from core.db_helper import getFile
 
 app = Flask(__name__)
@@ -114,5 +115,15 @@ def download_file(file_id):
 		print(f"[DEBUG] Error in download_file: {str(e)}")
 		abort(500)
 
+@app.route('/chat/upload', methods=['POST'])
+@login_required
+def upload_chat_file():
+	if 'file' not in request.files:
+		return jsonify({'status': 'error', 'message': 'No file part'})
+	
+	result = upload_file(request.files['file'])
+	return jsonify(result)
+
 if __name__ == '__main__':
 	app.run(debug=True)
+

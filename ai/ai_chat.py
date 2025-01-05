@@ -124,7 +124,7 @@ def save_chat():
         chat_history.username = username
         chat_history.chat_started = chat_started
         chat_history.messages = messages
-        chat_history.first_message = json.loads(messages)[1]['content']
+        chat_history.first_message = next((msg['content'] for msg in json.loads(messages) if msg['role'] == 'user'), '')
         chat_history.save()
         return 'Neuer Chat erstellt!'
 
