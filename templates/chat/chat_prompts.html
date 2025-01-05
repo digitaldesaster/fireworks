@@ -14,7 +14,7 @@
     <a href="/chat/history/{{ item.id }}" class="no-underline">
       <div
         id="history_{{ loop.index }}"
-        class="prompt relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ item.first_message }}</span>
       </div>
@@ -33,7 +33,7 @@
     <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
       <div
         id="prompt_{{ loop.index }}"
-        class="prompt relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ prompt.name }}</span>
       </div>

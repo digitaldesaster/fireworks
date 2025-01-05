@@ -22,7 +22,8 @@ def parse_code_to_markdown(file_structure: dict, output_file: str) -> None:
             # Handle directory and subdirectories
             elif os.path.isdir(adjusted_path):
                 for root, _, files in os.walk(adjusted_path):
-                    if '__pycache__' in root:
+                    # Skip __pycache__ and core/documents folders
+                    if '__pycache__' in root or 'core/documents' in root:
                         continue
                     for file in files:
                         file_path = os.path.join(root, file)
