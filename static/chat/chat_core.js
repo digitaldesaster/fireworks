@@ -392,15 +392,33 @@ document
         console.log("File uploaded successfully");
         uploadedFilesCount++;
 
+        console.log(result);
+
         // Remove prompts div if it exists
         const promptsDiv = document.getElementById("prompts");
         if (promptsDiv) promptsDiv.remove();
 
-        // Create user message with file content
-        const userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
+        let userMessage;
+        if (
+          result.file_type &&
+          ["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())
+        ) {
+          userMessage = [
+            { type: "text", text: "Please analyze the following image:" },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:image/${result.file_type};base64,${result.base64_image}`,
+              },
+            },
+          ];
+          messages.push({ role: "user", content: userMessage });
+        } else {
+          userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
+          messages.push({ role: "system", content: userMessage });
+        }
 
-        // Add to messages array
-        messages.push({ role: "system", content: userMessage });
+        // Add assistant confirmation message
         messages.push({
           role: "assistant",
           content: "File uploaded successfully: " + fileName,

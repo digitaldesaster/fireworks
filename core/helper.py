@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json,os,csv
+import json,os,csv,base64
 from core.db_helper import searchDocuments, getFile, getDocumentsByID, getFilter, processDocuments, getFilterDict, getDocumentName
 from core.db_crud import getDocument, updateDocument, createDocument, eraseDocument
 from core.db_default import Setting, getDefaultList
@@ -490,6 +490,10 @@ def prepare_context_from_files(files):
 
     return result
 
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
+
 def upload_file(file, category='history'):
     """Handle file upload for chat functionality and return file context"""
     try:
@@ -502,7 +506,7 @@ def upload_file(file, category='history'):
         filename = secure_filename(file.filename)
         file_type = filename.rsplit('.', 1)[1].lower()
         
-        if file_type not in ['pdf', 'txt']:
+        if file_type not in ['pdf', 'txt', 'jpeg', 'jpg', 'png']:
             return {'status': 'error', 'message': 'Only PDF and TXT files are supported'}
             
         # Fix the filepath to use absolute path
@@ -528,21 +532,32 @@ def upload_file(file, category='history'):
         file.save(file_save_path)
         
         # Get context immediately after saving
-        context = prepare_context_from_files([fileDB])
-        print(f"[DEBUG] Context result: {context}")
-        
-        if context['status'] == 'ok':
+        if file_type in ['pdf', 'txt']:
+            context = prepare_context_from_files([fileDB])
+            print(f"[DEBUG] Context result: {context}")
+            
+            if context['status'] == 'ok':
+                return {
+                    'status': 'ok',
+                    'file_id': fileID,
+                    'filename': filename,
+                    'file_type': file_type,
+                    'content': context['data'],
+                    'character_count': context['character_count']
+                }
+            else:
+                return context
+        elif file_type in ['jpeg', 'jpg', 'png']:
+            base64_image = encode_image(file_save_path)
             return {
-                'status': 'ok',
-                'file_id': fileID,
-                'filename': filename,
+                'status': 'ok', 
+                'file_id': fileID, 
+                'filename': filename, 
                 'file_type': file_type,
-                'content': context['data'],
-                'character_count': context['character_count']
+                'base64_image': base64_image
             }
         else:
-            return context
-            
+            return {'status': 'error', 'message': 'Unsupported file type'}
     except Exception as e:
         print(f"[DEBUG] Upload error: {str(e)}")
         return {'status': 'error', 'message': str(e)}
