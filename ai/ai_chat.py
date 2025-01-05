@@ -6,14 +6,15 @@ import sys
 # Add parent directory to Python path to find core module
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from flask import Blueprint, request, render_template, Response
+from flask import Blueprint, request, render_template, Response, jsonify
 import time, sys, json
 from flask_wtf.csrf import CSRFProtect
+from flask_login import login_required
 
 # Append the db directory to the system path for module imports
 sys.path.append('db')
 
-from core.helper import handleDocument, prepare_context_from_files
+from core.helper import handleDocument, prepare_context_from_files, upload_file
 from core.db_document import File, History, Model, Prompt
 
 from core.db_connect import *
@@ -143,3 +144,12 @@ def save_chat():
 @dms_chat.route('/load_ui/<template>')
 def load_ui(template):
     return render_template(template)
+
+@dms_chat.route('/upload', methods=['POST'])
+@login_required
+def upload_chat_file():
+    if 'file' not in request.files:
+        return jsonify({'status': 'error', 'message': 'No file part'})
+    
+    result = upload_file(request.files['file'])
+    return jsonify(result)

@@ -115,15 +115,6 @@ def download_file(file_id):
 		print(f"[DEBUG] Error in download_file: {str(e)}")
 		abort(500)
 
-@app.route('/chat/upload', methods=['POST'])
-@login_required
-def upload_chat_file():
-	if 'file' not in request.files:
-		return jsonify({'status': 'error', 'message': 'No file part'})
-	
-	result = upload_file(request.files['file'])
-	return jsonify(result)
-
 if __name__ == '__main__':
 	app.run(debug=True)
 
