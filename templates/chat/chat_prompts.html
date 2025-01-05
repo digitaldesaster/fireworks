@@ -1,7 +1,7 @@
 {% if config.messages | length == 0 %}
 <div
   id="prompts"
-  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 overflow-auto flex flex-col gap-4"
+  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 flex flex-col gap-4"
 >
   {% if config.history %}
   <h3
@@ -9,7 +9,7 @@
   >
     Last Chats
   </h3>
-  <div class="flex flex-row justify-center gap-4">
+  <div class="flex flex-row flex-wrap justify-center gap-4">
     {% for item in config.history %}
     <a href="/chat/history/{{ item.id }}" class="no-underline">
       <div
@@ -28,7 +28,7 @@
   >
     Latest Prompts
   </h3>
-  <div class="flex flex-row justify-center gap-4">
+  <div class="flex flex-row flex-wrap justify-center gap-4">
     {% for prompt in config.latest_prompts %}
     <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
       <div
@@ -41,7 +41,7 @@
     {% endfor %}
   </div>
   {% endif %} {% if not config.history and not config.latest_prompts %}
-  <div class="flex flex-row justify-center gap-4">
+  <div class="flex flex-row flex-wrap justify-center gap-4">
     <div
       class="prompt relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
     >

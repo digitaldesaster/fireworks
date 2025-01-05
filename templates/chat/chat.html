@@ -61,37 +61,26 @@
       // Check localStorage for saved model
       if (localStorage.getItem('selected_model') !== null) {
         selected_model = localStorage.getItem('selected_model');
-        // Find the corresponding model name
         const model = models.find(m => m.model === selected_model);
         if (model) {
           selected_model_name = model.name;
         }
-        console.log('model_in_storage:' + selected_model)
       }
 
-      // Update model display in chat UI
       selectedModelElement.innerText = selected_model_name;
 
-      console.log(messages);
-      console.log(models);
-
       document.addEventListener('click', function (e) {
-
         if (e.target.closest('#prompts .prompt')) {
-
-          // Fill the textarea with the text content of the clicked element
           var chatInput = document.getElementById('chat_input');
           if (chatInput) {
-            chatInput.value = e.target.textContent; // Set the value of the textarea
+            chatInput.value = e.target.textContent;
           }
 
-          // Programmatically click the button with id 'chat_button'
           var chatButton = document.getElementById('chat_button');
           if (chatButton) {
             chatButton.click();
           }
 
-          // Optionally, remove the div with the id 'prompts' after the actions are performed
           var promptsDiv = document.getElementById('prompts');
           if (promptsDiv) {
             promptsDiv.remove();
@@ -102,116 +91,13 @@
           selected_model = event.target.id;
           selected_model_name = event.target.dataset.name;
           localStorage.setItem('selected_model', selected_model);
-          // Update model display in chat UI
           selectedModelElement.innerText = selected_model_name;
           const modelSelectorButton = document.getElementById('modelSelectorButton');
           if (modelSelectorButton) {
-            modelSelectorButton.click(); // Close the dropdown
+            modelSelectorButton.click();
           }
         }
-
-
       });
-
-      function showElementById(elementId) {
-        const element = document.getElementById(elementId);
-        if (element && element.classList.contains('hidden')) {
-          element.classList.remove('hidden');
-        }
-      }
-
-
-      function hideElements() {
-        const uiElements = [
-          'prompts_container',
-          'selected_prompts_container',
-          'create_prompt_container',
-          'chat_history_container',
-          'chat_messages_container',
-          'chat_ui_container'
-        ];
-
-        uiElements.forEach(elementId => {
-          const element = document.getElementById(elementId);
-          if (element) {
-            element.classList.add('hidden');
-          }
-        });
-      }
-
-      function loadElements(id, url) {
-        fetch(url)
-          .then(response => response.text())
-          .then(data => {
-            let container = document.getElementById(id);
-            container.innerHTML = data;
-            if (container.classList.contains('hidden')) {
-              container.classList.remove('hidden');
-            }
-
-
-            // Alle Buttons mit der Klasse "selected_prompt" auswählen
-            const selectedPromptButtons = document.querySelectorAll('.selected_prompt');
-
-            // Überprüfen, ob Buttons mit der Klasse "selected_prompt" vorhanden sind
-            if (selectedPromptButtons.length > 0) {
-              // Für jeden Button einen Klick-Eventlistener hinzufügen
-              selectedPromptButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                  console.log(button.id);
-                  window.location.href = "{{url_for('dms_chat.chat')}}" + "prompt/" + button.id;
-                });
-              });
-            } else {
-              console.log('Keine Buttons mit der Klasse "selected_prompt" gefunden.');
-            }
-
-
-
-            const promptForm = document.getElementById('promptForm');
-
-            if (promptForm) {
-              console.log('promptForm added!');
-              promptForm.addEventListener('submit', async (event) => {
-                event.preventDefault(); // Prevent the default form submission behavior
-
-                let _name = document.getElementById('name').value;
-                let _system_message = document.getElementById('system_message').value;
-                let _prompt = document.getElementById('prompt').value;
-
-                try {
-                  const response = await fetch('/chat/add_prompt', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ _name, _system_message, _prompt }),
-                  });
-
-                  if (response.ok) {
-                    console.log('Prompt saved successfully');
-                    let url = "{{url_for('list',name='prompts')}}";
-                    hideElements();
-                    id = 'prompts_container'
-                    loadElements(id, url);
-                    // You can add additional logic here, such as resetting the form or displaying a success message
-                  } else {
-                    console.error('Error saving prompt:', response.status);
-                  }
-                } catch (error) {
-                  console.error('Error:', error);
-                }
-              });
-            }
-
-
-
-
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
-      }
     </script>
 
     <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
