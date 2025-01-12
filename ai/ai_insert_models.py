@@ -18,6 +18,7 @@ models = [
   {'provider':'anthropic','model':'claude-3-opus-20240229','name':'claude-3-opus'},
    {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'},
    {'provider':'deepseek','model':'deepseek-chat','name':'deepseek-chat'},
+   {'provider':'perplexity','model':'llama-3.1-sonar-large-128k-online','name':'perplexity-llama-3.1-online'},
   
   ]
 

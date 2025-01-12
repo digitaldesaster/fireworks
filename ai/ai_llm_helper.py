@@ -8,6 +8,7 @@ openai_api_key=os.getenv("OPENAI_API_KEY")
 together_api_key=os.getenv("TOGETHER_API_KEY")
 anthropic_api_key=os.getenv("ANTHROPIC_API_KEY")
 deepseek_api_key=os.getenv("DEEPSEEK_API_KEY")
+perplexity_api_key=os.getenv("PERPLEXITY_API_KEY")
 
 #Notice: I was not able to have a function with streaming (using yield) and no streaming (return) at the same time.
 
@@ -42,6 +43,8 @@ def llm_call_stream(messages, model):
             client = OpenAI(api_key=together_api_key,base_url='https://api.together.xyz/v1')
         elif model['provider']=='deepseek':
             client = OpenAI(api_key=deepseek_api_key,base_url='https://api.deepseek.com')
+        elif model['provider']=='perplexity':
+            client = OpenAI(api_key=perplexity_api_key,base_url='https://api.perplexity.ai')
         elif model['provider']=='openai':
             client = OpenAI(api_key=openai_api_key)
 
