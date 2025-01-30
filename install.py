@@ -29,28 +29,29 @@ def main():
     run_command('npx tailwindcss init')
 
     # Create directories
-    create_directory('static/src')
-    create_directory('static/css')
-    create_directory('templates')
+    #create_directory('static/src')
+    #create_directory('static/css')
+    #create_directory('templates')
     create_directory('.vscode')
 
-    # Create files
-    create_file('tailwind.config.js', '''
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./templates/**/*.html", "./static/js/**/*.js"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-''')
+#as we have a custom tailwind.config.js, we don't need to create it
+#     # Create files
+#     create_file('tailwind.config.js', '''
+# /** @type {import('tailwindcss').Config} */
+# module.exports = {
+#   content: ["./templates/**/*.html", "./static/js/**/*.js"],
+#   theme: {
+#     extend: {},
+#   },
+#   plugins: [],
+# };
+# ''')
 
-    create_file('static/src/input.css', '''
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-''')
+#     create_file('static/src/input.css', '''
+# @tailwind base;
+# @tailwind components;
+# @tailwind utilities;
+# ''')
 
     create_file('package.json', json.dumps({
         "devDependencies": {
@@ -68,39 +69,39 @@ module.exports = {
         }
     }, indent=2))
 
-    create_file('main.py', '''
-from flask import Flask, render_template
+#     create_file('main.py', '''
+# from flask import Flask, render_template
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# @app.route('/')
+# def home():
+#     return render_template('index.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
-''')
+# if __name__ == '__main__':
+#     app.run(debug=True)
+# ''')
 
-    create_file('templates/index.html', '''
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flask App</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/output.css') }}"
-    />
-  </head>
-  <body class="flex items-center justify-center h-screen">
-    <div class="container mx-auto">
-      <h1 class="text-3xl font-bold text-center">Hello World</h1>
-      <!-- Add your content here -->
-    </div>
-  </body>
-</html>
-''')
+#     create_file('templates/index.html', '''
+# <!doctype html>
+# <html lang="en">
+#   <head>
+#     <meta charset="UTF-8" />
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+#     <title>Flask App</title>
+#     <link
+#       rel="stylesheet"
+#       href="{{ url_for('static', filename='css/output.css') }}"
+#     />
+#   </head>
+#   <body class="flex items-center justify-center h-screen">
+#     <div class="container mx-auto">
+#       <h1 class="text-3xl font-bold text-center">Hello World</h1>
+#       <!-- Add your content here -->
+#     </div>
+#   </body>
+# </html>
+# ''')
 
     create_file('.prettierrc.json', '{}')
 
