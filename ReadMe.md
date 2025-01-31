@@ -28,17 +28,13 @@ activate the virtual environment in VSCode
 
 ```bash
 source .venv/bin/activate
-on Windows .venv\Scripts\activate
 ```
+on Windows .venv\Scripts\activate
 
-
-
-### 4. Install the rest of the dependencies
-
-use the install.py script to install the rest of the dependencies
-
-```bash
-python3 install.py
+# Install and Initialize Tailwind CSS
+```
+npm install -D tailwindcss
+npx tailwindcss init
 ```
 
 ### 5. Start the Flask Server, Browser-Sync and the TailwindCSS Watcher
