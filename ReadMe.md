@@ -8,9 +8,9 @@ Ensure you have the following installed:
 
 ### 1. Open VSCode
 
-Create a new folder for your project and open it. start a terminal in VSCode
+Create a new folder for your project and open it. Start a terminal in VSCode.
 
-### 2. Clone the Flask Tailwind Installer Repository into the new folder
+### 2. Clone the Flask Tailwind Installer Repository into the New Folder
 
 ```bash
 git clone https://github.com/digitaldesaster/fireworks.git .
@@ -18,42 +18,56 @@ git clone https://github.com/digitaldesaster/fireworks.git .
 
 ### 3. Create and Activate a Virtual Environment
 
-Create and activate the virtual environment and open the project in VSCode
+Create and activate the virtual environment and open the project in VSCode.
 
 ```bash
 python3 -m venv .venv
 ```
 
-activate the virtual environment in VSCode
+Activate the virtual environment in VSCode:
 
 ```bash
 source .venv/bin/activate
 ```
-on Windows .venv\Scripts\activate
 
-# Install and Initialize Tailwind CSS
+On Windows:
+
+```bash
+.venv\Scripts\activate
 ```
+
+### 4. Install Python Dependencies
+
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Install and Initialize Tailwind CSS
+
+```bash
 npm install -D tailwindcss
 npx tailwindcss init
 ```
 
-### 5. Start the Flask Server, Browser-Sync and the TailwindCSS Watcher
+### 6. Start the Flask Server, Browser-Sync, and the TailwindCSS Watcher
 
-press cmd + shift + p and and run Start All to start the flask server, browser-sync and the tailwindcss watcher
+Press `cmd + shift + p` and run "Start All" to start the Flask server, Browser-Sync, and the TailwindCSS watcher.
 
-or start them seperately:
+Or start them separately:
 
 - Start Flask
 - Start Browser-Sync
 - Watch CSS with TailwindCSS
 
-### 6. Remove the .git folder
+### 7. Remove the .git Folder
 
 ```bash
 sudo rm -rf .git
 ```
 
-### 7. prepare the git repository
+### 8. Prepare the Git Repository
 
 ```bash
 git init
@@ -68,13 +82,13 @@ git commit -m "Initial commit"
 git branch -M main
 ```
 
-### 8. Initialize a new Git Repository
+### 9. Initialize a New Git Repository
 
 ```bash
 gh repo create my_new_project --public --source=. --remote=origin
 ```
 
-### 9. Push the changes to the remote repository
+### 10. Push the Changes to the Remote Repository
 
 ```bash
 git push -u origin main
