@@ -13,14 +13,12 @@ Create a new folder for your project and open it. start a terminal in VSCode
 ### 2. Clone the Flask Tailwind Installer Repository into the new folder
 
 ```bash
-gh repo clone digitaldesaster/fireworks .
+git clone https://github.com/digitaldesaster/fireworks.git .
 ```
 
 ### 3. Create and Activate a Virtual Environment
 
 Create and activate the virtual environment and open the project in VSCode
-
-- **macOS and Linux:**
 
 ```bash
 python3 -m venv .venv
@@ -30,7 +28,10 @@ activate the virtual environment in VSCode
 
 ```bash
 source .venv/bin/activate
+on Windows .venv\Scripts\activate
 ```
+
+
 
 ### 4. Install the rest of the dependencies
 
