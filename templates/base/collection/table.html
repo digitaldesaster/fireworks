@@ -14,7 +14,7 @@
           </th>
           {% endfor %}
           <th
-            class="w-16 px-4 py-3 text-right border-b border-slate-200 dark:border-slate-700"
+            class="w-16 px-4 py-3 text-right border-b border-r border-slate-200 dark:border-slate-700 last:border-r-0 sticky right-0 bg-white z-10"
           >
             Actions
           </th>
@@ -43,7 +43,7 @@
             {% else %} {{field.value}} {% endif %}
           </td>
           {% endfor %}
-          <td class="w-16 px-4 py-2 text-right">
+          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-white">
             <a
               href="{{document_url}}/{{document[0].id}}"
               class="btn btn-primary btn-sm btn-outline"

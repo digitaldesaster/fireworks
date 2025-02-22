@@ -1,10 +1,11 @@
-<div id="chat_ui" class="fixed bottom-0 left-0 w-full h-40 bg-gray-50">
+<div
+  id="chat_ui"
+  class="fixed bottom-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full h-40 bg-gray-50"
+>
   <div
     class="flex flex-col absolute bottom-0 left-0 right-0 h-32 ml-2 mr-2 mb-2 md:ml-10 md:mr-10 md:mb-4 rounded-xl bg-white"
   >
     <div class="p-3 pr-16 overflow-hidden">
-      <!-- Removed h-full class and kept rows="3" -->
-
       <textarea
         id="chat_input"
         placeholder="Type your message and press Command or Strg + Enter"
@@ -12,31 +13,35 @@
         class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
       ></textarea>
     </div>
-    <div class="dropdown dropdown-top ml-6 mb-4 flex items-center gap-2">
-      <button
-        id="modelSelectorButton"
-        class="badge badge-outline badge-primary"
+    <div class="ml-6 mb-4 flex items-center gap-2">
+      <div
+        class="dropdown relative inline-flex [--placement:top]"
+        data-dropdown
       >
-        <span id="selected_model"></span>
-      </button>
-      <ul
-        class="dropdown-menu dropdown-open:opacity-100 hidden min-w-44 mb-2"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="modelSelectorButton"
-      >
-        {% for model in config.models %}
-        <li>
+        <button
+          id="modelSelectorButton"
+          class="badge badge-outline badge-primary dropdown-toggle"
+          data-dropdown-toggle
+        >
+          <span id="selected_model"></span>
+        </button>
+        <div
+          class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="modelSelectorButton"
+        >
+          {% for model in config.models %}
           <button
             id="{{ model.model }}"
             data-name="{{ model.name }}"
-            class="model dropdown-item w-full text-left"
+            class="model dropdown-item w-full text-left px-4 py-2 hover:bg-gray-100"
           >
             {{ model.name }}
           </button>
-        </li>
-        {% endfor %}
-      </ul>
+          {% endfor %}
+        </div>
+      </div>
 
       <label for="file-upload" class="cursor-pointer">
         <div

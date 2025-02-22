@@ -1,5 +1,42 @@
 # Changelog
 
+## [2024-01-25] UI Overhaul and Package Management Updates
+
+### UI Improvements
+
+- Implemented new sidebar navigation layout for better organization
+- Enhanced responsive design with proper lg: breakpoints
+- Added sticky columns to tables for better usability
+- Improved chat UI positioning and layout
+- Updated dropdown menus and button styles
+- Added new icon system using Tabler icons
+- Enhanced navigation structure with better hierarchy
+
+### Template Updates
+
+- Modified collection templates for better layout consistency
+- Updated document form templates with improved spacing
+- Enhanced chat interface with better positioning
+- Improved index page layout with centered content
+- Completely redesigned navigation template with sidebar
+
+### Package Management
+
+- Replaced `requirement.txt` with standardized `requirements.txt`
+- Removed deprecated `install.py`
+- Updated package.json dependencies
+
+### CSS Updates
+
+- Updated output.css with new utility classes
+- Enhanced responsive design utilities
+- Added new component styles for sidebar
+- Improved table styling with sticky columns
+
+### Database
+
+- Modified db_document.py with schema improvements
+
 ## [2024-12-28] Security and Session Management Improvements
 
 ### Security Enhancements

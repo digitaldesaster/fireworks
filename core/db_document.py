@@ -268,7 +268,7 @@ class History(DynamicDocument):
         chat_started = {'name': 'chat_started', 'label': ' Started', 'class': '', 'type': 'IntField', 'required': True, 'full_width': False}
         first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
         messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
-        link = {'name' :  'link', 'label' : 'Resume Chat', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/history'}
+        link = {'name' :  'link', 'label' : 'Chat', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/history'}
         if list_order:
             return [link,first_message]
         return [username,first_message,chat_started, messages,link]
