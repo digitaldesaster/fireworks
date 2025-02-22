@@ -1,6 +1,6 @@
 <!-- Sticky Navigation -->
 <nav
-  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm overflow-y-scroll"
+  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm"
 >
   <div class="navbar-start">
     <a
@@ -62,94 +62,168 @@
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start w-64 max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body px-2 pt-4 bg-white h-full flex flex-col">
-    <ul class="menu space-y-0.5 p-0 flex-1">
-      <li>
-        <a href="{{ url_for('index') }}">
-          <span class="icon-[tabler--dashboard] size-5"></span>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="{{ url_for('dms_chat.chat') }}">
-          <span class="icon-[tabler--message] size-5"></span>
-          Chat
-        </a>
-      </li>
-      <li>
-        <button
-          type="button"
-          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
-          id="prompts-collapse"
-          aria-expanded="false"
-          aria-controls="prompts-collapse-content"
-          data-collapse="#prompts-collapse-content"
-        >
-          <span class="icon-[tabler--app-window] size-5"></span>
-          <span class="flex-1">Prompts</span>
-          <span
-            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
-          ></span>
-        </button>
-        <div
-          id="prompts-collapse-content"
-          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
-          aria-labelledby="prompts-collapse"
-        >
-          <ul class="menu space-y-0.5 pl-6" id="prompts-list">
-            <li>
-              <a href="{{ url_for('list', name='prompts') }}" class="text-sm">
-                View All Prompts
-              </a>
-            </li>
-            <!-- Latest prompts will be inserted here -->
-          </ul>
-        </div>
-      </li>
-      <li>
-        <button
-          type="button"
-          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
-          id="history-collapse"
-          aria-expanded="false"
-          aria-controls="history-collapse-content"
-          data-collapse="#history-collapse-content"
-        >
-          <span class="icon-[tabler--clock] size-5"></span>
-          <span class="flex-1">History</span>
-          <span
-            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
-          ></span>
-        </button>
-        <div
-          id="history-collapse-content"
-          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
-          aria-labelledby="history-collapse"
-        >
-          <ul class="menu space-y-0.5 pl-6" id="history-list">
-            <li>
-              <a href="{{ url_for('list', name='history') }}" class="text-sm">
-                View All History
-              </a>
-            </li>
-            <!-- Latest history entries will be inserted here -->
-          </ul>
-        </div>
-      </li>
-    </ul>
-    <!-- Mobile Sign Out at Bottom -->
-    <div class="mt-auto border-t border-base-200 pt-4 lg:hidden">
+  <div class="drawer-body w-64 bg-white h-full flex flex-col overflow-hidden">
+    <!-- Fixed Header Section -->
+    <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
+      <ul class="menu w-full space-y-0.5 p-0">
+        <li class="w-full">
+          <a
+            href="{{ url_for('index') }}"
+            class="flex items-center gap-2 px-4 py-2 w-full"
+          >
+            <span class="icon-[tabler--dashboard] size-5 shrink-0"></span>
+            <span class="truncate">Dashboard</span>
+          </a>
+        </li>
+        <li class="w-full">
+          <a
+            href="{{ url_for('dms_chat.chat') }}"
+            class="flex items-center gap-2 px-4 py-2 w-full"
+          >
+            <span class="icon-[tabler--message] size-5 shrink-0"></span>
+            <span class="truncate">Chat</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Scrollable Content Section -->
+    <div class="flex-1 max-h-[calc(100vh-180px)] overflow-y-auto px-2 py-2">
+      <ul
+        class="menu w-full space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0"
+      >
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="prompts-collapse"
+            aria-expanded="false"
+            aria-controls="prompts-collapse-content"
+            data-collapse="#prompts-collapse-content"
+          >
+            <span class="icon-[tabler--app-window] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Prompts</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="prompts-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="prompts-collapse"
+          >
+            <div
+              class="max-h-[calc(100vh-400px)] overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent"
+            >
+              <ul class="menu space-y-0.5 w-full" id="prompts-list">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', name='prompts') }}"
+                    class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
+                  >
+                    <span class="truncate">View All Prompts</span>
+                  </a>
+                </li>
+                {% for prompt in prompts %}
+                <li class="w-full">
+                  <div
+                    class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 group rounded-lg"
+                  >
+                    <a
+                      href="{{ url_for('chat.prompt', id=prompt.id) }}"
+                      class="flex-1 min-w-0"
+                      title="{{ prompt.name }}"
+                    >
+                      <span class="truncate text-xs block"
+                        >{{ prompt.name }}</span
+                      >
+                    </a>
+                    <a
+                      href="{{ url_for('prompt.edit', id=prompt.id) }}"
+                      class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Edit prompt"
+                      title="Edit prompt"
+                    >
+                      <span
+                        class="icon-[tabler--edit] size-3.5 text-primary"
+                      ></span>
+                    </a>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="history-collapse"
+            aria-expanded="false"
+            aria-controls="history-collapse-content"
+            data-collapse="#history-collapse-content"
+          >
+            <span class="icon-[tabler--clock] size-5 shrink-0"></span>
+            <span class="truncate flex-1">History</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="history-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="history-collapse"
+          >
+            <div
+              class="max-h-[calc(100vh-400px)] overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent"
+            >
+              <ul class="menu space-y-0.5 w-full" id="history-list">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', name='history') }}"
+                    class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
+                  >
+                    <span class="truncate">View All History</span>
+                  </a>
+                </li>
+                {% for item in history %}
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('chat.history', id=item.id) }}"
+                    class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 rounded-lg"
+                    title="{{ item.first_message or 'Untitled Chat' }}"
+                  >
+                    <span class="truncate flex-1 text-xs"
+                      >{{ item.first_message or "Untitled Chat" }}</span
+                    >
+                    <span
+                      class="text-[10px] text-gray-500 whitespace-nowrap shrink-0"
+                      >{{ format_time_ago(item.modified_date) }}</span
+                    >
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Fixed Footer Section -->
+    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 lg:hidden">
       <form action="{{ url_for('logout') }}" method="post" class="w-full">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button
           type="submit"
           class="btn btn-ghost w-full justify-start gap-2 text-error"
         >
-          <span class="icon-[tabler--logout-2] size-5"></span>
-          Sign Out
+          <span class="icon-[tabler--logout-2] size-5 shrink-0"></span>
+          <span class="truncate">Sign Out</span>
         </button>
       </form>
     </div>
@@ -157,61 +231,143 @@
 </aside>
 
 <script>
-  // Function to fetch and update nav items
-  async function updateNavItems() {
-    try {
-      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
-      const data = await response.json();
+  // Add error notification function
+  function showErrorNotification(message) {
+    console.error(message);
+  }
 
-      // Clear existing items first
-      const promptsList = document.getElementById("prompts-list");
-      const historyList = document.getElementById("history-list");
+  // Function to format date
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
 
-      // Keep the "View All" links
-      const promptsViewAll = promptsList.firstElementChild;
-      const historyViewAll = historyList.firstElementChild;
-
-      promptsList.innerHTML = "";
-      historyList.innerHTML = "";
-
-      // Add back the "View All" links
-      promptsList.appendChild(promptsViewAll);
-      historyList.appendChild(historyViewAll);
-
-      // Update prompts list
-      data.prompts.forEach((prompt) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <div class="flex items-center justify-between">
-            <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
-              ${prompt.name}
-            </a>
-            <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
-              <span class="icon-[tabler--edit] size-4"></span>
-            </a>
-          </div>
-        `;
-        promptsList.appendChild(li);
-      });
-
-      // Update history list
-      data.history.forEach((item) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <a href="/chat/history/${item._id.$oid}" class="text-sm truncate">
-            ${item.first_message || "Untitled Chat"}
-          </a>
-        `;
-        historyList.appendChild(li);
-      });
-    } catch (error) {
-      console.error("Error fetching nav items:", error);
+    if (diffMins < 1) {
+      return "just now";
+    } else if (diffMins < 60) {
+      return `${diffMins}m ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours}h ago`;
+    } else if (diffDays === 1) {
+      return "yesterday";
+    } else if (diffDays < 7) {
+      return `${diffDays}d ago`;
+    } else {
+      return date.toLocaleDateString();
     }
   }
 
-  // Update nav items when the page loads
+  // Function to fetch and update nav items with improved error handling
+  async function updateNavItems() {
+    try {
+      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
+      if (!response.ok) {
+        throw new Error(`Failed to fetch nav items: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Validate data structure
+      if (
+        !data ||
+        !Array.isArray(data.prompts) ||
+        !Array.isArray(data.history)
+      ) {
+        throw new Error("Invalid navigation data structure");
+      }
+
+      // Update prompts list
+      const promptsList = document.getElementById("prompts-list");
+      if (promptsList) {
+        // Keep only the view all link
+        const viewAllLink = promptsList
+          .querySelector(".view-all")
+          ?.closest("li");
+        promptsList.innerHTML = "";
+        if (viewAllLink) promptsList.appendChild(viewAllLink);
+
+        // Add prompts with error handling
+        data.prompts.forEach((prompt) => {
+          try {
+            if (!prompt?._id?.$oid || !prompt?.name) {
+              return;
+            }
+
+            const li = document.createElement("li");
+            li.className = "w-full";
+            li.innerHTML = `
+              <div class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 group rounded-lg">
+                <a href="/chat/prompt/${prompt._id.$oid}" class="flex-1 min-w-0" title="${prompt.name}">
+                  <span class="truncate text-xs block">${prompt.name}</span>
+                </a>
+                <a href="/d/prompt/${prompt._id.$oid}" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Edit prompt" title="Edit prompt">
+                  <span class="icon-[tabler--edit] size-3.5 text-primary"></span>
+                </a>
+              </div>
+            `;
+            promptsList.appendChild(li);
+          } catch (itemError) {
+            console.warn("Error adding prompt item:", itemError);
+          }
+        });
+      }
+
+      // Update history list
+      const historyList = document.getElementById("history-list");
+      if (historyList) {
+        // Keep only the view all link
+        const viewAllLink = historyList
+          .querySelector(".view-all")
+          ?.closest("li");
+        historyList.innerHTML = "";
+        if (viewAllLink) historyList.appendChild(viewAllLink);
+
+        // Add history items with error handling
+        data.history.forEach((item) => {
+          try {
+            if (!item?._id?.$oid) {
+              return;
+            }
+
+            const li = document.createElement("li");
+            li.className = "w-full";
+            li.innerHTML = `
+              <a href="/chat/history/${item._id.$oid}" 
+                 class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 rounded-lg"
+                 title="${item.first_message || "Untitled Chat"}">
+                <span class="truncate flex-1 text-xs">${item.first_message || "Untitled Chat"}</span>
+                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formatDate(item.modified_date?.$date)}</span>
+              </a>
+            `;
+            historyList.appendChild(li);
+          } catch (itemError) {
+            console.warn("Error adding history item:", itemError);
+          }
+        });
+      }
+    } catch (error) {
+      console.error("Error updating navigation:", error);
+      showErrorNotification(
+        "Failed to update navigation. Please refresh the page.",
+      );
+    }
+  }
+
+  // Initialize nav items when the page loads
   document.addEventListener("DOMContentLoaded", updateNavItems);
 
-  // Update nav items every 30 seconds
-  setInterval(updateNavItems, 30000);
+  // Update nav items periodically with a debounce
+  let updateTimeout = null;
+  function debouncedUpdate() {
+    if (updateTimeout) {
+      clearTimeout(updateTimeout);
+    }
+    updateTimeout = setTimeout(updateNavItems, 500);
+  }
+
+  // Update every 30 seconds, but use debouncing to prevent overlapping calls
+  setInterval(debouncedUpdate, 30000);
 </script>
