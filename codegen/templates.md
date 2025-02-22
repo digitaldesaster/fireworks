@@ -24,8 +24,6 @@ module.exports = {
 };
 ```
 
-# templates
-
 ## index.html
 
 ```
@@ -313,7 +311,10 @@ module.exports = {
 
 ```
 {% if config.messages | length == 0 %}
-<div id="prompts" class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4">
+<div
+  id="prompts"
+  class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4 mt-8"
+>
   {% if config.history %}
   <h3
     class="text-center text-xl font-semibold text-gray-700 dark:text-gray-300"
@@ -534,9 +535,10 @@ module.exports = {
 ## chat/chat_messages.html
 
 ```
-<div id="chat_messages" class="mt-4 overflow-auto flex flex-col">
-
-</div>
+<div
+  id="chat_messages"
+  class="mt-4 mb-4 overflow-auto flex flex-col min-h-[200px]"
+></div>
 ```
 
 ## chat/user_message_template.html
@@ -595,63 +597,26 @@ module.exports = {
 
     <section class="flex-1 flex items-start overflow-y-auto lg:ml-64">
       <div class="px-4 md:px-10 w-full">
-        <!-- Start coding here -->
-        {% if config.messages|length > 0 %}
         <div class="relative min-h-[calc(100vh-8rem)] pb-32">
-        {% else %}
-        <div class="relative min-h-[calc(100vh-8rem)]">
-        {% endif %}
-          {% if config.using_context %} {% for file_name in config.context_files
-          %}
-          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
-            <div class="flex">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-5 w-5 text-blue-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div class="ml-3 flex items-center gap-3">
-                <p class="text-sm text-blue-700">
-                  Using context from file: {{ file_name }}
-                </p>
-                <a
-                  href="/download_file/{{ config.file_ids[loop.index0] }}"
-                  class="text-blue-700 hover:text-blue-900"
-                >
-                  <svg
-                    class="w-4 h-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                    />
-                  </svg>
-                </a>
-              </div>
+          <main id="main" class="flex flex-col h-full">
+            {% if config.messages|length == 0 %}
+            <!-- Show prompts and history first in a fresh chat -->
+            <div id="selected_prompts_container" class="flex-1">
+              {% include '/chat/chat_prompts.html' %}
             </div>
-          </div>
-          {% endfor %} {% endif %}
-          <main id="main">
-            <div id="chat_messages_container" class="{% if config.messages|length > 0 %}pb-40{% else %}pb-10{% endif %}">
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            {% else %}
+            <!-- Show messages first in an existing chat -->
+            <div id="chat_messages_container" class="pb-40">
               {% include '/chat/chat_messages.html' %}
             </div>
             <div id="selected_prompts_container">
               {% include '/chat/chat_prompts.html' %}
             </div>
+            {% endif %}
+
             <div id="chat_history_container" class="hidden"></div>
             <div id="prompts_container" class="hidden"></div>
             <div id="create_prompt_container" class="hidden"></div>
@@ -668,6 +633,53 @@ module.exports = {
             {% include '/chat/user_message_template.html' %}
           </template>
 
+          <!-- File Banner Template -->
+          <template id="file-banner-template">
+            <div class="mb-6">
+              <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg
+                      class="h-5 w-5 text-blue-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex items-center gap-3">
+                    <p class="text-sm text-blue-700">
+                      Using context from file: <span class="filename"></span>
+                    </p>
+                    <a
+                      href="#"
+                      class="download-link text-blue-700 hover:text-blue-900"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+
           <template id="code_template">
             {% include '/chat/code_block_template.html' %}
           </template>
@@ -676,15 +688,16 @@ module.exports = {
     </section>
 
     <script>
-      var systemMessage = "{{ config.system_message }}";
-      var welcomeMessage = "{{ config.welcome_message }}";
-      var username = "{{ config.username }}";
-      var chat_started = "{{ config.chat_started }}";
-      var use_prompt_template = "{{config.use_prompt_template}}";
+      // Global variables
+      const messages = {{ config.messages | tojson | safe }};
+      const systemMessage = {{ config.system_message|tojson }};
+      const welcomeMessage = {{ config.welcome_message|tojson }};
+      const models = {{ config.models | tojson | safe}};
+      const use_prompt_template = {{ config.use_prompt_template|tojson }};
+      const username = {{ config.username|tojson }};
+      const chat_started = {{ config.chat_started|tojson }};
 
-      var messages = {{ config.messages | tojson | safe }};
-      var models = {{ config.models | tojson | safe}};
-
+      // Model selection
       var selected_model = models[0]['model'];
       var selected_model_name = models[0]['name'];
       var selectedModelElement = document.getElementById('selected_model');
@@ -732,7 +745,6 @@ module.exports = {
     </script>
 
     <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
-
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
   </body>
 </html>
@@ -782,7 +794,7 @@ for i in range(1, 20):
 ```
 <!-- Sticky Navigation -->
 <nav
-  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm overflow-y-scroll"
+  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm"
 >
   <div class="navbar-start">
     <a
@@ -847,16 +859,24 @@ for i in range(1, 20):
   class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body px-2 pt-4 bg-white h-full flex flex-col">
+  <div
+    class="drawer-body px-2 pt-4 bg-white h-full flex flex-col overflow-y-auto"
+  >
     <ul class="menu space-y-0.5 p-0 flex-1">
       <li>
-        <a href="{{ url_for('index') }}">
+        <a
+          href="{{ url_for('index') }}"
+          class="flex items-center gap-2 px-4 py-2"
+        >
           <span class="icon-[tabler--dashboard] size-5"></span>
           Dashboard
         </a>
       </li>
       <li>
-        <a href="{{ url_for('dms_chat.chat') }}">
+        <a
+          href="{{ url_for('dms_chat.chat') }}"
+          class="flex items-center gap-2 px-4 py-2"
+        >
           <span class="icon-[tabler--message] size-5"></span>
           Chat
         </a>
@@ -878,17 +898,22 @@ for i in range(1, 20):
         </button>
         <div
           id="prompts-collapse-content"
-          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
           aria-labelledby="prompts-collapse"
         >
-          <ul class="menu space-y-0.5 pl-6" id="prompts-list">
-            <li>
-              <a href="{{ url_for('list', name='prompts') }}" class="text-sm">
-                View All Prompts
-              </a>
-            </li>
-            <!-- Latest prompts will be inserted here -->
-          </ul>
+          <div class="py-1">
+            <ul class="menu space-y-0.5 pl-6 w-full" id="prompts-list">
+              <li class="w-full">
+                <a
+                  href="{{ url_for('list', name='prompts') }}"
+                  class="text-sm view-all truncate w-full"
+                >
+                  View All Prompts
+                </a>
+              </li>
+              <!-- Latest prompts will be inserted here -->
+            </ul>
+          </div>
         </div>
       </li>
       <li>
@@ -908,17 +933,22 @@ for i in range(1, 20):
         </button>
         <div
           id="history-collapse-content"
-          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
           aria-labelledby="history-collapse"
         >
-          <ul class="menu space-y-0.5 pl-6" id="history-list">
-            <li>
-              <a href="{{ url_for('list', name='history') }}" class="text-sm">
-                View All History
-              </a>
-            </li>
-            <!-- Latest history entries will be inserted here -->
-          </ul>
+          <div class="py-1">
+            <ul class="menu space-y-0.5 pl-6 w-full" id="history-list">
+              <li class="w-full">
+                <a
+                  href="{{ url_for('list', name='history') }}"
+                  class="text-sm view-all truncate w-full"
+                >
+                  View All History
+                </a>
+              </li>
+              <!-- Latest history entries will be inserted here -->
+            </ul>
+          </div>
         </div>
       </li>
     </ul>
@@ -939,63 +969,166 @@ for i in range(1, 20):
 </aside>
 
 <script>
-  // Function to fetch and update nav items
-  async function updateNavItems() {
-    try {
-      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
-      const data = await response.json();
+  // Add error notification function
+  function showErrorNotification(message) {
+    console.error(message);
+  }
 
-      // Clear existing items first
-      const promptsList = document.getElementById("prompts-list");
-      const historyList = document.getElementById("history-list");
+  // Function to format date
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
 
-      // Keep the "View All" links
-      const promptsViewAll = promptsList.firstElementChild;
-      const historyViewAll = historyList.firstElementChild;
-
-      promptsList.innerHTML = "";
-      historyList.innerHTML = "";
-
-      // Add back the "View All" links
-      promptsList.appendChild(promptsViewAll);
-      historyList.appendChild(historyViewAll);
-
-      // Update prompts list
-      data.prompts.forEach((prompt) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <div class="flex items-center justify-between">
-            <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
-              ${prompt.name}
-            </a>
-            <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
-              <span class="icon-[tabler--edit] size-4"></span>
-            </a>
-          </div>
-        `;
-        promptsList.appendChild(li);
-      });
-
-      // Update history list
-      data.history.forEach((item) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <a href="/chat/history/${item._id.$oid}" class="text-sm truncate">
-            ${item.first_message || "Untitled Chat"}
-          </a>
-        `;
-        historyList.appendChild(li);
-      });
-    } catch (error) {
-      console.error("Error fetching nav items:", error);
+    if (diffMins < 1) {
+      return "just now";
+    } else if (diffMins < 60) {
+      return `${diffMins}m ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours}h ago`;
+    } else if (diffDays === 1) {
+      return "yesterday";
+    } else if (diffDays < 7) {
+      return `${diffDays}d ago`;
+    } else {
+      return date.toLocaleDateString();
     }
   }
 
-  // Update nav items when the page loads
+  // Function to create consistent history item HTML
+  function createHistoryItemHTML(id, firstMessage, timeAgo) {
+    return `
+      <div class="flex items-center gap-2 w-full pr-2">
+        <a href="/chat/history/${id}" class="text-sm flex-1 min-w-0 truncate">
+          ${firstMessage || "Untitled Chat"}
+        </a>
+        <span class="text-xs text-gray-500 whitespace-nowrap shrink-0">${timeAgo}</span>
+      </div>
+    `;
+  }
+
+  // Function to fetch and update nav items with improved error handling
+  async function updateNavItems() {
+    try {
+      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
+      if (!response.ok) {
+        throw new Error(`Failed to fetch nav items: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Received history items:", data.history.length); // Debug log
+
+      // Validate data structure
+      if (
+        !data ||
+        !Array.isArray(data.prompts) ||
+        !Array.isArray(data.history)
+      ) {
+        throw new Error("Invalid navigation data structure");
+      }
+
+      // Update prompts list
+      const promptsList = document.getElementById("prompts-list");
+      if (promptsList) {
+        // Preserve view-all link
+        const viewAllLink =
+          promptsList.querySelector(".view-all")?.parentElement;
+        promptsList.innerHTML = "";
+        if (viewAllLink) {
+          promptsList.appendChild(viewAllLink);
+        }
+
+        // Add prompts with error handling
+        data.prompts.forEach((prompt) => {
+          try {
+            if (!prompt?._id?.$oid || !prompt?.name) {
+              console.warn("Invalid prompt data:", prompt);
+              return;
+            }
+
+            const li = document.createElement("li");
+            li.className = "w-full";
+            li.innerHTML = `
+              <div class="flex items-center gap-2 w-full pr-2">
+                <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm flex-1 min-w-0 truncate">
+                  ${prompt.name}
+                </a>
+                <a href="/d/prompt/${prompt._id.$oid}" class="text-sm shrink-0">
+                  <span class="icon-[tabler--edit] size-4"></span>
+                </a>
+              </div>
+            `;
+            promptsList.appendChild(li);
+          } catch (itemError) {
+            console.warn("Error adding prompt item:", itemError);
+          }
+        });
+      }
+
+      // Update history list
+      const historyList = document.getElementById("history-list");
+      if (historyList) {
+        // Preserve view-all link
+        const viewAllLink =
+          historyList.querySelector(".view-all")?.parentElement;
+        historyList.innerHTML = "";
+        if (viewAllLink) {
+          historyList.appendChild(viewAllLink);
+        }
+
+        // Add history items with error handling
+        data.history.forEach((item) => {
+          try {
+            if (!item?._id?.$oid) {
+              console.warn("Invalid history item data:", item);
+              return;
+            }
+
+            const modifiedDate = item.modified_date?.$date
+              ? new Date(item.modified_date.$date)
+              : null;
+            const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
+
+            const li = document.createElement("li");
+            li.className = "w-full";
+            li.innerHTML = createHistoryItemHTML(
+              item._id.$oid,
+              item.first_message,
+              timeAgo,
+            );
+            historyList.appendChild(li);
+          } catch (itemError) {
+            console.warn("Error adding history item:", itemError);
+          }
+        });
+
+        console.log("Added history items:", historyList.children.length - 1); // Debug log (-1 for View All link)
+      }
+    } catch (error) {
+      console.error("Error updating navigation:", error);
+      showErrorNotification(
+        "Failed to update navigation. Please refresh the page.",
+      );
+    }
+  }
+
+  // Initialize nav items when the page loads
   document.addEventListener("DOMContentLoaded", updateNavItems);
 
-  // Update nav items every 30 seconds
-  setInterval(updateNavItems, 30000);
+  // Update nav items periodically with a debounce
+  let updateTimeout = null;
+  function debouncedUpdate() {
+    if (updateTimeout) {
+      clearTimeout(updateTimeout);
+    }
+    updateTimeout = setTimeout(updateNavItems, 500);
+  }
+
+  // Update every 30 seconds, but use debouncing to prevent overlapping calls
+  setInterval(debouncedUpdate, 30000);
 </script>
 ```
 

@@ -5,7 +5,7 @@ def parse_code_to_markdown(file_structure: dict, output_file: str) -> None:
     ALLOWED_EXTENSIONS = {'.py', '.js', '.html', '.css', '.md', '.json'}
     
     # Directories/files to skip
-    SKIP_DIRS = {'__pycache__', 'core/documents', 'node_modules', '.git', 'temp', 'logs'}
+    SKIP_DIRS = {'__pycache__', 'node_modules', '.git', 'temp', 'logs', 'css', 'js/lib'}
     SKIP_FILES = {'.DS_Store', '.gitignore', '.env'}
 
     with open(output_file, 'w') as outfile:
@@ -29,33 +29,30 @@ def parse_code_to_markdown(file_structure: dict, output_file: str) -> None:
                             outfile.write(content)
                             outfile.write("\n```\n\n")
             
-            # Handle directory and subdirectories
+            # Handle directory
             elif os.path.isdir(adjusted_path):
-                outfile.write(f"# {section}\n\n")
                 for root, dirs, files in os.walk(adjusted_path):
-                    # Skip unwanted directories
+                    # Skip blacklisted directories
                     dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
                     
+                    # For static directory, only include the chat folder
+                    if 'static' in root:
+                        dirs[:] = [d for d in dirs if d == 'chat']
+                    
                     for file in files:
-                        if file in SKIP_FILES:
-                            continue
-                            
-                        file_ext = os.path.splitext(file)[1]
-                        if file_ext not in ALLOWED_EXTENSIONS:
-                            continue
-                            
-                        file_path = os.path.join(root, file)
-                        try:
-                            with open(file_path, 'r', encoding='utf-8', errors='ignore') as dir_file:
-                                content = dir_file.read().strip()
-                                if content:  # Only write if file has content
-                                    relative_path = os.path.relpath(file_path, start=os.path.join("..", path))
-                                    outfile.write(f"## {relative_path}\n\n")
-                                    outfile.write("```\n")
-                                    outfile.write(content)
-                                    outfile.write("\n```\n\n")
-                        except (UnicodeDecodeError, IOError):
-                            continue
+                        if file not in SKIP_FILES:
+                            file_ext = os.path.splitext(file)[1]
+                            if file_ext in ALLOWED_EXTENSIONS:
+                                file_path = os.path.join(root, file)
+                                relative_path = os.path.relpath(file_path, adjusted_path)
+                                
+                                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                                    content = f.read().strip()
+                                    if content:  # Only write if file has content
+                                        outfile.write(f"## {relative_path}\n\n")
+                                        outfile.write("```\n")
+                                        outfile.write(content)
+                                        outfile.write("\n```\n\n")
 
 def generate_markdown(only_template: bool = False):
     if only_template:
@@ -71,7 +68,8 @@ def generate_markdown(only_template: bool = False):
             "templates": "templates",
             "core": "core",
             "ai": "ai",
-            "config": "collection.config.json"
+            "config": "collection.config.json",
+            "static": "static"
         }
         output_file = "all_code.md"
     

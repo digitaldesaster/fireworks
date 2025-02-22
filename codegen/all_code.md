@@ -148,8 +148,6 @@ module.exports = {
 };
 ```
 
-# templates
-
 ## index.html
 
 ```
@@ -437,7 +435,10 @@ module.exports = {
 
 ```
 {% if config.messages | length == 0 %}
-<div id="prompts" class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4">
+<div
+  id="prompts"
+  class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4 mt-8"
+>
   {% if config.history %}
   <h3
     class="text-center text-xl font-semibold text-gray-700 dark:text-gray-300"
@@ -658,9 +659,10 @@ module.exports = {
 ## chat/chat_messages.html
 
 ```
-<div id="chat_messages" class="mt-4 overflow-auto flex flex-col">
-
-</div>
+<div
+  id="chat_messages"
+  class="mt-4 mb-4 overflow-auto flex flex-col min-h-[200px]"
+></div>
 ```
 
 ## chat/user_message_template.html
@@ -719,63 +721,26 @@ module.exports = {
 
     <section class="flex-1 flex items-start overflow-y-auto lg:ml-64">
       <div class="px-4 md:px-10 w-full">
-        <!-- Start coding here -->
-        {% if config.messages|length > 0 %}
         <div class="relative min-h-[calc(100vh-8rem)] pb-32">
-        {% else %}
-        <div class="relative min-h-[calc(100vh-8rem)]">
-        {% endif %}
-          {% if config.using_context %} {% for file_name in config.context_files
-          %}
-          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
-            <div class="flex">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-5 w-5 text-blue-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div class="ml-3 flex items-center gap-3">
-                <p class="text-sm text-blue-700">
-                  Using context from file: {{ file_name }}
-                </p>
-                <a
-                  href="/download_file/{{ config.file_ids[loop.index0] }}"
-                  class="text-blue-700 hover:text-blue-900"
-                >
-                  <svg
-                    class="w-4 h-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                    />
-                  </svg>
-                </a>
-              </div>
+          <main id="main" class="flex flex-col h-full">
+            {% if config.messages|length == 0 %}
+            <!-- Show prompts and history first in a fresh chat -->
+            <div id="selected_prompts_container" class="flex-1">
+              {% include '/chat/chat_prompts.html' %}
             </div>
-          </div>
-          {% endfor %} {% endif %}
-          <main id="main">
-            <div id="chat_messages_container" class="{% if config.messages|length > 0 %}pb-40{% else %}pb-10{% endif %}">
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            {% else %}
+            <!-- Show messages first in an existing chat -->
+            <div id="chat_messages_container" class="pb-40">
               {% include '/chat/chat_messages.html' %}
             </div>
             <div id="selected_prompts_container">
               {% include '/chat/chat_prompts.html' %}
             </div>
+            {% endif %}
+
             <div id="chat_history_container" class="hidden"></div>
             <div id="prompts_container" class="hidden"></div>
             <div id="create_prompt_container" class="hidden"></div>
@@ -792,6 +757,53 @@ module.exports = {
             {% include '/chat/user_message_template.html' %}
           </template>
 
+          <!-- File Banner Template -->
+          <template id="file-banner-template">
+            <div class="mb-6">
+              <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg
+                      class="h-5 w-5 text-blue-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex items-center gap-3">
+                    <p class="text-sm text-blue-700">
+                      Using context from file: <span class="filename"></span>
+                    </p>
+                    <a
+                      href="#"
+                      class="download-link text-blue-700 hover:text-blue-900"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+
           <template id="code_template">
             {% include '/chat/code_block_template.html' %}
           </template>
@@ -800,15 +812,16 @@ module.exports = {
     </section>
 
     <script>
-      var systemMessage = "{{ config.system_message }}";
-      var welcomeMessage = "{{ config.welcome_message }}";
-      var username = "{{ config.username }}";
-      var chat_started = "{{ config.chat_started }}";
-      var use_prompt_template = "{{config.use_prompt_template}}";
+      // Global variables
+      const messages = {{ config.messages | tojson | safe }};
+      const systemMessage = {{ config.system_message|tojson }};
+      const welcomeMessage = {{ config.welcome_message|tojson }};
+      const models = {{ config.models | tojson | safe}};
+      const use_prompt_template = {{ config.use_prompt_template|tojson }};
+      const username = {{ config.username|tojson }};
+      const chat_started = {{ config.chat_started|tojson }};
 
-      var messages = {{ config.messages | tojson | safe }};
-      var models = {{ config.models | tojson | safe}};
-
+      // Model selection
       var selected_model = models[0]['model'];
       var selected_model_name = models[0]['name'];
       var selectedModelElement = document.getElementById('selected_model');
@@ -856,7 +869,6 @@ module.exports = {
     </script>
 
     <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
-
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
   </body>
 </html>
@@ -906,7 +918,7 @@ for i in range(1, 20):
 ```
 <!-- Sticky Navigation -->
 <nav
-  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm overflow-y-scroll"
+  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm"
 >
   <div class="navbar-start">
     <a
@@ -971,16 +983,24 @@ for i in range(1, 20):
   class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body px-2 pt-4 bg-white h-full flex flex-col">
+  <div
+    class="drawer-body px-2 pt-4 bg-white h-full flex flex-col overflow-y-auto"
+  >
     <ul class="menu space-y-0.5 p-0 flex-1">
       <li>
-        <a href="{{ url_for('index') }}">
+        <a
+          href="{{ url_for('index') }}"
+          class="flex items-center gap-2 px-4 py-2"
+        >
           <span class="icon-[tabler--dashboard] size-5"></span>
           Dashboard
         </a>
       </li>
       <li>
-        <a href="{{ url_for('dms_chat.chat') }}">
+        <a
+          href="{{ url_for('dms_chat.chat') }}"
+          class="flex items-center gap-2 px-4 py-2"
+        >
           <span class="icon-[tabler--message] size-5"></span>
           Chat
         </a>
@@ -1002,17 +1022,22 @@ for i in range(1, 20):
         </button>
         <div
           id="prompts-collapse-content"
-          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
           aria-labelledby="prompts-collapse"
         >
-          <ul class="menu space-y-0.5 pl-6" id="prompts-list">
-            <li>
-              <a href="{{ url_for('list', name='prompts') }}" class="text-sm">
-                View All Prompts
-              </a>
-            </li>
-            <!-- Latest prompts will be inserted here -->
-          </ul>
+          <div class="py-1">
+            <ul class="menu space-y-0.5 pl-6 w-full" id="prompts-list">
+              <li class="w-full">
+                <a
+                  href="{{ url_for('list', name='prompts') }}"
+                  class="text-sm view-all truncate w-full"
+                >
+                  View All Prompts
+                </a>
+              </li>
+              <!-- Latest prompts will be inserted here -->
+            </ul>
+          </div>
         </div>
       </li>
       <li>
@@ -1032,17 +1057,22 @@ for i in range(1, 20):
         </button>
         <div
           id="history-collapse-content"
-          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
           aria-labelledby="history-collapse"
         >
-          <ul class="menu space-y-0.5 pl-6" id="history-list">
-            <li>
-              <a href="{{ url_for('list', name='history') }}" class="text-sm">
-                View All History
-              </a>
-            </li>
-            <!-- Latest history entries will be inserted here -->
-          </ul>
+          <div class="py-1">
+            <ul class="menu space-y-0.5 pl-6 w-full" id="history-list">
+              <li class="w-full">
+                <a
+                  href="{{ url_for('list', name='history') }}"
+                  class="text-sm view-all truncate w-full"
+                >
+                  View All History
+                </a>
+              </li>
+              <!-- Latest history entries will be inserted here -->
+            </ul>
+          </div>
         </div>
       </li>
     </ul>
@@ -1063,63 +1093,166 @@ for i in range(1, 20):
 </aside>
 
 <script>
-  // Function to fetch and update nav items
-  async function updateNavItems() {
-    try {
-      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
-      const data = await response.json();
+  // Add error notification function
+  function showErrorNotification(message) {
+    console.error(message);
+  }
 
-      // Clear existing items first
-      const promptsList = document.getElementById("prompts-list");
-      const historyList = document.getElementById("history-list");
+  // Function to format date
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
 
-      // Keep the "View All" links
-      const promptsViewAll = promptsList.firstElementChild;
-      const historyViewAll = historyList.firstElementChild;
-
-      promptsList.innerHTML = "";
-      historyList.innerHTML = "";
-
-      // Add back the "View All" links
-      promptsList.appendChild(promptsViewAll);
-      historyList.appendChild(historyViewAll);
-
-      // Update prompts list
-      data.prompts.forEach((prompt) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <div class="flex items-center justify-between">
-            <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
-              ${prompt.name}
-            </a>
-            <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
-              <span class="icon-[tabler--edit] size-4"></span>
-            </a>
-          </div>
-        `;
-        promptsList.appendChild(li);
-      });
-
-      // Update history list
-      data.history.forEach((item) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <a href="/chat/history/${item._id.$oid}" class="text-sm truncate">
-            ${item.first_message || "Untitled Chat"}
-          </a>
-        `;
-        historyList.appendChild(li);
-      });
-    } catch (error) {
-      console.error("Error fetching nav items:", error);
+    if (diffMins < 1) {
+      return "just now";
+    } else if (diffMins < 60) {
+      return `${diffMins}m ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours}h ago`;
+    } else if (diffDays === 1) {
+      return "yesterday";
+    } else if (diffDays < 7) {
+      return `${diffDays}d ago`;
+    } else {
+      return date.toLocaleDateString();
     }
   }
 
-  // Update nav items when the page loads
+  // Function to create consistent history item HTML
+  function createHistoryItemHTML(id, firstMessage, timeAgo) {
+    return `
+      <div class="flex items-center gap-2 w-full pr-2">
+        <a href="/chat/history/${id}" class="text-sm flex-1 min-w-0 truncate">
+          ${firstMessage || "Untitled Chat"}
+        </a>
+        <span class="text-xs text-gray-500 whitespace-nowrap shrink-0">${timeAgo}</span>
+      </div>
+    `;
+  }
+
+  // Function to fetch and update nav items with improved error handling
+  async function updateNavItems() {
+    try {
+      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
+      if (!response.ok) {
+        throw new Error(`Failed to fetch nav items: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Received history items:", data.history.length); // Debug log
+
+      // Validate data structure
+      if (
+        !data ||
+        !Array.isArray(data.prompts) ||
+        !Array.isArray(data.history)
+      ) {
+        throw new Error("Invalid navigation data structure");
+      }
+
+      // Update prompts list
+      const promptsList = document.getElementById("prompts-list");
+      if (promptsList) {
+        // Preserve view-all link
+        const viewAllLink =
+          promptsList.querySelector(".view-all")?.parentElement;
+        promptsList.innerHTML = "";
+        if (viewAllLink) {
+          promptsList.appendChild(viewAllLink);
+        }
+
+        // Add prompts with error handling
+        data.prompts.forEach((prompt) => {
+          try {
+            if (!prompt?._id?.$oid || !prompt?.name) {
+              console.warn("Invalid prompt data:", prompt);
+              return;
+            }
+
+            const li = document.createElement("li");
+            li.className = "w-full";
+            li.innerHTML = `
+              <div class="flex items-center gap-2 w-full pr-2">
+                <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm flex-1 min-w-0 truncate">
+                  ${prompt.name}
+                </a>
+                <a href="/d/prompt/${prompt._id.$oid}" class="text-sm shrink-0">
+                  <span class="icon-[tabler--edit] size-4"></span>
+                </a>
+              </div>
+            `;
+            promptsList.appendChild(li);
+          } catch (itemError) {
+            console.warn("Error adding prompt item:", itemError);
+          }
+        });
+      }
+
+      // Update history list
+      const historyList = document.getElementById("history-list");
+      if (historyList) {
+        // Preserve view-all link
+        const viewAllLink =
+          historyList.querySelector(".view-all")?.parentElement;
+        historyList.innerHTML = "";
+        if (viewAllLink) {
+          historyList.appendChild(viewAllLink);
+        }
+
+        // Add history items with error handling
+        data.history.forEach((item) => {
+          try {
+            if (!item?._id?.$oid) {
+              console.warn("Invalid history item data:", item);
+              return;
+            }
+
+            const modifiedDate = item.modified_date?.$date
+              ? new Date(item.modified_date.$date)
+              : null;
+            const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
+
+            const li = document.createElement("li");
+            li.className = "w-full";
+            li.innerHTML = createHistoryItemHTML(
+              item._id.$oid,
+              item.first_message,
+              timeAgo,
+            );
+            historyList.appendChild(li);
+          } catch (itemError) {
+            console.warn("Error adding history item:", itemError);
+          }
+        });
+
+        console.log("Added history items:", historyList.children.length - 1); // Debug log (-1 for View All link)
+      }
+    } catch (error) {
+      console.error("Error updating navigation:", error);
+      showErrorNotification(
+        "Failed to update navigation. Please refresh the page.",
+      );
+    }
+  }
+
+  // Initialize nav items when the page loads
   document.addEventListener("DOMContentLoaded", updateNavItems);
 
-  // Update nav items every 30 seconds
-  setInterval(updateNavItems, 30000);
+  // Update nav items periodically with a debounce
+  let updateTimeout = null;
+  function debouncedUpdate() {
+    if (updateTimeout) {
+      clearTimeout(updateTimeout);
+    }
+    updateTimeout = setTimeout(updateNavItems, 500);
+  }
+
+  // Update every 30 seconds, but use debouncing to prevent overlapping calls
+  setInterval(debouncedUpdate, 30000);
 </script>
 ```
 
@@ -2037,8 +2170,6 @@ document.querySelectorAll('.delete_file').forEach(button => {
     });
 });
 ```
-
-# core
 
 ## auth.py
 
@@ -3081,14 +3212,19 @@ class AuditMixin:
     modified_by = StringField()
 
     def save(self, *args, **kwargs):
+        try:
+            user = current_user.get_id() if current_user and current_user.is_authenticated else 'system'
+        except:
+            user = 'system'
+            
         if not self.id:
             # Document is being created
             self.created_date = datetime.datetime.now()
-            self.created_by = current_user.get_id() if current_user.is_authenticated else 'system'
+            self.created_by = user
         
         # Always update modified info on save
         self.modified_date = datetime.datetime.now()
-        self.modified_by = current_user.get_id() if current_user.is_authenticated else 'system'
+        self.modified_by = user
         
         return super().save(*args, **kwargs)
 
@@ -3162,7 +3298,7 @@ def getDefaults(name):
     else:
         return None
 
-class User(DynamicDocument, UserMixin, AuditMixin):
+class User(AuditMixin, DynamicDocument, UserMixin):
     firstname = StringField()
     name = StringField()
     email = StringField()
@@ -3192,7 +3328,7 @@ class User(DynamicDocument, UserMixin, AuditMixin):
     def get_id(self):
         return str(self.email)
 
-class File(DynamicDocument, AuditMixin):
+class File(AuditMixin, DynamicDocument):
     name = StringField(required=True,min_length=4)
     meta = {'queryset_class': CustomQuerySet}
     def searchFields(self):
@@ -3209,7 +3345,7 @@ class File(DynamicDocument, AuditMixin):
     def to_json(self):
         return mongoToJson(self)
 
-class Filter(DynamicDocument, AuditMixin):
+class Filter(AuditMixin, DynamicDocument):
     name = StringField(required=True,min_length=4)
     meta = {'queryset_class': CustomQuerySet}
     def searchFields(self):
@@ -3228,7 +3364,7 @@ class Filter(DynamicDocument, AuditMixin):
 #example of a DynamicDocument with all available fields
 #fields are then used in the form_elements.html to create the form
 #the fields are then used in the db_crud.py to create the document
-class Example(DynamicDocument, AuditMixin):
+class Example(AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     email = StringField(required=True, min_length=1)
     salutation = StringField(default='')
@@ -3317,7 +3453,7 @@ class Example(DynamicDocument, AuditMixin):
 
 #AI Documents
 #AI Chat Bot Code
-class Model(DynamicDocument, AuditMixin):
+class Model(AuditMixin, DynamicDocument):
     provider = StringField(required=True, min_length=1)
     model = StringField(required=True, min_length=1)
     name = StringField(required=True, min_length=1)
@@ -3339,7 +3475,7 @@ class Model(DynamicDocument, AuditMixin):
     def to_json(self):
         return mongoToJson(self)
 
-class History(DynamicDocument, AuditMixin):
+class History(AuditMixin, DynamicDocument):
     username = StringField()
     chat_started = IntField()
     messages = StringField()
@@ -3357,7 +3493,7 @@ class History(DynamicDocument, AuditMixin):
             return [link,first_message]
         return [username,first_message,chat_started, messages,link]
         
-class Prompt(DynamicDocument, AuditMixin):
+class Prompt(AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     welcome_message = StringField(required=True, min_length=1)
     system_message = StringField(required=True, min_length=1)
@@ -3683,8 +3819,6 @@ def getDocument(id, document, collection):
         return {'status': 'error', 'message': f'Error retrieving document: {str(e)}'}
 ```
 
-# ai
-
 ## ai_search.py
 
 ```
@@ -3830,16 +3964,30 @@ def chat(prompt_id=None, history_id=None):
                 config['using_context'] = True
                 config['context_files'] = [f['name'] for f in files]
                 config['file_ids'] = [f['_id']['$oid'] for f in files]
-        #    prompt['system_message'] = context['data']
+
         config['messages'] = []
-        config['messages'].append({
+        
+        # Add system message with file attachments if files exist
+        system_message = {
             'role': 'system',
             'content': prompt['system_message']
-        })
+        }
+        if files:
+            system_message['attachments'] = [{
+                'type': 'file',
+                'id': f['_id']['$oid'],
+                'name': f['name'],
+                'file_type': f['file_type'],
+                'timestamp': int(time.time())
+            } for f in files]
+        config['messages'].append(system_message)
+        
+        # Add user prompt message
         config['messages'].append({
             'role': 'user',
             'content': prompt['prompt']
         })
+        
         config['use_prompt_template'] = 'True'
         config['welcome_message'] = prompt['welcome_message']
 
@@ -3873,25 +4021,40 @@ def save_chat():
     username = request.form.get('username')
     chat_started = request.form.get('chat_started')
     messages = request.form.get('messages')
+    first_message = None
 
-    chat_history = History.objects(username=username,
-                                   chat_started=chat_started)
+    # Extract first user message for display
+    for msg in json.loads(messages):
+        if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
+            first_message = msg['content']
+            break
+
+    chat_history = History.objects(username=username, chat_started=chat_started)
     if len(chat_history) == 1:
         chat_history = chat_history[0]
         chat_history.messages = messages
+        if first_message:
+            chat_history.first_message = first_message
         chat_history.save()
-        return 'Chat aktualisiert!'
+        return jsonify({
+            'status': 'updated',
+            'message': 'Chat updated successfully',
+            'chat_id': str(chat_history.id),
+            'first_message': first_message or "Untitled Chat"
+        })
     else:
         chat_history = History()
         chat_history.username = username
         chat_history.chat_started = chat_started
         chat_history.messages = messages
-        for msg in json.loads(messages):
-            if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
-                chat_history.first_message = msg['content']
-                break
+        chat_history.first_message = first_message or "Untitled Chat"
         chat_history.save()
-        return 'Neuer Chat erstellt!'
+        return jsonify({
+            'status': 'created',
+            'message': 'New chat created successfully',
+            'chat_id': str(chat_history.id),
+            'first_message': first_message or "Untitled Chat"
+        })
 
 
 # @dms_chat.route('/chat/list_chat_history', methods=['GET'])
@@ -3913,11 +4076,24 @@ def upload_chat_file():
         return jsonify({'status': 'error', 'message': 'No file part'})
     
     result = upload_file(request.files['file'])
+    
+    if result['status'] == 'ok':
+        # Add file metadata to the response
+        result['attachment'] = {
+            'type': 'file',
+            'id': result['file_id'],
+            'name': result['filename'],
+            'file_type': result['file_type'],
+            'timestamp': int(time.time())
+        }
+        
     return jsonify(result)
 
 @dms_chat.route('/nav_items', methods=['GET'])
 def get_nav_items():
-    history = History.objects().order_by('-id').limit(5)
+    # Get latest history items for current user only, ordered by last modified date
+    history = History.objects(username=current_user.email).order_by('-modified_date', '-id').limit(15)
+    # Get latest prompts
     prompts = Prompt.objects().order_by('-id').limit(5)
     
     return jsonify({
@@ -4198,7 +4374,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ai.ai_llm_helper import llm_call
-from core.db_document import History, Prompt
+from core.db_document import History, Prompt, File, Model, Example
 
 messages = [
     {"role": "system", "content": "Du bist ein hilfreicher Assistent"},
@@ -4212,6 +4388,7 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 
 History.objects().delete()
 Prompt.objects().delete()
+File.objects().delete()
 ```
 
 # config
@@ -4259,5 +4436,873 @@ Prompt.objects().delete()
     }
   }
 }
+```
+
+## chat/chat_core.js
+
+```
+let isInCodeBlock = false;
+let currentCodeElement = null;
+let stop_stream = false;
+let uploadedFilesCount = 0;
+let currentMessageAttachments = [];
+let displayedFileIds = new Set(); // Track which files we've already displayed
+
+// Add a flag to track nav update status
+let isNavUpdateInProgress = false;
+
+function appendCodeBlock(container, codeContent) {
+  const codeElement = createCodeElement();
+  const preElement = codeElement.querySelector("pre");
+  const languageInfoElement = codeElement.querySelector(".language-info");
+
+  const lines = codeContent.split("\n");
+  const language = lines[0].trim();
+  const code = lines.slice(1).join("\n").trim();
+
+  if (language) {
+    languageInfoElement.textContent = language;
+  }
+  preElement.textContent = code;
+
+  container.appendChild(codeElement);
+}
+
+function createCodeElement() {
+  const template = document.getElementById("code_template");
+  if (!template) {
+    console.error("Code template not found");
+    return document.createElement("div");
+  }
+  const codeElement = template.content
+    .cloneNode(true)
+    .querySelector(".flex.flex-col.w-full");
+
+  const copyButton = codeElement.querySelector(".copy-btn");
+  const copiedInfo = codeElement.querySelector(".copied");
+  const preElement = codeElement.querySelector("pre");
+
+  copyButton.onclick = () => {
+    copiedInfo.classList.remove("hidden");
+    navigator.clipboard
+      .writeText(preElement.textContent)
+      .then(() => {
+        console.log("Text copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text:", err);
+      });
+    setTimeout(() => copiedInfo.classList.add("hidden"), 500);
+  };
+
+  return codeElement;
+}
+
+function initChatMessages() {
+  // Clear displayed files when initializing
+  displayedFileIds.clear();
+
+  if (messages.length === 0) {
+    messages = [{ role: "system", content: systemMessage }];
+
+    // Add welcome message only after DOM is loaded
+    const addWelcomeMessage = () => {
+      const chatMessages = document.getElementById("chat_messages");
+      if (!chatMessages) return; // Guard against missing element
+
+      const template = document
+        .getElementById("bot-message-template")
+        .content.cloneNode(true);
+      const contentElement = template.querySelector(".content");
+      contentElement.textContent = welcomeMessage;
+
+      // Remove the bottom margin from the outer div
+      const outerDiv = template.querySelector(".flex.space-x-4");
+      outerDiv.classList.remove("mb-6");
+
+      chatMessages.appendChild(template);
+
+      // Focus input after adding welcome message
+      const chatInput = document.getElementById("chat_input");
+      if (chatInput) chatInput.focus();
+    };
+
+    // If DOM is already loaded, add welcome message immediately
+    if (document.readyState === "complete") {
+      addWelcomeMessage();
+    } else {
+      // Otherwise wait for DOM to load
+      document.addEventListener("DOMContentLoaded", addWelcomeMessage);
+    }
+  } else {
+    if (use_prompt_template == "True") {
+      // Display file banners first if they exist in the system message
+      if (messages[0].attachments && messages[0].attachments.length > 0) {
+        const chatMessages = document.getElementById("chat_messages");
+        for (const attachment of messages[0].attachments) {
+          if (attachment.type === "file") {
+            displayFileBanner(attachment.name, attachment.id, chatMessages);
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+        addBotMessage(welcomeMessage);
+      });
+      let chat_input_ui = document.getElementById("chat_input");
+      chat_input_ui.textContent = messages[1]["content"];
+      chat_input_ui.focus();
+      messages.splice(1, 1);
+      console.log(messages);
+    } else {
+      // Display messages and their attachments
+      for (const message of messages) {
+        // Display attachments if they exist
+        if (message.attachments && message.attachments.length > 0) {
+          const chatMessages = document.getElementById("chat_messages");
+          for (const attachment of message.attachments) {
+            if (attachment.type === "file") {
+              displayFileBanner(attachment.name, attachment.id, chatMessages);
+            }
+          }
+        }
+
+        // Display the message content
+        if (message["role"] === "assistant") {
+          const botMessageElement = addBotMessage("");
+          appendData(message["content"], botMessageElement);
+        } else if (message["role"] === "user") {
+          addUserMessage(message["content"]);
+        }
+      }
+      document.getElementById("chat_messages").focus();
+    }
+  }
+}
+
+// Initialize chat when DOM is ready
+if (document.readyState === "complete") {
+  initChatMessages();
+  updateNavItems(); // Initial update
+} else {
+  document.addEventListener("DOMContentLoaded", () => {
+    initChatMessages();
+    updateNavItems(); // Initial update
+  });
+}
+
+// Update nav items periodically
+setInterval(updateNavItems, 30000);
+
+function appendImage(container, imageData) {
+  const img = document.createElement("img");
+  img.src = imageData.image_url.url;
+  img.className = "w-16 h-auto rounded-lg";
+  container.appendChild(img);
+}
+
+function appendData(text, botMessageElement) {
+  if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(botMessageElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(botMessageElement, item);
+      }
+    });
+    return;
+  }
+
+  const codeRegex = /```([\s\S]*?)```/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = codeRegex.exec(text)) !== null) {
+    // Append text before code block
+    if (match.index > lastIndex) {
+      appendNormalText(botMessageElement, text.slice(lastIndex, match.index));
+    }
+
+    // Handle code block
+    const codeContent = match[1];
+    appendCodeBlock(botMessageElement, codeContent);
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Append any remaining text after the last code block
+  if (lastIndex < text.length) {
+    appendNormalText(botMessageElement, text.slice(lastIndex));
+  }
+}
+
+// Function to format date
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now - date;
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMins / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffMins < 1) {
+    return "just now";
+  } else if (diffMins < 60) {
+    return `${diffMins}m ago`;
+  } else if (diffHours < 24) {
+    return `${diffHours}h ago`;
+  } else if (diffDays === 1) {
+    return "yesterday";
+  } else if (diffDays < 7) {
+    return `${diffDays}d ago`;
+  } else {
+    return date.toLocaleDateString();
+  }
+}
+
+// Function to create consistent history item HTML
+function createHistoryItemHTML(id, firstMessage, timeAgo) {
+  return `
+    <div class="flex items-center gap-2 w-full">
+      <a href="/chat/history/${id}" class="text-sm line-clamp-2 flex-1">
+        ${firstMessage || "Untitled Chat"}
+      </a>
+      <span class="text-xs text-gray-500 whitespace-nowrap">${timeAgo}</span>
+    </div>
+  `;
+}
+
+async function saveChatData(messages) {
+  // Get CSRF token from meta tag
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute("content");
+
+  // Prepare form data
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("chat_started", chat_started);
+  formData.append("messages", JSON.stringify(messages));
+
+  const url = `${window.location.origin}/chat/save_chat`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrfToken,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to save chat data");
+    }
+
+    const result = await response.json();
+    console.log("Chat data saved successfully:", result);
+
+    // Immediately update the history list with the new/updated chat
+    const historyList = document.getElementById("history-list");
+    if (historyList && result.chat_id && result.first_message) {
+      // Get fresh nav items to ensure correct ordering
+      try {
+        const navResponse = await fetch("/chat/nav_items");
+        if (!navResponse.ok) {
+          throw new Error("Failed to fetch nav items");
+        }
+        const navData = await navResponse.json();
+
+        // Update history list with fresh data
+        if (navData.history && Array.isArray(navData.history)) {
+          // Preserve "View All" link
+          const viewAllLink =
+            historyList.querySelector(".view-all")?.parentElement;
+          historyList.innerHTML = "";
+          if (viewAllLink) {
+            historyList.appendChild(viewAllLink);
+          }
+
+          // Add history items in correct order
+          navData.history.forEach((item) => {
+            try {
+              if (!item?._id?.$oid) {
+                console.warn("Invalid history item data:", item);
+                return;
+              }
+
+              const modifiedDate = item.modified_date?.$date
+                ? new Date(item.modified_date.$date)
+                : null;
+              const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
+
+              const li = document.createElement("li");
+              li.className = "w-full";
+              li.innerHTML = createHistoryItemHTML(
+                item._id.$oid,
+                item.first_message,
+                timeAgo,
+              );
+              historyList.appendChild(li);
+            } catch (itemError) {
+              console.warn("Error adding history item:", itemError);
+            }
+          });
+        }
+      } catch (navError) {
+        console.warn("Failed to update nav items:", navError);
+        // Fallback: just update the current item
+        const existingItem = historyList.querySelector(
+          `a[href*="${result.chat_id}"]`,
+        )?.parentElement;
+        if (existingItem) {
+          existingItem.querySelector("a").textContent = result.first_message;
+          // Move to top (after "View All" link)
+          const viewAllLink =
+            historyList.querySelector(".view-all")?.parentElement;
+          if (viewAllLink && viewAllLink.nextSibling) {
+            historyList.insertBefore(existingItem, viewAllLink.nextSibling);
+          }
+        } else {
+          // Create new history item at top
+          const li = document.createElement("li");
+          li.className = "w-full";
+          li.innerHTML = createHistoryItemHTML(
+            result.chat_id,
+            result.first_message,
+            "just now",
+          );
+          const viewAllLink =
+            historyList.querySelector(".view-all")?.parentElement;
+          if (viewAllLink) {
+            historyList.insertBefore(li, viewAllLink.nextSibling);
+          } else {
+            historyList.insertBefore(li, historyList.firstChild);
+          }
+        }
+      }
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Error saving chat data:", error);
+    throw error;
+  }
+}
+
+// Function to update nav items with debouncing and race condition prevention
+async function updateNavItems() {
+  // If an update is already in progress, skip this one
+  if (isNavUpdateInProgress) {
+    console.log("Nav update already in progress, skipping...");
+    return;
+  }
+
+  isNavUpdateInProgress = true;
+
+  try {
+    const response = await fetch("/chat/nav_items");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    // Validate data structure
+    if (!data || !Array.isArray(data.prompts) || !Array.isArray(data.history)) {
+      throw new Error("Invalid navigation data structure");
+    }
+
+    // Update prompts list
+    const promptsList = document.getElementById("prompts-list");
+    if (promptsList) {
+      // Safely preserve "View All" link
+      const promptsViewAll =
+        promptsList.querySelector(".view-all")?.parentElement;
+      promptsList.innerHTML = "";
+      if (promptsViewAll) {
+        promptsList.appendChild(promptsViewAll);
+      }
+
+      // Add prompts with error handling for each item
+      data.prompts.forEach((prompt) => {
+        try {
+          if (!prompt?._id?.$oid || !prompt?.name) {
+            console.warn("Invalid prompt data:", prompt);
+            return;
+          }
+
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <div class="flex items-center justify-between">
+              <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
+                ${prompt.name}
+              </a>
+              <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
+                <span class="icon-[tabler--edit] size-4"></span>
+              </a>
+            </div>
+          `;
+          promptsList.appendChild(li);
+        } catch (itemError) {
+          console.warn("Error adding prompt item:", itemError);
+        }
+      });
+    }
+
+    // Update history list
+    const historyList = document.getElementById("history-list");
+    if (historyList) {
+      // Safely preserve "View All" link
+      const historyViewAll =
+        historyList.querySelector(".view-all")?.parentElement;
+      historyList.innerHTML = "";
+      if (historyViewAll) {
+        historyList.appendChild(historyViewAll);
+      }
+
+      // Add history items with error handling for each item
+      data.history.forEach((item) => {
+        try {
+          if (!item?._id?.$oid) {
+            console.warn("Invalid history item data:", item);
+            return;
+          }
+
+          const modifiedDate = item.modified_date?.$date
+            ? new Date(item.modified_date.$date)
+            : null;
+          const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
+
+          const li = document.createElement("li");
+          li.className = "w-full";
+          li.innerHTML = createHistoryItemHTML(
+            item._id.$oid,
+            item.first_message,
+            timeAgo,
+          );
+          historyList.appendChild(li);
+        } catch (itemError) {
+          console.warn("Error adding history item:", itemError);
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Error updating navigation:", error);
+    throw error;
+  } finally {
+    isNavUpdateInProgress = false;
+  }
+}
+
+async function stopStreaming() {
+  // Set the flag to true to stop streaming
+  stop_stream = true;
+}
+
+function appendNormalText(container, text) {
+  const textNode = document.createTextNode(text);
+  container.appendChild(textNode);
+}
+
+function appendCodeText(container, text) {
+  // Get the template and clone its content
+  const template = document
+    .getElementById("code_template")
+    .content.cloneNode(true);
+
+  const lines = text.split("\n");
+  const language = lines[0].trim(); // Get the language info from the first line
+  console.log(`Code block language: ${language}`); // Log the language info
+
+  // Remove the first line (language info) and join the rest back into a single string
+  const codeWithoutLanguageInfo = lines.slice(1).join("\n").trim();
+
+  // Set the text content of the pre element
+  const preElement = template.querySelector("pre");
+  preElement.textContent = codeWithoutLanguageInfo;
+
+  // Append the filled template to the specified container
+  const importedNode = document.importNode(template, true);
+
+  if (language) {
+    // Check if the language string is not empty
+    const languageInfoElement = importedNode.querySelector(".language-info");
+    languageInfoElement.textContent = `${language}`; // Set the language info
+  }
+
+  // IMPORTANT: Add the event listener to the COPY button of this specific instance BEFORE appending to the container
+  const copyButton = importedNode.querySelector(".copy-btn");
+  const copiedInfo = importedNode.querySelector(".copied");
+  copyButton.onclick = (event) => {
+    // It's better to use onclick here to avoid multiple bindings
+    copiedInfo.classList.remove("hidden");
+    navigator.clipboard
+      .writeText(preElement.textContent)
+      .then(() => {
+        console.log("Text copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text:", err);
+      });
+    setTimeout(function () {
+      copiedInfo.classList.add("hidden");
+    }, 500);
+  };
+
+  container.appendChild(importedNode);
+}
+
+async function streamMessage() {
+  const chatInput = document.getElementById("chat_input");
+  const userMessage = chatInput.value.trim();
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute("content");
+
+  if (userMessage === "") return;
+
+  // Remove prompts div if it exists
+  const promptsDiv = document.getElementById("prompts");
+  if (promptsDiv) promptsDiv.remove();
+
+  // Create message object with attachments
+  const messageObj = {
+    role: "user",
+    content: userMessage,
+  };
+
+  // Add attachments if any exist
+  if (currentMessageAttachments.length > 0) {
+    messageObj.attachments = [...currentMessageAttachments];
+    currentMessageAttachments = []; // Clear for next message
+  }
+
+  messages.push(messageObj);
+  addUserMessage(userMessage); // Display the user message in the chat
+  chatInput.value = ""; // Clear the input field after sending the message
+
+  toggleButtonVisibility();
+  stop_stream = false;
+  chatInput.readOnly = true;
+
+  // Instantly add a bot message template to be filled with streamed content
+  const botMessageElement = addBotMessage("..."); // Initially empty
+  let accumulatedResponse = ""; // Variable to accumulate the streamed response
+
+  try {
+    let current_model = models[0];
+    for (let i = 0; i < models.length; i++) {
+      if (selected_model == models[i]["model"]) {
+        current_model = models[i];
+      }
+    }
+    const response = await fetch("/chat/stream", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
+      },
+      body: JSON.stringify({ messages: messages, model: current_model }),
+    });
+
+    if (!response.body) {
+      throw new Error("Failed to get a readable stream from the response");
+    }
+
+    const reader = response.body.getReader();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done || stop_stream) {
+        const stopIndexAccumulated = accumulatedResponse.indexOf("###STOP###");
+        if (stopIndexAccumulated !== -1) {
+          accumulatedResponse = accumulatedResponse.substring(
+            0,
+            stopIndexAccumulated,
+          );
+        }
+        botMessageElement.innerHTML = "";
+        appendData(accumulatedResponse, botMessageElement);
+        messages.push({ role: "assistant", content: accumulatedResponse });
+
+        try {
+          await saveChatData(messages);
+          console.log("Chat saved and nav updated successfully");
+        } catch (error) {
+          console.error("Failed to save chat or update nav:", error);
+        }
+
+        toggleButtonVisibility();
+        chatInput.readOnly = false;
+        break;
+      }
+      const text = new TextDecoder().decode(value);
+      const stopIndex = text.indexOf("###STOP###");
+
+      if (stopIndex !== -1) {
+        // Add the text before ###STOP### and then break
+        accumulatedResponse += text.substring(0, stopIndex);
+        botMessageElement.innerHTML = "";
+        appendData(accumulatedResponse, botMessageElement);
+        messages.push({ role: "assistant", content: accumulatedResponse });
+
+        try {
+          await saveChatData(messages);
+          console.log("Chat saved and nav updated successfully");
+        } catch (error) {
+          console.error("Failed to save chat or update nav:", error);
+        }
+
+        toggleButtonVisibility();
+        chatInput.readOnly = false;
+        break;
+      } else {
+        accumulatedResponse += text;
+      }
+
+      // Before updating, clear the existing content to avoid duplication
+      botMessageElement.innerHTML = "";
+      appendData(accumulatedResponse, botMessageElement);
+      scrollToBottom();
+    }
+  } catch (error) {
+    console.error("Streaming failed:", error);
+    botMessageElement.textContent = `Error occurred: ${error.message}`;
+    messages.push({
+      role: "assistant",
+      content: `Error occurred: ${error.message}`,
+    });
+
+    try {
+      await saveChatData(messages);
+    } catch (saveError) {
+      console.error("Failed to save error state:", saveError);
+    }
+
+    toggleButtonVisibility();
+    chatInput.readOnly = false;
+  }
+}
+
+function toggleButtonVisibility() {
+  const chatButton = document.getElementById("chat_button");
+  const stopButton = document.getElementById("stop_button");
+
+  chatButton.classList.toggle("hidden");
+  stopButton.classList.toggle("hidden");
+}
+
+function addBotMessage(text) {
+  const template = document
+    .getElementById("bot-message-template")
+    .content.cloneNode(true);
+  const contentElement = template.querySelector(".content");
+
+  if (text == "...") {
+    contentElement.innerHTML =
+      '<span class="loading loading-dots loading-xs"></span>';
+  } else if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(contentElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(contentElement, item);
+      }
+    });
+  } else {
+    contentElement.textContent = text;
+  }
+
+  document.getElementById("chat_messages").appendChild(template);
+  return contentElement;
+}
+
+function addUserMessage(text) {
+  const template = document
+    .getElementById("user-message-template")
+    .content.cloneNode(true);
+  const contentElement = template.querySelector(".content");
+
+  if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(contentElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(contentElement, item);
+      }
+    });
+  } else {
+    contentElement.textContent = text;
+  }
+
+  document.getElementById("chat_messages").appendChild(template);
+  scrollToBottom();
+}
+
+function scrollToBottom() {
+  setTimeout(() => {
+    const chatMessages = document.getElementById("chat_messages");
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }, 0); // Verzögerung von 0 ms, was den Effekt hat, die Ausführung bis nach dem Rendering zu verzögern
+}
+
+document.getElementById("chat_button").addEventListener("click", streamMessage);
+
+document
+  .getElementById("chat_input")
+  .addEventListener("keydown", function (event) {
+    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+      event.preventDefault();
+      streamMessage();
+    }
+  });
+
+document.getElementById("reset_button").addEventListener("click", function () {
+  displayedFileIds.clear();
+  window.location.href = "/chat";
+});
+
+document.getElementById("stop_button").addEventListener("click", stopStreaming);
+
+function createFileBanner(fileName, fileId) {
+  // If we've already displayed this file, don't create another banner
+  if (displayedFileIds.has(fileId)) {
+    return null;
+  }
+
+  const template = document.getElementById("file-banner-template");
+  if (!template) {
+    console.error("File banner template not found");
+    return document.createElement("div");
+  }
+
+  // Clone the template content
+  const fragment = template.content.cloneNode(true);
+
+  // Get the root element from the fragment
+  const banner = fragment.querySelector(".mb-6");
+
+  // Set the filename
+  banner.querySelector(".filename").textContent = fileName;
+
+  // Set the download link
+  const downloadLink = banner.querySelector(".download-link");
+  downloadLink.href = `/download_file/${fileId}`;
+
+  // Mark this file as displayed
+  displayedFileIds.add(fileId);
+
+  return banner;
+}
+
+function displayFileBanner(fileName, fileId, chatMessages) {
+  const banner = createFileBanner(fileName, fileId);
+  if (banner) {
+    chatMessages.appendChild(banner);
+    return banner;
+  }
+  return null;
+}
+
+document
+  .getElementById("file-upload")
+  .addEventListener("change", async function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const fileName = file.name;
+    document.getElementById("file-name-display").textContent = "Uploading...";
+
+    // Get CSRF token
+    const csrfToken = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute("content");
+
+    // Create FormData and append file
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/chat/upload", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrfToken,
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.status === "ok") {
+        console.log("File uploaded successfully");
+
+        // Store attachment for next message
+        if (result.attachment) {
+          currentMessageAttachments.push(result.attachment);
+        }
+
+        // Remove prompts div if it exists
+        const promptsDiv = document.getElementById("prompts");
+        if (promptsDiv) promptsDiv.remove();
+
+        // Add file banner after the last message
+        const chatMessages = document.getElementById("chat_messages");
+        const banner = displayFileBanner(
+          fileName,
+          result.file_id,
+          chatMessages,
+        );
+
+        // Only scroll if we actually added a new banner
+        if (banner) {
+          setTimeout(() => {
+            banner.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 100);
+        }
+
+        let userMessage;
+        if (
+          result.file_type &&
+          ["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())
+        ) {
+          userMessage = [
+            { type: "text", text: "Please analyze the following image:" },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:image/${result.file_type};base64,${result.base64_image}`,
+              },
+            },
+          ];
+          const messageObj = {
+            role: "user",
+            content: userMessage,
+            attachments: [result.attachment],
+          };
+          messages.push(messageObj);
+          addUserMessage(userMessage);
+          streamMessage();
+        } else {
+          userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
+          messages.push({
+            role: "system",
+            content: userMessage,
+            attachments: [result.attachment],
+          });
+        }
+
+        // Update display text
+        document.getElementById("file-name-display").textContent = "Upload";
+      } else {
+        console.error("Upload failed:", result.message);
+        document.getElementById("file-name-display").textContent =
+          "Upload failed: " + result.message;
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      document.getElementById("file-name-display").textContent =
+        "Upload error: " + error.message;
+    }
+  });
 ```
 
