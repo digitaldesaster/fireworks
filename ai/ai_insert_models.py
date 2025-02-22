@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import datetime
 
 # Add parent directory to Python path to find core module
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -19,12 +20,24 @@ models = [
    {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'},
    {'provider':'deepseek','model':'deepseek-chat','name':'deepseek-chat'},
    {'provider':'perplexity','model':'llama-3.1-sonar-large-128k-online','name':'perplexity-llama-3.1-online'},
-  
   ]
 
+# Delete existing models
 Model.objects.delete()
-for model_data in models:
-    model = Model(provider=model_data['provider'], model=model_data['model'], name=model_data['name'])
-    model.save()
 
-print("Models inserted successfully.")
+# Current timestamp for creation date
+now = datetime.datetime.now()
+
+# Insert models with only creation audit fields
+for model_data in models:
+    model = Model(
+        provider=model_data['provider'],
+        model=model_data['model'],
+        name=model_data['name'],
+        created_date=now,
+        created_by='system'
+    )
+    # Use save(force_insert=True) to ensure it's treated as a new document
+    model.save(force_insert=True)
+
+print("Models inserted successfully with creation audit fields.")

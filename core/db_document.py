@@ -2,8 +2,32 @@
 # -*- coding: utf-8 -*-
 from core.db_connect import *
 from bson import json_util
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from flask import url_for
+import datetime
+
+class AuditMixin:
+    created_date = DateTimeField(default=lambda: datetime.datetime.now())
+    created_by = StringField()
+    modified_date = DateTimeField()
+    modified_by = StringField()
+
+    def save(self, *args, **kwargs):
+        try:
+            user = current_user.get_id() if current_user and current_user.is_authenticated else 'system'
+        except:
+            user = 'system'
+            
+        if not self.id:
+            # Document is being created
+            self.created_date = datetime.datetime.now()
+            self.created_by = user
+        
+        # Always update modified info on save
+        self.modified_date = datetime.datetime.now()
+        self.modified_by = user
+        
+        return super().save(*args, **kwargs)
 
 #Date Fields must be named name_date, e.g. contact_date
 #This is to make sure that string dates like 01.01.2016 are saved as date objects
@@ -14,23 +38,21 @@ from flask import url_for
 #converts mongo to Json and formats _date properly
 def mongoToJson(document):
     data = document.to_mongo()
-    #format all _date fields
-
-    for key,value in data.items():
-        if key.find('_date') !=-1:
+    
+    # Format all date fields (including audit fields)
+    for key, value in data.items():
+        if key in ['created_date', 'modified_date'] or key.find('_date') != -1:
             try:
-                #print data[key]
                 data[key] = document[key].strftime('%d.%m.%Y %H:%M')
-                #print data[key]
             except:
                 pass
-        elif key.find('filter') !=-1:
+        elif key.find('filter') != -1:
             try:
-                i=0
+                i = 0
                 for filter in document[key]:
                     if '_date' in filter['field']:
                         data[key][i]['value'] = document[key][i]['value'].strftime('%d.%m.%Y')
-                    i=i+1
+                    i += 1
             except:
                 pass
 
@@ -77,15 +99,13 @@ def getDefaults(name):
     else:
         return None
 
-class User(DynamicDocument, UserMixin):
+class User(AuditMixin, DynamicDocument, UserMixin):
     firstname = StringField()
     name = StringField()
     email = StringField()
     pw_hash = StringField()
     role = StringField()
     csrf_token = StringField()
-    modified_by = StringField()
-    modified_date = DateTimeField()
     salutation = StringField()
     comment = StringField()
     meta = {
@@ -109,7 +129,7 @@ class User(DynamicDocument, UserMixin):
     def get_id(self):
         return str(self.email)
 
-class File(DynamicDocument):
+class File(AuditMixin, DynamicDocument):
     name = StringField(required=True,min_length=4)
     meta = {'queryset_class': CustomQuerySet}
     def searchFields(self):
@@ -125,7 +145,8 @@ class File(DynamicDocument):
         return [name]
     def to_json(self):
         return mongoToJson(self)
-class Filter(DynamicDocument):
+
+class Filter(AuditMixin, DynamicDocument):
     name = StringField(required=True,min_length=4)
     meta = {'queryset_class': CustomQuerySet}
     def searchFields(self):
@@ -144,7 +165,7 @@ class Filter(DynamicDocument):
 #example of a DynamicDocument with all available fields
 #fields are then used in the form_elements.html to create the form
 #the fields are then used in the db_crud.py to create the document
-class Example(DynamicDocument):
+class Example(AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     email = StringField(required=True, min_length=1)
     salutation = StringField(default='')
@@ -233,7 +254,7 @@ class Example(DynamicDocument):
 
 #AI Documents
 #AI Chat Bot Code
-class Model(DynamicDocument):
+class Model(AuditMixin, DynamicDocument):
     provider = StringField(required=True, min_length=1)
     model = StringField(required=True, min_length=1)
     name = StringField(required=True, min_length=1)
@@ -255,7 +276,7 @@ class Model(DynamicDocument):
     def to_json(self):
         return mongoToJson(self)
 
-class History(DynamicDocument):
+class History(AuditMixin, DynamicDocument):
     username = StringField()
     chat_started = IntField()
     messages = StringField()
@@ -273,7 +294,7 @@ class History(DynamicDocument):
             return [link,first_message]
         return [username,first_message,chat_started, messages,link]
         
-class Prompt(DynamicDocument):
+class Prompt(AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     welcome_message = StringField(required=True, min_length=1)
     system_message = StringField(required=True, min_length=1)

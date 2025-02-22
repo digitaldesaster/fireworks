@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Blueprint, request, render_template, Response, jsonify
 import time, sys, json
 from flask_wtf.csrf import CSRFProtect
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 # Append the db directory to the system path for module imports
 sys.path.append('db')
@@ -51,10 +51,11 @@ def getConfig():
 @dms_chat.route('/prompt/<prompt_id>')
 @dms_chat.route('/history/<history_id>')
 @dms_chat.route('/', methods=['GET', 'POST'])
+@login_required
 def chat(prompt_id=None, history_id=None):
     config = getConfig()
 
-    config['username'] = "alexander.fillips@gmail.com"
+    config['username'] = current_user.email
     config['chat_started'] = int(time.time())
     config['history'] = []
     config['latest_prompts'] = []
@@ -114,6 +115,7 @@ def stream():
 
 
 @dms_chat.route('/save_chat', methods=['POST'])
+@login_required
 def save_chat():
     username = request.form.get('username')
     chat_started = request.form.get('chat_started')

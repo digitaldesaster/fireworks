@@ -65,11 +65,7 @@ def createDocument(form_data, document, request=None):
             elif key != 'id':
                 document[key] = form_data[key]
 
-        # Set created info
-        document['created_date'] = datetime.datetime.now()
-        document['created_by'] = 'Admin'
-
-        # Save document first to get an ID
+        # Save document
         try:
             document.save()
             return {'status': 'ok', 'message': '', 'data': document.to_json()}
@@ -130,14 +126,6 @@ def updateDocument(form_data, document, collection):
                 document[key] = float(form_data[key].replace(',','.')) if form_data[key] else None
             else:
                 document[key] = form_data[key]
-
-        # Update modified info
-        try:
-            modified_by = 'Admin'
-            document['modified_date'] = datetime.datetime.now()
-            document['modified_by'] = modified_by
-        except:
-            return {'status': 'error', 'message': 'error setting modified info'}
 
         # Save document
         try:

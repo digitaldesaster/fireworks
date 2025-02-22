@@ -13,7 +13,11 @@
     <section class="flex-1 flex items-start overflow-y-auto lg:ml-64">
       <div class="px-4 md:px-10 w-full">
         <!-- Start coding here -->
+        {% if config.messages|length > 0 %}
         <div class="relative min-h-[calc(100vh-8rem)] pb-32">
+        {% else %}
+        <div class="relative min-h-[calc(100vh-8rem)]">
+        {% endif %}
           {% if config.using_context %} {% for file_name in config.context_files
           %}
           <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
@@ -59,7 +63,7 @@
           </div>
           {% endfor %} {% endif %}
           <main id="main">
-            <div id="chat_messages_container" class="pb-40">
+            <div id="chat_messages_container" class="{% if config.messages|length > 0 %}pb-40{% else %}pb-10{% endif %}">
               {% include '/chat/chat_messages.html' %}
             </div>
             <div id="selected_prompts_container">

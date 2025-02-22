@@ -6,7 +6,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ai.ai_llm_helper import llm_call
-from core.db_document import History
+from core.db_document import History, Prompt, File, Model, Example
 
 messages = [
     {"role": "system", "content": "Du bist ein hilfreicher Assistent"},
@@ -19,3 +19,7 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 #print(response)
 
 History.objects().delete()
+Prompt.objects().delete()
+File.objects().delete()
+Model.objects().delete()
+Example.objects().delete()

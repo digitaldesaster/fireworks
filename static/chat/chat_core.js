@@ -54,7 +54,17 @@ function initChatMessages() {
   if (messages.length === 0) {
     messages = [{ role: "system", content: systemMessage }];
     document.addEventListener("DOMContentLoaded", (event) => {
-      addBotMessage(welcomeMessage);
+      const template = document
+        .getElementById("bot-message-template")
+        .content.cloneNode(true);
+      const contentElement = template.querySelector(".content");
+      contentElement.textContent = welcomeMessage;
+
+      // Remove the bottom margin from the outer div
+      const outerDiv = template.querySelector(".flex.space-x-4");
+      outerDiv.classList.remove("mb-6");
+
+      document.getElementById("chat_messages").appendChild(template);
     });
     document.getElementById("chat_input").focus();
   } else {

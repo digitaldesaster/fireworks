@@ -1,4 +1,7 @@
-<nav class="navbar bg-base-100 flex items-center justify-between p-4">
+<!-- Sticky Navigation -->
+<nav
+  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm overflow-y-scroll"
+>
   <div class="navbar-start">
     <a
       href="{{ url_for('index') }}"
@@ -7,7 +10,43 @@
       Fireworks
     </a>
   </div>
-  <div class="navbar-end">
+  <div class="navbar-end flex items-center gap-2">
+    <!-- User Avatar Dropdown for Desktop -->
+    <div
+      class="dropdown relative inline-flex max-lg:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
+    >
+      <button
+        type="button"
+        class="dropdown-toggle avatar placeholder"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        aria-label="User menu"
+      >
+        <div class="bg-primary text-primary-content rounded-full w-10">
+          <span class="text-lg"
+            >{{ current_user.firstname[0] }}{{ current_user.name[0] }}</span
+          >
+        </div>
+      </button>
+      <ul
+        class="dropdown-menu dropdown-open:opacity-100 hidden min-w-48"
+        role="menu"
+      >
+        <div class="dropdown-header">
+          <h6 class="text-base-content/90 text-base">
+            {{ current_user.firstname }} {{ current_user.name }}
+          </h6>
+        </div>
+        <form action="{{ url_for('logout') }}" method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button type="submit" class="dropdown-item w-full text-left">
+            <span class="icon-[tabler--logout-2] size-5"></span>
+            Sign Out
+          </button>
+        </form>
+      </ul>
+    </div>
+    <!-- Mobile Menu Button -->
     <button
       type="button"
       class="btn btn-text max-lg:btn-square lg:hidden"
@@ -23,11 +62,11 @@
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-0 lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body px-2 pt-4 bg-white h-full">
-    <ul class="menu space-y-0.5 p-0">
+  <div class="drawer-body px-2 pt-4 bg-white h-full flex flex-col">
+    <ul class="menu space-y-0.5 p-0 flex-1">
       <li>
         <a href="{{ url_for('index') }}">
           <span class="icon-[tabler--dashboard] size-5"></span>
@@ -100,23 +139,20 @@
           </ul>
         </div>
       </li>
-
-      <div class="divider text-base-content/50 py-6 after:border-0">
-        Account
-      </div>
-      <li>
-        <form action="{{ url_for('logout') }}" method="post" class="w-full">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-          <button
-            type="submit"
-            class="w-full flex items-center gap-2 px-4 py-2"
-          >
-            <span class="icon-[tabler--logout-2] size-5"></span>
-            Sign Out
-          </button>
-        </form>
-      </li>
     </ul>
+    <!-- Mobile Sign Out at Bottom -->
+    <div class="mt-auto border-t border-base-200 pt-4 lg:hidden">
+      <form action="{{ url_for('logout') }}" method="post" class="w-full">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <button
+          type="submit"
+          class="btn btn-ghost w-full justify-start gap-2 text-error"
+        >
+          <span class="icon-[tabler--logout-2] size-5"></span>
+          Sign Out
+        </button>
+      </form>
+    </div>
   </div>
 </aside>
 

@@ -3070,8 +3070,27 @@ def upload_file(file, category='history'):
 # -*- coding: utf-8 -*-
 from core.db_connect import *
 from bson import json_util
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from flask import url_for
+import datetime
+
+class AuditMixin:
+    created_date = DateTimeField(default=lambda: datetime.datetime.now())
+    created_by = StringField()
+    modified_date = DateTimeField()
+    modified_by = StringField()
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            # Document is being created
+            self.created_date = datetime.datetime.now()
+            self.created_by = current_user.get_id() if current_user.is_authenticated else 'system'
+        
+        # Always update modified info on save
+        self.modified_date = datetime.datetime.now()
+        self.modified_by = current_user.get_id() if current_user.is_authenticated else 'system'
+        
+        return super().save(*args, **kwargs)
 
 #Date Fields must be named name_date, e.g. contact_date
 #This is to make sure that string dates like 01.01.2016 are saved as date objects
@@ -3082,23 +3101,21 @@ from flask import url_for
 #converts mongo to Json and formats _date properly
 def mongoToJson(document):
     data = document.to_mongo()
-    #format all _date fields
-
-    for key,value in data.items():
-        if key.find('_date') !=-1:
+    
+    # Format all date fields (including audit fields)
+    for key, value in data.items():
+        if key in ['created_date', 'modified_date'] or key.find('_date') != -1:
             try:
-                #print data[key]
                 data[key] = document[key].strftime('%d.%m.%Y %H:%M')
-                #print data[key]
             except:
                 pass
-        elif key.find('filter') !=-1:
+        elif key.find('filter') != -1:
             try:
-                i=0
+                i = 0
                 for filter in document[key]:
                     if '_date' in filter['field']:
                         data[key][i]['value'] = document[key][i]['value'].strftime('%d.%m.%Y')
-                    i=i+1
+                    i += 1
             except:
                 pass
 
@@ -3145,15 +3162,13 @@ def getDefaults(name):
     else:
         return None
 
-class User(DynamicDocument, UserMixin):
+class User(DynamicDocument, UserMixin, AuditMixin):
     firstname = StringField()
     name = StringField()
     email = StringField()
     pw_hash = StringField()
     role = StringField()
     csrf_token = StringField()
-    modified_by = StringField()
-    modified_date = DateTimeField()
     salutation = StringField()
     comment = StringField()
     meta = {
@@ -3177,7 +3192,7 @@ class User(DynamicDocument, UserMixin):
     def get_id(self):
         return str(self.email)
 
-class File(DynamicDocument):
+class File(DynamicDocument, AuditMixin):
     name = StringField(required=True,min_length=4)
     meta = {'queryset_class': CustomQuerySet}
     def searchFields(self):
@@ -3193,7 +3208,8 @@ class File(DynamicDocument):
         return [name]
     def to_json(self):
         return mongoToJson(self)
-class Filter(DynamicDocument):
+
+class Filter(DynamicDocument, AuditMixin):
     name = StringField(required=True,min_length=4)
     meta = {'queryset_class': CustomQuerySet}
     def searchFields(self):
@@ -3212,7 +3228,7 @@ class Filter(DynamicDocument):
 #example of a DynamicDocument with all available fields
 #fields are then used in the form_elements.html to create the form
 #the fields are then used in the db_crud.py to create the document
-class Example(DynamicDocument):
+class Example(DynamicDocument, AuditMixin):
     name = StringField(required=True, min_length=1)
     email = StringField(required=True, min_length=1)
     salutation = StringField(default='')
@@ -3301,7 +3317,7 @@ class Example(DynamicDocument):
 
 #AI Documents
 #AI Chat Bot Code
-class Model(DynamicDocument):
+class Model(DynamicDocument, AuditMixin):
     provider = StringField(required=True, min_length=1)
     model = StringField(required=True, min_length=1)
     name = StringField(required=True, min_length=1)
@@ -3323,7 +3339,7 @@ class Model(DynamicDocument):
     def to_json(self):
         return mongoToJson(self)
 
-class History(DynamicDocument):
+class History(DynamicDocument, AuditMixin):
     username = StringField()
     chat_started = IntField()
     messages = StringField()
@@ -3341,7 +3357,7 @@ class History(DynamicDocument):
             return [link,first_message]
         return [username,first_message,chat_started, messages,link]
         
-class Prompt(DynamicDocument):
+class Prompt(DynamicDocument, AuditMixin):
     name = StringField(required=True, min_length=1)
     welcome_message = StringField(required=True, min_length=1)
     system_message = StringField(required=True, min_length=1)
@@ -3520,11 +3536,7 @@ def createDocument(form_data, document, request=None):
             elif key != 'id':
                 document[key] = form_data[key]
 
-        # Set created info
-        document['created_date'] = datetime.datetime.now()
-        document['created_by'] = 'Admin'
-
-        # Save document first to get an ID
+        # Save document
         try:
             document.save()
             return {'status': 'ok', 'message': '', 'data': document.to_json()}
@@ -3585,14 +3597,6 @@ def updateDocument(form_data, document, collection):
                 document[key] = float(form_data[key].replace(',','.')) if form_data[key] else None
             else:
                 document[key] = form_data[key]
-
-        # Update modified info
-        try:
-            modified_by = 'Admin'
-            document['modified_date'] = datetime.datetime.now()
-            document['modified_by'] = modified_by
-        except:
-            return {'status': 'error', 'message': 'error setting modified info'}
 
         # Save document
         try:
@@ -3758,7 +3762,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Blueprint, request, render_template, Response, jsonify
 import time, sys, json
 from flask_wtf.csrf import CSRFProtect
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 # Append the db directory to the system path for module imports
 sys.path.append('db')
@@ -3800,10 +3804,11 @@ def getConfig():
 @dms_chat.route('/prompt/<prompt_id>')
 @dms_chat.route('/history/<history_id>')
 @dms_chat.route('/', methods=['GET', 'POST'])
+@login_required
 def chat(prompt_id=None, history_id=None):
     config = getConfig()
 
-    config['username'] = "alexander.fillips@gmail.com"
+    config['username'] = current_user.email
     config['chat_started'] = int(time.time())
     config['history'] = []
     config['latest_prompts'] = []
@@ -3863,6 +3868,7 @@ def stream():
 
 
 @dms_chat.route('/save_chat', methods=['POST'])
+@login_required
 def save_chat():
     username = request.form.get('username')
     chat_started = request.form.get('chat_started')
@@ -4140,6 +4146,7 @@ print(response.text)
 # -*- coding: utf-8 -*-
 import os
 import sys
+import datetime
 
 # Add parent directory to Python path to find core module
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -4157,15 +4164,27 @@ models = [
    {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'},
    {'provider':'deepseek','model':'deepseek-chat','name':'deepseek-chat'},
    {'provider':'perplexity','model':'llama-3.1-sonar-large-128k-online','name':'perplexity-llama-3.1-online'},
-  
   ]
 
+# Delete existing models
 Model.objects.delete()
-for model_data in models:
-    model = Model(provider=model_data['provider'], model=model_data['model'], name=model_data['name'])
-    model.save()
 
-print("Models inserted successfully.")
+# Current timestamp for creation date
+now = datetime.datetime.now()
+
+# Insert models with only creation audit fields
+for model_data in models:
+    model = Model(
+        provider=model_data['provider'],
+        model=model_data['model'],
+        name=model_data['name'],
+        created_date=now,
+        created_by='system'
+    )
+    # Use save(force_insert=True) to ensure it's treated as a new document
+    model.save(force_insert=True)
+
+print("Models inserted successfully with creation audit fields.")
 ```
 
 ## ai_test.py
@@ -4179,7 +4198,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ai.ai_llm_helper import llm_call
-from core.db_document import History
+from core.db_document import History, Prompt
 
 messages = [
     {"role": "system", "content": "Du bist ein hilfreicher Assistent"},
@@ -4192,6 +4211,7 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 #print(response)
 
 History.objects().delete()
+Prompt.objects().delete()
 ```
 
 # config
