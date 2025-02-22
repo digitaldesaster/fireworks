@@ -141,16 +141,11 @@ function initChatMessages() {
 // Initialize chat when DOM is ready
 if (document.readyState === "complete") {
   initChatMessages();
-  updateNavItems(); // Initial update
 } else {
   document.addEventListener("DOMContentLoaded", () => {
     initChatMessages();
-    updateNavItems(); // Initial update
   });
 }
-
-// Update nav items periodically
-setInterval(updateNavItems, 30000);
 
 function appendImage(container, imageData) {
   const img = document.createElement("img");
@@ -220,8 +215,6 @@ function saveChatData(messages) {
     .then((response) => {
       if (response.ok) {
         console.log("api call successful");
-        // Update nav items after successful save
-        updateNavItems();
       }
       return response.text();
     })
@@ -231,59 +224,6 @@ function saveChatData(messages) {
     .catch((error) => {
       console.error("Fehler beim Senden des Requests:", error);
     });
-}
-
-// Function to update nav items
-async function updateNavItems() {
-  try {
-    const response = await fetch("/chat/nav_items");
-    const data = await response.json();
-
-    // Update prompts list
-    const promptsList = document.getElementById("prompts-list");
-    if (promptsList) {
-      // Keep the "View All" link
-      const promptsViewAll = promptsList.firstElementChild;
-      promptsList.innerHTML = "";
-      promptsList.appendChild(promptsViewAll);
-
-      data.prompts.forEach((prompt) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <div class="flex items-center justify-between">
-            <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
-              ${prompt.name}
-            </a>
-            <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
-              <span class="icon-[tabler--edit] size-4"></span>
-            </a>
-          </div>
-        `;
-        promptsList.appendChild(li);
-      });
-    }
-
-    // Update history list
-    const historyList = document.getElementById("history-list");
-    if (historyList) {
-      // Keep the "View All" link
-      const historyViewAll = historyList.firstElementChild;
-      historyList.innerHTML = "";
-      historyList.appendChild(historyViewAll);
-
-      data.history.forEach((item) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <a href="/chat/history/${item._id.$oid}" class="text-sm truncate">
-            ${item.first_message || "Untitled Chat"}
-          </a>
-        `;
-        historyList.appendChild(li);
-      });
-    }
-  } catch (error) {
-    console.error("Error updating nav items:", error);
-  }
 }
 
 async function stopStreaming() {
@@ -417,7 +357,6 @@ async function streamMessage() {
           appendData(accumulatedResponse, botMessageElement);
           messages.push({ role: "assistant", content: accumulatedResponse });
           console.log("Stream finished, messages array:", messages);
-          saveChatData(messages);
           toggleButtonVisibility();
           chatInput.readOnly = false;
           break;
@@ -432,7 +371,6 @@ async function streamMessage() {
           appendData(accumulatedResponse, botMessageElement);
           messages.push({ role: "assistant", content: accumulatedResponse });
           console.log("Stream finished, messages array:", messages);
-          saveChatData(messages);
           toggleButtonVisibility();
           chatInput.readOnly = false;
           break;
