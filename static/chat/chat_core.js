@@ -400,6 +400,37 @@ document.getElementById("reset_button").addEventListener("click", function () {
 
 document.getElementById("stop_button").addEventListener("click", stopStreaming);
 
+function createFileBanner(fileName, fileId) {
+  const banner = document.createElement("div");
+  banner.className = "bg-blue-50 border-l-4 border-blue-400 p-4";
+  banner.innerHTML = `
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="ml-3 flex items-center gap-3">
+        <p class="text-sm text-blue-700">
+          Using context from file: ${fileName}
+        </p>
+        <a href="/download_file/${fileId}" class="text-blue-700 hover:text-blue-900">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  `;
+
+  // Create a wrapper div with consistent spacing
+  const wrapper = document.createElement("div");
+  wrapper.className = "mb-6";
+  wrapper.appendChild(banner);
+
+  return wrapper;
+}
+
 document
   .getElementById("file-upload")
   .addEventListener("change", async function (e) {
@@ -439,6 +470,12 @@ document
         const promptsDiv = document.getElementById("prompts");
         if (promptsDiv) promptsDiv.remove();
 
+        // Add file banner after the last message
+        const chatMessages = document.getElementById("chat_messages");
+        const banner = createFileBanner(fileName, result.file_id);
+        chatMessages.appendChild(banner);
+        banner.scrollIntoView({ behavior: "smooth", block: "center" });
+
         let userMessage;
         if (
           result.file_type &&
@@ -459,15 +496,10 @@ document
         } else {
           userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
           messages.push({ role: "system", content: userMessage });
-          addBotMessage("File uploaded successfully: " + fileName);
         }
 
-        // Update display text to show count
-        document.getElementById("file-name-display").textContent =
-          `${uploadedFilesCount} ${uploadedFilesCount === 1 ? "File" : "Files"} Uploaded`;
-
-        // Store the file_id for later use
-        document.getElementById("file-upload").dataset.fileId = result.file_id;
+        // Update display text
+        document.getElementById("file-name-display").textContent = "Upload";
       } else {
         console.error("Upload failed:", result.message);
         document.getElementById("file-name-display").textContent =

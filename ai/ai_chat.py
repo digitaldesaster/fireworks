@@ -58,6 +58,9 @@ def chat(prompt_id=None, history_id=None):
     config['chat_started'] = int(time.time())
     config['history'] = []
     config['latest_prompts'] = []
+    config['using_context'] = False
+    config['context_files'] = []
+    config['file_ids'] = []
 
     if prompt_id:
         prompt = json.loads(
@@ -70,6 +73,9 @@ def chat(prompt_id=None, history_id=None):
             if prompt['system_message'].find("{context}") != -1:
                 prompt['system_message'] = prompt['system_message'].replace(
                     "{context}", context['data'])
+                config['using_context'] = True
+                config['context_files'] = [f['name'] for f in files]
+                config['file_ids'] = [f['_id']['$oid'] for f in files]
         #    prompt['system_message'] = context['data']
         config['messages'] = []
         config['messages'].append({

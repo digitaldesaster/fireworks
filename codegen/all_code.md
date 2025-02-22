@@ -900,16 +900,64 @@ for i in range(1, 20):
         </a>
       </li>
       <li>
-        <a href="{{ url_for('list', name='prompts') }}">
+        <button
+          type="button"
+          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
+          id="prompts-collapse"
+          aria-expanded="false"
+          aria-controls="prompts-collapse-content"
+          data-collapse="#prompts-collapse-content"
+        >
           <span class="icon-[tabler--app-window] size-5"></span>
-          Prompts
-        </a>
+          <span class="flex-1">Prompts</span>
+          <span
+            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
+          ></span>
+        </button>
+        <div
+          id="prompts-collapse-content"
+          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          aria-labelledby="prompts-collapse"
+        >
+          <ul class="menu space-y-0.5 pl-6" id="prompts-list">
+            <li>
+              <a href="{{ url_for('list', name='prompts') }}" class="text-sm">
+                View All Prompts
+              </a>
+            </li>
+            <!-- Latest prompts will be inserted here -->
+          </ul>
+        </div>
       </li>
       <li>
-        <a href="{{ url_for('list', name='history') }}">
+        <button
+          type="button"
+          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
+          id="history-collapse"
+          aria-expanded="false"
+          aria-controls="history-collapse-content"
+          data-collapse="#history-collapse-content"
+        >
           <span class="icon-[tabler--clock] size-5"></span>
-          History
-        </a>
+          <span class="flex-1">History</span>
+          <span
+            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
+          ></span>
+        </button>
+        <div
+          id="history-collapse-content"
+          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          aria-labelledby="history-collapse"
+        >
+          <ul class="menu space-y-0.5 pl-6" id="history-list">
+            <li>
+              <a href="{{ url_for('list', name='history') }}" class="text-sm">
+                View All History
+              </a>
+            </li>
+            <!-- Latest history entries will be inserted here -->
+          </ul>
+        </div>
       </li>
 
       <div class="divider text-base-content/50 py-6 after:border-0">
@@ -930,6 +978,66 @@ for i in range(1, 20):
     </ul>
   </div>
 </aside>
+
+<script>
+  // Function to fetch and update nav items
+  async function updateNavItems() {
+    try {
+      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
+      const data = await response.json();
+
+      // Clear existing items first
+      const promptsList = document.getElementById("prompts-list");
+      const historyList = document.getElementById("history-list");
+
+      // Keep the "View All" links
+      const promptsViewAll = promptsList.firstElementChild;
+      const historyViewAll = historyList.firstElementChild;
+
+      promptsList.innerHTML = "";
+      historyList.innerHTML = "";
+
+      // Add back the "View All" links
+      promptsList.appendChild(promptsViewAll);
+      historyList.appendChild(historyViewAll);
+
+      // Update prompts list
+      data.prompts.forEach((prompt) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div class="flex items-center justify-between">
+            <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
+              ${prompt.name}
+            </a>
+            <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
+              <span class="icon-[tabler--edit] size-4"></span>
+            </a>
+          </div>
+        `;
+        promptsList.appendChild(li);
+      });
+
+      // Update history list
+      data.history.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <a href="/chat/history/${item._id.$oid}" class="text-sm truncate">
+            ${item.first_message || "Untitled Chat"}
+          </a>
+        `;
+        historyList.appendChild(li);
+      });
+    } catch (error) {
+      console.error("Error fetching nav items:", error);
+    }
+  }
+
+  // Update nav items when the page loads
+  document.addEventListener("DOMContentLoaded", updateNavItems);
+
+  // Update nav items every 30 seconds
+  setInterval(updateNavItems, 30000);
+</script>
 ```
 
 ## base/collection/pagination.html
@@ -1127,7 +1235,169 @@ for i in range(1, 20):
       </div>
     </section>
 
+    <!-- Delete Modal -->
+    <div
+      id="deleteModal"
+      tabindex="-1"
+      class="hidden overflow-y-auto overflow-x-hidden bg-gray-600 bg-opacity-65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
+    >
+      <div id="modalContent" class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow">
+          <button
+            type="button"
+            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+            id="closeModal"
+          >
+            <svg
+              class="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="p-4 md:p-5 text-center">
+            <svg
+              class="mx-auto mb-4 text-gray-400 w-12 h-12"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <h3 class="mb-5 text-lg font-normal text-gray-500">
+              Are you sure?
+            </h3>
+            <button
+              id="confirmDelete"
+              type="button"
+              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+            >
+              Yes, I'm sure
+            </button>
+            <button
+              id="cancelDelete"
+              type="button"
+              class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+            >
+              No, cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+    <script>
+      document.querySelectorAll(".delete-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const id = this.dataset.id;
+          const type = this.dataset.type;
+          const modal = document.getElementById("deleteModal");
+          const modalContent = document.getElementById("modalContent");
+          const confirmDelete = document.getElementById("confirmDelete");
+          const cancelDelete = document.getElementById("cancelDelete");
+          const closeButton = document.getElementById("closeModal");
+
+          // Show modal
+          modal.classList.remove("hidden");
+
+          // Handle delete confirmation
+          const handleDelete = () => {
+            const url = "{{ url_for('delete_document') }}";
+
+            fetch(url + "?id=" + id + "&type=" + type, {
+              method: "GET",
+              headers: {
+                "X-CSRFToken": "{{ csrf_token() }}",
+              },
+            })
+              .then((response) => response.json())
+              .then((result) => {
+                if (result.status === "ok") {
+                  // Remove the row from the table
+                  const row = button.closest("tr");
+                  row.remove();
+
+                  // Show success notification
+                  const notification = document.createElement("div");
+                  notification.className =
+                    "fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50";
+                  notification.textContent = "Document deleted successfully";
+                  document.body.appendChild(notification);
+                  setTimeout(() => notification.remove(), 3000);
+                } else {
+                  // Show error notification
+                  const notification = document.createElement("div");
+                  notification.className =
+                    "fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded shadow-lg z-50";
+                  notification.textContent =
+                    "Error deleting document: " + result.message;
+                  document.body.appendChild(notification);
+                  setTimeout(() => notification.remove(), 3000);
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                // Show error notification
+                const notification = document.createElement("div");
+                notification.className =
+                  "fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded shadow-lg z-50";
+                notification.textContent = "Error deleting document";
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
+              })
+              .finally(() => {
+                modal.classList.add("hidden");
+                cleanup();
+              });
+          };
+
+          // Handle modal close
+          const handleClose = () => {
+            modal.classList.add("hidden");
+            cleanup();
+          };
+
+          // Cleanup event listeners
+          const cleanup = () => {
+            confirmDelete.removeEventListener("click", handleDelete);
+            cancelDelete.removeEventListener("click", handleClose);
+            closeButton.removeEventListener("click", handleClose);
+            modal.removeEventListener("click", handleOutsideClick);
+          };
+
+          // Handle click outside modal
+          const handleOutsideClick = (event) => {
+            if (!modalContent.contains(event.target)) {
+              handleClose();
+            }
+          };
+
+          // Add event listeners
+          confirmDelete.addEventListener("click", handleDelete);
+          cancelDelete.addEventListener("click", handleClose);
+          closeButton.addEventListener("click", handleClose);
+          modal.addEventListener("click", handleOutsideClick);
+        });
+      });
+    </script>
   </body>
 </html>
 ```
@@ -1181,12 +1451,22 @@ for i in range(1, 20):
           </td>
           {% endfor %}
           <td class="w-16 px-4 py-2 text-right sticky right-0 bg-white">
-            <a
-              href="{{document_url}}/{{document[0].id}}"
-              class="btn btn-primary btn-sm btn-outline"
-            >
-              <span class="icon-[tabler--edit] size-4"></span>
-            </a>
+            <div class="flex gap-2 justify-end">
+              <a
+                href="{{document_url}}/{{document[0].id}}"
+                class="btn btn-primary btn-sm btn-outline"
+              >
+                <span class="icon-[tabler--edit] size-4"></span>
+              </a>
+              <button
+                type="button"
+                class="btn btn-error btn-sm btn-outline delete-btn"
+                data-id="{{document[0].id}}"
+                data-type="{{collection_name}}"
+              >
+                <span class="icon-[tabler--trash] size-4"></span>
+              </button>
+            </div>
           </td>
         </tr>
         {% endfor %}
@@ -3539,6 +3819,16 @@ def upload_chat_file():
     
     result = upload_file(request.files['file'])
     return jsonify(result)
+
+@dms_chat.route('/nav_items', methods=['GET'])
+def get_nav_items():
+    history = History.objects().order_by('-id').limit(5)
+    prompts = Prompt.objects().order_by('-id').limit(5)
+    
+    return jsonify({
+        'history': json.loads(history.to_json()),
+        'prompts': json.loads(prompts.to_json())
+    })
 ```
 
 ## __init__.py
