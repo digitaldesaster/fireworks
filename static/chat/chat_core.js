@@ -58,7 +58,12 @@ function initChatMessages() {
 
   if (messages.length === 0) {
     messages = [{ role: "system", content: systemMessage }];
-    document.addEventListener("DOMContentLoaded", (event) => {
+
+    // Add welcome message only after DOM is loaded
+    const addWelcomeMessage = () => {
+      const chatMessages = document.getElementById("chat_messages");
+      if (!chatMessages) return; // Guard against missing element
+
       const template = document
         .getElementById("bot-message-template")
         .content.cloneNode(true);
@@ -69,9 +74,20 @@ function initChatMessages() {
       const outerDiv = template.querySelector(".flex.space-x-4");
       outerDiv.classList.remove("mb-6");
 
-      document.getElementById("chat_messages").appendChild(template);
-    });
-    document.getElementById("chat_input").focus();
+      chatMessages.appendChild(template);
+
+      // Focus input after adding welcome message
+      const chatInput = document.getElementById("chat_input");
+      if (chatInput) chatInput.focus();
+    };
+
+    // If DOM is already loaded, add welcome message immediately
+    if (document.readyState === "complete") {
+      addWelcomeMessage();
+    } else {
+      // Otherwise wait for DOM to load
+      document.addEventListener("DOMContentLoaded", addWelcomeMessage);
+    }
   } else {
     if (use_prompt_template == "True") {
       // Display file banners first if they exist in the system message
@@ -116,6 +132,13 @@ function initChatMessages() {
       document.getElementById("chat_messages").focus();
     }
   }
+}
+
+// Initialize chat when DOM is ready
+if (document.readyState === "complete") {
+  initChatMessages();
+} else {
+  document.addEventListener("DOMContentLoaded", initChatMessages);
 }
 
 function appendImage(container, imageData) {
@@ -428,8 +451,6 @@ function scrollToBottom() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }, 0); // Verzögerung von 0 ms, was den Effekt hat, die Ausführung bis nach dem Rendering zu verzögern
 }
-
-initChatMessages();
 
 document.getElementById("chat_button").addEventListener("click", streamMessage);
 
