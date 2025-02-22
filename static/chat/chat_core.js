@@ -58,58 +58,62 @@ function initChatMessages() {
 
   if (messages.length === 0) {
     messages = [{ role: "system", content: systemMessage }];
+  }
 
-    // Add welcome message only after DOM is loaded
-    const addWelcomeMessage = () => {
-      const chatMessages = document.getElementById("chat_messages");
-      if (!chatMessages) return; // Guard against missing element
+  // Display file banners first if they exist in the system message
+  if (messages[0].attachments && messages[0].attachments.length > 0) {
+    const chatMessages = document.getElementById("chat_messages");
+    for (const attachment of messages[0].attachments) {
+      if (attachment.type === "file") {
+        displayFileBanner(attachment.name, attachment.id, chatMessages);
+      }
+    }
+  }
 
-      const template = document
-        .getElementById("bot-message-template")
-        .content.cloneNode(true);
-      const contentElement = template.querySelector(".content");
-      contentElement.textContent = welcomeMessage;
+  if (use_prompt_template === "True") {
+    // Store prompt content
+    const promptContent = messages.length > 1 ? messages[1].content : "";
 
-      // Remove the bottom margin from the outer div
-      const outerDiv = template.querySelector(".flex.space-x-4");
-      outerDiv.classList.remove("mb-6");
+    // Add welcome message
+    const chatMessages = document.getElementById("chat_messages");
+    if (chatMessages) {
+      addBotMessage(welcomeMessage);
+    }
 
-      chatMessages.appendChild(template);
+    // Set chat input content
+    const chat_input_ui = document.getElementById("chat_input");
+    if (chat_input_ui) {
+      chat_input_ui.value = promptContent;
+      chat_input_ui.focus();
+    }
 
-      // Focus input after adding welcome message
-      const chatInput = document.getElementById("chat_input");
-      if (chatInput) chatInput.focus();
-    };
-
-    // If DOM is already loaded, add welcome message immediately
-    if (document.readyState === "complete") {
-      addWelcomeMessage();
-    } else {
-      // Otherwise wait for DOM to load
-      document.addEventListener("DOMContentLoaded", addWelcomeMessage);
+    // Remove the prompt message from messages array
+    if (messages.length > 1) {
+      messages.splice(1, 1);
     }
   } else {
-    if (use_prompt_template == "True") {
-      // Display file banners first if they exist in the system message
-      if (messages[0].attachments && messages[0].attachments.length > 0) {
-        const chatMessages = document.getElementById("chat_messages");
-        for (const attachment of messages[0].attachments) {
-          if (attachment.type === "file") {
-            displayFileBanner(attachment.name, attachment.id, chatMessages);
-          }
-        }
-      }
+    if (messages.length === 1) {
+      // Only system message present - show welcome message
+      const chatMessages = document.getElementById("chat_messages");
+      if (chatMessages) {
+        const template = document
+          .getElementById("bot-message-template")
+          .content.cloneNode(true);
+        const contentElement = template.querySelector(".content");
+        contentElement.textContent = welcomeMessage;
 
-      document.addEventListener("DOMContentLoaded", (event) => {
-        addBotMessage(welcomeMessage);
-      });
-      let chat_input_ui = document.getElementById("chat_input");
-      chat_input_ui.textContent = messages[1]["content"];
-      chat_input_ui.focus();
-      messages.splice(1, 1);
-      console.log(messages);
+        // Remove the bottom margin from the outer div
+        const outerDiv = template.querySelector(".flex.space-x-4");
+        outerDiv.classList.remove("mb-6");
+
+        chatMessages.appendChild(template);
+
+        // Focus input
+        const chatInput = document.getElementById("chat_input");
+        if (chatInput) chatInput.focus();
+      }
     } else {
-      // Display messages and their attachments
+      // Display existing messages and their attachments
       for (const message of messages) {
         // Display attachments if they exist
         if (message.attachments && message.attachments.length > 0) {
@@ -137,9 +141,16 @@ function initChatMessages() {
 // Initialize chat when DOM is ready
 if (document.readyState === "complete") {
   initChatMessages();
+  updateNavItems(); // Initial update
 } else {
-  document.addEventListener("DOMContentLoaded", initChatMessages);
+  document.addEventListener("DOMContentLoaded", () => {
+    initChatMessages();
+    updateNavItems(); // Initial update
+  });
 }
+
+// Update nav items periodically
+setInterval(updateNavItems, 30000);
 
 function appendImage(container, imageData) {
   const img = document.createElement("img");
@@ -209,6 +220,8 @@ function saveChatData(messages) {
     .then((response) => {
       if (response.ok) {
         console.log("api call successful");
+        // Update nav items after successful save
+        updateNavItems();
       }
       return response.text();
     })
@@ -218,6 +231,59 @@ function saveChatData(messages) {
     .catch((error) => {
       console.error("Fehler beim Senden des Requests:", error);
     });
+}
+
+// Function to update nav items
+async function updateNavItems() {
+  try {
+    const response = await fetch("/chat/nav_items");
+    const data = await response.json();
+
+    // Update prompts list
+    const promptsList = document.getElementById("prompts-list");
+    if (promptsList) {
+      // Keep the "View All" link
+      const promptsViewAll = promptsList.firstElementChild;
+      promptsList.innerHTML = "";
+      promptsList.appendChild(promptsViewAll);
+
+      data.prompts.forEach((prompt) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div class="flex items-center justify-between">
+            <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
+              ${prompt.name}
+            </a>
+            <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
+              <span class="icon-[tabler--edit] size-4"></span>
+            </a>
+          </div>
+        `;
+        promptsList.appendChild(li);
+      });
+    }
+
+    // Update history list
+    const historyList = document.getElementById("history-list");
+    if (historyList) {
+      // Keep the "View All" link
+      const historyViewAll = historyList.firstElementChild;
+      historyList.innerHTML = "";
+      historyList.appendChild(historyViewAll);
+
+      data.history.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <a href="/chat/history/${item._id.$oid}" class="text-sm truncate">
+            ${item.first_message || "Untitled Chat"}
+          </a>
+        `;
+        historyList.appendChild(li);
+      });
+    }
+  } catch (error) {
+    console.error("Error updating nav items:", error);
+  }
 }
 
 async function stopStreaming() {
