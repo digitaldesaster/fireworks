@@ -77,16 +77,30 @@ def chat(prompt_id=None, history_id=None):
                 config['using_context'] = True
                 config['context_files'] = [f['name'] for f in files]
                 config['file_ids'] = [f['_id']['$oid'] for f in files]
-        #    prompt['system_message'] = context['data']
+
         config['messages'] = []
-        config['messages'].append({
+        
+        # Add system message with file attachments if files exist
+        system_message = {
             'role': 'system',
             'content': prompt['system_message']
-        })
+        }
+        if files:
+            system_message['attachments'] = [{
+                'type': 'file',
+                'id': f['_id']['$oid'],
+                'name': f['name'],
+                'file_type': f['file_type'],
+                'timestamp': int(time.time())
+            } for f in files]
+        config['messages'].append(system_message)
+        
+        # Add user prompt message
         config['messages'].append({
             'role': 'user',
             'content': prompt['prompt']
         })
+        
         config['use_prompt_template'] = 'True'
         config['welcome_message'] = prompt['welcome_message']
 
@@ -160,6 +174,17 @@ def upload_chat_file():
         return jsonify({'status': 'error', 'message': 'No file part'})
     
     result = upload_file(request.files['file'])
+    
+    if result['status'] == 'ok':
+        # Add file metadata to the response
+        result['attachment'] = {
+            'type': 'file',
+            'id': result['file_id'],
+            'name': result['filename'],
+            'file_type': result['file_type'],
+            'timestamp': int(time.time())
+        }
+        
     return jsonify(result)
 
 @dms_chat.route('/nav_items', methods=['GET'])

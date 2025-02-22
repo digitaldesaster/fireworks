@@ -21,5 +21,3 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 History.objects().delete()
 Prompt.objects().delete()
 File.objects().delete()
-Model.objects().delete()
-Example.objects().delete()

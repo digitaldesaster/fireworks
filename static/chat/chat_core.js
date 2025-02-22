@@ -2,6 +2,8 @@ let isInCodeBlock = false;
 let currentCodeElement = null;
 let stop_stream = false;
 let uploadedFilesCount = 0;
+let currentMessageAttachments = [];
+let displayedFileIds = new Set(); // Track which files we've already displayed
 
 function appendCodeBlock(container, codeContent) {
   const codeElement = createCodeElement();
@@ -51,6 +53,9 @@ function createCodeElement() {
 }
 
 function initChatMessages() {
+  // Clear displayed files when initializing
+  displayedFileIds.clear();
+
   if (messages.length === 0) {
     messages = [{ role: "system", content: systemMessage }];
     document.addEventListener("DOMContentLoaded", (event) => {
@@ -69,6 +74,16 @@ function initChatMessages() {
     document.getElementById("chat_input").focus();
   } else {
     if (use_prompt_template == "True") {
+      // Display file banners first if they exist in the system message
+      if (messages[0].attachments && messages[0].attachments.length > 0) {
+        const chatMessages = document.getElementById("chat_messages");
+        for (const attachment of messages[0].attachments) {
+          if (attachment.type === "file") {
+            displayFileBanner(attachment.name, attachment.id, chatMessages);
+          }
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", (event) => {
         addBotMessage(welcomeMessage);
       });
@@ -78,7 +93,19 @@ function initChatMessages() {
       messages.splice(1, 1);
       console.log(messages);
     } else {
+      // Display messages and their attachments
       for (const message of messages) {
+        // Display attachments if they exist
+        if (message.attachments && message.attachments.length > 0) {
+          const chatMessages = document.getElementById("chat_messages");
+          for (const attachment of message.attachments) {
+            if (attachment.type === "file") {
+              displayFileBanner(attachment.name, attachment.id, chatMessages);
+            }
+          }
+        }
+
+        // Display the message content
         if (message["role"] === "assistant") {
           const botMessageElement = addBotMessage("");
           appendData(message["content"], botMessageElement);
@@ -240,7 +267,19 @@ async function streamMessage() {
     const promptsDiv = document.getElementById("prompts");
     if (promptsDiv) promptsDiv.remove();
 
-    messages.push({ role: "user", content: userMessage });
+    // Create message object with attachments
+    const messageObj = {
+      role: "user",
+      content: userMessage,
+    };
+
+    // Add attachments if any exist
+    if (currentMessageAttachments.length > 0) {
+      messageObj.attachments = [...currentMessageAttachments];
+      currentMessageAttachments = []; // Clear for next message
+    }
+
+    messages.push(messageObj);
     addUserMessage(userMessage); // Display the user message in the chat
     chatInput.value = ""; // Clear the input field after sending the message
 
@@ -320,7 +359,6 @@ async function streamMessage() {
     } catch (error) {
       console.error("Streaming failed:", error);
       botMessageElement.textContent = `Error occurred: ${error.message}`;
-      // Even in case of error, consider adding an error message to the array
       messages.push({
         role: "assistant",
         content: `Error occurred: ${error.message}`,
@@ -405,40 +443,50 @@ document
   });
 
 document.getElementById("reset_button").addEventListener("click", function () {
+  displayedFileIds.clear();
   window.location.href = "/chat";
 });
 
 document.getElementById("stop_button").addEventListener("click", stopStreaming);
 
 function createFileBanner(fileName, fileId) {
-  const banner = document.createElement("div");
-  banner.className = "bg-blue-50 border-l-4 border-blue-400 p-4";
-  banner.innerHTML = `
-    <div class="flex">
-      <div class="flex-shrink-0">
-        <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-        </svg>
-      </div>
-      <div class="ml-3 flex items-center gap-3">
-        <p class="text-sm text-blue-700">
-          Using context from file: ${fileName}
-        </p>
-        <a href="/download_file/${fileId}" class="text-blue-700 hover:text-blue-900">
-          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  `;
+  // If we've already displayed this file, don't create another banner
+  if (displayedFileIds.has(fileId)) {
+    return null;
+  }
 
-  // Create a wrapper div with consistent spacing
-  const wrapper = document.createElement("div");
-  wrapper.className = "mb-6";
-  wrapper.appendChild(banner);
+  const template = document.getElementById("file-banner-template");
+  if (!template) {
+    console.error("File banner template not found");
+    return document.createElement("div");
+  }
 
-  return wrapper;
+  // Clone the template content
+  const fragment = template.content.cloneNode(true);
+
+  // Get the root element from the fragment
+  const banner = fragment.querySelector(".mb-6");
+
+  // Set the filename
+  banner.querySelector(".filename").textContent = fileName;
+
+  // Set the download link
+  const downloadLink = banner.querySelector(".download-link");
+  downloadLink.href = `/download_file/${fileId}`;
+
+  // Mark this file as displayed
+  displayedFileIds.add(fileId);
+
+  return banner;
+}
+
+function displayFileBanner(fileName, fileId, chatMessages) {
+  const banner = createFileBanner(fileName, fileId);
+  if (banner) {
+    chatMessages.appendChild(banner);
+    return banner;
+  }
+  return null;
 }
 
 document
@@ -472,9 +520,11 @@ document
 
       if (result.status === "ok") {
         console.log("File uploaded successfully");
-        uploadedFilesCount++;
 
-        console.log(result);
+        // Store attachment for next message
+        if (result.attachment) {
+          currentMessageAttachments.push(result.attachment);
+        }
 
         // Remove prompts div if it exists
         const promptsDiv = document.getElementById("prompts");
@@ -482,9 +532,18 @@ document
 
         // Add file banner after the last message
         const chatMessages = document.getElementById("chat_messages");
-        const banner = createFileBanner(fileName, result.file_id);
-        chatMessages.appendChild(banner);
-        banner.scrollIntoView({ behavior: "smooth", block: "center" });
+        const banner = displayFileBanner(
+          fileName,
+          result.file_id,
+          chatMessages,
+        );
+
+        // Only scroll if we actually added a new banner
+        if (banner) {
+          setTimeout(() => {
+            banner.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 100);
+        }
 
         let userMessage;
         if (
@@ -500,12 +559,21 @@ document
               },
             },
           ];
-          messages.push({ role: "user", content: userMessage });
-          addUserMessage(userMessage); // Display the message with image
-          streamMessage(); // Automatically trigger AI response
+          const messageObj = {
+            role: "user",
+            content: userMessage,
+            attachments: [result.attachment],
+          };
+          messages.push(messageObj);
+          addUserMessage(userMessage);
+          streamMessage();
         } else {
           userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
-          messages.push({ role: "system", content: userMessage });
+          messages.push({
+            role: "system",
+            content: userMessage,
+            attachments: [result.attachment],
+          });
         }
 
         // Update display text
