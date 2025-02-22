@@ -359,6 +359,7 @@ async function streamMessage() {
           console.log("Stream finished, messages array:", messages);
           toggleButtonVisibility();
           chatInput.readOnly = false;
+          saveChatData(messages);
           break;
         }
         const text = new TextDecoder().decode(value);
@@ -373,6 +374,7 @@ async function streamMessage() {
           console.log("Stream finished, messages array:", messages);
           toggleButtonVisibility();
           chatInput.readOnly = false;
+          saveChatData(messages);
           break;
         } else {
           accumulatedResponse += text;
@@ -390,6 +392,7 @@ async function streamMessage() {
         role: "assistant",
         content: `Error occurred: ${error.message}`,
       });
+      saveChatData(messages);
     }
   }
 }
