@@ -189,7 +189,9 @@ def upload_chat_file():
 
 @dms_chat.route('/nav_items', methods=['GET'])
 def get_nav_items():
-    history = History.objects().order_by('-id').limit(5)
+    # Get all history items for current user only, ordered by last modified date
+    history = History.objects(username=current_user.email).order_by('-modified_date', '-id')
+    # Get latest prompts
     prompts = Prompt.objects().order_by('-id').limit(5)
     
     return jsonify({

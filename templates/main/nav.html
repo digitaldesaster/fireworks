@@ -91,9 +91,11 @@
     </div>
 
     <!-- Scrollable Content Section -->
-    <div class="flex-1 max-h-[calc(100vh-180px)] overflow-y-auto px-2 py-2">
+    <div
+      class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent px-2 py-2"
+    >
       <ul
-        class="menu w-full space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0"
+        class="menu w-full space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0 pb-6"
       >
         <li class="w-full space-y-0.5">
           <button
@@ -115,9 +117,7 @@
             class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
             aria-labelledby="prompts-collapse"
           >
-            <div
-              class="max-h-[calc(100vh-400px)] overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent"
-            >
+            <div>
               <ul class="menu space-y-0.5 w-full" id="prompts-list">
                 <li class="w-full">
                   <a
@@ -178,9 +178,7 @@
             class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
             aria-labelledby="history-collapse"
           >
-            <div
-              class="max-h-[calc(100vh-400px)] overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent"
-            >
+            <div>
               <ul class="menu space-y-0.5 w-full" id="history-list">
                 <li class="w-full">
                   <a
@@ -269,6 +267,7 @@
       }
 
       const data = await response.json();
+      console.log("Total history items received:", data.history.length);
 
       // Validate data structure
       if (
@@ -325,6 +324,7 @@
         historyList.innerHTML = "";
         if (viewAllLink) historyList.appendChild(viewAllLink);
 
+        let addedCount = 0;
         // Add history items with error handling
         data.history.forEach((item) => {
           try {
@@ -343,10 +343,12 @@
               </a>
             `;
             historyList.appendChild(li);
+            addedCount++;
           } catch (itemError) {
             console.warn("Error adding history item:", itemError);
           }
         });
+        console.log("Actually added history items:", addedCount);
       }
     } catch (error) {
       console.error("Error updating navigation:", error);
