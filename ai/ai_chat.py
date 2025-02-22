@@ -153,3 +153,13 @@ def upload_chat_file():
     
     result = upload_file(request.files['file'])
     return jsonify(result)
+
+@dms_chat.route('/nav_items', methods=['GET'])
+def get_nav_items():
+    history = History.objects().order_by('-id').limit(5)
+    prompts = Prompt.objects().order_by('-id').limit(5)
+    
+    return jsonify({
+        'history': json.loads(history.to_json()),
+        'prompts': json.loads(prompts.to_json())
+    })

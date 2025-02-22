@@ -41,16 +41,64 @@
         </a>
       </li>
       <li>
-        <a href="{{ url_for('list', name='prompts') }}">
+        <button
+          type="button"
+          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
+          id="prompts-collapse"
+          aria-expanded="false"
+          aria-controls="prompts-collapse-content"
+          data-collapse="#prompts-collapse-content"
+        >
           <span class="icon-[tabler--app-window] size-5"></span>
-          Prompts
-        </a>
+          <span class="flex-1">Prompts</span>
+          <span
+            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
+          ></span>
+        </button>
+        <div
+          id="prompts-collapse-content"
+          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          aria-labelledby="prompts-collapse"
+        >
+          <ul class="menu space-y-0.5 pl-6" id="prompts-list">
+            <li>
+              <a href="{{ url_for('list', name='prompts') }}" class="text-sm">
+                View All Prompts
+              </a>
+            </li>
+            <!-- Latest prompts will be inserted here -->
+          </ul>
+        </div>
       </li>
       <li>
-        <a href="{{ url_for('list', name='history') }}">
+        <button
+          type="button"
+          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
+          id="history-collapse"
+          aria-expanded="false"
+          aria-controls="history-collapse-content"
+          data-collapse="#history-collapse-content"
+        >
           <span class="icon-[tabler--clock] size-5"></span>
-          History
-        </a>
+          <span class="flex-1">History</span>
+          <span
+            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
+          ></span>
+        </button>
+        <div
+          id="history-collapse-content"
+          class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+          aria-labelledby="history-collapse"
+        >
+          <ul class="menu space-y-0.5 pl-6" id="history-list">
+            <li>
+              <a href="{{ url_for('list', name='history') }}" class="text-sm">
+                View All History
+              </a>
+            </li>
+            <!-- Latest history entries will be inserted here -->
+          </ul>
+        </div>
       </li>
 
       <div class="divider text-base-content/50 py-6 after:border-0">
@@ -71,3 +119,58 @@
     </ul>
   </div>
 </aside>
+
+<script>
+  // Function to fetch and update nav items
+  async function updateNavItems() {
+    try {
+      const response = await fetch("{{ url_for('dms_chat.get_nav_items') }}");
+      const data = await response.json();
+
+      // Clear existing items first
+      const promptsList = document.getElementById("prompts-list");
+      const historyList = document.getElementById("history-list");
+
+      // Keep the "View All" links
+      const promptsViewAll = promptsList.firstElementChild;
+      const historyViewAll = historyList.firstElementChild;
+
+      promptsList.innerHTML = "";
+      historyList.innerHTML = "";
+
+      // Add back the "View All" links
+      promptsList.appendChild(promptsViewAll);
+      historyList.appendChild(historyViewAll);
+
+      // Update prompts list
+      data.prompts.forEach((prompt) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm truncate">
+            ${prompt.name}
+          </a>
+        `;
+        promptsList.appendChild(li);
+      });
+
+      // Update history list
+      data.history.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <a href="/chat/history/${item._id.$oid}" class="text-sm truncate">
+            ${item.first_message || "Untitled Chat"}
+          </a>
+        `;
+        historyList.appendChild(li);
+      });
+    } catch (error) {
+      console.error("Error fetching nav items:", error);
+    }
+  }
+
+  // Update nav items when the page loads
+  document.addEventListener("DOMContentLoaded", updateNavItems);
+
+  // Update nav items every 30 seconds
+  setInterval(updateNavItems, 30000);
+</script>
