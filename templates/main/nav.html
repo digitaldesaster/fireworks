@@ -146,9 +146,14 @@
       data.prompts.forEach((prompt) => {
         const li = document.createElement("li");
         li.innerHTML = `
-          <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm truncate">
-            ${prompt.name}
-          </a>
+          <div class="flex items-center justify-between">
+            <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
+              ${prompt.name}
+            </a>
+            <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
+              <span class="icon-[tabler--edit] size-4"></span>
+            </a>
+          </div>
         `;
         promptsList.appendChild(li);
       });

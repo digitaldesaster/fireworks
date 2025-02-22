@@ -44,12 +44,22 @@
           </td>
           {% endfor %}
           <td class="w-16 px-4 py-2 text-right sticky right-0 bg-white">
-            <a
-              href="{{document_url}}/{{document[0].id}}"
-              class="btn btn-primary btn-sm btn-outline"
-            >
-              <span class="icon-[tabler--edit] size-4"></span>
-            </a>
+            <div class="flex gap-2 justify-end">
+              <a
+                href="{{document_url}}/{{document[0].id}}"
+                class="btn btn-primary btn-sm btn-outline"
+              >
+                <span class="icon-[tabler--edit] size-4"></span>
+              </a>
+              <button
+                type="button"
+                class="btn btn-error btn-sm btn-outline delete-btn"
+                data-id="{{document[0].id}}"
+                data-type="{{collection_name}}"
+              >
+                <span class="icon-[tabler--trash] size-4"></span>
+              </button>
+            </div>
           </td>
         </tr>
         {% endfor %}
