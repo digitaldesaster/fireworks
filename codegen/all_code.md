@@ -722,8 +722,52 @@ module.exports = {
       <div class="px-4 md:px-10 w-full">
         <!-- Start coding here -->
         <div class="relative min-h-[calc(100vh-8rem)] pb-32">
+          {% if config.using_context %} {% for file_name in config.context_files
+          %}
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg
+                  class="h-5 w-5 text-blue-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div class="ml-3 flex items-center gap-3">
+                <p class="text-sm text-blue-700">
+                  Using context from file: {{ file_name }}
+                </p>
+                <a
+                  href="/download_file/{{ config.file_ids[loop.index0] }}"
+                  class="text-blue-700 hover:text-blue-900"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %} {% endif %}
           <main id="main">
-            <div id="chat_messages_container">
+            <div id="chat_messages_container" class="pb-40">
               {% include '/chat/chat_messages.html' %}
             </div>
             <div id="selected_prompts_container">
@@ -3724,6 +3768,9 @@ def chat(prompt_id=None, history_id=None):
     config['chat_started'] = int(time.time())
     config['history'] = []
     config['latest_prompts'] = []
+    config['using_context'] = False
+    config['context_files'] = []
+    config['file_ids'] = []
 
     if prompt_id:
         prompt = json.loads(
@@ -3736,6 +3783,9 @@ def chat(prompt_id=None, history_id=None):
             if prompt['system_message'].find("{context}") != -1:
                 prompt['system_message'] = prompt['system_message'].replace(
                     "{context}", context['data'])
+                config['using_context'] = True
+                config['context_files'] = [f['name'] for f in files]
+                config['file_ids'] = [f['_id']['$oid'] for f in files]
         #    prompt['system_message'] = context['data']
         config['messages'] = []
         config['messages'].append({
