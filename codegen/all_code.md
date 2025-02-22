@@ -154,7 +154,7 @@ module.exports = {
 
 ```
 <!doctype html>
-<html lang="en" data-theme="light" class="h-full">
+<html lang="en" data-theme="light" class="h-full overflow-y-scroll">
   {% include('main/header.html') %}
   <body class="min-h-full flex flex-col bg-gray-50">
     {% include('main/nav.html') %}
@@ -297,7 +297,7 @@ module.exports = {
 
 ```
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" class="overflow-y-scroll">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -316,7 +316,7 @@ module.exports = {
         </div>
 
         <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
           <div class="space-y-6">
             <div class="form-control">
               <label class="label" for="email">
@@ -367,7 +367,9 @@ module.exports = {
 
             {% if status == 'error' %}
             <div class="alert alert-error">
-              <span>{{ message if message else 'Invalid email or password' }}</span>
+              <span
+                >{{ message if message else 'Invalid email or password' }}</span
+              >
             </div>
             {% endif %}
 
@@ -435,10 +437,7 @@ module.exports = {
 
 ```
 {% if config.messages | length == 0 %}
-<div
-  id="prompts"
-  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 flex flex-col gap-4"
->
+<div id="prompts" class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4">
   {% if config.history %}
   <h3
     class="text-center text-xl font-semibold text-gray-700 dark:text-gray-300"
@@ -721,7 +720,11 @@ module.exports = {
     <section class="flex-1 flex items-start overflow-y-auto lg:ml-64">
       <div class="px-4 md:px-10 w-full">
         <!-- Start coding here -->
+        {% if config.messages|length > 0 %}
         <div class="relative min-h-[calc(100vh-8rem)] pb-32">
+        {% else %}
+        <div class="relative min-h-[calc(100vh-8rem)]">
+        {% endif %}
           {% if config.using_context %} {% for file_name in config.context_files
           %}
           <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
@@ -767,7 +770,7 @@ module.exports = {
           </div>
           {% endfor %} {% endif %}
           <main id="main">
-            <div id="chat_messages_container" class="pb-40">
+            <div id="chat_messages_container" class="{% if config.messages|length > 0 %}pb-40{% else %}pb-10{% endif %}">
               {% include '/chat/chat_messages.html' %}
             </div>
             <div id="selected_prompts_container">
@@ -901,7 +904,10 @@ for i in range(1, 20):
 ## main/nav.html
 
 ```
-<nav class="navbar bg-base-100 flex items-center justify-between p-4">
+<!-- Sticky Navigation -->
+<nav
+  class="navbar bg-base-100 flex items-center justify-between p-4 sticky top-0 z-[60] shadow-sm overflow-y-scroll"
+>
   <div class="navbar-start">
     <a
       href="{{ url_for('index') }}"
@@ -910,7 +916,43 @@ for i in range(1, 20):
       Fireworks
     </a>
   </div>
-  <div class="navbar-end">
+  <div class="navbar-end flex items-center gap-2">
+    <!-- User Avatar Dropdown for Desktop -->
+    <div
+      class="dropdown relative inline-flex max-lg:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
+    >
+      <button
+        type="button"
+        class="dropdown-toggle avatar placeholder"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        aria-label="User menu"
+      >
+        <div class="bg-primary text-primary-content rounded-full w-10">
+          <span class="text-lg"
+            >{{ current_user.firstname[0] }}{{ current_user.name[0] }}</span
+          >
+        </div>
+      </button>
+      <ul
+        class="dropdown-menu dropdown-open:opacity-100 hidden min-w-48"
+        role="menu"
+      >
+        <div class="dropdown-header">
+          <h6 class="text-base-content/90 text-base">
+            {{ current_user.firstname }} {{ current_user.name }}
+          </h6>
+        </div>
+        <form action="{{ url_for('logout') }}" method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button type="submit" class="dropdown-item w-full text-left">
+            <span class="icon-[tabler--logout-2] size-5"></span>
+            Sign Out
+          </button>
+        </form>
+      </ul>
+    </div>
+    <!-- Mobile Menu Button -->
     <button
       type="button"
       class="btn btn-text max-lg:btn-square lg:hidden"
@@ -926,11 +968,11 @@ for i in range(1, 20):
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-0 lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body px-2 pt-4 bg-white h-full">
-    <ul class="menu space-y-0.5 p-0">
+  <div class="drawer-body px-2 pt-4 bg-white h-full flex flex-col">
+    <ul class="menu space-y-0.5 p-0 flex-1">
       <li>
         <a href="{{ url_for('index') }}">
           <span class="icon-[tabler--dashboard] size-5"></span>
@@ -1003,23 +1045,20 @@ for i in range(1, 20):
           </ul>
         </div>
       </li>
-
-      <div class="divider text-base-content/50 py-6 after:border-0">
-        Account
-      </div>
-      <li>
-        <form action="{{ url_for('logout') }}" method="post" class="w-full">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-          <button
-            type="submit"
-            class="w-full flex items-center gap-2 px-4 py-2"
-          >
-            <span class="icon-[tabler--logout-2] size-5"></span>
-            Sign Out
-          </button>
-        </form>
-      </li>
     </ul>
+    <!-- Mobile Sign Out at Bottom -->
+    <div class="mt-auto border-t border-base-200 pt-4 lg:hidden">
+      <form action="{{ url_for('logout') }}" method="post" class="w-full">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <button
+          type="submit"
+          class="btn btn-ghost w-full justify-start gap-2 text-error"
+        >
+          <span class="icon-[tabler--logout-2] size-5"></span>
+          Sign Out
+        </button>
+      </form>
+    </div>
   </div>
 </aside>
 
@@ -1217,7 +1256,7 @@ for i in range(1, 20):
 
 ```
 <!doctype html>
-<html lang="en">
+<html lang="en" class="overflow-y-scroll">
   {% include('/main/header.html') %}
   <body class="bg-gray-50 min-h-screen">
     {% include('/main/nav.html') %}
@@ -1525,7 +1564,7 @@ for i in range(1, 20):
 
 ```
 <!doctype html>
-<html lang="en">
+<html lang="en" class="overflow-y-scroll">
   {% include('/main/header.html') %}
   <body class="bg-gray-50 min-h-screen">
     {% include('/main/nav.html') %}
