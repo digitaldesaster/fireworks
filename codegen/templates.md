@@ -835,6 +835,13 @@ for i in range(1, 20):
             {{ current_user.firstname }} {{ current_user.name }}
           </h6>
         </div>
+        <a
+          href="{{ url_for('view_document', collection='user', id=current_user.id) }}"
+          class="dropdown-item"
+        >
+          <span class="icon-[tabler--user] size-5"></span>
+          Edit Profile
+        </a>
         <form action="{{ url_for('logout') }}" method="post">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
           <button type="submit" class="dropdown-item w-full text-left">
@@ -895,6 +902,43 @@ for i in range(1, 20):
       <ul
         class="menu w-full space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0 pb-6"
       >
+        {% if current_user.is_admin %}
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="admin-collapse"
+            aria-expanded="false"
+            aria-controls="admin-collapse-content"
+            data-collapse="#admin-collapse-content"
+          >
+            <span class="icon-[tabler--shield-lock] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Admin</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="admin-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="admin-collapse"
+          >
+            <div>
+              <ul class="menu space-y-0.5 w-full">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', collection='user') }}"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 rounded-lg"
+                  >
+                    <span class="icon-[tabler--users] size-3.5 shrink-0"></span>
+                    <span class="truncate">Manage Users</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        {% endif %}
         <li class="w-full space-y-0.5">
           <button
             type="button"
@@ -919,7 +963,7 @@ for i in range(1, 20):
               <ul class="menu space-y-0.5 w-full" id="prompts-list">
                 <li class="w-full">
                   <a
-                    href="{{ url_for('list', name='prompts') }}"
+                    href="{{ url_for('list', collection='prompts') }}"
                     class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
                   >
                     <span class="truncate">View All Prompts</span>
@@ -994,7 +1038,7 @@ for i in range(1, 20):
               <ul class="menu space-y-0.5 w-full" id="history-list">
                 <li class="w-full">
                   <a
-                    href="{{ url_for('list', name='history') }}"
+                    href="{{ url_for('list', collection='history') }}"
                     class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
                   >
                     <span class="truncate">View All History</span>
@@ -1328,7 +1372,7 @@ for i in range(1, 20):
     </nav>
 
     <div class="text-sm text-gray-500">
-      {% if total > 0 %} Showing
+      {% if total != None and total > 0 %} Showing
       <span class="font-medium">{{start}}</span>
       to
       <span class="font-medium">{{end}}</span>
@@ -1418,7 +1462,7 @@ for i in range(1, 20):
               <div class="flex-1">
                 <form
                   method="GET"
-                  action="{{ url_for('list', name=collection_name,start=start, limit=limit, filter=filter) }}"
+                  action="{{ url_for('list', collection=collection_name, start=start, limit=limit, filter=filter) }}"
                 >
                   <div class="relative">
                     <div
@@ -2045,7 +2089,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
     if (query.length > 3) {
       // Construct the URL using the module value
       const url =
-        `{{ url_for("list", name="__MODULE__", mode="json") }}`.replace(
+        `{{ url_for("list", collection="__MODULE__", mode="json") }}`.replace(
           "__MODULE__",
           module,
         );

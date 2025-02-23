@@ -15,6 +15,11 @@ from werkzeug.utils import secure_filename
 
 from flask_login import current_user
 
+import sys
+sys.path.append('core')
+from flask import redirect, url_for, flash
+from bson import ObjectId
+
 UPLOAD_FOLDER = 'temp'
 DOCUMENT_FOLDER = 'documents'
 
@@ -199,6 +204,17 @@ def handleDocument(name, id, request, return_json=False):
             if not current_user.can_view_user(id):
                 flash('Access denied. You can only view your own profile.', 'error')
                 return redirect(url_for('list', collection='user'))
+                
+        # Add permission check for history documents
+        if name == 'history' and id:
+            try:
+                history_doc = default.collection.objects(_id=ObjectId(id)).first()
+                if history_doc and history_doc.username != current_user.email:
+                    flash('Access denied. You can only view your own history.', 'error')
+                    return redirect(url_for('list', collection='history'))
+            except Exception as e:
+                print(f"[DEBUG] Error checking history access: {str(e)}")
+                return redirect(url_for('list', collection='history'))
 
         print(f"[DEBUG] Got defaults: document_name={default.document_name}, collection_name={default.collection_name}")
         mode = default.document_name

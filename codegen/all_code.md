@@ -1,7 +1,7 @@
 # app.py
 
 ```
-from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort
+from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort, flash, redirect, url_for
 from core import auth
 from datetime import timedelta, datetime
 import os
@@ -108,14 +108,16 @@ def delete_document():
 	return jsonify(result)
 
 # Route to return a list of documents
-@app.route('/list/<name>')
+@app.route('/list/<collection>')
 @login_required
-def list(name):
-	# Check if JSON mode is requested via query parameter
+def list(collection):
 	mode = request.args.get('mode')
-	if mode == 'json':
-		return getList(name, request, return_json=True)
-	return getList(name, request)
+	if collection in ['user', 'users']:
+		if not current_user.is_admin:
+			flash('Access denied. Only administrators can view the user list.', 'error')
+			return redirect(url_for('index'))
+		return getList('user', request, return_json=(mode == 'json'))
+	return getList(collection, request, return_json=(mode == 'json'))
 
 # Route to download a file
 @app.route('/download_file/<file_id>')
@@ -142,6 +144,15 @@ def download_file(file_id):
 	except Exception as e:
 		print(f"[DEBUG] Error in download_file: {str(e)}")
 		abort(500)
+
+@app.route('/d/<collection>/<id>')
+@login_required
+def view_document(collection, id):
+	if collection == 'user':
+		if not current_user.can_view_user(id):
+			flash('Access denied. You can only view your own profile.', 'error')
+			return redirect(url_for('list', collection='user'))
+	return handleDocument(collection, id, request)
 
 if __name__ == '__main__':
 	app.run(debug=True)
@@ -984,6 +995,13 @@ for i in range(1, 20):
             {{ current_user.firstname }} {{ current_user.name }}
           </h6>
         </div>
+        <a
+          href="{{ url_for('view_document', collection='user', id=current_user.id) }}"
+          class="dropdown-item"
+        >
+          <span class="icon-[tabler--user] size-5"></span>
+          Edit Profile
+        </a>
         <form action="{{ url_for('logout') }}" method="post">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
           <button type="submit" class="dropdown-item w-full text-left">
@@ -1044,6 +1062,43 @@ for i in range(1, 20):
       <ul
         class="menu w-full space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0 pb-6"
       >
+        {% if current_user.is_admin %}
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="admin-collapse"
+            aria-expanded="false"
+            aria-controls="admin-collapse-content"
+            data-collapse="#admin-collapse-content"
+          >
+            <span class="icon-[tabler--shield-lock] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Admin</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="admin-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="admin-collapse"
+          >
+            <div>
+              <ul class="menu space-y-0.5 w-full">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', collection='user') }}"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 rounded-lg"
+                  >
+                    <span class="icon-[tabler--users] size-3.5 shrink-0"></span>
+                    <span class="truncate">Manage Users</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        {% endif %}
         <li class="w-full space-y-0.5">
           <button
             type="button"
@@ -1068,7 +1123,7 @@ for i in range(1, 20):
               <ul class="menu space-y-0.5 w-full" id="prompts-list">
                 <li class="w-full">
                   <a
-                    href="{{ url_for('list', name='prompts') }}"
+                    href="{{ url_for('list', collection='prompts') }}"
                     class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
                   >
                     <span class="truncate">View All Prompts</span>
@@ -1143,7 +1198,7 @@ for i in range(1, 20):
               <ul class="menu space-y-0.5 w-full" id="history-list">
                 <li class="w-full">
                   <a
-                    href="{{ url_for('list', name='history') }}"
+                    href="{{ url_for('list', collection='history') }}"
                     class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
                   >
                     <span class="truncate">View All History</span>
@@ -1477,7 +1532,7 @@ for i in range(1, 20):
     </nav>
 
     <div class="text-sm text-gray-500">
-      {% if total > 0 %} Showing
+      {% if total != None and total > 0 %} Showing
       <span class="font-medium">{{start}}</span>
       to
       <span class="font-medium">{{end}}</span>
@@ -1567,7 +1622,7 @@ for i in range(1, 20):
               <div class="flex-1">
                 <form
                   method="GET"
-                  action="{{ url_for('list', name=collection_name,start=start, limit=limit, filter=filter) }}"
+                  action="{{ url_for('list', collection=collection_name, start=start, limit=limit, filter=filter) }}"
                 >
                   <div class="relative">
                     <div
@@ -2194,7 +2249,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
     if (query.length > 3) {
       // Construct the URL using the module value
       const url =
-        `{{ url_for("list", name="__MODULE__", mode="json") }}`.replace(
+        `{{ url_for("list", collection="__MODULE__", mode="json") }}`.replace(
           "__MODULE__",
           module,
         );
@@ -2740,12 +2795,15 @@ def initDefault():
     settings = []
     settings.append(Setting(name = 'salutation', lable_name='Anrede', type = 'SimpleListField', values = ['','Herr', 'Frau']))
    
-    settings.append(Setting(name = 'ai_provider', lable_name='A.I. Provider', type = 'AdvancedListField',values = [{'' : ''},{'OpenAI' : 'open_ai'},{'Anthropic' :'anthropic'},{'Meta' :'meta'}]))
+    #settings.append(Setting(name = 'ai_provider', lable_name='A.I. Provider', type = 'AdvancedListField',values = [{'' : ''},{'OpenAI' : 'open_ai'},{'Anthropic' :'anthropic'},{'Meta' :'meta'}]))
   
     languages = ['Deutsch', 'Englisch', 'Französich', 'Spanisch']
-    #
     settings.append(Setting(name = 'language', lable_name = 'Sprachen', type = 'SimpleListField', values = languages))
    
+    # Add roles
+    roles = ['admin', 'user']
+    settings.append(Setting(name = 'role', lable_name = 'Rollen', type = 'SimpleListField', values = roles))
+
     # my_number = Setting(name = 'My Number', lable_name = 'Rechnungs-Nr', type ='Counter', value=1000, year = year)
     # settings.append(my_number)
 
@@ -2805,6 +2863,13 @@ import datetime
 
 from werkzeug.utils import secure_filename
 
+from flask_login import current_user
+
+import sys
+sys.path.append('core')
+from flask import redirect, url_for, flash
+from bson import ObjectId
+
 UPLOAD_FOLDER = 'temp'
 DOCUMENT_FOLDER = 'documents'
 
@@ -2813,7 +2878,7 @@ current_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 # logging.basicConfig(format='%(asctime)s %(message)s\n\r',filename=current_path+'import_leads.log', level=logging.INFO,filemode='w')
 
 
-from flask import render_template, redirect, url_for, jsonify
+from flask import render_template, redirect, url_for, jsonify, flash
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv','md'])
 
@@ -2857,7 +2922,7 @@ def initData():
     prev = None
     next = None
     last = None
-    recordsTotal = None
+    recordsTotal = 0  # Initialize to 0 instead of None
 
     return data, prev, next, last, recordsTotal
 
@@ -2879,34 +2944,33 @@ def loadData(mydata):
         return data,start,end,prev,next,recordsTotal,last
     return None
 
-def getList(name, request, return_json=False):
-
+def getList(name, request, filter=None, return_json=False):
     default = getDefaults(name)
-
     if default == None:
         return redirect(url_for('index'))
-
+        
     data, prev, next, last, recordsTotal = initData()
-    start,limit,end,search,id,filter,product_name,offer_id = getRequestData(request)
-
+    start,limit,end,search,id,filter_param,product_name,offer_id = getRequestData(request)
+    
     filter_data = getFilter(default.document_name)
-
-    #return json.dumps(filter_data)
-
     mode = default.collection_name
 
-    if mode == 'products' and product_name !='':
-        mydata = searchDocuments(default.collection,default.document.searchFields() ,start, limit, search,filter,product_name,mode)
+    # Handle combined filters for user permissions and existing filters
+    if filter:
+        if filter_param:
+            filter_dict = getFilterDict(filter_param)
+            filter.update(filter_dict)
+        mydata = searchDocuments(default.collection, default.document.searchFields(), 
+                               start, limit, search, filter, product_name, mode)
     else:
-        if id != '':
-            mydata = getDocumentsByID(default.collection,'company_id' ,start, limit, id)
-        else:
-            mydata = searchDocuments(default.collection,default.document.searchFields() ,start, limit, search,filter,'',mode)
+        mydata = searchDocuments(default.collection, default.document.searchFields(),
+                               start, limit, search, filter_param, product_name, mode)
 
     processedData = loadData(mydata)
 
     if processedData:
         data, start, end, prev, next, recordsTotal, last = processedData
+        recordsTotal = int(recordsTotal) if recordsTotal is not None else 0
         if return_json:
             return jsonify({
                 'status': 'ok',
@@ -2920,19 +2984,61 @@ def getList(name, request, return_json=False):
                 'end': end
             })
 
-    
-
     table_header = default.document.fields(list_order = True)
-
     table_content = tableContent(data, table_header)
 
     try:
         table = request.args.get('table')
         if table:
-            return render_template('/base/collection/table.html',menu = default.menu,documents = data, prev = prev, next=next,limit = limit,start = start, total = recordsTotal, end = end, search = search,id=id,offer_id=offer_id, last = last,page_name_collection=default.page_name_collection,collection_name=default.collection_name,collection_url=default.collection_url,document_url=default.document_url,mode=mode, table_header = table_header, table_content = table_content,filter = filter,filter_data = filter_data,product_name=product_name)
+            return render_template('/base/collection/table.html',
+                                 menu=default.menu,
+                                 documents=data,
+                                 prev=prev,
+                                 next=next,
+                                 limit=limit,
+                                 start=start,
+                                 total=recordsTotal,
+                                 end=end,
+                                 search=search,
+                                 id=id,
+                                 offer_id=offer_id,
+                                 last=last,
+                                 page_name_collection=default.page_name_collection,
+                                 collection_name=default.collection_name,
+                                 collection_url=default.collection_url,
+                                 document_url=default.document_url,
+                                 mode=mode,
+                                 table_header=table_header,
+                                 table_content=table_content,
+                                 filter=filter_param,
+                                 filter_data=filter_data,
+                                 product_name=product_name)
     except:
         pass
-    return render_template('/base/collection/collection.html',menu = default.menu,documents = data, prev = prev, next=next,limit = limit,start = start, total = recordsTotal, end = end, search = search,id=id,offer_id=offer_id, last = last,page_name_collection=default.page_name_collection,collection_name=default.collection_name,collection_url=default.collection_url,document_url=default.document_url,mode=mode, table_header = table_header, table_content = table_content, filter=filter,filter_data = filter_data,product_name=product_name)
+
+    return render_template('/base/collection/collection.html',
+                         menu=default.menu,
+                         documents=data,
+                         prev=prev,
+                         next=next,
+                         limit=limit,
+                         start=start,
+                         total=recordsTotal,
+                         end=end,
+                         search=search,
+                         id=id,
+                         offer_id=offer_id,
+                         last=last,
+                         page_name_collection=default.page_name_collection,
+                         collection_name=default.collection_name,
+                         collection_url=default.collection_url,
+                         document_url=default.document_url,
+                         mode=mode,
+                         table_header=table_header,
+                         table_content=table_content,
+                         filter=filter_param,
+                         filter_data=filter_data,
+                         product_name=product_name)
 
 def handleDocument(name, id, request, return_json=False):
     try:
@@ -2942,6 +3048,23 @@ def handleDocument(name, id, request, return_json=False):
         if default == None:
             print(f"[DEBUG] No defaults found for name: {name}")
             return redirect(url_for('index'))
+
+        # Add permission check for user documents
+        if name == 'user' and id:
+            if not current_user.can_view_user(id):
+                flash('Access denied. You can only view your own profile.', 'error')
+                return redirect(url_for('list', collection='user'))
+                
+        # Add permission check for history documents
+        if name == 'history' and id:
+            try:
+                history_doc = default.collection.objects(_id=ObjectId(id)).first()
+                if history_doc and history_doc.username != current_user.email:
+                    flash('Access denied. You can only view your own history.', 'error')
+                    return redirect(url_for('list', collection='history'))
+            except Exception as e:
+                print(f"[DEBUG] Error checking history access: {str(e)}")
+                return redirect(url_for('list', collection='history'))
 
         print(f"[DEBUG] Got defaults: document_name={default.document_name}, collection_name={default.collection_name}")
         mode = default.document_name
@@ -3023,7 +3146,7 @@ def handleDocument(name, id, request, return_json=False):
                 else:
                     print(f"[DEBUG] Error getting document: {data.get('message', 'Unknown error')}")
                     print(f"[DEBUG] Redirecting to list with name={default.collection_name}")
-                    return redirect(url_for('list', name=default.collection_name))
+                    return redirect(url_for('list', collection=default.collection_name))
 
         print("[DEBUG] Getting elements")
         elements = getElements(data, default.document)
@@ -3033,7 +3156,7 @@ def handleDocument(name, id, request, return_json=False):
         print(f"[DEBUG] Error in handleDocument: {str(e)}")
         if return_json:
             return json.dumps({'status': 'error', 'message': str(e)})
-        return redirect(url_for('list', name=default.collection_name))
+        return redirect(url_for('list', collection=default.collection_name))
 
 def deleteDocument(request):
     type = request.args.get('type')
@@ -3500,7 +3623,7 @@ def getDefaults(name):
         d.document_name = defaults[0]
         d.document_url = url_for('doc',name = defaults[0])
         d.collection_name = defaults[1]
-        d.collection_url = url_for('list',name = defaults[1])
+        d.collection_url = url_for('list', collection = defaults[1])
         d.page_name_document = defaults[2]
         d.page_name_collection = defaults[3]
         d.collection_title = defaults[3]
@@ -3516,10 +3639,10 @@ class User(AuditMixin, DynamicDocument, UserMixin):
     name = StringField()
     email = StringField()
     pw_hash = StringField()
-    role = StringField()
     csrf_token = StringField()
     salutation = StringField()
     comment = StringField()
+    role = StringField(default='user')
     meta = {
         'collection': 'user',
         'queryset_class': CustomQuerySet
@@ -3532,14 +3655,30 @@ class User(AuditMixin, DynamicDocument, UserMixin):
         firstname = {'name' :  'firstname', 'label' : 'Vorname', 'class' : '', 'type' : 'SingleLine', 'full_width':False}
         name = {'name' :  'name', 'label' : 'Nachname', 'class' : '', 'type' : 'SingleLine','full_width':False}
         comment = {'name' :  'comment', 'label' : 'Kommentar', 'class' : '', 'type' : 'MultiLine','full_width':True}
+        role = {'name' :  'role', 'label' : 'Rolle', 'class' : '', 'type' : 'SimpleListField','full_width':False}
+        
         if list_order != None and list_order == True:
             #fields in the overview table of the collection
-            return [firstname,name,email]
-        return [email,salutation,firstname,name,comment]
+            return [firstname,name,email,role] if current_user.is_admin else [firstname,name,email]
+            
+        #fields in the form
+        fields = [email,salutation,firstname,name,comment]
+        if current_user.is_admin:
+            fields.append(role)
+        return fields
     def to_json(self):
         return mongoToJson(self)
     def get_id(self):
         return str(self.email)
+
+    @property
+    def is_admin(self):
+        """Check if user has admin role"""
+        return self.role == 'admin'
+    
+    def can_view_user(self, user_id):
+        """Check if user has permission to view a specific user profile"""
+        return self.is_admin or str(self.id) == str(user_id)
 
 class File(AuditMixin, DynamicDocument):
     name = StringField(required=True,min_length=4)
@@ -4757,7 +4896,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ai.ai_llm_helper import llm_call
-from core.db_document import History, Prompt, File, Model, Example
+from core.db_document import History, Prompt, File, Model, Example, User
 
 messages = [
     {"role": "system", "content": "Du bist ein hilfreicher Assistent"},
@@ -4769,9 +4908,13 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 #response = llm_call(messages, model, stream=False)
 #print(response)
 
-History.objects().delete()
-Prompt.objects().delete()
-File.objects().delete()
+# History.objects().delete()
+# Prompt.objects().delete()
+# File.objects().delete()
+
+user = User.objects(email='alexander.fillips@gmail.com').first()
+user.role = 'admin'
+user.save()
 ```
 
 # config
