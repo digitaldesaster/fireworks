@@ -333,8 +333,8 @@ function appendNormalText(container, text) {
       }
       const quoteDepth = line.match(/^>+/)[0].length;
       const blockquote = document.createElement("blockquote");
-      // Improved blockquote styling
-      blockquote.className = `border-l-4 pl-6 py-3 my-3 ml-${(quoteDepth - 1) * 6}`;
+      // Reduced spacing for blockquotes
+      blockquote.className = `border-l-4 pl-4 py-2 my-2 ml-${(quoteDepth - 1) * 4}`;
 
       // Adjust styling based on nesting level
       switch (quoteDepth) {
@@ -376,7 +376,7 @@ function appendNormalText(container, text) {
         orderNumber = 1;
       }
       const h1 = document.createElement("h1");
-      h1.className = "text-2xl font-bold mt-4 mb-3 text-gray-700"; // Smallest heading
+      h1.className = "text-2xl font-bold mt-1 mb-3 text-gray-700"; // Reduced margins
       h1.innerHTML = processInlineMarkdown(h1Match[1]);
       container.appendChild(h1);
     } else if (h2Match) {
@@ -386,7 +386,7 @@ function appendNormalText(container, text) {
         orderNumber = 1;
       }
       const h2 = document.createElement("h2");
-      h2.className = "text-xl font-bold mt-3 mb-2 text-gray-700"; // Medium heading
+      h2.className = "text-xl font-bold mt-1 mb-1 text-gray-700"; // Reduced margins
       h2.innerHTML = processInlineMarkdown(h2Match[1]);
       container.appendChild(h2);
     } else if (h3Match) {
@@ -396,7 +396,7 @@ function appendNormalText(container, text) {
         orderNumber = 1;
       }
       const h3 = document.createElement("h3");
-      h3.className = "text-lg font-bold mt-2 mb-2 text-gray-800"; // Largest heading
+      h3.className = "text-lg font-bold mt-1 mb-1 text-gray-800"; // Reduced margins
       h3.innerHTML = processInlineMarkdown(h3Match[1]);
       container.appendChild(h3);
     } else if (taskMatch) {
@@ -428,11 +428,11 @@ function appendNormalText(container, text) {
           orderNumber = 1;
         }
         listElement = document.createElement("ul");
-        listElement.className = "mb-2";
+        listElement.className = "mb-1"; // Reduced margin
         inList = true;
       }
       const li = document.createElement("li");
-      li.className = "text-gray-700 mb-1";
+      li.className = "text-gray-700 mb-0.5"; // Reduced margin
       const bulletPoint = document.createElement("span");
       bulletPoint.className = "inline-block w-4";
       bulletPoint.textContent = "•";
@@ -469,11 +469,11 @@ function appendNormalText(container, text) {
       }
       if (line === "") {
         const spacer = document.createElement("div");
-        spacer.className = "h-2";
+        spacer.className = "h-1"; // Reduced empty line height
         container.appendChild(spacer);
       } else {
         const p = document.createElement("p");
-        p.className = "mb-2 text-gray-700";
+        p.className = "mb-1 text-gray-700"; // Reduced margin
         p.innerHTML = processInlineMarkdown(line);
         container.appendChild(p);
       }
@@ -742,6 +742,11 @@ function addBotMessage(text) {
     .getElementById("bot-message-template")
     .content.cloneNode(true);
   const contentElement = template.querySelector(".content");
+  const copyButton = template.querySelector(".copy-btn");
+  const copyIcon = copyButton.querySelector(".copy-icon");
+  const checkIcon = copyButton.querySelector(".check-icon");
+  const copyText = copyButton.querySelector(".copy-text");
+  const checkText = copyButton.querySelector(".check-text");
 
   if (text == "...") {
     contentElement.innerHTML =
@@ -757,6 +762,36 @@ function addBotMessage(text) {
   } else {
     contentElement.textContent = text;
   }
+
+  // Add copy functionality
+  copyButton.addEventListener("click", () => {
+    // Get pure text content
+    const textContent = contentElement.textContent;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(textContent).then(
+      () => {
+        // Visual feedback
+        copyIcon.classList.add("hidden");
+        checkIcon.classList.remove("hidden");
+        copyText.classList.add("hidden");
+        checkText.classList.remove("hidden");
+        copyButton.classList.add("text-green-600", "bg-green-50");
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+          copyIcon.classList.remove("hidden");
+          checkIcon.classList.add("hidden");
+          copyText.classList.remove("hidden");
+          checkText.classList.add("hidden");
+          copyButton.classList.remove("text-green-600", "bg-green-50");
+        }, 2000);
+      },
+      (err) => {
+        console.error("Failed to copy text:", err);
+      },
+    );
+  });
 
   document.getElementById("chat_messages").appendChild(template);
   return contentElement;
