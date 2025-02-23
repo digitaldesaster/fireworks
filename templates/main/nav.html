@@ -366,12 +366,12 @@
       // Update history list
       const historyList = document.getElementById("history-list");
       if (historyList) {
-        // Keep only the view all link
-        const viewAllLink = historyList
-          .querySelector(".view-all")
-          ?.closest("li");
+        // Keep the view all link and delete button
+        const staticLinks = historyList.querySelectorAll("li:nth-child(-n+3)");
         historyList.innerHTML = "";
-        if (viewAllLink) historyList.appendChild(viewAllLink);
+        staticLinks.forEach((link) =>
+          historyList.appendChild(link.cloneNode(true)),
+        );
 
         let addedCount = 0;
         // Add history items with error handling
@@ -434,9 +434,12 @@
 
       const result = await response.json();
 
-      // Check if we're on a history page
+      // Check if we're on a history page or list history page
       const currentPath = window.location.pathname;
-      if (currentPath.includes("/chat/history/")) {
+      if (
+        currentPath.includes("/chat/history/") ||
+        currentPath.includes("/list/history")
+      ) {
         // Redirect to index page
         window.location.href = "/";
         return;
