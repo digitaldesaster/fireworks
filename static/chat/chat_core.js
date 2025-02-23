@@ -764,33 +764,72 @@ function addBotMessage(text) {
   }
 
   // Add copy functionality
-  copyButton.addEventListener("click", () => {
-    // Get pure text content
-    const textContent = contentElement.textContent;
+  copyButton.addEventListener("click", async () => {
+    // Create a temporary div to handle HTML content
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = contentElement.innerHTML;
 
-    // Copy to clipboard
-    navigator.clipboard.writeText(textContent).then(
-      () => {
-        // Visual feedback
-        copyIcon.classList.add("hidden");
-        checkIcon.classList.remove("hidden");
-        copyText.classList.add("hidden");
-        checkText.classList.remove("hidden");
-        copyButton.classList.add("text-green-600", "bg-green-50");
+    // Remove any loading indicators if present
+    const loadingElements = tempDiv.getElementsByClassName("loading");
+    while (loadingElements.length > 0) {
+      loadingElements[0].remove();
+    }
 
-        // Reset after 2 seconds
-        setTimeout(() => {
-          copyIcon.classList.remove("hidden");
-          checkIcon.classList.add("hidden");
-          copyText.classList.remove("hidden");
-          checkText.classList.add("hidden");
-          copyButton.classList.remove("text-green-600", "bg-green-50");
-        }, 2000);
-      },
-      (err) => {
-        console.error("Failed to copy text:", err);
-      },
-    );
+    // Function to inline Tailwind styles
+    function inlineStyles(element) {
+      const styles = window.getComputedStyle(element);
+      const inlineStyle = {};
+      for (let prop of styles) {
+        inlineStyle[prop] = styles.getPropertyValue(prop);
+      }
+      element.style.cssText = Object.entries(inlineStyle)
+        .map(([prop, value]) => `${prop}: ${value}`)
+        .join("; ");
+
+      // Process children
+      Array.from(element.children).forEach((child) => inlineStyles(child));
+    }
+
+    // Clone the content and inline styles
+    const clonedContent = contentElement.cloneNode(true);
+    document.body.appendChild(clonedContent);
+    inlineStyles(clonedContent);
+    const styledHTML = clonedContent.outerHTML;
+    document.body.removeChild(clonedContent);
+
+    try {
+      // Create a Blob with HTML content
+      const blob = new Blob([styledHTML], { type: "text/html" });
+      const plainText = contentElement.textContent;
+
+      // Create clipboard data with both formats
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          "text/html": blob,
+          "text/plain": new Blob([plainText], { type: "text/plain" }),
+        }),
+      ]);
+
+      // Visual feedback
+      copyIcon.classList.add("hidden");
+      checkIcon.classList.remove("hidden");
+      copyText.classList.add("hidden");
+      checkText.classList.remove("hidden");
+      copyButton.classList.add("text-green-600", "bg-green-50");
+
+      // Reset after 2 seconds
+      setTimeout(() => {
+        copyIcon.classList.remove("hidden");
+        checkIcon.classList.add("hidden");
+        copyText.classList.remove("hidden");
+        checkText.classList.add("hidden");
+        copyButton.classList.remove("text-green-600", "bg-green-50");
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy formatted content:", err);
+      // Fallback to plain text
+      navigator.clipboard.writeText(contentElement.textContent);
+    }
   });
 
   document.getElementById("chat_messages").appendChild(template);
