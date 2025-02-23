@@ -146,8 +146,21 @@ def save_chat():
         print("[DEBUG] Updating existing chat")
         chat_history = chat_history[0]
         chat_history.messages = messages
+        
+        # Parse messages once
+        parsed_messages = json.loads(messages)
+        
+        # Update first message if we find a user message and current first message is default
+        if chat_history.first_message == "Neuer Chat":
+            for msg in parsed_messages:
+                if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
+                    chat_history.first_message = msg['content']
+                    print(f"[DEBUG] Updated first message to: {msg['content']}")
+                    break
+        
+        # Collect file IDs
         file_ids = []
-        for msg in json.loads(messages):
+        for msg in parsed_messages:
             if 'attachments' in msg:
                 for attachment in msg['attachments']:
                     file_ids.append(attachment['id'])
@@ -160,34 +173,19 @@ def save_chat():
         chat_history.username = username
         chat_history.chat_started = chat_started
         chat_history.messages = messages
+        chat_history.first_message = "Neuer Chat"  # Set default title
         
         # Parse messages once
         parsed_messages = json.loads(messages)
         
-        # First try to find a user message
-        first_message_found = False
+        # Set first message to first user message if one exists
         for msg in parsed_messages:
-            # Only look for actual user messages, not system or file context messages
-            if msg.get('role') == 'user' and isinstance(msg.get('content'), str) and not msg.get('isFileContext'):
+            if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
                 chat_history.first_message = msg['content']
-                first_message_found = True
-                print(f"[DEBUG] Found user message as first message: {msg['content']}")
+                print(f"[DEBUG] Set first message to: {msg['content']}")
                 break
-                
-        # If no user message found, then fall back to file upload
-        if not first_message_found:
-            # Look for the first system message with attachments
-            for msg in parsed_messages:
-                if msg.get('role') == 'system' and msg.get('attachments'):
-                    for attachment in msg['attachments']:
-                        if attachment.get('name'):
-                            chat_history.first_message = f"File uploaded: {attachment['name']}"
-                            print(f"[DEBUG] Using file upload as first message: {chat_history.first_message}")
-                            break
-                    if chat_history.first_message:
-                        break
         
-        # Collect file IDs from all messages
+        # Collect file IDs
         file_ids = []
         for msg in parsed_messages:
             if 'attachments' in msg:

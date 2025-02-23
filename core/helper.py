@@ -7,7 +7,7 @@ from core.db_crud import getDocument, updateDocument, createDocument, eraseDocum
 from core.db_default import Setting, getDefaultList
 from core.db_document import File, getDefaults
 
-import PyPDF2
+from pypdf import PdfReader
     
 import datetime
 
@@ -469,7 +469,7 @@ def prepare_context_from_files(files):
             if file['file_type'].lower() == 'pdf':
                 try:
                     with open(file_path, 'rb') as pdf_file:
-                        pdf_reader = PyPDF2.PdfReader(pdf_file)
+                        pdf_reader = PdfReader(pdf_file)
                         combined_text += f"Content of File: {file['name']}\n"
                         combined_text += "-" * 50 + "\n"
                         for page_num in range(len(pdf_reader.pages)):

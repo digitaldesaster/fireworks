@@ -631,14 +631,9 @@ document
           timestamp: Math.floor(Date.now() / 1000),
         });
 
-        // For non-image files, add the context as a hidden system message
+        // For non-image files, append the context to the existing system message
         if (!["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())) {
-          messages.push({
-            role: "system",
-            content: `Using context from file: ${result.filename}\n\n${result.content}`,
-            attachments: [result.attachment],
-            isFileContext: true,
-          });
+          messages[0].content += `\n\nUsing context from file: ${result.filename}\n\n${result.content}`;
         }
 
         // Save chat state immediately after adding file
