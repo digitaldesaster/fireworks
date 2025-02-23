@@ -50,6 +50,9 @@ def do_login(request):
                 return render_template('login.html', status='error', message='User not found')
             
             login_user(user, remember=remember, duration=timedelta(days=30) if remember else None)
+            next_page = request.args.get('next')
+            if next_page and next_page.startswith('/'):  # Ensure the next URL is relative
+                return redirect(next_page)
             return redirect(url_for('index'))
         else:
             return render_template('login.html', status='error', message=status['message'])

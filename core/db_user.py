@@ -35,7 +35,9 @@ def create_user(firstname, name, email, password, role='user'):
             name=name,
             email=email,
             pw_hash=hash_password(password),
-            role=role
+            role=role,
+            created_by='system',
+            modified_by='system'
         )
         user.save()
         logger.info(f"User created successfully: {email}")
@@ -47,9 +49,6 @@ def create_user(firstname, name, email, password, role='user'):
     except NotUniqueError as e:
         logger.error(f"Duplicate email error for {email}")
         return {'status': 'error', 'message': 'user exists'}
-    except OperationError as e:
-        logger.error(f"Database operation error creating user {email}: {str(e)}")
-        return {'status': 'error', 'message': 'Database error occurred'}
     except Exception as e:
         logger.error(f"Unexpected error creating user {email}: {str(e)}")
         return {'status': 'error', 'message': 'An unexpected error occurred'}

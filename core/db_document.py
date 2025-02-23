@@ -4,10 +4,11 @@ from core.db_connect import *
 from bson import json_util
 from flask_login import UserMixin, current_user
 from flask import url_for
-import datetime
+from datetime import datetime
+from mongoengine import *
 
 class AuditMixin:
-    created_date = DateTimeField(default=lambda: datetime.datetime.now())
+    created_date = DateTimeField(default=lambda: datetime.now())
     created_by = StringField()
     modified_date = DateTimeField()
     modified_by = StringField()
@@ -20,11 +21,11 @@ class AuditMixin:
             
         if not self.id:
             # Document is being created
-            self.created_date = datetime.datetime.now()
+            self.created_date = datetime.now()
             self.created_by = user
         
         # Always update modified info on save
-        self.modified_date = datetime.datetime.now()
+        self.modified_date = datetime.now()
         self.modified_by = user
         
         return super().save(*args, **kwargs)
@@ -128,15 +129,20 @@ def getDefaults(name):
         print("[DEBUG] No defaults found")
         return None
 
-class User(AuditMixin, DynamicDocument, UserMixin):
-    firstname = StringField()
-    name = StringField()
-    email = StringField(unique=True)
-    pw_hash = StringField()
+class User(UserMixin, Document):
+    firstname = StringField(required=True)
+    name = StringField(required=True)
+    email = StringField(required=True, unique=True)
+    pw_hash = StringField(required=True)
     csrf_token = StringField()
     salutation = StringField()
     comment = StringField()
     role = StringField(default='user')
+    created_date = DateTimeField(default=datetime.now)
+    modified_date = DateTimeField(default=datetime.now)
+    created_by = StringField()
+    modified_by = StringField()
+    
     meta = {
         'collection': 'user',
         'queryset_class': CustomQuerySet

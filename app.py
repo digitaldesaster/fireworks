@@ -64,7 +64,10 @@ csrf.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-	return User.objects(email=user_id).first()
+	try:
+		return User.objects(id=user_id).first()
+	except:
+		return None
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
