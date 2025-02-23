@@ -3,7 +3,7 @@
 ```
 from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort
 from core import auth
-from datetime import timedelta
+from datetime import timedelta, datetime
 import os
 from flask_login import LoginManager, current_user, login_required
 from core.db_user import User
@@ -18,6 +18,31 @@ from core.db_helper import getFile
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
+# Add format_time_ago filter
+@app.template_filter('format_time_ago')
+def format_time_ago(date):
+	if not date:
+		return ""
+	
+	now = datetime.now()
+	diff = now - date
+	
+	minutes = diff.total_seconds() / 60
+	hours = minutes / 60
+	days = diff.days
+	
+	if minutes < 1:
+		return "just now"
+	elif minutes < 60:
+		return f"{int(minutes)}m ago"
+	elif hours < 24:
+		return f"{int(hours)}h ago"
+	elif days == 1:
+		return "yesterday"
+	elif days < 7:
+		return f"{days}d ago"
+	else:
+		return date.strftime('%d.%m.%Y')
 
 # Import and register the chat blueprint
 from ai.ai_chat import dms_chat
@@ -516,7 +541,9 @@ module.exports = {
       />
     </svg>
   </div>
-  <div class="message content bg-base-300 rounded-lg p-4"></div>
+  <div
+    class="message content bg-base-300 rounded-lg p-4 flex-1 min-w-0 break-words"
+  ></div>
 </div>
 ```
 
@@ -670,11 +697,13 @@ module.exports = {
 ```
 <div class="flex space-x-4 mb-6">
   <div
-    class="flex justify-center items-center w-10 h-10 bg-gray-500 text-white rounded-full"
+    class="flex justify-center items-center w-10 h-10 bg-gray-500 text-white rounded-full flex-shrink-0"
   >
     A
   </div>
-  <div class="message content bg-base-200 rounded-lg p-4"></div>
+  <div
+    class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
+  ></div>
 </div>
 ```
 
@@ -980,112 +1009,191 @@ for i in range(1, 20):
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start w-64 max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div
-    class="drawer-body px-2 pt-4 bg-white h-full flex flex-col overflow-y-auto"
-  >
-    <ul class="menu space-y-0.5 p-0 flex-1">
-      <li>
-        <a
-          href="{{ url_for('index') }}"
-          class="flex items-center gap-2 px-4 py-2"
-        >
-          <span class="icon-[tabler--dashboard] size-5"></span>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a
-          href="{{ url_for('dms_chat.chat') }}"
-          class="flex items-center gap-2 px-4 py-2"
-        >
-          <span class="icon-[tabler--message] size-5"></span>
-          Chat
-        </a>
-      </li>
-      <li>
-        <button
-          type="button"
-          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
-          id="prompts-collapse"
-          aria-expanded="false"
-          aria-controls="prompts-collapse-content"
-          data-collapse="#prompts-collapse-content"
-        >
-          <span class="icon-[tabler--app-window] size-5"></span>
-          <span class="flex-1">Prompts</span>
-          <span
-            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
-          ></span>
-        </button>
-        <div
-          id="prompts-collapse-content"
-          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
-          aria-labelledby="prompts-collapse"
-        >
-          <div class="py-1">
-            <ul class="menu space-y-0.5 pl-6 w-full" id="prompts-list">
-              <li class="w-full">
-                <a
-                  href="{{ url_for('list', name='prompts') }}"
-                  class="text-sm view-all truncate w-full"
-                >
-                  View All Prompts
-                </a>
-              </li>
-              <!-- Latest prompts will be inserted here -->
-            </ul>
+  <div class="drawer-body w-64 bg-white h-full flex flex-col overflow-hidden">
+    <!-- Fixed Header Section -->
+    <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
+      <ul class="menu w-full space-y-0.5 p-0">
+        <li class="w-full">
+          <a
+            href="{{ url_for('index') }}"
+            class="flex items-center gap-2 px-4 py-2 w-full"
+          >
+            <span class="icon-[tabler--dashboard] size-5 shrink-0"></span>
+            <span class="truncate">Dashboard</span>
+          </a>
+        </li>
+        <li class="w-full">
+          <a
+            href="{{ url_for('dms_chat.chat') }}"
+            class="flex items-center gap-2 px-4 py-2 w-full"
+          >
+            <span class="icon-[tabler--message] size-5 shrink-0"></span>
+            <span class="truncate">Chat</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Scrollable Content Section -->
+    <div
+      class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent px-2 py-2"
+    >
+      <ul
+        class="menu w-full space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0 pb-6"
+      >
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="prompts-collapse"
+            aria-expanded="false"
+            aria-controls="prompts-collapse-content"
+            data-collapse="#prompts-collapse-content"
+          >
+            <span class="icon-[tabler--app-window] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Prompts</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="prompts-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="prompts-collapse"
+          >
+            <div>
+              <ul class="menu space-y-0.5 w-full" id="prompts-list">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', name='prompts') }}"
+                    class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
+                  >
+                    <span class="truncate">View All Prompts</span>
+                  </a>
+                </li>
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('doc', name='prompt') }}"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-primary rounded-lg group"
+                  >
+                    <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
+                    <span class="truncate">New Prompt</span>
+                  </a>
+                </li>
+                <li class="w-full border-t border-base-200 my-1"></li>
+                {% for prompt in prompts %}
+                <li class="w-full">
+                  <div
+                    class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 group rounded-lg"
+                  >
+                    <a
+                      href="{{ url_for('chat.prompt', id=prompt.id) }}"
+                      class="flex-1 min-w-0"
+                      title="{{ prompt.name }}"
+                    >
+                      <span class="truncate text-xs block"
+                        >{{ prompt.name }}</span
+                      >
+                    </a>
+                    <span
+                      class="text-[10px] text-gray-500 whitespace-nowrap shrink-0"
+                      >{{ format_time_ago(prompt.modified_date) }}</span
+                    >
+                    <a
+                      href="{{ url_for('prompt.edit', id=prompt.id) }}"
+                      class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Edit prompt"
+                      title="Edit prompt"
+                    >
+                      <span
+                        class="icon-[tabler--edit] size-3.5 text-primary"
+                      ></span>
+                    </a>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
-      </li>
-      <li>
-        <button
-          type="button"
-          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
-          id="history-collapse"
-          aria-expanded="false"
-          aria-controls="history-collapse-content"
-          data-collapse="#history-collapse-content"
-        >
-          <span class="icon-[tabler--clock] size-5"></span>
-          <span class="flex-1">History</span>
-          <span
-            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
-          ></span>
-        </button>
-        <div
-          id="history-collapse-content"
-          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
-          aria-labelledby="history-collapse"
-        >
-          <div class="py-1">
-            <ul class="menu space-y-0.5 pl-6 w-full" id="history-list">
-              <li class="w-full">
-                <a
-                  href="{{ url_for('list', name='history') }}"
-                  class="text-sm view-all truncate w-full"
-                >
-                  View All History
-                </a>
-              </li>
-              <!-- Latest history entries will be inserted here -->
-            </ul>
+        </li>
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="history-collapse"
+            aria-expanded="false"
+            aria-controls="history-collapse-content"
+            data-collapse="#history-collapse-content"
+          >
+            <span class="icon-[tabler--clock] size-5 shrink-0"></span>
+            <span class="truncate flex-1">History</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="history-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="history-collapse"
+          >
+            <div>
+              <ul class="menu space-y-0.5 w-full" id="history-list">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', name='history') }}"
+                    class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
+                  >
+                    <span class="truncate">View All History</span>
+                  </a>
+                </li>
+                <li class="w-full">
+                  <button
+                    type="button"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-error rounded-lg group"
+                    onclick="handleDeleteHistory()"
+                  >
+                    <span class="icon-[tabler--trash] size-3.5 shrink-0"></span>
+                    <span class="truncate">Delete Documents</span>
+                  </button>
+                </li>
+                <li class="w-full border-t border-base-200 my-1"></li>
+                {% for item in history %}
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('chat.history', id=item.id) }}"
+                    class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 rounded-lg"
+                    title="{{ item.first_message or 'Untitled Chat' }}"
+                  >
+                    <span class="truncate flex-1 text-xs"
+                      >{{ item.first_message or "Untitled Chat" }}</span
+                    >
+                    <span
+                      class="text-[10px] text-gray-500 whitespace-nowrap shrink-0"
+                      >{{ format_time_ago(item.modified_date) }}</span
+                    >
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
-    <!-- Mobile Sign Out at Bottom -->
-    <div class="mt-auto border-t border-base-200 pt-4 lg:hidden">
+        </li>
+      </ul>
+    </div>
+
+    <!-- Fixed Footer Section -->
+    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 lg:hidden">
       <form action="{{ url_for('logout') }}" method="post" class="w-full">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button
           type="submit"
           class="btn btn-ghost w-full justify-start gap-2 text-error"
         >
-          <span class="icon-[tabler--logout-2] size-5"></span>
-          Sign Out
+          <span class="icon-[tabler--logout-2] size-5 shrink-0"></span>
+          <span class="truncate">Sign Out</span>
         </button>
       </form>
     </div>
@@ -1100,7 +1208,25 @@ for i in range(1, 20):
 
   // Function to format date
   function formatDate(dateString) {
-    const date = new Date(dateString);
+    let date;
+    if (typeof dateString === "string") {
+      // Try to parse the formatted date string from mongoToJson (DD.MM.YYYY HH:MM)
+      const parts = dateString.split(" ");
+      if (parts.length === 2) {
+        const [datePart, timePart] = parts;
+        const [day, month, year] = datePart.split(".");
+        const [hours, minutes] = timePart.split(":");
+        date = new Date(year, month - 1, day, hours, minutes);
+      } else {
+        date = new Date(dateString);
+      }
+    } else if (dateString?.$date) {
+      // Handle MongoDB ISODate format
+      date = new Date(dateString.$date);
+    } else {
+      return "";
+    }
+
     const now = new Date();
     const diffMs = now - date;
     const diffMins = Math.floor(diffMs / 60000);
@@ -1122,18 +1248,6 @@ for i in range(1, 20):
     }
   }
 
-  // Function to create consistent history item HTML
-  function createHistoryItemHTML(id, firstMessage, timeAgo) {
-    return `
-      <div class="flex items-center gap-2 w-full pr-2">
-        <a href="/chat/history/${id}" class="text-sm flex-1 min-w-0 truncate">
-          ${firstMessage || "Untitled Chat"}
-        </a>
-        <span class="text-xs text-gray-500 whitespace-nowrap shrink-0">${timeAgo}</span>
-      </div>
-    `;
-  }
-
   // Function to fetch and update nav items with improved error handling
   async function updateNavItems() {
     try {
@@ -1143,7 +1257,7 @@ for i in range(1, 20):
       }
 
       const data = await response.json();
-      console.log("Received history items:", data.history.length); // Debug log
+      console.log("Total history items received:", data.history.length);
 
       // Validate data structure
       if (
@@ -1157,13 +1271,12 @@ for i in range(1, 20):
       // Update prompts list
       const promptsList = document.getElementById("prompts-list");
       if (promptsList) {
-        // Preserve view-all link
-        const viewAllLink =
-          promptsList.querySelector(".view-all")?.parentElement;
+        // Keep the view all and new prompt links
+        const staticLinks = promptsList.querySelectorAll("li:nth-child(-n+3)");
         promptsList.innerHTML = "";
-        if (viewAllLink) {
-          promptsList.appendChild(viewAllLink);
-        }
+        staticLinks.forEach((link) =>
+          promptsList.appendChild(link.cloneNode(true)),
+        );
 
         // Add prompts with error handling
         data.prompts.forEach((prompt) => {
@@ -1173,15 +1286,20 @@ for i in range(1, 20):
               return;
             }
 
+            console.log("Prompt modified date:", prompt.modified_date);
+            const formattedDate = formatDate(prompt.modified_date);
+            console.log("Formatted date:", formattedDate);
+
             const li = document.createElement("li");
             li.className = "w-full";
             li.innerHTML = `
-              <div class="flex items-center gap-2 w-full pr-2">
-                <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm flex-1 min-w-0 truncate">
-                  ${prompt.name}
+              <div class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 group rounded-lg">
+                <a href="/chat/prompt/${prompt._id.$oid}" class="flex-1 min-w-0" title="${prompt.name}">
+                  <span class="truncate text-xs block">${prompt.name}</span>
                 </a>
-                <a href="/d/prompt/${prompt._id.$oid}" class="text-sm shrink-0">
-                  <span class="icon-[tabler--edit] size-4"></span>
+                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formattedDate}</span>
+                <a href="/d/prompt/${prompt._id.$oid}" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Edit prompt" title="Edit prompt">
+                  <span class="icon-[tabler--edit] size-3.5 text-primary"></span>
                 </a>
               </div>
             `;
@@ -1195,47 +1313,90 @@ for i in range(1, 20):
       // Update history list
       const historyList = document.getElementById("history-list");
       if (historyList) {
-        // Preserve view-all link
-        const viewAllLink =
-          historyList.querySelector(".view-all")?.parentElement;
+        // Keep the view all link and delete button
+        const staticLinks = historyList.querySelectorAll("li:nth-child(-n+3)");
         historyList.innerHTML = "";
-        if (viewAllLink) {
-          historyList.appendChild(viewAllLink);
-        }
+        staticLinks.forEach((link) =>
+          historyList.appendChild(link.cloneNode(true)),
+        );
 
+        let addedCount = 0;
         // Add history items with error handling
         data.history.forEach((item) => {
           try {
             if (!item?._id?.$oid) {
-              console.warn("Invalid history item data:", item);
               return;
             }
 
-            const modifiedDate = item.modified_date?.$date
-              ? new Date(item.modified_date.$date)
-              : null;
-            const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
-
             const li = document.createElement("li");
             li.className = "w-full";
-            li.innerHTML = createHistoryItemHTML(
-              item._id.$oid,
-              item.first_message,
-              timeAgo,
-            );
+            li.innerHTML = `
+              <a href="/chat/history/${item._id.$oid}" 
+                 class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 rounded-lg"
+                 title="${item.first_message || "Untitled Chat"}">
+                <span class="truncate flex-1 text-xs">${item.first_message || "Untitled Chat"}</span>
+                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formatDate(item.modified_date)}</span>
+              </a>
+            `;
             historyList.appendChild(li);
+            addedCount++;
           } catch (itemError) {
             console.warn("Error adding history item:", itemError);
           }
         });
-
-        console.log("Added history items:", historyList.children.length - 1); // Debug log (-1 for View All link)
+        console.log("Actually added history items:", addedCount);
       }
     } catch (error) {
       console.error("Error updating navigation:", error);
       showErrorNotification(
         "Failed to update navigation. Please refresh the page.",
       );
+    }
+  }
+
+  // Function to handle history deletion
+  async function handleDeleteHistory() {
+    if (
+      !confirm(
+        "Are you sure you want to delete all history documents? This action cannot be undone.",
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "{{ url_for('dms_chat.delete_all_history') }}",
+        {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token() }}",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete history");
+      }
+
+      const result = await response.json();
+
+      // Check if we're on a history page or list history page
+      const currentPath = window.location.pathname;
+      if (
+        currentPath.includes("/chat/history/") ||
+        currentPath.includes("/list/history")
+      ) {
+        // Redirect to index page
+        window.location.href = "/";
+        return;
+      }
+
+      // Update the navigation items
+      await updateNavItems();
+    } catch (error) {
+      console.error("Error deleting history:", error);
+      showErrorNotification("Failed to delete history. Please try again.");
     }
   }
 
@@ -3819,6 +3980,48 @@ def getDocument(id, document, collection):
         return {'status': 'error', 'message': f'Error retrieving document: {str(e)}'}
 ```
 
+## documents/clean_up_files.py
+
+```
+import os
+import shutil
+
+def delete_folder_contents(folder_path: str) -> None:
+    """Delete all files and subdirectories in the specified folder."""
+    try:
+        # Check if folder exists
+        if not os.path.exists(folder_path):
+            print(f"[DEBUG] Folder {folder_path} does not exist")
+            return
+
+        # Delete everything in the folder
+        for item in os.listdir(folder_path):
+            item_path = os.path.join(folder_path, item)
+            try:
+                if os.path.isfile(item_path):
+                    os.unlink(item_path)
+                elif os.path.isdir(item_path):
+                    shutil.rmtree(item_path)
+            except Exception as e:
+                print(f"[DEBUG] Error deleting {item_path}: {str(e)}")
+
+        print(f"[DEBUG] Successfully cleared contents of {folder_path}")
+
+    except Exception as e:
+        print(f"[DEBUG] Error clearing folder {folder_path}: {str(e)}")
+
+def delete_history_and_prompts():
+    """Delete contents of history and prompts folders."""
+    folders = ['history', 'prompts']
+    
+    for folder in folders:
+        delete_folder_contents(folder)
+        print(f"[DEBUG] Completed deletion process for {folder}")
+
+if __name__ == "__main__":
+    delete_history_and_prompts()
+```
+
 ## ai_search.py
 
 ```
@@ -4021,40 +4224,25 @@ def save_chat():
     username = request.form.get('username')
     chat_started = request.form.get('chat_started')
     messages = request.form.get('messages')
-    first_message = None
 
-    # Extract first user message for display
-    for msg in json.loads(messages):
-        if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
-            first_message = msg['content']
-            break
-
-    chat_history = History.objects(username=username, chat_started=chat_started)
+    chat_history = History.objects(username=username,
+                                   chat_started=chat_started)
     if len(chat_history) == 1:
         chat_history = chat_history[0]
         chat_history.messages = messages
-        if first_message:
-            chat_history.first_message = first_message
         chat_history.save()
-        return jsonify({
-            'status': 'updated',
-            'message': 'Chat updated successfully',
-            'chat_id': str(chat_history.id),
-            'first_message': first_message or "Untitled Chat"
-        })
+        return 'Chat aktualisiert!'
     else:
         chat_history = History()
         chat_history.username = username
         chat_history.chat_started = chat_started
         chat_history.messages = messages
-        chat_history.first_message = first_message or "Untitled Chat"
+        for msg in json.loads(messages):
+            if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
+                chat_history.first_message = msg['content']
+                break
         chat_history.save()
-        return jsonify({
-            'status': 'created',
-            'message': 'New chat created successfully',
-            'chat_id': str(chat_history.id),
-            'first_message': first_message or "Untitled Chat"
-        })
+        return 'Neuer Chat erstellt!'
 
 
 # @dms_chat.route('/chat/list_chat_history', methods=['GET'])
@@ -4100,6 +4288,23 @@ def get_nav_items():
         'history': json.loads(history.to_json()),
         'prompts': json.loads(prompts.to_json())
     })
+
+@dms_chat.route('/delete_all_history', methods=['POST'])
+@login_required
+def delete_all_history():
+    try:
+        # Delete all history documents for the current user
+        result = History.objects(username=current_user.email).delete()
+        return jsonify({
+            'status': 'success',
+            'message': 'All history documents deleted successfully',
+            'count': result
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 ```
 
 ## __init__.py
@@ -4448,9 +4653,6 @@ let uploadedFilesCount = 0;
 let currentMessageAttachments = [];
 let displayedFileIds = new Set(); // Track which files we've already displayed
 
-// Add a flag to track nav update status
-let isNavUpdateInProgress = false;
-
 function appendCodeBlock(container, codeContent) {
   const codeElement = createCodeElement();
   const preElement = codeElement.querySelector("pre");
@@ -4504,58 +4706,62 @@ function initChatMessages() {
 
   if (messages.length === 0) {
     messages = [{ role: "system", content: systemMessage }];
+  }
 
-    // Add welcome message only after DOM is loaded
-    const addWelcomeMessage = () => {
-      const chatMessages = document.getElementById("chat_messages");
-      if (!chatMessages) return; // Guard against missing element
+  // Display file banners first if they exist in the system message
+  if (messages[0].attachments && messages[0].attachments.length > 0) {
+    const chatMessages = document.getElementById("chat_messages");
+    for (const attachment of messages[0].attachments) {
+      if (attachment.type === "file") {
+        displayFileBanner(attachment.name, attachment.id, chatMessages);
+      }
+    }
+  }
 
-      const template = document
-        .getElementById("bot-message-template")
-        .content.cloneNode(true);
-      const contentElement = template.querySelector(".content");
-      contentElement.textContent = welcomeMessage;
+  if (use_prompt_template === "True") {
+    // Store prompt content
+    const promptContent = messages.length > 1 ? messages[1].content : "";
 
-      // Remove the bottom margin from the outer div
-      const outerDiv = template.querySelector(".flex.space-x-4");
-      outerDiv.classList.remove("mb-6");
+    // Add welcome message
+    const chatMessages = document.getElementById("chat_messages");
+    if (chatMessages) {
+      addBotMessage(welcomeMessage);
+    }
 
-      chatMessages.appendChild(template);
+    // Set chat input content
+    const chat_input_ui = document.getElementById("chat_input");
+    if (chat_input_ui) {
+      chat_input_ui.value = promptContent;
+      chat_input_ui.focus();
+    }
 
-      // Focus input after adding welcome message
-      const chatInput = document.getElementById("chat_input");
-      if (chatInput) chatInput.focus();
-    };
-
-    // If DOM is already loaded, add welcome message immediately
-    if (document.readyState === "complete") {
-      addWelcomeMessage();
-    } else {
-      // Otherwise wait for DOM to load
-      document.addEventListener("DOMContentLoaded", addWelcomeMessage);
+    // Remove the prompt message from messages array
+    if (messages.length > 1) {
+      messages.splice(1, 1);
     }
   } else {
-    if (use_prompt_template == "True") {
-      // Display file banners first if they exist in the system message
-      if (messages[0].attachments && messages[0].attachments.length > 0) {
-        const chatMessages = document.getElementById("chat_messages");
-        for (const attachment of messages[0].attachments) {
-          if (attachment.type === "file") {
-            displayFileBanner(attachment.name, attachment.id, chatMessages);
-          }
-        }
-      }
+    if (messages.length === 1) {
+      // Only system message present - show welcome message
+      const chatMessages = document.getElementById("chat_messages");
+      if (chatMessages) {
+        const template = document
+          .getElementById("bot-message-template")
+          .content.cloneNode(true);
+        const contentElement = template.querySelector(".content");
+        contentElement.textContent = welcomeMessage;
 
-      document.addEventListener("DOMContentLoaded", (event) => {
-        addBotMessage(welcomeMessage);
-      });
-      let chat_input_ui = document.getElementById("chat_input");
-      chat_input_ui.textContent = messages[1]["content"];
-      chat_input_ui.focus();
-      messages.splice(1, 1);
-      console.log(messages);
+        // Remove the bottom margin from the outer div
+        const outerDiv = template.querySelector(".flex.space-x-4");
+        outerDiv.classList.remove("mb-6");
+
+        chatMessages.appendChild(template);
+
+        // Focus input
+        const chatInput = document.getElementById("chat_input");
+        if (chatInput) chatInput.focus();
+      }
     } else {
-      // Display messages and their attachments
+      // Display existing messages and their attachments
       for (const message of messages) {
         // Display attachments if they exist
         if (message.attachments && message.attachments.length > 0) {
@@ -4583,16 +4789,11 @@ function initChatMessages() {
 // Initialize chat when DOM is ready
 if (document.readyState === "complete") {
   initChatMessages();
-  updateNavItems(); // Initial update
 } else {
   document.addEventListener("DOMContentLoaded", () => {
     initChatMessages();
-    updateNavItems(); // Initial update
   });
 }
-
-// Update nav items periodically
-setInterval(updateNavItems, 30000);
 
 function appendImage(container, imageData) {
   const img = document.createElement("img");
@@ -4636,262 +4837,41 @@ function appendData(text, botMessageElement) {
   }
 }
 
-// Function to format date
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now - date;
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMins / 60);
-  const diffDays = Math.floor(diffHours / 24);
-
-  if (diffMins < 1) {
-    return "just now";
-  } else if (diffMins < 60) {
-    return `${diffMins}m ago`;
-  } else if (diffHours < 24) {
-    return `${diffHours}h ago`;
-  } else if (diffDays === 1) {
-    return "yesterday";
-  } else if (diffDays < 7) {
-    return `${diffDays}d ago`;
-  } else {
-    return date.toLocaleDateString();
-  }
-}
-
-// Function to create consistent history item HTML
-function createHistoryItemHTML(id, firstMessage, timeAgo) {
-  return `
-    <div class="flex items-center gap-2 w-full">
-      <a href="/chat/history/${id}" class="text-sm line-clamp-2 flex-1">
-        ${firstMessage || "Untitled Chat"}
-      </a>
-      <span class="text-xs text-gray-500 whitespace-nowrap">${timeAgo}</span>
-    </div>
-  `;
-}
-
-async function saveChatData(messages) {
+function saveChatData(messages) {
   // Get CSRF token from meta tag
   const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
-  // Prepare form data
+  // Daten für den POST-Request
   const formData = new FormData();
   formData.append("username", username);
   formData.append("chat_started", chat_started);
   formData.append("messages", JSON.stringify(messages));
 
+  // Dynamische Generierung des API-Endpunkts aus der aktuellen URL
   const url = `${window.location.origin}/chat/save_chat`;
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": csrfToken,
-      },
-      body: formData,
+  // POST-Request an den API-Endpunkt senden
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": csrfToken,
+    },
+    body: formData,
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log("api call successful");
+      }
+      return response.text();
+    })
+    .then((data) => {
+      console.log(data); // Logge die Antwort des Servers
+    })
+    .catch((error) => {
+      console.error("Fehler beim Senden des Requests:", error);
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to save chat data");
-    }
-
-    const result = await response.json();
-    console.log("Chat data saved successfully:", result);
-
-    // Immediately update the history list with the new/updated chat
-    const historyList = document.getElementById("history-list");
-    if (historyList && result.chat_id && result.first_message) {
-      // Get fresh nav items to ensure correct ordering
-      try {
-        const navResponse = await fetch("/chat/nav_items");
-        if (!navResponse.ok) {
-          throw new Error("Failed to fetch nav items");
-        }
-        const navData = await navResponse.json();
-
-        // Update history list with fresh data
-        if (navData.history && Array.isArray(navData.history)) {
-          // Preserve "View All" link
-          const viewAllLink =
-            historyList.querySelector(".view-all")?.parentElement;
-          historyList.innerHTML = "";
-          if (viewAllLink) {
-            historyList.appendChild(viewAllLink);
-          }
-
-          // Add history items in correct order
-          navData.history.forEach((item) => {
-            try {
-              if (!item?._id?.$oid) {
-                console.warn("Invalid history item data:", item);
-                return;
-              }
-
-              const modifiedDate = item.modified_date?.$date
-                ? new Date(item.modified_date.$date)
-                : null;
-              const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
-
-              const li = document.createElement("li");
-              li.className = "w-full";
-              li.innerHTML = createHistoryItemHTML(
-                item._id.$oid,
-                item.first_message,
-                timeAgo,
-              );
-              historyList.appendChild(li);
-            } catch (itemError) {
-              console.warn("Error adding history item:", itemError);
-            }
-          });
-        }
-      } catch (navError) {
-        console.warn("Failed to update nav items:", navError);
-        // Fallback: just update the current item
-        const existingItem = historyList.querySelector(
-          `a[href*="${result.chat_id}"]`,
-        )?.parentElement;
-        if (existingItem) {
-          existingItem.querySelector("a").textContent = result.first_message;
-          // Move to top (after "View All" link)
-          const viewAllLink =
-            historyList.querySelector(".view-all")?.parentElement;
-          if (viewAllLink && viewAllLink.nextSibling) {
-            historyList.insertBefore(existingItem, viewAllLink.nextSibling);
-          }
-        } else {
-          // Create new history item at top
-          const li = document.createElement("li");
-          li.className = "w-full";
-          li.innerHTML = createHistoryItemHTML(
-            result.chat_id,
-            result.first_message,
-            "just now",
-          );
-          const viewAllLink =
-            historyList.querySelector(".view-all")?.parentElement;
-          if (viewAllLink) {
-            historyList.insertBefore(li, viewAllLink.nextSibling);
-          } else {
-            historyList.insertBefore(li, historyList.firstChild);
-          }
-        }
-      }
-    }
-
-    return result;
-  } catch (error) {
-    console.error("Error saving chat data:", error);
-    throw error;
-  }
-}
-
-// Function to update nav items with debouncing and race condition prevention
-async function updateNavItems() {
-  // If an update is already in progress, skip this one
-  if (isNavUpdateInProgress) {
-    console.log("Nav update already in progress, skipping...");
-    return;
-  }
-
-  isNavUpdateInProgress = true;
-
-  try {
-    const response = await fetch("/chat/nav_items");
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-
-    // Validate data structure
-    if (!data || !Array.isArray(data.prompts) || !Array.isArray(data.history)) {
-      throw new Error("Invalid navigation data structure");
-    }
-
-    // Update prompts list
-    const promptsList = document.getElementById("prompts-list");
-    if (promptsList) {
-      // Safely preserve "View All" link
-      const promptsViewAll =
-        promptsList.querySelector(".view-all")?.parentElement;
-      promptsList.innerHTML = "";
-      if (promptsViewAll) {
-        promptsList.appendChild(promptsViewAll);
-      }
-
-      // Add prompts with error handling for each item
-      data.prompts.forEach((prompt) => {
-        try {
-          if (!prompt?._id?.$oid || !prompt?.name) {
-            console.warn("Invalid prompt data:", prompt);
-            return;
-          }
-
-          const li = document.createElement("li");
-          li.innerHTML = `
-            <div class="flex items-center justify-between">
-              <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm">
-                ${prompt.name}
-              </a>
-              <a href="/d/prompt/${prompt._id.$oid}" class="text-sm">
-                <span class="icon-[tabler--edit] size-4"></span>
-              </a>
-            </div>
-          `;
-          promptsList.appendChild(li);
-        } catch (itemError) {
-          console.warn("Error adding prompt item:", itemError);
-        }
-      });
-    }
-
-    // Update history list
-    const historyList = document.getElementById("history-list");
-    if (historyList) {
-      // Safely preserve "View All" link
-      const historyViewAll =
-        historyList.querySelector(".view-all")?.parentElement;
-      historyList.innerHTML = "";
-      if (historyViewAll) {
-        historyList.appendChild(historyViewAll);
-      }
-
-      // Add history items with error handling for each item
-      data.history.forEach((item) => {
-        try {
-          if (!item?._id?.$oid) {
-            console.warn("Invalid history item data:", item);
-            return;
-          }
-
-          const modifiedDate = item.modified_date?.$date
-            ? new Date(item.modified_date.$date)
-            : null;
-          const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
-
-          const li = document.createElement("li");
-          li.className = "w-full";
-          li.innerHTML = createHistoryItemHTML(
-            item._id.$oid,
-            item.first_message,
-            timeAgo,
-          );
-          historyList.appendChild(li);
-        } catch (itemError) {
-          console.warn("Error adding history item:", itemError);
-        }
-      });
-    }
-  } catch (error) {
-    console.error("Error updating navigation:", error);
-    throw error;
-  } finally {
-    isNavUpdateInProgress = false;
-  }
 }
 
 async function stopStreaming() {
@@ -4959,128 +4939,109 @@ async function streamMessage() {
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
-  if (userMessage === "") return;
+  if (userMessage !== "") {
+    // Remove prompts div if it exists
+    const promptsDiv = document.getElementById("prompts");
+    if (promptsDiv) promptsDiv.remove();
 
-  // Remove prompts div if it exists
-  const promptsDiv = document.getElementById("prompts");
-  if (promptsDiv) promptsDiv.remove();
+    // Create message object with attachments
+    const messageObj = {
+      role: "user",
+      content: userMessage,
+    };
 
-  // Create message object with attachments
-  const messageObj = {
-    role: "user",
-    content: userMessage,
-  };
-
-  // Add attachments if any exist
-  if (currentMessageAttachments.length > 0) {
-    messageObj.attachments = [...currentMessageAttachments];
-    currentMessageAttachments = []; // Clear for next message
-  }
-
-  messages.push(messageObj);
-  addUserMessage(userMessage); // Display the user message in the chat
-  chatInput.value = ""; // Clear the input field after sending the message
-
-  toggleButtonVisibility();
-  stop_stream = false;
-  chatInput.readOnly = true;
-
-  // Instantly add a bot message template to be filled with streamed content
-  const botMessageElement = addBotMessage("..."); // Initially empty
-  let accumulatedResponse = ""; // Variable to accumulate the streamed response
-
-  try {
-    let current_model = models[0];
-    for (let i = 0; i < models.length; i++) {
-      if (selected_model == models[i]["model"]) {
-        current_model = models[i];
-      }
-    }
-    const response = await fetch("/chat/stream", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken,
-      },
-      body: JSON.stringify({ messages: messages, model: current_model }),
-    });
-
-    if (!response.body) {
-      throw new Error("Failed to get a readable stream from the response");
+    // Add attachments if any exist
+    if (currentMessageAttachments.length > 0) {
+      messageObj.attachments = [...currentMessageAttachments];
+      currentMessageAttachments = []; // Clear for next message
     }
 
-    const reader = response.body.getReader();
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done || stop_stream) {
-        const stopIndexAccumulated = accumulatedResponse.indexOf("###STOP###");
-        if (stopIndexAccumulated !== -1) {
-          accumulatedResponse = accumulatedResponse.substring(
-            0,
-            stopIndexAccumulated,
-          );
-        }
-        botMessageElement.innerHTML = "";
-        appendData(accumulatedResponse, botMessageElement);
-        messages.push({ role: "assistant", content: accumulatedResponse });
-
-        try {
-          await saveChatData(messages);
-          console.log("Chat saved and nav updated successfully");
-        } catch (error) {
-          console.error("Failed to save chat or update nav:", error);
-        }
-
-        toggleButtonVisibility();
-        chatInput.readOnly = false;
-        break;
-      }
-      const text = new TextDecoder().decode(value);
-      const stopIndex = text.indexOf("###STOP###");
-
-      if (stopIndex !== -1) {
-        // Add the text before ###STOP### and then break
-        accumulatedResponse += text.substring(0, stopIndex);
-        botMessageElement.innerHTML = "";
-        appendData(accumulatedResponse, botMessageElement);
-        messages.push({ role: "assistant", content: accumulatedResponse });
-
-        try {
-          await saveChatData(messages);
-          console.log("Chat saved and nav updated successfully");
-        } catch (error) {
-          console.error("Failed to save chat or update nav:", error);
-        }
-
-        toggleButtonVisibility();
-        chatInput.readOnly = false;
-        break;
-      } else {
-        accumulatedResponse += text;
-      }
-
-      // Before updating, clear the existing content to avoid duplication
-      botMessageElement.innerHTML = "";
-      appendData(accumulatedResponse, botMessageElement);
-      scrollToBottom();
-    }
-  } catch (error) {
-    console.error("Streaming failed:", error);
-    botMessageElement.textContent = `Error occurred: ${error.message}`;
-    messages.push({
-      role: "assistant",
-      content: `Error occurred: ${error.message}`,
-    });
-
-    try {
-      await saveChatData(messages);
-    } catch (saveError) {
-      console.error("Failed to save error state:", saveError);
-    }
+    messages.push(messageObj);
+    addUserMessage(userMessage); // Display the user message in the chat
+    chatInput.value = ""; // Clear the input field after sending the message
 
     toggleButtonVisibility();
-    chatInput.readOnly = false;
+    stop_stream = false;
+    chatInput.readOnly = true;
+
+    // Instantly add a bot message template to be filled with streamed content
+    const botMessageElement = addBotMessage("..."); // Initially empty
+    let accumulatedResponse = ""; // Variable to accumulate the streamed response
+
+    try {
+      let current_model = models[0];
+      for (let i = 0; i < models.length; i++) {
+        if (selected_model == models[i]["model"]) {
+          current_model = models[i];
+        }
+      }
+      const response = await fetch("/chat/stream", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify({ messages: messages, model: current_model }),
+      });
+
+      if (!response.body) {
+        throw new Error("Failed to get a readable stream from the response");
+      }
+
+      const reader = response.body.getReader();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done || stop_stream) {
+          const stopIndexAccumulated =
+            accumulatedResponse.indexOf("###STOP###");
+          if (stopIndexAccumulated !== -1) {
+            accumulatedResponse = accumulatedResponse.substring(
+              0,
+              stopIndexAccumulated,
+            );
+          }
+          botMessageElement.innerHTML = "";
+          appendData(accumulatedResponse, botMessageElement);
+          messages.push({ role: "assistant", content: accumulatedResponse });
+          console.log("Stream finished, messages array:", messages);
+          toggleButtonVisibility();
+          chatInput.readOnly = false;
+          saveChatData(messages);
+          break;
+        }
+        const text = new TextDecoder().decode(value);
+        const stopIndex = text.indexOf("###STOP###");
+
+        if (stopIndex !== -1) {
+          // Add the text before ###STOP### and then break
+          accumulatedResponse += text.substring(0, stopIndex);
+          botMessageElement.innerHTML = "";
+          appendData(accumulatedResponse, botMessageElement);
+          messages.push({ role: "assistant", content: accumulatedResponse });
+          console.log("Stream finished, messages array:", messages);
+          toggleButtonVisibility();
+          chatInput.readOnly = false;
+          saveChatData(messages);
+          break;
+        } else {
+          accumulatedResponse += text;
+        }
+
+        // Before updating, clear the existing content to avoid duplication
+        botMessageElement.innerHTML = "";
+        appendData(accumulatedResponse, botMessageElement);
+        scrollToBottom();
+      }
+    } catch (error) {
+      console.error("Streaming failed:", error);
+      botMessageElement.textContent = `Error occurred: ${error.message}`;
+      messages.push({
+        role: "assistant",
+        content: `Error occurred: ${error.message}`,
+      });
+      saveChatData(messages);
+    }
   }
 }
 

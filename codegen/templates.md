@@ -392,7 +392,9 @@ module.exports = {
       />
     </svg>
   </div>
-  <div class="message content bg-base-300 rounded-lg p-4"></div>
+  <div
+    class="message content bg-base-300 rounded-lg p-4 flex-1 min-w-0 break-words"
+  ></div>
 </div>
 ```
 
@@ -546,11 +548,13 @@ module.exports = {
 ```
 <div class="flex space-x-4 mb-6">
   <div
-    class="flex justify-center items-center w-10 h-10 bg-gray-500 text-white rounded-full"
+    class="flex justify-center items-center w-10 h-10 bg-gray-500 text-white rounded-full flex-shrink-0"
   >
     A
   </div>
-  <div class="message content bg-base-200 rounded-lg p-4"></div>
+  <div
+    class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
+  ></div>
 </div>
 ```
 
@@ -856,112 +860,191 @@ for i in range(1, 20):
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start w-64 max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div
-    class="drawer-body px-2 pt-4 bg-white h-full flex flex-col overflow-y-auto"
-  >
-    <ul class="menu space-y-0.5 p-0 flex-1">
-      <li>
-        <a
-          href="{{ url_for('index') }}"
-          class="flex items-center gap-2 px-4 py-2"
-        >
-          <span class="icon-[tabler--dashboard] size-5"></span>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a
-          href="{{ url_for('dms_chat.chat') }}"
-          class="flex items-center gap-2 px-4 py-2"
-        >
-          <span class="icon-[tabler--message] size-5"></span>
-          Chat
-        </a>
-      </li>
-      <li>
-        <button
-          type="button"
-          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
-          id="prompts-collapse"
-          aria-expanded="false"
-          aria-controls="prompts-collapse-content"
-          data-collapse="#prompts-collapse-content"
-        >
-          <span class="icon-[tabler--app-window] size-5"></span>
-          <span class="flex-1">Prompts</span>
-          <span
-            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
-          ></span>
-        </button>
-        <div
-          id="prompts-collapse-content"
-          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
-          aria-labelledby="prompts-collapse"
-        >
-          <div class="py-1">
-            <ul class="menu space-y-0.5 pl-6 w-full" id="prompts-list">
-              <li class="w-full">
-                <a
-                  href="{{ url_for('list', name='prompts') }}"
-                  class="text-sm view-all truncate w-full"
-                >
-                  View All Prompts
-                </a>
-              </li>
-              <!-- Latest prompts will be inserted here -->
-            </ul>
+  <div class="drawer-body w-64 bg-white h-full flex flex-col overflow-hidden">
+    <!-- Fixed Header Section -->
+    <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
+      <ul class="menu w-full space-y-0.5 p-0">
+        <li class="w-full">
+          <a
+            href="{{ url_for('index') }}"
+            class="flex items-center gap-2 px-4 py-2 w-full"
+          >
+            <span class="icon-[tabler--dashboard] size-5 shrink-0"></span>
+            <span class="truncate">Dashboard</span>
+          </a>
+        </li>
+        <li class="w-full">
+          <a
+            href="{{ url_for('dms_chat.chat') }}"
+            class="flex items-center gap-2 px-4 py-2 w-full"
+          >
+            <span class="icon-[tabler--message] size-5 shrink-0"></span>
+            <span class="truncate">Chat</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Scrollable Content Section -->
+    <div
+      class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent px-2 py-2"
+    >
+      <ul
+        class="menu w-full space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0 pb-6"
+      >
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="prompts-collapse"
+            aria-expanded="false"
+            aria-controls="prompts-collapse-content"
+            data-collapse="#prompts-collapse-content"
+          >
+            <span class="icon-[tabler--app-window] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Prompts</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="prompts-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="prompts-collapse"
+          >
+            <div>
+              <ul class="menu space-y-0.5 w-full" id="prompts-list">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', name='prompts') }}"
+                    class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
+                  >
+                    <span class="truncate">View All Prompts</span>
+                  </a>
+                </li>
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('doc', name='prompt') }}"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-primary rounded-lg group"
+                  >
+                    <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
+                    <span class="truncate">New Prompt</span>
+                  </a>
+                </li>
+                <li class="w-full border-t border-base-200 my-1"></li>
+                {% for prompt in prompts %}
+                <li class="w-full">
+                  <div
+                    class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 group rounded-lg"
+                  >
+                    <a
+                      href="{{ url_for('chat.prompt', id=prompt.id) }}"
+                      class="flex-1 min-w-0"
+                      title="{{ prompt.name }}"
+                    >
+                      <span class="truncate text-xs block"
+                        >{{ prompt.name }}</span
+                      >
+                    </a>
+                    <span
+                      class="text-[10px] text-gray-500 whitespace-nowrap shrink-0"
+                      >{{ format_time_ago(prompt.modified_date) }}</span
+                    >
+                    <a
+                      href="{{ url_for('prompt.edit', id=prompt.id) }}"
+                      class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Edit prompt"
+                      title="Edit prompt"
+                    >
+                      <span
+                        class="icon-[tabler--edit] size-3.5 text-primary"
+                      ></span>
+                    </a>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
-      </li>
-      <li>
-        <button
-          type="button"
-          class="collapse-toggle w-full flex items-center gap-2 px-4 py-2"
-          id="history-collapse"
-          aria-expanded="false"
-          aria-controls="history-collapse-content"
-          data-collapse="#history-collapse-content"
-        >
-          <span class="icon-[tabler--clock] size-5"></span>
-          <span class="flex-1">History</span>
-          <span
-            class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-transform duration-300"
-          ></span>
-        </button>
-        <div
-          id="history-collapse-content"
-          class="collapse hidden w-full max-h-[calc(100vh-400px)] overflow-y-auto transition-[height] duration-300"
-          aria-labelledby="history-collapse"
-        >
-          <div class="py-1">
-            <ul class="menu space-y-0.5 pl-6 w-full" id="history-list">
-              <li class="w-full">
-                <a
-                  href="{{ url_for('list', name='history') }}"
-                  class="text-sm view-all truncate w-full"
-                >
-                  View All History
-                </a>
-              </li>
-              <!-- Latest history entries will be inserted here -->
-            </ul>
+        </li>
+        <li class="w-full space-y-0.5">
+          <button
+            type="button"
+            class="collapse-toggle w-full flex items-center gap-2 px-4 py-2 collapse-open:bg-base-content/10"
+            id="history-collapse"
+            aria-expanded="false"
+            aria-controls="history-collapse-content"
+            data-collapse="#history-collapse-content"
+          >
+            <span class="icon-[tabler--clock] size-5 shrink-0"></span>
+            <span class="truncate flex-1">History</span>
+            <span
+              class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 shrink-0 transition-transform duration-300"
+            ></span>
+          </button>
+          <div
+            id="history-collapse-content"
+            class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            aria-labelledby="history-collapse"
+          >
+            <div>
+              <ul class="menu space-y-0.5 w-full" id="history-list">
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', name='history') }}"
+                    class="text-xs view-all w-full px-4 py-2 hover:bg-base-200 flex items-center rounded-lg"
+                  >
+                    <span class="truncate">View All History</span>
+                  </a>
+                </li>
+                <li class="w-full">
+                  <button
+                    type="button"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-error rounded-lg group"
+                    onclick="handleDeleteHistory()"
+                  >
+                    <span class="icon-[tabler--trash] size-3.5 shrink-0"></span>
+                    <span class="truncate">Delete Documents</span>
+                  </button>
+                </li>
+                <li class="w-full border-t border-base-200 my-1"></li>
+                {% for item in history %}
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('chat.history', id=item.id) }}"
+                    class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 rounded-lg"
+                    title="{{ item.first_message or 'Untitled Chat' }}"
+                  >
+                    <span class="truncate flex-1 text-xs"
+                      >{{ item.first_message or "Untitled Chat" }}</span
+                    >
+                    <span
+                      class="text-[10px] text-gray-500 whitespace-nowrap shrink-0"
+                      >{{ format_time_ago(item.modified_date) }}</span
+                    >
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
-    <!-- Mobile Sign Out at Bottom -->
-    <div class="mt-auto border-t border-base-200 pt-4 lg:hidden">
+        </li>
+      </ul>
+    </div>
+
+    <!-- Fixed Footer Section -->
+    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 lg:hidden">
       <form action="{{ url_for('logout') }}" method="post" class="w-full">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button
           type="submit"
           class="btn btn-ghost w-full justify-start gap-2 text-error"
         >
-          <span class="icon-[tabler--logout-2] size-5"></span>
-          Sign Out
+          <span class="icon-[tabler--logout-2] size-5 shrink-0"></span>
+          <span class="truncate">Sign Out</span>
         </button>
       </form>
     </div>
@@ -976,7 +1059,25 @@ for i in range(1, 20):
 
   // Function to format date
   function formatDate(dateString) {
-    const date = new Date(dateString);
+    let date;
+    if (typeof dateString === "string") {
+      // Try to parse the formatted date string from mongoToJson (DD.MM.YYYY HH:MM)
+      const parts = dateString.split(" ");
+      if (parts.length === 2) {
+        const [datePart, timePart] = parts;
+        const [day, month, year] = datePart.split(".");
+        const [hours, minutes] = timePart.split(":");
+        date = new Date(year, month - 1, day, hours, minutes);
+      } else {
+        date = new Date(dateString);
+      }
+    } else if (dateString?.$date) {
+      // Handle MongoDB ISODate format
+      date = new Date(dateString.$date);
+    } else {
+      return "";
+    }
+
     const now = new Date();
     const diffMs = now - date;
     const diffMins = Math.floor(diffMs / 60000);
@@ -998,18 +1099,6 @@ for i in range(1, 20):
     }
   }
 
-  // Function to create consistent history item HTML
-  function createHistoryItemHTML(id, firstMessage, timeAgo) {
-    return `
-      <div class="flex items-center gap-2 w-full pr-2">
-        <a href="/chat/history/${id}" class="text-sm flex-1 min-w-0 truncate">
-          ${firstMessage || "Untitled Chat"}
-        </a>
-        <span class="text-xs text-gray-500 whitespace-nowrap shrink-0">${timeAgo}</span>
-      </div>
-    `;
-  }
-
   // Function to fetch and update nav items with improved error handling
   async function updateNavItems() {
     try {
@@ -1019,7 +1108,7 @@ for i in range(1, 20):
       }
 
       const data = await response.json();
-      console.log("Received history items:", data.history.length); // Debug log
+      console.log("Total history items received:", data.history.length);
 
       // Validate data structure
       if (
@@ -1033,13 +1122,12 @@ for i in range(1, 20):
       // Update prompts list
       const promptsList = document.getElementById("prompts-list");
       if (promptsList) {
-        // Preserve view-all link
-        const viewAllLink =
-          promptsList.querySelector(".view-all")?.parentElement;
+        // Keep the view all and new prompt links
+        const staticLinks = promptsList.querySelectorAll("li:nth-child(-n+3)");
         promptsList.innerHTML = "";
-        if (viewAllLink) {
-          promptsList.appendChild(viewAllLink);
-        }
+        staticLinks.forEach((link) =>
+          promptsList.appendChild(link.cloneNode(true)),
+        );
 
         // Add prompts with error handling
         data.prompts.forEach((prompt) => {
@@ -1049,15 +1137,20 @@ for i in range(1, 20):
               return;
             }
 
+            console.log("Prompt modified date:", prompt.modified_date);
+            const formattedDate = formatDate(prompt.modified_date);
+            console.log("Formatted date:", formattedDate);
+
             const li = document.createElement("li");
             li.className = "w-full";
             li.innerHTML = `
-              <div class="flex items-center gap-2 w-full pr-2">
-                <a href="/chat/prompt/${prompt._id.$oid}" class="text-sm flex-1 min-w-0 truncate">
-                  ${prompt.name}
+              <div class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 group rounded-lg">
+                <a href="/chat/prompt/${prompt._id.$oid}" class="flex-1 min-w-0" title="${prompt.name}">
+                  <span class="truncate text-xs block">${prompt.name}</span>
                 </a>
-                <a href="/d/prompt/${prompt._id.$oid}" class="text-sm shrink-0">
-                  <span class="icon-[tabler--edit] size-4"></span>
+                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formattedDate}</span>
+                <a href="/d/prompt/${prompt._id.$oid}" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Edit prompt" title="Edit prompt">
+                  <span class="icon-[tabler--edit] size-3.5 text-primary"></span>
                 </a>
               </div>
             `;
@@ -1071,47 +1164,90 @@ for i in range(1, 20):
       // Update history list
       const historyList = document.getElementById("history-list");
       if (historyList) {
-        // Preserve view-all link
-        const viewAllLink =
-          historyList.querySelector(".view-all")?.parentElement;
+        // Keep the view all link and delete button
+        const staticLinks = historyList.querySelectorAll("li:nth-child(-n+3)");
         historyList.innerHTML = "";
-        if (viewAllLink) {
-          historyList.appendChild(viewAllLink);
-        }
+        staticLinks.forEach((link) =>
+          historyList.appendChild(link.cloneNode(true)),
+        );
 
+        let addedCount = 0;
         // Add history items with error handling
         data.history.forEach((item) => {
           try {
             if (!item?._id?.$oid) {
-              console.warn("Invalid history item data:", item);
               return;
             }
 
-            const modifiedDate = item.modified_date?.$date
-              ? new Date(item.modified_date.$date)
-              : null;
-            const timeAgo = modifiedDate ? formatDate(modifiedDate) : "";
-
             const li = document.createElement("li");
             li.className = "w-full";
-            li.innerHTML = createHistoryItemHTML(
-              item._id.$oid,
-              item.first_message,
-              timeAgo,
-            );
+            li.innerHTML = `
+              <a href="/chat/history/${item._id.$oid}" 
+                 class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 rounded-lg"
+                 title="${item.first_message || "Untitled Chat"}">
+                <span class="truncate flex-1 text-xs">${item.first_message || "Untitled Chat"}</span>
+                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formatDate(item.modified_date)}</span>
+              </a>
+            `;
             historyList.appendChild(li);
+            addedCount++;
           } catch (itemError) {
             console.warn("Error adding history item:", itemError);
           }
         });
-
-        console.log("Added history items:", historyList.children.length - 1); // Debug log (-1 for View All link)
+        console.log("Actually added history items:", addedCount);
       }
     } catch (error) {
       console.error("Error updating navigation:", error);
       showErrorNotification(
         "Failed to update navigation. Please refresh the page.",
       );
+    }
+  }
+
+  // Function to handle history deletion
+  async function handleDeleteHistory() {
+    if (
+      !confirm(
+        "Are you sure you want to delete all history documents? This action cannot be undone.",
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "{{ url_for('dms_chat.delete_all_history') }}",
+        {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token() }}",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete history");
+      }
+
+      const result = await response.json();
+
+      // Check if we're on a history page or list history page
+      const currentPath = window.location.pathname;
+      if (
+        currentPath.includes("/chat/history/") ||
+        currentPath.includes("/list/history")
+      ) {
+        // Redirect to index page
+        window.location.href = "/";
+        return;
+      }
+
+      // Update the navigation items
+      await updateNavItems();
+    } catch (error) {
+      console.error("Error deleting history:", error);
+      showErrorNotification("Failed to delete history. Please try again.");
     }
   }
 
