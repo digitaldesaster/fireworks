@@ -1,22 +1,22 @@
 <div
   id="chat_messages"
-  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 overflow-auto flex flex-col"
+  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 overflow-auto flex flex-col space-y-2"
 >
   {% for message in config.messages %} {% if message.role =='user' %}
-  <div class="flex space-x-4 mb-6">
+  <div class="flex space-x-4 mb-4">
     <div
       class="flex justify-center items-center w-10 h-10 bg-gray-500 text-white rounded-full"
     >
-      A
+      {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
+      config.name else '' }}
     </div>
     <div
       class="message content bg-neutral-content rounded-lg p-4 flex-1 min-w-0 break-words"
-    >
-      {{message.content}}
-    </div>
+      id="message-{{ loop.index }}"
+    ></div>
   </div>
   {% endif %} {% if message.role =='assistant' %}
-  <div class="flex space-x-4 mb-6">
+  <div class="flex space-x-4 mb-4">
     <div
       class="flex justify-center items-center w-10 h-10 bg-gray-600 text-white rounded-full"
     >
@@ -37,9 +37,21 @@
     </div>
     <div
       class="message content bg-secondary-content rounded-lg p-4 flex-1 min-w-0 break-words"
-    >
-      {{message.content}}
-    </div>
+      id="message-{{ loop.index }}"
+    ></div>
   </div>
   {% endif %} {% endfor %}
 </div>
+
+<script>
+  // Process all messages after the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    {% for message in config.messages %}
+      const messageContent = {{message.content|tojson}};
+      const container = document.getElementById('message-{{ loop.index }}');
+      if (container) {
+        appendData(messageContent, container);
+      }
+    {% endfor %}
+  });
+</script>

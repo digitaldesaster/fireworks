@@ -157,6 +157,9 @@ function appendImage(container, imageData) {
 }
 
 function appendData(text, botMessageElement) {
+  // Clear any existing content
+  botMessageElement.innerHTML = "";
+
   if (typeof text === "object" && Array.isArray(text)) {
     text.forEach((item) => {
       if (item.type === "text") {
@@ -168,6 +171,7 @@ function appendData(text, botMessageElement) {
     return;
   }
 
+  // First handle code blocks
   const codeRegex = /```([\s\S]*?)```/g;
   let lastIndex = 0;
   let match;
@@ -248,8 +252,148 @@ async function stopStreaming() {
 }
 
 function appendNormalText(container, text) {
-  const textNode = document.createTextNode(text);
-  container.appendChild(textNode);
+  // Split text into lines to process each line separately
+  const lines = text.split("\n");
+  let inList = false;
+  let listElement = null;
+  let orderNumber = 1; // Track ordered list numbering
+
+  lines.forEach((line) => {
+    // Check for heading patterns - note the order change: h2 before h1
+    const h2Match = line.match(/^## (.*)/);
+    const h1Match = line.match(/^# (.*)/);
+    const h3Match = line.match(/^### (.*)/);
+    const ulMatch = line.match(/^\* (.*)/);
+    const olMatch = line.match(/^(\d+)\. (.*)/);
+
+    if (h2Match) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1; // Reset counter when list ends
+      }
+      const h2 = document.createElement("h2");
+      h2.className = "text-3xl font-bold mt-3 mb-2 text-gray-700";
+      h2.textContent = processInlineMarkdown(h2Match[1]);
+      container.appendChild(h2);
+    } else if (h1Match) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1; // Reset counter when list ends
+      }
+      const h1 = document.createElement("h1");
+      h1.className = "text-2xl font-bold mt-2 mb-2 text-gray-700";
+      h1.textContent = processInlineMarkdown(h1Match[1]);
+      container.appendChild(h1);
+    } else if (h3Match) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1; // Reset counter when list ends
+      }
+      const h3 = document.createElement("h3");
+      h3.className = "text-xl font-bold mt-2 mb-2 text-gray-700";
+      h3.textContent = processInlineMarkdown(h3Match[1]);
+      container.appendChild(h3);
+    } else if (ulMatch) {
+      if (!inList || listElement.tagName !== "UL") {
+        if (inList) {
+          container.appendChild(listElement);
+          orderNumber = 1; // Reset counter when switching list types
+        }
+        listElement = document.createElement("ul");
+        listElement.className = "mb-2"; // Increased bottom margin
+        inList = true;
+      }
+      const li = document.createElement("li");
+      li.className = "text-gray-700 mb-1"; // Added margin between list items
+      const bulletPoint = document.createElement("span");
+      bulletPoint.className = "inline-block w-4"; // Space for bullet point
+      bulletPoint.textContent = "•";
+      li.appendChild(bulletPoint);
+      const textSpan = document.createElement("span");
+      textSpan.innerHTML = processInlineMarkdown(ulMatch[1]);
+      li.appendChild(textSpan);
+      listElement.appendChild(li);
+    } else if (olMatch) {
+      if (!inList || listElement.tagName !== "OL") {
+        if (inList) {
+          container.appendChild(listElement);
+        }
+        listElement = document.createElement("ul"); // Using ul for consistent styling
+        listElement.className = "mb-2"; // Increased bottom margin
+        inList = true;
+      }
+      const li = document.createElement("li");
+      li.className = "text-gray-700 mb-1"; // Added margin between list items
+      const numberPoint = document.createElement("span");
+      numberPoint.className = "inline-block w-4"; // Space for number
+      numberPoint.textContent = orderNumber + "."; // Use the current number
+      orderNumber++; // Increment for next item
+      li.appendChild(numberPoint);
+      const textSpan = document.createElement("span");
+      textSpan.innerHTML = processInlineMarkdown(olMatch[2]);
+      li.appendChild(textSpan);
+      listElement.appendChild(li);
+    } else {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1; // Reset counter when list ends
+      }
+      // If no heading pattern, treat as normal text
+      if (line === "") {
+        // Add a smaller break for empty lines
+        const spacer = document.createElement("div");
+        spacer.className = "h-2"; // Increased gap
+        container.appendChild(spacer);
+      } else {
+        const p = document.createElement("p");
+        p.className = "mb-2 text-gray-700"; // Increased margin and matching color
+        p.innerHTML = processInlineMarkdown(line);
+        container.appendChild(p);
+      }
+    }
+  });
+
+  // Append any remaining list
+  if (inList) {
+    container.appendChild(listElement);
+  }
+
+  // Remove the last margin-bottom from the last element if it has one
+  const lastElement = container.lastElementChild;
+  if (lastElement) {
+    lastElement.classList.remove("mb-0.5", "mb-1", "mb-2");
+  }
+}
+
+function processInlineMarkdown(text) {
+  // Process inline code first (to avoid conflicts with other syntax)
+  text = text.replace(
+    /`([^`]+)`/g,
+    '<code class="bg-base-300 px-1 py-0.5 rounded text-sm font-mono">$1</code>',
+  );
+
+  // Process bold and italic
+  text = text.replace(
+    /\*\*([^*]+)\*\*/g,
+    '<strong class="font-bold">$1</strong>',
+  );
+  text = text.replace(/\*([^*]+)\*/g, '<em class="italic">$1</em>');
+  text = text.replace(/_([^_]+)_/g, '<em class="italic">$1</em>');
+
+  // Process links
+  text = text.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">$1</a>',
+  );
+
+  // Process strikethrough
+  text = text.replace(/~~([^~]+)~~/, '<del class="line-through">$1</del>');
+
+  return text;
 }
 
 function appendCodeText(container, text) {

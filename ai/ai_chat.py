@@ -32,7 +32,31 @@ csrf = CSRFProtect()
 
 
 def getConfig():
-    system_message = "Du bist ein hilfreicher Assistent! Antworte immer auf Deutsch! Wenn du Code generierst dann setze den Code in backticks"
+    system_message = """Du bist ein hilfreicher Assistent! Antworte immer auf Deutsch! 
+
+Formatiere deine Antworten mit Markdown:
+- Überschriften mit # für Haupttitel und ## für Untertitel
+- **Fettschrift** für wichtige Begriffe
+- *Kursivschrift* für Betonungen
+- Listen mit * für Aufzählungen
+- Nummerierte Listen mit 1. 2. 3.
+- `Inline-Code` für kurze Codebeispiele
+- Links mit [Text](URL)
+- ~~Durchgestrichen~~ für nicht mehr gültiges
+
+Beispiel einer formatierten Antwort:
+# Haupttitel
+## Untertitel
+Dies ist ein Absatz mit **wichtigen** und *betonten* Worten.
+* Erster Listenpunkt
+* Zweiter Listenpunkt mit `Code`
+* Dritter Punkt mit [Link](https://example.com)
+
+1. Erster nummerierter Punkt
+2. Zweiter nummerierter Punkt
+
+Wenn du längeren Code generierst, dann setze den Code in dreifache Backticks."""
+
     welcome_message = "Hallo wie kann ich helfen?"
     messages = []
     models = json.loads(Model.objects().to_json())
@@ -59,6 +83,8 @@ def chat(prompt_id=None, history_id=None):
     config['username'] = current_user.email
     config['user_id'] = str(current_user.id)
     config['is_admin'] = current_user.is_admin
+    config['firstname'] = current_user.firstname
+    config['name'] = current_user.name
 
     config['chat_started'] = int(time.time())
     config['history'] = []
