@@ -316,9 +316,9 @@ function appendNormalText(container, text) {
       inTable = false;
     }
 
-    // Check for heading patterns - note the order change: h2 before h1
-    const h2Match = line.match(/^## (.*)/);
+    // Check for heading patterns - fixed size hierarchy
     const h1Match = line.match(/^# (.*)/);
+    const h2Match = line.match(/^## (.*)/);
     const h3Match = line.match(/^### (.*)/);
     const ulMatch = line.match(/^[\*\-] (.*)/);
     const olMatch = line.match(/^(\d+)\. (.*)/);
@@ -333,9 +333,72 @@ function appendNormalText(container, text) {
       }
       const quoteDepth = line.match(/^>+/)[0].length;
       const blockquote = document.createElement("blockquote");
-      blockquote.className = `border-l-4 border-gray-300 pl-4 py-2 my-2 italic text-gray-600 ml-${(quoteDepth - 1) * 4}`;
+      // Improved blockquote styling
+      blockquote.className = `border-l-4 pl-6 py-3 my-3 ml-${(quoteDepth - 1) * 6}`;
+
+      // Adjust styling based on nesting level
+      switch (quoteDepth) {
+        case 1:
+          blockquote.classList.add(
+            "border-blue-300",
+            "text-gray-700",
+            "bg-gray-50",
+          );
+          break;
+        case 2:
+          blockquote.classList.add(
+            "border-purple-300",
+            "text-gray-700",
+            "bg-gray-100",
+          );
+          break;
+        case 3:
+          blockquote.classList.add(
+            "border-indigo-300",
+            "text-gray-700",
+            "bg-gray-200",
+          );
+          break;
+        default:
+          blockquote.classList.add(
+            "border-gray-400",
+            "text-gray-700",
+            "bg-gray-300",
+          );
+      }
+
       blockquote.innerHTML = processInlineMarkdown(nestedQuoteMatch[1]);
       container.appendChild(blockquote);
+    } else if (h1Match) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1;
+      }
+      const h1 = document.createElement("h1");
+      h1.className = "text-2xl font-bold mt-4 mb-3 text-gray-700"; // Smallest heading
+      h1.innerHTML = processInlineMarkdown(h1Match[1]);
+      container.appendChild(h1);
+    } else if (h2Match) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1;
+      }
+      const h2 = document.createElement("h2");
+      h2.className = "text-xl font-bold mt-3 mb-2 text-gray-700"; // Medium heading
+      h2.innerHTML = processInlineMarkdown(h2Match[1]);
+      container.appendChild(h2);
+    } else if (h3Match) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1;
+      }
+      const h3 = document.createElement("h3");
+      h3.className = "text-lg font-bold mt-2 mb-2 text-gray-800"; // Largest heading
+      h3.innerHTML = processInlineMarkdown(h3Match[1]);
+      container.appendChild(h3);
     } else if (taskMatch) {
       if (!inList || listElement.tagName !== "UL") {
         if (inList) {
@@ -358,36 +421,6 @@ function appendNormalText(container, text) {
       textSpan.innerHTML = processInlineMarkdown(taskMatch[2]);
       li.appendChild(textSpan);
       listElement.appendChild(li);
-    } else if (h2Match) {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
-      }
-      const h2 = document.createElement("h2");
-      h2.className = "text-3xl font-bold mt-3 mb-2 text-gray-700";
-      h2.innerHTML = processInlineMarkdown(h2Match[1]);
-      container.appendChild(h2);
-    } else if (h1Match) {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
-      }
-      const h1 = document.createElement("h1");
-      h1.className = "text-2xl font-bold mt-2 mb-2 text-gray-700";
-      h1.innerHTML = processInlineMarkdown(h1Match[1]);
-      container.appendChild(h1);
-    } else if (h3Match) {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
-      }
-      const h3 = document.createElement("h3");
-      h3.className = "text-xl font-bold mt-2 mb-2 text-gray-700";
-      h3.innerHTML = processInlineMarkdown(h3Match[1]);
-      container.appendChild(h3);
     } else if (ulMatch) {
       if (!inList || listElement.tagName !== "UL") {
         if (inList) {
