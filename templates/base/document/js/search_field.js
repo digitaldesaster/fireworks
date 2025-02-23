@@ -20,7 +20,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
     if (query.length > 3) {
       // Construct the URL using the module value
       const url =
-        `{{ url_for("list", name="__MODULE__", mode="json") }}`.replace(
+        `{{ url_for("list", collection="__MODULE__", mode="json") }}`.replace(
           "__MODULE__",
           module,
         );

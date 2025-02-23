@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort
+from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort, flash, redirect, url_for
 from core import auth
 from datetime import timedelta, datetime
 import os
@@ -105,14 +105,16 @@ def delete_document():
 	return jsonify(result)
 
 # Route to return a list of documents
-@app.route('/list/<name>')
+@app.route('/list/<collection>')
 @login_required
-def list(name):
-	# Check if JSON mode is requested via query parameter
+def list(collection):
 	mode = request.args.get('mode')
-	if mode == 'json':
-		return getList(name, request, return_json=True)
-	return getList(name, request)
+	if collection in ['user', 'users']:
+		if not current_user.is_admin:
+			flash('Access denied. Only administrators can view the user list.', 'error')
+			return redirect(url_for('index'))
+		return getList('user', request, return_json=(mode == 'json'))
+	return getList(collection, request, return_json=(mode == 'json'))
 
 # Route to download a file
 @app.route('/download_file/<file_id>')
@@ -139,6 +141,15 @@ def download_file(file_id):
 	except Exception as e:
 		print(f"[DEBUG] Error in download_file: {str(e)}")
 		abort(500)
+
+@app.route('/d/<collection>/<id>')
+@login_required
+def view_document(collection, id):
+	if collection == 'user':
+		if not current_user.can_view_user(id):
+			flash('Access denied. You can only view your own profile.', 'error')
+			return redirect(url_for('list', collection='user'))
+	return handleDocument(collection, id, request)
 
 if __name__ == '__main__':
 	app.run(debug=True)

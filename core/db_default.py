@@ -16,12 +16,15 @@ def initDefault():
     settings = []
     settings.append(Setting(name = 'salutation', lable_name='Anrede', type = 'SimpleListField', values = ['','Herr', 'Frau']))
    
-    settings.append(Setting(name = 'ai_provider', lable_name='A.I. Provider', type = 'AdvancedListField',values = [{'' : ''},{'OpenAI' : 'open_ai'},{'Anthropic' :'anthropic'},{'Meta' :'meta'}]))
+    #settings.append(Setting(name = 'ai_provider', lable_name='A.I. Provider', type = 'AdvancedListField',values = [{'' : ''},{'OpenAI' : 'open_ai'},{'Anthropic' :'anthropic'},{'Meta' :'meta'}]))
   
     languages = ['Deutsch', 'Englisch', 'Französich', 'Spanisch']
-    #
     settings.append(Setting(name = 'language', lable_name = 'Sprachen', type = 'SimpleListField', values = languages))
    
+    # Add roles
+    roles = ['admin', 'user']
+    settings.append(Setting(name = 'role', lable_name = 'Rollen', type = 'SimpleListField', values = roles))
+
     # my_number = Setting(name = 'My Number', lable_name = 'Rechnungs-Nr', type ='Counter', value=1000, year = year)
     # settings.append(my_number)
 

@@ -55,7 +55,7 @@
     </nav>
 
     <div class="text-sm text-gray-500">
-      {% if total > 0 %} Showing
+      {% if total != None and total > 0 %} Showing
       <span class="font-medium">{{start}}</span>
       to
       <span class="font-medium">{{end}}</span>

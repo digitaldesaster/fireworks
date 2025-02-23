@@ -13,6 +13,8 @@ import datetime
 
 from werkzeug.utils import secure_filename
 
+from flask_login import current_user
+
 UPLOAD_FOLDER = 'temp'
 DOCUMENT_FOLDER = 'documents'
 
@@ -21,7 +23,7 @@ current_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 # logging.basicConfig(format='%(asctime)s %(message)s\n\r',filename=current_path+'import_leads.log', level=logging.INFO,filemode='w')
 
 
-from flask import render_template, redirect, url_for, jsonify
+from flask import render_template, redirect, url_for, jsonify, flash
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','csv','md'])
 
@@ -65,7 +67,7 @@ def initData():
     prev = None
     next = None
     last = None
-    recordsTotal = None
+    recordsTotal = 0  # Initialize to 0 instead of None
 
     return data, prev, next, last, recordsTotal
 
@@ -87,34 +89,33 @@ def loadData(mydata):
         return data,start,end,prev,next,recordsTotal,last
     return None
 
-def getList(name, request, return_json=False):
-
+def getList(name, request, filter=None, return_json=False):
     default = getDefaults(name)
-
     if default == None:
         return redirect(url_for('index'))
-
+        
     data, prev, next, last, recordsTotal = initData()
-    start,limit,end,search,id,filter,product_name,offer_id = getRequestData(request)
-
+    start,limit,end,search,id,filter_param,product_name,offer_id = getRequestData(request)
+    
     filter_data = getFilter(default.document_name)
-
-    #return json.dumps(filter_data)
-
     mode = default.collection_name
 
-    if mode == 'products' and product_name !='':
-        mydata = searchDocuments(default.collection,default.document.searchFields() ,start, limit, search,filter,product_name,mode)
+    # Handle combined filters for user permissions and existing filters
+    if filter:
+        if filter_param:
+            filter_dict = getFilterDict(filter_param)
+            filter.update(filter_dict)
+        mydata = searchDocuments(default.collection, default.document.searchFields(), 
+                               start, limit, search, filter, product_name, mode)
     else:
-        if id != '':
-            mydata = getDocumentsByID(default.collection,'company_id' ,start, limit, id)
-        else:
-            mydata = searchDocuments(default.collection,default.document.searchFields() ,start, limit, search,filter,'',mode)
+        mydata = searchDocuments(default.collection, default.document.searchFields(),
+                               start, limit, search, filter_param, product_name, mode)
 
     processedData = loadData(mydata)
 
     if processedData:
         data, start, end, prev, next, recordsTotal, last = processedData
+        recordsTotal = int(recordsTotal) if recordsTotal is not None else 0
         if return_json:
             return jsonify({
                 'status': 'ok',
@@ -128,19 +129,61 @@ def getList(name, request, return_json=False):
                 'end': end
             })
 
-    
-
     table_header = default.document.fields(list_order = True)
-
     table_content = tableContent(data, table_header)
 
     try:
         table = request.args.get('table')
         if table:
-            return render_template('/base/collection/table.html',menu = default.menu,documents = data, prev = prev, next=next,limit = limit,start = start, total = recordsTotal, end = end, search = search,id=id,offer_id=offer_id, last = last,page_name_collection=default.page_name_collection,collection_name=default.collection_name,collection_url=default.collection_url,document_url=default.document_url,mode=mode, table_header = table_header, table_content = table_content,filter = filter,filter_data = filter_data,product_name=product_name)
+            return render_template('/base/collection/table.html',
+                                 menu=default.menu,
+                                 documents=data,
+                                 prev=prev,
+                                 next=next,
+                                 limit=limit,
+                                 start=start,
+                                 total=recordsTotal,
+                                 end=end,
+                                 search=search,
+                                 id=id,
+                                 offer_id=offer_id,
+                                 last=last,
+                                 page_name_collection=default.page_name_collection,
+                                 collection_name=default.collection_name,
+                                 collection_url=default.collection_url,
+                                 document_url=default.document_url,
+                                 mode=mode,
+                                 table_header=table_header,
+                                 table_content=table_content,
+                                 filter=filter_param,
+                                 filter_data=filter_data,
+                                 product_name=product_name)
     except:
         pass
-    return render_template('/base/collection/collection.html',menu = default.menu,documents = data, prev = prev, next=next,limit = limit,start = start, total = recordsTotal, end = end, search = search,id=id,offer_id=offer_id, last = last,page_name_collection=default.page_name_collection,collection_name=default.collection_name,collection_url=default.collection_url,document_url=default.document_url,mode=mode, table_header = table_header, table_content = table_content, filter=filter,filter_data = filter_data,product_name=product_name)
+
+    return render_template('/base/collection/collection.html',
+                         menu=default.menu,
+                         documents=data,
+                         prev=prev,
+                         next=next,
+                         limit=limit,
+                         start=start,
+                         total=recordsTotal,
+                         end=end,
+                         search=search,
+                         id=id,
+                         offer_id=offer_id,
+                         last=last,
+                         page_name_collection=default.page_name_collection,
+                         collection_name=default.collection_name,
+                         collection_url=default.collection_url,
+                         document_url=default.document_url,
+                         mode=mode,
+                         table_header=table_header,
+                         table_content=table_content,
+                         filter=filter_param,
+                         filter_data=filter_data,
+                         product_name=product_name)
 
 def handleDocument(name, id, request, return_json=False):
     try:
@@ -150,6 +193,12 @@ def handleDocument(name, id, request, return_json=False):
         if default == None:
             print(f"[DEBUG] No defaults found for name: {name}")
             return redirect(url_for('index'))
+
+        # Add permission check for user documents
+        if name == 'user' and id:
+            if not current_user.can_view_user(id):
+                flash('Access denied. You can only view your own profile.', 'error')
+                return redirect(url_for('list', collection='user'))
 
         print(f"[DEBUG] Got defaults: document_name={default.document_name}, collection_name={default.collection_name}")
         mode = default.document_name
@@ -231,7 +280,7 @@ def handleDocument(name, id, request, return_json=False):
                 else:
                     print(f"[DEBUG] Error getting document: {data.get('message', 'Unknown error')}")
                     print(f"[DEBUG] Redirecting to list with name={default.collection_name}")
-                    return redirect(url_for('list', name=default.collection_name))
+                    return redirect(url_for('list', collection=default.collection_name))
 
         print("[DEBUG] Getting elements")
         elements = getElements(data, default.document)
@@ -241,7 +290,7 @@ def handleDocument(name, id, request, return_json=False):
         print(f"[DEBUG] Error in handleDocument: {str(e)}")
         if return_json:
             return json.dumps({'status': 'error', 'message': str(e)})
-        return redirect(url_for('list', name=default.collection_name))
+        return redirect(url_for('list', collection=default.collection_name))
 
 def deleteDocument(request):
     type = request.args.get('type')

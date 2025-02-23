@@ -88,7 +88,7 @@ def getDefaults(name):
         d.document_name = defaults[0]
         d.document_url = url_for('doc',name = defaults[0])
         d.collection_name = defaults[1]
-        d.collection_url = url_for('list',name = defaults[1])
+        d.collection_url = url_for('list', collection = defaults[1])
         d.page_name_document = defaults[2]
         d.page_name_collection = defaults[3]
         d.collection_title = defaults[3]
@@ -104,10 +104,10 @@ class User(AuditMixin, DynamicDocument, UserMixin):
     name = StringField()
     email = StringField()
     pw_hash = StringField()
-    role = StringField()
     csrf_token = StringField()
     salutation = StringField()
     comment = StringField()
+    role = StringField(default='user')
     meta = {
         'collection': 'user',
         'queryset_class': CustomQuerySet
@@ -120,14 +120,30 @@ class User(AuditMixin, DynamicDocument, UserMixin):
         firstname = {'name' :  'firstname', 'label' : 'Vorname', 'class' : '', 'type' : 'SingleLine', 'full_width':False}
         name = {'name' :  'name', 'label' : 'Nachname', 'class' : '', 'type' : 'SingleLine','full_width':False}
         comment = {'name' :  'comment', 'label' : 'Kommentar', 'class' : '', 'type' : 'MultiLine','full_width':True}
+        role = {'name' :  'role', 'label' : 'Rolle', 'class' : '', 'type' : 'SimpleListField','full_width':False}
+        
         if list_order != None and list_order == True:
             #fields in the overview table of the collection
-            return [firstname,name,email]
-        return [email,salutation,firstname,name,comment]
+            return [firstname,name,email,role] if current_user.is_admin else [firstname,name,email]
+            
+        #fields in the form
+        fields = [email,salutation,firstname,name,comment]
+        if current_user.is_admin:
+            fields.append(role)
+        return fields
     def to_json(self):
         return mongoToJson(self)
     def get_id(self):
         return str(self.email)
+
+    @property
+    def is_admin(self):
+        """Check if user has admin role"""
+        return self.role == 'admin'
+    
+    def can_view_user(self, user_id):
+        """Check if user has permission to view a specific user profile"""
+        return self.is_admin or str(self.id) == str(user_id)
 
 class File(AuditMixin, DynamicDocument):
     name = StringField(required=True,min_length=4)

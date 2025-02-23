@@ -2799,7 +2799,7 @@ from core.db_crud import getDocument, updateDocument, createDocument, eraseDocum
 from core.db_default import Setting, getDefaultList
 from core.db_document import File, getDefaults
 
-import PyPDF2
+from pypdf import PdfReader
     
 import datetime
 
@@ -3261,7 +3261,7 @@ def prepare_context_from_files(files):
             if file['file_type'].lower() == 'pdf':
                 try:
                     with open(file_path, 'rb') as pdf_file:
-                        pdf_reader = PyPDF2.PdfReader(pdf_file)
+                        pdf_reader = PdfReader(pdf_file)
                         combined_text += f"Content of File: {file['name']}\n"
                         combined_text += "-" * 50 + "\n"
                         for page_num in range(len(pdf_reader.pages)):
@@ -4065,7 +4065,7 @@ def delete_folder_contents(folder_path: str) -> None:
 
 def delete_history_and_prompts():
     """Delete contents of history and prompts folders."""
-    folders = ['history', 'prompts']
+    folders = ['history']
     
     for folder in folders:
         delete_folder_contents(folder)
@@ -4289,8 +4289,21 @@ def save_chat():
         print("[DEBUG] Updating existing chat")
         chat_history = chat_history[0]
         chat_history.messages = messages
+        
+        # Parse messages once
+        parsed_messages = json.loads(messages)
+        
+        # Update first message if we find a user message and current first message is default
+        if chat_history.first_message == "Neuer Chat":
+            for msg in parsed_messages:
+                if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
+                    chat_history.first_message = msg['content']
+                    print(f"[DEBUG] Updated first message to: {msg['content']}")
+                    break
+        
+        # Collect file IDs
         file_ids = []
-        for msg in json.loads(messages):
+        for msg in parsed_messages:
             if 'attachments' in msg:
                 for attachment in msg['attachments']:
                     file_ids.append(attachment['id'])
@@ -4303,34 +4316,19 @@ def save_chat():
         chat_history.username = username
         chat_history.chat_started = chat_started
         chat_history.messages = messages
+        chat_history.first_message = "Neuer Chat"  # Set default title
         
         # Parse messages once
         parsed_messages = json.loads(messages)
         
-        # First try to find a user message
-        first_message_found = False
+        # Set first message to first user message if one exists
         for msg in parsed_messages:
-            # Only look for actual user messages, not system or file context messages
-            if msg.get('role') == 'user' and isinstance(msg.get('content'), str) and not msg.get('isFileContext'):
+            if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
                 chat_history.first_message = msg['content']
-                first_message_found = True
-                print(f"[DEBUG] Found user message as first message: {msg['content']}")
+                print(f"[DEBUG] Set first message to: {msg['content']}")
                 break
-                
-        # If no user message found, then fall back to file upload
-        if not first_message_found:
-            # Look for the first system message with attachments
-            for msg in parsed_messages:
-                if msg.get('role') == 'system' and msg.get('attachments'):
-                    for attachment in msg['attachments']:
-                        if attachment.get('name'):
-                            chat_history.first_message = f"File uploaded: {attachment['name']}"
-                            print(f"[DEBUG] Using file upload as first message: {chat_history.first_message}")
-                            break
-                    if chat_history.first_message:
-                        break
         
-        # Collect file IDs from all messages
+        # Collect file IDs
         file_ids = []
         for msg in parsed_messages:
             if 'attachments' in msg:
@@ -4412,79 +4410,78 @@ def delete_all_history():
         base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         print(f"[DEBUG] Base path for deletion: {base_path}")
         
+        # Get all prompts' file IDs to preserve them
+        all_prompts = Prompt.objects()
+        preserved_file_ids = set()
+        for prompt in all_prompts:
+            # Get files associated with this prompt
+            prompt_files = File.objects(document_id=str(prompt.id))
+            for file in prompt_files:
+                preserved_file_ids.add(str(file.id))
+        print(f"[DEBUG] Found {len(preserved_file_ids)} files to preserve from prompts")
+        
         # Delete all history documents for the current user
         histories = History.objects(username=current_user.email)
         print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.email}")
         deleted_count = 0
         failed_count = 0
+        preserved_count = 0
         
         for history in histories:
-            print(f"[DEBUG] Processing history document: {history.id}")
-            print(f"[DEBUG] File IDs to delete: {history.file_ids}")
-            
-            for file_id in history.file_ids:
-                print(f"[DEBUG] Processing file ID: {file_id}")
-                file_doc = File.objects(id=file_id).first()
+            try:
+                print(f"[DEBUG] Processing history document: {history.id}")
+                print(f"[DEBUG] File IDs to process: {history.file_ids}")
                 
-                if file_doc:
-                    print(f"[DEBUG] Found file document: {file_doc.to_json()}")
+                # Process associated files first
+                for file_id in history.file_ids:
                     try:
-                        # Construct absolute path using the relative path stored in DB
-                        file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
-                        print(f"[DEBUG] Full file path for deletion: {file_path}")
-                        
-                        # Try to delete the file from disk
-                        if os.path.exists(file_path):
-                            print(f"[DEBUG] File exists at {file_path}, attempting deletion")
-                            try:
+                        # Skip if file is used by a prompt
+                        if file_id in preserved_file_ids:
+                            print(f"[DEBUG] Preserving file {file_id} as it's used by a prompt")
+                            preserved_count += 1
+                            continue
+                            
+                        file_doc = File.objects(id=file_id).first()
+                        if file_doc:
+                            # Construct absolute path using the relative path stored in DB
+                            file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
+                            print(f"[DEBUG] Attempting to delete file: {file_path}")
+                            
+                            # Delete file from disk if it exists
+                            if os.path.exists(file_path):
                                 os.remove(file_path)
                                 print(f"[DEBUG] Successfully deleted file from disk: {file_path}")
-                            except Exception as e:
-                                print(f"[DEBUG] Error deleting file from disk: {str(e)}")
-                                failed_count += 1
-                        else:
-                            print(f"[DEBUG] File not found on disk at {file_path}")
-                        
-                        # Always try to delete the database record
-                        try:
-                            file_doc.delete()
-                            print(f"[DEBUG] Successfully deleted file document from database")
-                            deleted_count += 1
-                        except Exception as e:
-                            print(f"[DEBUG] Error deleting file document from database: {str(e)}")
-                            failed_count += 1
                             
+                            # Delete file document from database
+                            file_doc.delete()
+                            print(f"[DEBUG] Successfully deleted file document from database: {file_id}")
                     except Exception as e:
-                        print(f"[DEBUG] Error processing file {file_id}: {str(e)}")
+                        print(f"[DEBUG] Error deleting file {file_id}: {str(e)}")
                         failed_count += 1
-                else:
-                    print(f"[DEBUG] No file document found for ID: {file_id}")
-        
-        # Delete all history documents after handling files
-        try:
-            result = histories.delete()
-            print(f"[DEBUG] Deleted {result} history documents")
-        except Exception as e:
-            print(f"[DEBUG] Error deleting history documents: {str(e)}")
-            raise
-        
-        status_message = f'Successfully deleted {deleted_count} files'
-        if failed_count > 0:
-            status_message += f' ({failed_count} deletions failed)'
-        status_message += f' and {result} history documents'
+                
+                # Delete the history document
+                history.delete()
+                deleted_count += 1
+                print(f"[DEBUG] Successfully deleted history: {history.id}")
+                
+            except Exception as e:
+                print(f"[DEBUG] Error processing history {history.id}: {str(e)}")
+                failed_count += 1
+                continue
         
         return jsonify({
             'status': 'success',
-            'message': status_message,
-            'deleted_files': deleted_count,
-            'failed_deletions': failed_count,
-            'deleted_histories': result
+            'message': f'Successfully deleted {deleted_count} history documents. Preserved {preserved_count} prompt files. Failed to delete {failed_count} items.',
+            'deleted_count': deleted_count,
+            'preserved_count': preserved_count,
+            'failed_count': failed_count
         })
+        
     except Exception as e:
-        print(f"[DEBUG] Top-level error in delete_all_history: {str(e)}")
+        print(f"[DEBUG] Error in delete_all_history: {str(e)}")
         return jsonify({
             'status': 'error',
-            'message': str(e)
+            'message': f'Error deleting history: {str(e)}'
         }), 500
 ```
 
@@ -4931,9 +4928,8 @@ function initChatMessages() {
         const contentElement = template.querySelector(".content");
         contentElement.textContent = welcomeMessage;
 
-        // Remove the bottom margin from the outer div
-        const outerDiv = template.querySelector(".flex.space-x-4");
-        outerDiv.classList.remove("mb-6");
+        // Add margin-bottom to the chat messages container instead of removing it from the message
+        chatMessages.classList.add("mb-6");
 
         chatMessages.appendChild(template);
 
@@ -5460,14 +5456,9 @@ document
           timestamp: Math.floor(Date.now() / 1000),
         });
 
-        // For non-image files, add the context as a hidden system message
+        // For non-image files, append the context to the existing system message
         if (!["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())) {
-          messages.push({
-            role: "system",
-            content: `Using context from file: ${result.filename}\n\n${result.content}`,
-            attachments: [result.attachment],
-            isFileContext: true,
-          });
+          messages[0].content += `\n\nUsing context from file: ${result.filename}\n\n${result.content}`;
         }
 
         // Save chat state immediately after adding file

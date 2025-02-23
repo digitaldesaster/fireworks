@@ -6,7 +6,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ai.ai_llm_helper import llm_call
-from core.db_document import History, Prompt, File, Model, Example
+from core.db_document import History, Prompt, File, Model, Example, User
 
 messages = [
     {"role": "system", "content": "Du bist ein hilfreicher Assistent"},
@@ -18,6 +18,10 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 #response = llm_call(messages, model, stream=False)
 #print(response)
 
-History.objects().delete()
-Prompt.objects().delete()
-File.objects().delete()
+# History.objects().delete()
+# Prompt.objects().delete()
+# File.objects().delete()
+
+user = User.objects(email='alexander.fillips@gmail.com').first()
+user.role = 'admin'
+user.save()
