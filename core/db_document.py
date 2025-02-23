@@ -129,7 +129,7 @@ def getDefaults(name):
         print("[DEBUG] No defaults found")
         return None
 
-class User(UserMixin, Document):
+class User(UserMixin, DynamicDocument):
     firstname = StringField(required=True)
     name = StringField(required=True)
     email = StringField(required=True, unique=True)

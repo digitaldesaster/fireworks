@@ -38,7 +38,7 @@
           </h6>
         </div>
         <a
-          href="{{ url_for('view_document', collection='user', id=current_user.id) }}"
+          href="{{ url_for('doc', name='user', id=current_user.id) }}"
           class="dropdown-item"
         >
           <span class="icon-[tabler--user] size-5"></span>
@@ -253,9 +253,7 @@
                     onclick="handleDeleteHistory()"
                   >
                     <span class="icon-[tabler--trash] size-3.5 shrink-0"></span>
-                    <span class="truncate">Delete History
-                      
-                    </span>
+                    <span class="truncate">Delete History </span>
                   </button>
                 </li>
                 <li class="w-full border-t border-base-200 my-1"></li>
