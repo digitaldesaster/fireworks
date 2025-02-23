@@ -64,39 +64,68 @@ class CustomQuerySet(QuerySet):
 
 class Default(DynamicDocument):
     document_name = StringField(default='')
+    document_url = StringField(default='')
+    collection_name = StringField(default='')
+    collection_url = StringField(default='')
+    page_name_document = StringField(default='')
+    page_name_collection = StringField(default='')
+    collection_title = StringField(default='')
+    menu = DictField(default={})
+    
+    def to_json(self):
+        return mongoToJson(self)
     
 def getDefaults(name):
+    print(f"[DEBUG] getDefaults called with name={name}")
     defaults = None
     
+    def create_document(doc_class):
+        try:
+            return doc_class()
+        except Exception as e:
+            print(f"[DEBUG] Error creating document instance: {str(e)}")
+            return None
+    
     if name == 'filter':
-        defaults = ['filter', 'filter', 'Filter','Filter', Filter, Filter(), 'filters']
+        defaults = ['filter', 'filter', 'Filter','Filter', Filter, create_document(Filter), 'filters']
     elif name == 'user' or name == 'users':
-        defaults = ['user', 'users', 'User','Users', User, User(), 'users']
+        defaults = ['user', 'users', 'User','Users', User, create_document(User), 'users']
     elif name == 'file' or name == 'files':
-        defaults = ['file', 'files', 'File','Files', File, File(), 'files']
+        defaults = ['file', 'files', 'File','Files', File, create_document(File), 'files']
     elif name == 'example' or name == 'examples':
-        defaults = ['example', 'examples', 'Example','Example', Example, Example(), 'examples']
+        defaults = ['example', 'examples', 'Example','Example', Example, create_document(Example), 'examples']
     elif name == 'model' or name == 'models':
-        defaults = ['model', 'models', 'Model','Models', Model, Model(), 'models']
+        defaults = ['model', 'models', 'Model','Models', Model, create_document(Model), 'models']
     elif name == 'history':
-        defaults = ['history', 'history', 'History','Histories', History, History(), 'history']
+        defaults = ['history', 'history', 'History','Histories', History, create_document(History), 'history']
     elif name == 'prompt' or name == 'prompts':
-        defaults = ['prompt', 'prompts', 'Prompt','Prompts', Prompt, Prompt(), 'prompts']
+        print("[DEBUG] Found prompt match")
+        defaults = ['prompt', 'prompts', 'Prompt','Prompts', Prompt, create_document(Prompt), 'prompts']
 
+    print(f"[DEBUG] defaults={defaults}")
     if defaults:
-        d = Default()
-        d.document_name = defaults[0]
-        d.document_url = url_for('doc',name = defaults[0])
-        d.collection_name = defaults[1]
-        d.collection_url = url_for('list', collection = defaults[1])
-        d.page_name_document = defaults[2]
-        d.page_name_collection = defaults[3]
-        d.collection_title = defaults[3]
-        d.collection = defaults[4]
-        d.document = defaults[5]
-        d.menu = {defaults[6] : 'open active',defaults[1] : 'open active'}
-        return d
+        try:
+            d = Default()
+            d.document_name = defaults[0]
+            d.document_url = url_for('doc', name=defaults[0])
+            d.collection_name = defaults[1]
+            d.collection_url = url_for('list', collection=defaults[1])
+            d.page_name_document = defaults[2]
+            d.page_name_collection = defaults[3]
+            d.collection_title = defaults[3]
+            d.collection = defaults[4]
+            d.document = defaults[5]
+            if d.document is None:
+                print("[DEBUG] Failed to create document instance")
+                return None
+            d.menu = {defaults[6]: 'open active', defaults[1]: 'open active'}
+            print("[DEBUG] Created Default object successfully")
+            return d
+        except Exception as e:
+            print(f"[DEBUG] Error creating Default object: {str(e)}")
+            return None
     else:
+        print("[DEBUG] No defaults found")
         return None
 
 class User(AuditMixin, DynamicDocument, UserMixin):
@@ -336,7 +365,15 @@ class Prompt(AuditMixin, DynamicDocument):
     link = StringField(default='')
     files = StringField(default='')
 
-    meta = {'queryset_class': CustomQuerySet}
+    meta = {
+        'collection': 'prompts',
+        'queryset_class': CustomQuerySet
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.link:
+            self.link = '/chat/prompt'
 
     def searchFields(self):
         return ['name', 'system_message', 'prompt']
@@ -346,12 +383,12 @@ class Prompt(AuditMixin, DynamicDocument):
         welcome_message = {'name': 'welcome_message', 'label': 'Welcome Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
         system_message = {'name': 'system_message', 'label': 'System Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
         prompt = {'name': 'prompt', 'label': 'Prompt', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
-        link = {'name' :  'link', 'label' : 'Use Prompt', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/prompt'}
-        files = {'name' :  'files', 'label' : 'Files', 'class' : 'hidden-xs', 'type' : 'FileField','full_width':True}
+        link = {'name': 'link', 'label': 'Use Prompt', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/prompt'}
+        files = {'name': 'files', 'label': 'Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
 
         if list_order:
-            return [link,name,prompt]
-        return [name,welcome_message, system_message, prompt,files,link]
+            return [link, name, prompt]
+        return [name, welcome_message, system_message, prompt, files, link]
 
     def to_json(self):
         return mongoToJson(self)

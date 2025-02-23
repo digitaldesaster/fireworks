@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument, upload_file
 from core.db_helper import getFile
-from core.db_document import File
+from core.db_document import File, Prompt
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
@@ -92,9 +92,9 @@ def index():
 @login_required
 def doc(name, id='', return_format='html'):
 	if return_format == 'json':
-		return handleDocument(name, id,request, return_json=True)
+		return handleDocument(name, id, request, return_json=True)
 	else:
-		return handleDocument(name, id,request)
+		return handleDocument(name, id, request)
 
 # Route to delete a document
 @app.route('/document/delete')

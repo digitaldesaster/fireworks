@@ -193,10 +193,14 @@ def getList(name, request, filter=None, return_json=False):
 def handleDocument(name, id, request, return_json=False):
     try:
         print(f"[DEBUG] Starting handleDocument with name={name}, id={id}")
+        print(f"[DEBUG] Request method: {request.method}")
+        print(f"[DEBUG] Request form data: {request.form}")
         default = getDefaults(name)
+        print(f"[DEBUG] getDefaults result: {default}")
 
-        if default == None:
+        if default is None:
             print(f"[DEBUG] No defaults found for name: {name}")
+            flash('Invalid document type', 'error')
             return redirect(url_for('index'))
 
         # Add permission check for user documents
@@ -224,12 +228,15 @@ def handleDocument(name, id, request, return_json=False):
         if not id:
             print("[DEBUG] Creating new document")
             try:
-                # Initialize a new document instance
-                doc = default.document()
+                # Get the document instance that was already created in getDefaults
+                doc = default.document
+                if doc is None:
+                    raise Exception("Failed to get document instance")
                 data = json.loads(doc.to_json())
                 data['id'] = ''  # Empty ID for new document
             except Exception as e:
                 print(f"[DEBUG] Error initializing new document: {str(e)}")
+                flash('Error creating new document', 'error')
                 return redirect(url_for('index'))
 
         page = {
@@ -305,9 +312,8 @@ def handleDocument(name, id, request, return_json=False):
         return render_template('/base/document/form.html', elements=elements, menu=default.menu, page=page, document=data, mode=mode, category_fields=category_fields)
     except Exception as e:
         print(f"[DEBUG] Error in handleDocument: {str(e)}")
-        if return_json:
-            return json.dumps({'status': 'error', 'message': str(e)})
-        return redirect(url_for('list', collection=default.collection_name))
+        flash('An error occurred while processing your request', 'error')
+        return redirect(url_for('index'))
 
 def deleteDocument(request):
     type = request.args.get('type')
