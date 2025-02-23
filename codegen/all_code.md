@@ -3148,10 +3148,14 @@ def upload_files(request, category='', document_id=''):
     status = {'status': 'ok', 'files': []}
 
     if request.method == 'POST':
+        # Get base path for consistent path handling
+        base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        
         # Extract element IDs directly from the file input names
         element_ids = [key.split('files_', 1)[1] for key in request.files.keys()]
 
         for element_id in element_ids:
+            status[element_id] = []  # Initialize list for this element_id
             files = request.files.getlist(f'files_{element_id}')
             if not files or files[0].filename == '':
                 continue  # Skip if no files are selected
@@ -3160,22 +3164,38 @@ def upload_files(request, category='', document_id=''):
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     try:
-                        if category != '':
-                            filepath = os.path.join(current_path + DOCUMENT_FOLDER + '/' + category + '/')
-                        else:
-                            filepath = os.path.join(current_path + UPLOAD_FOLDER + '/')
+                        # Use consistent path structure
+                        relative_path = os.path.join('core', 'documents', category) if category else os.path.join('core', UPLOAD_FOLDER)
+                        absolute_path = os.path.join(base_path, relative_path)
+                        
+                        print(f"[DEBUG] Upload path (absolute): {absolute_path}")
+                        print(f"[DEBUG] Upload path (relative): {relative_path}")
 
-                        if not os.path.exists(filepath):
-                            os.makedirs(filepath)
+                        if not os.path.exists(absolute_path):
+                            print(f"[DEBUG] Creating directory: {absolute_path}")
+                            os.makedirs(absolute_path)
 
                         file_type = filename.rsplit('.', 1)[1]
-                        fileDB = File(name=filename, path=filepath, category=category, file_type=file_type, document_id=document_id, element_id=element_id)
+                        fileDB = File(
+                            name=filename, 
+                            path=relative_path,  # Store relative path
+                            category=category, 
+                            file_type=file_type, 
+                            document_id=document_id, 
+                            element_id=element_id
+                        )
                         fileDB.save()
                         fileID = getDocumentID(fileDB)
 
-                        file.save(os.path.join(filepath, f"{fileID}.{file_type}"))
+                        file_save_path = os.path.join(absolute_path, f"{fileID}.{file_type}")
+                        print(f"[DEBUG] Saving file to: {file_save_path}")
+                        file.save(file_save_path)
 
-                        status[element_id].append({'id': fileID, 'name': filename, 'path': os.path.join(filepath, f"{fileID}.{file_type}")})
+                        status[element_id].append({
+                            'id': fileID, 
+                            'name': filename, 
+                            'path': os.path.join(relative_path, f"{fileID}.{file_type}")
+                        })
 
                     except Exception as e:
                         status = {'status': 'error', 'message': f'Error while saving File! / {str(e)}'}
@@ -3289,67 +3309,99 @@ def encode_image(image_path):
 def upload_file(file, category='history'):
     """Handle file upload for chat functionality and return file context"""
     try:
-        if not file or file.filename == '':
+        if not file:
+            print("[DEBUG] No file object provided")
+            return {'status': 'error', 'message': 'No file provided'}
+            
+        if not hasattr(file, 'filename'):
+            print("[DEBUG] File object has no filename attribute")
+            return {'status': 'error', 'message': 'Invalid file object'}
+            
+        if not file.filename:
+            print("[DEBUG] Empty filename")
             return {'status': 'error', 'message': 'No file selected'}
             
-        if not allowed_file(file.filename):
-            return {'status': 'error', 'message': 'File type not allowed'}
-            
+        print(f"[DEBUG] Processing file: {file.filename}")
         filename = secure_filename(file.filename)
-        file_type = filename.rsplit('.', 1)[1].lower()
+        
+        # More robust file type extraction
+        try:
+            file_type = filename.rsplit('.', 1)[1].lower() if '.' in filename else None
+            if not file_type:
+                print("[DEBUG] Could not extract file type")
+                return {'status': 'error', 'message': 'Could not determine file type'}
+        except Exception as e:
+            print(f"[DEBUG] Error extracting file type: {str(e)}")
+            return {'status': 'error', 'message': 'Invalid file type'}
+            
+        if not allowed_file(filename):
+            print(f"[DEBUG] File type {file_type} not allowed")
+            return {'status': 'error', 'message': f'File type {file_type} not allowed'}
         
         if file_type not in ['pdf', 'txt', 'jpeg', 'jpg', 'png']:
-            return {'status': 'error', 'message': 'Only PDF and TXT files are supported'}
+            print(f"[DEBUG] Unsupported file type: {file_type}")
+            return {'status': 'error', 'message': 'Only PDF, TXT, and image files are supported'}
             
-        # Fix the filepath to use absolute path
+        # Get base path and construct relative/absolute paths consistently
         base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        filepath = os.path.join(base_path, 'core', 'documents', category)
-        print(f"[DEBUG] Upload path: {filepath}")
+        relative_path = os.path.join('core', 'documents', category)
+        absolute_path = os.path.join(base_path, relative_path)
         
-        if not os.path.exists(filepath):
-            print(f"[DEBUG] Creating directory: {filepath}")
-            os.makedirs(filepath)
+        print(f"[DEBUG] Upload base path: {base_path}")
+        print(f"[DEBUG] Upload relative path: {relative_path}")
+        print(f"[DEBUG] Upload absolute path: {absolute_path}")
+        
+        if not os.path.exists(absolute_path):
+            print(f"[DEBUG] Creating directory: {absolute_path}")
+            os.makedirs(absolute_path)
             
         fileDB = File(
             name=filename,
-            path=filepath,
+            path=relative_path,  # Store relative path for consistent deletion
             category=category,
             file_type=file_type
         )
         fileDB.save()
-        fileID = getDocumentID(fileDB)
+        fileID = str(fileDB.id)  # Ensure we're using string ID consistently
         
-        file_save_path = os.path.join(filepath, f"{fileID}.{file_type}")
+        file_save_path = os.path.join(absolute_path, f"{fileID}.{file_type}")
         print(f"[DEBUG] Saving file to: {file_save_path}")
         file.save(file_save_path)
         
-        # Get context immediately after saving
+        response = {
+            'status': 'ok',
+            'file_id': fileID,
+            'filename': filename,  # Keep original name for frontend
+            'name': filename,      # Also include as name for consistency
+            'file_type': file_type,  # Keep original file_type for frontend
+            'type': file_type,       # Also include as type for consistency
+            'path': relative_path
+        }
+        
+        # Add context for text-based files
         if file_type in ['pdf', 'txt']:
-            context = prepare_context_from_files([fileDB])
-            print(f"[DEBUG] Context result: {context}")
-            
-            if context['status'] == 'ok':
-                return {
-                    'status': 'ok',
-                    'file_id': fileID,
-                    'filename': filename,
-                    'file_type': file_type,
-                    'content': context['data'],
-                    'character_count': context['character_count']
-                }
-            else:
-                return context
+            try:
+                context = prepare_context_from_files([fileDB])
+                if context['status'] == 'ok':
+                    response['content'] = context['data']
+                    response['character_count'] = context['character_count']
+            except Exception as e:
+                print(f"[DEBUG] Error getting file context: {str(e)}")
+                # Don't fail the upload if context extraction fails
+                pass
+                
+        # Add base64 for images
         elif file_type in ['jpeg', 'jpg', 'png']:
-            base64_image = encode_image(file_save_path)
-            return {
-                'status': 'ok', 
-                'file_id': fileID, 
-                'filename': filename, 
-                'file_type': file_type,
-                'base64_image': base64_image
-            }
-        else:
-            return {'status': 'error', 'message': 'Unsupported file type'}
+            try:
+                response['base64_image'] = encode_image(file_save_path)
+            except Exception as e:
+                print(f"[DEBUG] Error encoding image: {str(e)}")
+                # Don't fail the upload if image encoding fails
+                pass
+                
+        print(f"[DEBUG] Upload successful, returning response: {response}")
+        return response
+        
     except Exception as e:
         print(f"[DEBUG] Upload error: {str(e)}")
         return {'status': 'error', 'message': str(e)}
@@ -4225,10 +4277,16 @@ def save_chat():
     username = request.form.get('username')
     chat_started = request.form.get('chat_started')
     messages = request.form.get('messages')
+    
+    print(f"[DEBUG] Saving chat for user {username} started at {chat_started}")
+    print(f"[DEBUG] Messages to save: {messages}")
 
     chat_history = History.objects(username=username,
                                    chat_started=chat_started)
+    print(f"[DEBUG] Found {len(chat_history)} existing chat(s)")
+    
     if len(chat_history) == 1:
+        print("[DEBUG] Updating existing chat")
         chat_history = chat_history[0]
         chat_history.messages = messages
         file_ids = []
@@ -4240,21 +4298,48 @@ def save_chat():
         chat_history.save()
         return 'Chat aktualisiert!'
     else:
+        print("[DEBUG] Creating new chat")
         chat_history = History()
         chat_history.username = username
         chat_history.chat_started = chat_started
         chat_history.messages = messages
-        for msg in json.loads(messages):
-            if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
+        
+        # Parse messages once
+        parsed_messages = json.loads(messages)
+        
+        # First try to find a user message
+        first_message_found = False
+        for msg in parsed_messages:
+            # Only look for actual user messages, not system or file context messages
+            if msg.get('role') == 'user' and isinstance(msg.get('content'), str) and not msg.get('isFileContext'):
                 chat_history.first_message = msg['content']
+                first_message_found = True
+                print(f"[DEBUG] Found user message as first message: {msg['content']}")
                 break
+                
+        # If no user message found, then fall back to file upload
+        if not first_message_found:
+            # Look for the first system message with attachments
+            for msg in parsed_messages:
+                if msg.get('role') == 'system' and msg.get('attachments'):
+                    for attachment in msg['attachments']:
+                        if attachment.get('name'):
+                            chat_history.first_message = f"File uploaded: {attachment['name']}"
+                            print(f"[DEBUG] Using file upload as first message: {chat_history.first_message}")
+                            break
+                    if chat_history.first_message:
+                        break
+        
+        # Collect file IDs from all messages
         file_ids = []
-        for msg in json.loads(messages):
+        for msg in parsed_messages:
             if 'attachments' in msg:
                 for attachment in msg['attachments']:
                     file_ids.append(attachment['id'])
         chat_history.file_ids = file_ids
+        
         chat_history.save()
+        print(f"[DEBUG] New chat created with first message: {chat_history.first_message}")
         return 'Neuer Chat erstellt!'
 
 
@@ -4273,22 +4358,39 @@ def load_ui(template):
 @dms_chat.route('/upload', methods=['POST'])
 @login_required
 def upload_chat_file():
-    if 'file' not in request.files:
-        return jsonify({'status': 'error', 'message': 'No file part'})
-    
-    result = upload_file(request.files['file'])
-    
-    if result['status'] == 'ok':
-        # Add file metadata to the response
-        result['attachment'] = {
-            'type': 'file',
-            'id': result['file_id'],
-            'name': result['filename'],
-            'file_type': result['file_type'],
-            'timestamp': int(time.time())
-        }
+    try:
+        if 'file' not in request.files:
+            print("[DEBUG] No file part in request")
+            return jsonify({'status': 'error', 'message': 'No file part'}), 400
         
-    return jsonify(result)
+        file = request.files['file']
+        if not file or not file.filename:
+            print("[DEBUG] No file selected")
+            return jsonify({'status': 'error', 'message': 'No file selected'}), 400
+            
+        print(f"[DEBUG] Processing upload for file: {file.filename}")
+        result = upload_file(file)
+        print(f"[DEBUG] Upload result: {result}")
+        
+        if result.get('status') == 'ok':
+            # Add file metadata to the response
+            result['attachment'] = {
+                'type': 'file',
+                'id': result['file_id'],
+                'name': result['filename'],  # Use filename from response
+                'file_type': result['file_type'],  # Use file_type from response
+                'timestamp': int(time.time())
+            }
+            print(f"[DEBUG] Returning successful response: {result}")
+            return jsonify(result)
+        else:
+            print(f"[DEBUG] Upload failed: {result.get('message', 'Unknown error')}")
+            return jsonify(result), 400
+            
+    except Exception as e:
+        error_msg = f"Upload error: {str(e)}"
+        print(f"[DEBUG] {error_msg}")
+        return jsonify({'status': 'error', 'message': error_msg}), 500
 
 @dms_chat.route('/nav_items', methods=['GET'])
 def get_nav_items():
@@ -4306,28 +4408,80 @@ def get_nav_items():
 @login_required
 def delete_all_history():
     try:
+        # Get base path for constructing absolute paths
+        base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        print(f"[DEBUG] Base path for deletion: {base_path}")
+        
         # Delete all history documents for the current user
         histories = History.objects(username=current_user.email)
+        print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.email}")
+        deleted_count = 0
+        failed_count = 0
+        
         for history in histories:
+            print(f"[DEBUG] Processing history document: {history.id}")
+            print(f"[DEBUG] File IDs to delete: {history.file_ids}")
+            
             for file_id in history.file_ids:
+                print(f"[DEBUG] Processing file ID: {file_id}")
                 file_doc = File.objects(id=file_id).first()
+                
                 if file_doc:
+                    print(f"[DEBUG] Found file document: {file_doc.to_json()}")
                     try:
-                        file_path = file_doc.path + str(file_doc.id) + '.' + file_doc.file_type
-                        os.remove(file_path)
-                        file_doc.delete()
-                        print(f"[DEBUG] Deleted associated file: {file_path}")
-                    except FileNotFoundError:
-                        print(f"[DEBUG] File not found for {file_id}, continuing with deletion")
+                        # Construct absolute path using the relative path stored in DB
+                        file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
+                        print(f"[DEBUG] Full file path for deletion: {file_path}")
+                        
+                        # Try to delete the file from disk
+                        if os.path.exists(file_path):
+                            print(f"[DEBUG] File exists at {file_path}, attempting deletion")
+                            try:
+                                os.remove(file_path)
+                                print(f"[DEBUG] Successfully deleted file from disk: {file_path}")
+                            except Exception as e:
+                                print(f"[DEBUG] Error deleting file from disk: {str(e)}")
+                                failed_count += 1
+                        else:
+                            print(f"[DEBUG] File not found on disk at {file_path}")
+                        
+                        # Always try to delete the database record
+                        try:
+                            file_doc.delete()
+                            print(f"[DEBUG] Successfully deleted file document from database")
+                            deleted_count += 1
+                        except Exception as e:
+                            print(f"[DEBUG] Error deleting file document from database: {str(e)}")
+                            failed_count += 1
+                            
                     except Exception as e:
-                        print(f"[DEBUG] Error deleting associated file: {str(e)}")
-        result = histories.delete()
+                        print(f"[DEBUG] Error processing file {file_id}: {str(e)}")
+                        failed_count += 1
+                else:
+                    print(f"[DEBUG] No file document found for ID: {file_id}")
+        
+        # Delete all history documents after handling files
+        try:
+            result = histories.delete()
+            print(f"[DEBUG] Deleted {result} history documents")
+        except Exception as e:
+            print(f"[DEBUG] Error deleting history documents: {str(e)}")
+            raise
+        
+        status_message = f'Successfully deleted {deleted_count} files'
+        if failed_count > 0:
+            status_message += f' ({failed_count} deletions failed)'
+        status_message += f' and {result} history documents'
+        
         return jsonify({
             'status': 'success',
-            'message': 'All history documents deleted successfully',
-            'count': result
+            'message': status_message,
+            'deleted_files': deleted_count,
+            'failed_deletions': failed_count,
+            'deleted_histories': result
         })
     except Exception as e:
+        print(f"[DEBUG] Top-level error in delete_all_history: {str(e)}")
         return jsonify({
             'status': 'error',
             'message': str(e)
@@ -4732,7 +4886,7 @@ function initChatMessages() {
   displayedFileIds.clear();
 
   if (messages.length === 0) {
-    messages = [{ role: "system", content: systemMessage }];
+    messages.push({ role: "system", content: systemMessage });
   }
 
   // Display file banners first if they exist in the system message
@@ -4790,6 +4944,9 @@ function initChatMessages() {
     } else {
       // Display existing messages and their attachments
       for (const message of messages) {
+        // Skip system messages marked as file context
+        if (message.isFileContext) continue;
+
         // Display attachments if they exist
         if (message.attachments && message.attachments.length > 0) {
           const chatMessages = document.getElementById("chat_messages");
@@ -4865,44 +5022,56 @@ function appendData(text, botMessageElement) {
 }
 
 function saveChatData(messages) {
-  console.log(
-    "Saving chat data with messages:",
-    JSON.stringify(messages, null, 2),
-  );
+  console.log("Saving chat data:");
+  console.log("- chat_started:", chat_started);
+  console.log("- username:", username);
+  console.log("- messages:", JSON.stringify(messages, null, 2));
+
+  if (!chat_started || !username) {
+    console.error("Missing required data for saving chat:");
+    console.error("- chat_started:", chat_started);
+    console.error("- username:", username);
+    return Promise.reject(new Error("Missing required data for saving chat"));
+  }
 
   // Get CSRF token from meta tag
   const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
-  // Daten für den POST-Request
+  // Create FormData
   const formData = new FormData();
   formData.append("username", username);
   formData.append("chat_started", chat_started);
   formData.append("messages", JSON.stringify(messages));
 
-  // Dynamische Generierung des API-Endpunkts aus der aktuellen URL
-  const url = `${window.location.origin}/chat/save_chat`;
-
-  // POST-Request an den API-Endpunkt senden
-  fetch(url, {
+  // Send POST request to save chat
+  return fetch("/chat/save_chat", {
     method: "POST",
     headers: {
       "X-CSRFToken": csrfToken,
     },
     body: formData,
+    credentials: "same-origin",
   })
     .then((response) => {
-      if (response.ok) {
-        console.log("api call successful");
+      if (!response.ok) {
+        console.error(
+          "Save chat response not OK:",
+          response.status,
+          response.statusText,
+        );
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       return response.text();
     })
     .then((data) => {
-      console.log(data); // Logge die Antwort des Servers
+      console.log("Chat saved successfully. Server response:", data);
+      return data;
     })
     .catch((error) => {
-      console.error("Fehler beim Senden des Requests:", error);
+      console.error("Error saving chat:", error);
+      throw error;
     });
 }
 
@@ -4982,20 +5151,19 @@ async function streamMessage() {
       content: userMessage,
     };
 
-    // Add attachments if any exist
-    if (currentMessageAttachments.length > 0) {
-      messageObj.attachments = currentMessageAttachments.map((attachment) => ({
-        id: attachment.file_id,
-        name: attachment.file_name,
-      }));
-      currentMessageAttachments = []; // Clear for next message
-    }
-
-    console.log("Message object before sending:", messageObj);
+    console.log("Current messages array before adding user message:", messages);
 
     messages.push(messageObj);
     addUserMessage(userMessage); // Display the user message in the chat
     chatInput.value = ""; // Clear the input field after sending the message
+
+    // Save chat immediately after adding user message
+    try {
+      await saveChatData(messages);
+      console.log("Chat saved after user message");
+    } catch (error) {
+      console.error("Failed to save chat after user message:", error);
+    }
 
     toggleButtonVisibility();
     stop_stream = false;
@@ -5041,34 +5209,56 @@ async function streamMessage() {
           botMessageElement.innerHTML = "";
           appendData(accumulatedResponse, botMessageElement);
           messages.push({ role: "assistant", content: accumulatedResponse });
-          console.log("Stream finished, messages array:", messages);
+
+          console.log(
+            "Current messages array before saving after AI response:",
+            messages,
+          );
+
+          // Save chat after AI response
+          try {
+            await saveChatData(messages);
+            console.log("Chat saved after AI response");
+          } catch (error) {
+            console.error("Failed to save chat after AI response:", error);
+          }
+
           toggleButtonVisibility();
           chatInput.readOnly = false;
-          saveChatData(messages);
           break;
         }
+
         const text = new TextDecoder().decode(value);
         const stopIndex = text.indexOf("###STOP###");
 
         if (stopIndex !== -1) {
-          // Add the text before ###STOP### and then break
           accumulatedResponse += text.substring(0, stopIndex);
           botMessageElement.innerHTML = "";
           appendData(accumulatedResponse, botMessageElement);
           messages.push({ role: "assistant", content: accumulatedResponse });
-          console.log("Stream finished, messages array:", messages);
+
+          console.log(
+            "Current messages array before saving after AI response:",
+            messages,
+          );
+
+          // Save chat after AI response
+          try {
+            await saveChatData(messages);
+            console.log("Chat saved after AI response");
+          } catch (error) {
+            console.error("Failed to save chat after AI response:", error);
+          }
+
           toggleButtonVisibility();
           chatInput.readOnly = false;
-          saveChatData(messages);
           break;
         } else {
           accumulatedResponse += text;
+          botMessageElement.innerHTML = "";
+          appendData(accumulatedResponse, botMessageElement);
+          scrollToBottom();
         }
-
-        // Before updating, clear the existing content to avoid duplication
-        botMessageElement.innerHTML = "";
-        appendData(accumulatedResponse, botMessageElement);
-        scrollToBottom();
       }
     } catch (error) {
       console.error("Streaming failed:", error);
@@ -5077,7 +5267,22 @@ async function streamMessage() {
         role: "assistant",
         content: `Error occurred: ${error.message}`,
       });
-      saveChatData(messages);
+
+      console.log(
+        "Current messages array before saving after error:",
+        messages,
+      );
+
+      // Save chat after error
+      try {
+        await saveChatData(messages);
+        console.log("Chat saved after error");
+      } catch (saveError) {
+        console.error("Failed to save chat after error:", saveError);
+      }
+
+      toggleButtonVisibility();
+      chatInput.readOnly = false;
     }
   }
 }
@@ -5232,67 +5437,63 @@ document
       const result = await response.json();
 
       if (result.status === "ok") {
-        console.log("File uploaded successfully");
+        console.log("File uploaded successfully:", result);
 
-        // Store attachment for next message
-        if (result.attachment) {
-          currentMessageAttachments.push(result.attachment);
+        // Initialize messages array if empty
+        if (messages.length === 0) {
+          messages.push({
+            role: "system",
+            content: systemMessage,
+            attachments: [],
+          });
         }
 
-        // Remove prompts div if it exists
-        const promptsDiv = document.getElementById("prompts");
-        if (promptsDiv) promptsDiv.remove();
+        // Add file to system message attachments
+        if (!messages[0].attachments) {
+          messages[0].attachments = [];
+        }
+        messages[0].attachments.push({
+          type: "file",
+          id: result.file_id,
+          name: result.filename,
+          file_type: result.file_type,
+          timestamp: Math.floor(Date.now() / 1000),
+        });
 
-        // Add file banner after the last message
+        // For non-image files, add the context as a hidden system message
+        if (!["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())) {
+          messages.push({
+            role: "system",
+            content: `Using context from file: ${result.filename}\n\n${result.content}`,
+            attachments: [result.attachment],
+            isFileContext: true,
+          });
+        }
+
+        // Save chat state immediately after adding file
+        try {
+          await saveChatData(messages);
+          console.log("Chat state saved after file upload");
+        } catch (error) {
+          console.error("Failed to save chat state after file upload:", error);
+        }
+
+        // Display file banner
         const chatMessages = document.getElementById("chat_messages");
         const banner = displayFileBanner(
           fileName,
           result.file_id,
           chatMessages,
         );
-
-        // Only scroll if we actually added a new banner
         if (banner) {
           setTimeout(() => {
             banner.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 100);
         }
 
-        let userMessage;
-        if (
-          result.file_type &&
-          ["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())
-        ) {
-          userMessage = [
-            { type: "text", text: "Please analyze the following image:" },
-            {
-              type: "image_url",
-              image_url: {
-                url: `data:image/${result.file_type};base64,${result.base64_image}`,
-              },
-            },
-          ];
-          const messageObj = {
-            role: "user",
-            content: userMessage,
-            attachments: [result.attachment],
-          };
-          messages.push(messageObj);
-          addUserMessage(userMessage);
-          streamMessage();
-        } else {
-          userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
-          messages.push({
-            role: "system",
-            content: userMessage,
-            attachments: [result.attachment],
-          });
-          // Save chat data after adding the system message with file context
-          saveChatData(messages);
-        }
-
         // Update display text
         document.getElementById("file-name-display").textContent = "Upload";
+        console.log("Current messages array:", messages);
       } else {
         console.error("Upload failed:", result.message);
         document.getElementById("file-name-display").textContent =
