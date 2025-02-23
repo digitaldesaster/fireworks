@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 import sys
 sys.path.append('core')
-from core.db_document import File
+from core.db_document import File, Prompt
 from core.db_connect import *
 import os
 
 import json,datetime
 from flask import session
+from flask_login import current_user
 
 from db_default import getCounter
 from bson import ObjectId
@@ -144,39 +145,125 @@ def updateDocument(form_data, document, collection):
 
 def eraseDocument(id, document, collection):
     try:
-        print(f"[DEBUG] Attempting to delete document with id={id}")
+        print(f"[DEBUG] eraseDocument called with id={id}, collection={collection.__name__}")
         object_id = ObjectId(id)
         document = collection.objects(_id=object_id).first()
         
         if document is not None:
             print(f"[DEBUG] Found document to delete: {document.to_json()}")
             
+            # Get base path for constructing absolute paths
+            base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+            print(f"[DEBUG] Base path: {base_path}")
+            
             # Handle file deletion for both File collection and associated files
             if collection == File:
+                # Check if user has permission to delete this file
+                if not document.can_access(current_user):
+                    print(f"[DEBUG] Access denied for file deletion: {id}")
+                    return {'status': 'error', 'message': 'Access denied. You can only delete your own files.'}
+                
+                # Check if file is used by any prompt
+                prompts_using_file = Prompt.objects(document_id=str(id))
+                if prompts_using_file:
+                    print(f"[DEBUG] File {id} is used by prompts, cannot delete")
+                    return {'status': 'error', 'message': 'File is used by one or more prompts and cannot be deleted'}
+                    
                 # Direct file document deletion
                 try:
-                    file_path = os.path.join(document.path, f"{id}.{document.file_type}")
-                    os.remove(file_path)
-                    print(f"[DEBUG] Deleted associated file: {file_path}")
-                except FileNotFoundError:
-                    print('[DEBUG] File not found, continuing with document deletion')
-            else:
-                # Delete associated files from File collection
-                associated_files = File.objects(document_id=str(id))
-                for file_doc in associated_files:
-                    try:
-                        file_path = os.path.join(file_doc.path, f"{file_doc.id}.{file_doc.file_type}")
-                        os.remove(file_path)
-                        file_doc.delete()
-                        print(f"[DEBUG] Deleted associated file: {file_path}")
-                    except FileNotFoundError:
-                        print(f'[DEBUG] File not found for {file_doc.id}, continuing with deletion')
-                    except Exception as e:
-                        print(f'[DEBUG] Error deleting associated file: {str(e)}')
+                    # Use the same path construction as upload_files
+                    file_path = os.path.join(base_path, document.path, f"{id}.{document.file_type}")
+                    print(f"[DEBUG] Attempting to delete file at: {file_path}")
+                    print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
                     
-            document.delete()
-            print(f"[DEBUG] Document deleted successfully")
-            return {'status': 'ok', 'message': 'deleted'}
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                        print(f"[DEBUG] Successfully deleted file: {file_path}")
+                    else:
+                        print(f'[DEBUG] Physical file not found at: {file_path}')
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting physical file: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting physical file: {str(e)}'}
+                
+                try:
+                    document.delete()
+                    print(f"[DEBUG] Successfully deleted file document from database")
+                    return {'status': 'ok', 'message': 'deleted'}
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting file document: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting file document: {str(e)}'}
+            else:
+                # For non-File collections, handle associated files
+                file_ids = []
+                
+                # Check for files linked by document_id
+                associated_files = File.objects(document_id=str(id))
+                file_ids.extend([str(f.id) for f in associated_files])
+                
+                # Check for files in file_ids array (used by History documents)
+                if hasattr(document, 'file_ids') and document.file_ids:
+                    file_ids.extend(document.file_ids)
+                
+                # Remove duplicates
+                file_ids = list(set(file_ids))
+                print(f"[DEBUG] Found {len(file_ids)} associated files")
+                print(f"[DEBUG] File IDs to process: {file_ids}")
+                
+                deleted_files = []
+                failed_files = []
+                
+                for file_id in file_ids:
+                    try:
+                        print(f"[DEBUG] Processing associated file: {file_id}")
+                        file_doc = File.objects(id=file_id).first()
+                        if not file_doc:
+                            print(f"[DEBUG] File document not found: {file_id}")
+                            failed_files.append(file_id)
+                            continue
+                            
+                        # Check if file is used by any prompt
+                        prompts_using_file = Prompt.objects(document_id=str(file_id))
+                        if prompts_using_file:
+                            print(f"[DEBUG] File {file_id} is used by prompts, skipping")
+                            failed_files.append(file_id)
+                            continue
+                        
+                        # Check if user has permission to delete this file
+                        if not file_doc.can_access(current_user):
+                            print(f"[DEBUG] Access denied for associated file deletion: {file_id}")
+                            failed_files.append(file_id)
+                            continue
+                            
+                        # Delete physical file
+                        # Use the same path construction as upload_files
+                        file_path = os.path.join(base_path, file_doc.path, f"{file_id}.{file_doc.file_type}")
+                        print(f"[DEBUG] Attempting to delete associated file at: {file_path}")
+                        print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
+                        
+                        if os.path.exists(file_path):
+                            os.remove(file_path)
+                            print(f"[DEBUG] Successfully deleted associated file: {file_path}")
+                        else:
+                            print(f'[DEBUG] Physical file not found at: {file_path}')
+                        
+                        # Delete file document
+                        file_doc.delete()
+                        deleted_files.append(file_id)
+                        print(f"[DEBUG] Successfully deleted associated file document: {file_id}")
+                    except Exception as e:
+                        print(f'[DEBUG] Error deleting associated file {file_id}: {str(e)}')
+                        failed_files.append(file_id)
+                
+                try:
+                    document.delete()
+                    status_msg = 'deleted'
+                    if failed_files:
+                        status_msg += f' (some associated files could not be deleted: {", ".join(map(str, failed_files))})'
+                    print(f"[DEBUG] Successfully deleted main document with status: {status_msg}")
+                    return {'status': 'ok', 'message': status_msg}
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting main document: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting document: {str(e)}'}
         else:
             print(f"[DEBUG] No document found with id={id}")
             return {'status': 'error', 'message': 'document not found'}

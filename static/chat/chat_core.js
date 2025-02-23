@@ -194,13 +194,11 @@ function appendData(text, botMessageElement) {
 function saveChatData(messages) {
   console.log("Saving chat data:");
   console.log("- chat_started:", chat_started);
-  console.log("- username:", username);
   console.log("- messages:", JSON.stringify(messages, null, 2));
 
-  if (!chat_started || !username) {
+  if (!chat_started) {
     console.error("Missing required data for saving chat:");
     console.error("- chat_started:", chat_started);
-    console.error("- username:", username);
     return Promise.reject(new Error("Missing required data for saving chat"));
   }
 
@@ -211,7 +209,6 @@ function saveChatData(messages) {
 
   // Create FormData
   const formData = new FormData();
-  formData.append("username", username);
   formData.append("chat_started", chat_started);
   formData.append("messages", JSON.stringify(messages));
 

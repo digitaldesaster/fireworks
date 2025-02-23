@@ -11,6 +11,7 @@ from werkzeug.utils import secure_filename
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument, upload_file
 from core.db_helper import getFile
+from core.db_document import File
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
@@ -124,6 +125,13 @@ def download_file(file_id):
 		data = getFile(file_id)
 		if data['status'] == 'ok':
 			file_data = json.loads(data['data'])
+			file_obj = File.objects(id=file_id).first()
+			
+			# Check if user has permission to access this file
+			if not file_obj.can_access(current_user):
+				flash('Access denied. You can only access your own files.', 'error')
+				return redirect(url_for('index'))
+				
 			path = file_data['path']
 			filename = f"{file_id}.{file_data['file_type'].lower()}"
 			original_filename = file_data['name']

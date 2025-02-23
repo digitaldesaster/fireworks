@@ -55,7 +55,11 @@ def getConfig():
 def chat(prompt_id=None, history_id=None):
     config = getConfig()
 
+    # Add user information to config
     config['username'] = current_user.email
+    config['user_id'] = str(current_user.id)
+    config['is_admin'] = current_user.is_admin
+
     config['chat_started'] = int(time.time())
     config['history'] = []
     config['latest_prompts'] = []
@@ -108,10 +112,9 @@ def chat(prompt_id=None, history_id=None):
         history = json.loads(
             handleDocument('history', history_id, request, return_json=True))
         config['chat_started'] = history['chat_started']
-        config['username'] = history['username']
         config['messages'] = json.loads(history['messages'])
     else:
-        chat_history = History.objects().order_by('-id').limit(3)
+        chat_history = History.objects(user_id=str(current_user.id)).order_by('-id').limit(3)
         if chat_history:
             config['history'] = chat_history
         latest_prompts = Prompt.objects().order_by('-id').limit(3)
@@ -131,15 +134,14 @@ def stream():
 @dms_chat.route('/save_chat', methods=['POST'])
 @login_required
 def save_chat():
-    username = request.form.get('username')
     chat_started = request.form.get('chat_started')
     messages = request.form.get('messages')
     
-    print(f"[DEBUG] Saving chat for user {username} started at {chat_started}")
+    print(f"[DEBUG] Saving chat for user {current_user.id} started at {chat_started}")
     print(f"[DEBUG] Messages to save: {messages}")
 
-    chat_history = History.objects(username=username,
-                                   chat_started=chat_started)
+    chat_history = History.objects(user_id=str(current_user.id),
+                                 chat_started=chat_started)
     print(f"[DEBUG] Found {len(chat_history)} existing chat(s)")
     
     if len(chat_history) == 1:
@@ -170,7 +172,7 @@ def save_chat():
     else:
         print("[DEBUG] Creating new chat")
         chat_history = History()
-        chat_history.username = username
+        chat_history.user_id = str(current_user.id)
         chat_history.chat_started = chat_started
         chat_history.messages = messages
         chat_history.first_message = "Neuer Chat"  # Set default title
@@ -250,7 +252,7 @@ def upload_chat_file():
 @dms_chat.route('/nav_items', methods=['GET'])
 def get_nav_items():
     # Get latest history items for current user only, ordered by last modified date
-    history = History.objects(username=current_user.email).order_by('-modified_date', '-id').limit(15)
+    history = History.objects(user_id=str(current_user.id)).order_by('-modified_date', '-id').limit(15)
     # Get latest prompts
     prompts = Prompt.objects().order_by('-id').limit(5)
     
@@ -278,8 +280,8 @@ def delete_all_history():
         print(f"[DEBUG] Found {len(preserved_file_ids)} files to preserve from prompts")
         
         # Delete all history documents for the current user
-        histories = History.objects(username=current_user.email)
-        print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.email}")
+        histories = History.objects(user_id=str(current_user.id))
+        print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.id}")
         deleted_count = 0
         failed_count = 0
         preserved_count = 0
@@ -300,6 +302,11 @@ def delete_all_history():
                             
                         file_doc = File.objects(id=file_id).first()
                         if file_doc:
+                            # Check if user has permission to delete this file
+                            if not file_doc.can_access(current_user):
+                                print(f"[DEBUG] Access denied for file deletion: {file_id}")
+                                continue
+                                
                             # Construct absolute path using the relative path stored in DB
                             file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
                             print(f"[DEBUG] Attempting to delete file: {file_path}")

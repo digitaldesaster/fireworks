@@ -46,6 +46,9 @@ def do_login(request):
 
         if status['status'] == 'ok':
             user = db_user.User.objects(email=email).first()
+            if not user:
+                return render_template('login.html', status='error', message='User not found')
+            
             login_user(user, remember=remember, duration=timedelta(days=30) if remember else None)
             return redirect(url_for('index'))
         else:

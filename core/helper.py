@@ -209,7 +209,7 @@ def handleDocument(name, id, request, return_json=False):
         if name == 'history' and id:
             try:
                 history_doc = default.collection.objects(_id=ObjectId(id)).first()
-                if history_doc and history_doc.username != current_user.email:
+                if history_doc and not history_doc.can_view(current_user):
                     flash('Access denied. You can only view your own history.', 'error')
                     return redirect(url_for('list', collection='history'))
             except Exception as e:
@@ -230,6 +230,7 @@ def handleDocument(name, id, request, return_json=False):
                 data['id'] = ''  # Empty ID for new document
             except Exception as e:
                 print(f"[DEBUG] Error initializing new document: {str(e)}")
+                return redirect(url_for('index'))
 
         page = {
             'title': f"{'Add' if not id else 'Edit'} {default.page_name_document}",
@@ -311,16 +312,33 @@ def handleDocument(name, id, request, return_json=False):
 def deleteDocument(request):
     type = request.args.get('type')
     id = request.args.get('id')
-    if id:
+    print(f"[DEBUG] deleteDocument called with type={type}, id={id}")
+    
+    if not id:
+        print("[DEBUG] No ID provided")
+        return {'status': 'error', 'message': 'no id'}
+        
+    # Special handling for file deletions
+    if type == 'files':
+        print(f"[DEBUG] Handling file deletion for id={id}")
+        data = eraseDocument(id, File, File)
+        print(f"[DEBUG] File deletion result: {data}")
+    else:
+        print(f"[DEBUG] Handling document deletion for type={type}, id={id}")
         default = getDefaults(type)
         if default == []:
-            return {'status' : 'error', 'message' : 'no document found'}
-        data = eraseDocument(id,default.document,default.collection)
-        if (data['status'] == 'ok'):
-            return {'status' : 'ok','message' : 'document deleted'}
-        else:
-            return {'status' : 'error','message' : 'document not deleted'}
-    return {'status' : 'error','message' : 'no id'}
+            print(f"[DEBUG] No defaults found for type={type}")
+            return {'status': 'error', 'message': 'no document found'}
+        data = eraseDocument(id, default.document, default.collection)
+        print(f"[DEBUG] Document deletion result: {data}")
+        
+    if data['status'] == 'ok':
+        print("[DEBUG] Deletion successful")
+        return {'status': 'ok', 'message': 'document deleted'}
+    else:
+        print(f"[DEBUG] Deletion failed: {data.get('message', 'unknown error')}")
+        return {'status': 'error', 'message': data.get('message', 'document not deleted')}
+
 def tableContent(documents, table_header):
     tableContent=[]
 
@@ -455,7 +473,8 @@ def upload_files(request, category='', document_id=''):
                             category=category, 
                             file_type=file_type, 
                             document_id=document_id, 
-                            element_id=element_id
+                            element_id=element_id,
+                            owner_id=str(current_user.id)  # Set the owner_id to current user's ID
                         )
                         fileDB.save()
                         fileID = getDocumentID(fileDB)
@@ -632,7 +651,8 @@ def upload_file(file, category='history'):
             name=filename,
             path=relative_path,  # Store relative path for consistent deletion
             category=category,
-            file_type=file_type
+            file_type=file_type,
+            owner_id=str(current_user.id)  # Set the owner_id to current user's ID
         )
         fileDB.save()
         fileID = str(fileDB.id)  # Ensure we're using string ID consistently

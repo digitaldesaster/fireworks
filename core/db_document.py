@@ -102,7 +102,7 @@ def getDefaults(name):
 class User(AuditMixin, DynamicDocument, UserMixin):
     firstname = StringField()
     name = StringField()
-    email = StringField()
+    email = StringField(unique=True)
     pw_hash = StringField()
     csrf_token = StringField()
     salutation = StringField()
@@ -134,7 +134,8 @@ class User(AuditMixin, DynamicDocument, UserMixin):
     def to_json(self):
         return mongoToJson(self)
     def get_id(self):
-        return str(self.email)
+        """Return the unique identifier for Flask-Login"""
+        return str(self.id)
 
     @property
     def is_admin(self):
@@ -146,19 +147,29 @@ class User(AuditMixin, DynamicDocument, UserMixin):
         return self.is_admin or str(self.id) == str(user_id)
 
 class File(AuditMixin, DynamicDocument):
-    name = StringField(required=True,min_length=4)
+    name = StringField(required=True, min_length=4)
+    owner_id = StringField(required=True)  # Add owner_id field
     meta = {'queryset_class': CustomQuerySet}
+    
     def searchFields(self):
         return ['name']
+    
     def fields(self, list_order = False):
-        name = {'name' :  'name', 'label' : 'Name', 'class' : '', 'type' : 'SingleLine', 'required' : True,"full_width" : False}
-        category = {'name' :  'category', 'label' : 'Kategorie', 'class' : 'hidden-xs', 'type' : 'TextField',"full_width" : False}
-        document_id = {'name' :  'document_id', 'label' : 'Dokument', 'class' : 'hidden-xs', 'type' : 'TextField',"full_width" : True}
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, "full_width": False}
+        category = {'name': 'category', 'label': 'Kategorie', 'class': 'hidden-xs', 'type': 'TextField', "full_width": False}
+        if list_order:
+            return [name, category]
+        return [name, category]
+    
+    def can_access(self, user):
+        """Check if a user can access this file"""
+        return user.is_admin or str(user.id) == str(self.owner_id)
+    
+    def save(self, *args, **kwargs):
+        if not self.owner_id and current_user and current_user.is_authenticated:
+            self.owner_id = str(current_user.id)
+        return super().save(*args, **kwargs)
 
-        if list_order != None and list_order == True:
-            #fields in the overview table of the collection
-            return [name]
-        return [name]
     def to_json(self):
         return mongoToJson(self)
 
@@ -293,24 +304,30 @@ class Model(AuditMixin, DynamicDocument):
         return mongoToJson(self)
 
 class History(AuditMixin, DynamicDocument):
-    username = StringField()
+    user_id = StringField(required=True)  # Store user ID instead of username
     chat_started = IntField()
     messages = StringField()
     first_message = StringField()
     link = StringField(default='')
     file_ids = ListField(StringField())
+    
     def searchFields(self):
         return ['messages','first_message']
+    
     def fields(self, list_order=False):
-        username = {'name': 'username', 'label': 'Username', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
+        user_id = {'name': 'user_id', 'label': 'User ID', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
         chat_started = {'name': 'chat_started', 'label': ' Started', 'class': '', 'type': 'IntField', 'required': True, 'full_width': False}
         first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
         messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
-        link = {'name' :  'link', 'label' : 'Chat', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/history'}
+        link = {'name': 'link', 'label': 'Chat', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/history'}
         if list_order:
-            return [link,first_message]
-        return [username,first_message,chat_started, messages,link]
-        
+            return [link, first_message]
+        return [user_id, first_message, chat_started, messages, link]
+    
+    def can_view(self, user):
+        """Check if a user can view this history"""
+        return user.is_admin or str(user.id) == str(self.user_id)
+
 class Prompt(AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     welcome_message = StringField(required=True, min_length=1)
