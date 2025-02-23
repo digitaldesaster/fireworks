@@ -14,6 +14,7 @@ from werkzeug.utils import secure_filename
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument, upload_file
 from core.db_helper import getFile
+from core.db_document import File
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
@@ -127,6 +128,13 @@ def download_file(file_id):
 		data = getFile(file_id)
 		if data['status'] == 'ok':
 			file_data = json.loads(data['data'])
+			file_obj = File.objects(id=file_id).first()
+			
+			# Check if user has permission to access this file
+			if not file_obj.can_access(current_user):
+				flash('Access denied. You can only access your own files.', 'error')
+				return redirect(url_for('index'))
+				
 			path = file_data['path']
 			filename = f"{file_id}.{file_data['file_type'].lower()}"
 			original_filename = file_data['name']
@@ -2438,6 +2446,9 @@ def do_login(request):
 
         if status['status'] == 'ok':
             user = db_user.User.objects(email=email).first()
+            if not user:
+                return render_template('login.html', status='error', message='User not found')
+            
             login_user(user, remember=remember, duration=timedelta(days=30) if remember else None)
             return redirect(url_for('index'))
         else:
@@ -3059,7 +3070,7 @@ def handleDocument(name, id, request, return_json=False):
         if name == 'history' and id:
             try:
                 history_doc = default.collection.objects(_id=ObjectId(id)).first()
-                if history_doc and history_doc.username != current_user.email:
+                if history_doc and not history_doc.can_view(current_user):
                     flash('Access denied. You can only view your own history.', 'error')
                     return redirect(url_for('list', collection='history'))
             except Exception as e:
@@ -3080,6 +3091,7 @@ def handleDocument(name, id, request, return_json=False):
                 data['id'] = ''  # Empty ID for new document
             except Exception as e:
                 print(f"[DEBUG] Error initializing new document: {str(e)}")
+                return redirect(url_for('index'))
 
         page = {
             'title': f"{'Add' if not id else 'Edit'} {default.page_name_document}",
@@ -3161,16 +3173,33 @@ def handleDocument(name, id, request, return_json=False):
 def deleteDocument(request):
     type = request.args.get('type')
     id = request.args.get('id')
-    if id:
+    print(f"[DEBUG] deleteDocument called with type={type}, id={id}")
+    
+    if not id:
+        print("[DEBUG] No ID provided")
+        return {'status': 'error', 'message': 'no id'}
+        
+    # Special handling for file deletions
+    if type == 'files':
+        print(f"[DEBUG] Handling file deletion for id={id}")
+        data = eraseDocument(id, File, File)
+        print(f"[DEBUG] File deletion result: {data}")
+    else:
+        print(f"[DEBUG] Handling document deletion for type={type}, id={id}")
         default = getDefaults(type)
         if default == []:
-            return {'status' : 'error', 'message' : 'no document found'}
-        data = eraseDocument(id,default.document,default.collection)
-        if (data['status'] == 'ok'):
-            return {'status' : 'ok','message' : 'document deleted'}
-        else:
-            return {'status' : 'error','message' : 'document not deleted'}
-    return {'status' : 'error','message' : 'no id'}
+            print(f"[DEBUG] No defaults found for type={type}")
+            return {'status': 'error', 'message': 'no document found'}
+        data = eraseDocument(id, default.document, default.collection)
+        print(f"[DEBUG] Document deletion result: {data}")
+        
+    if data['status'] == 'ok':
+        print("[DEBUG] Deletion successful")
+        return {'status': 'ok', 'message': 'document deleted'}
+    else:
+        print(f"[DEBUG] Deletion failed: {data.get('message', 'unknown error')}")
+        return {'status': 'error', 'message': data.get('message', 'document not deleted')}
+
 def tableContent(documents, table_header):
     tableContent=[]
 
@@ -3305,7 +3334,8 @@ def upload_files(request, category='', document_id=''):
                             category=category, 
                             file_type=file_type, 
                             document_id=document_id, 
-                            element_id=element_id
+                            element_id=element_id,
+                            owner_id=str(current_user.id)  # Set the owner_id to current user's ID
                         )
                         fileDB.save()
                         fileID = getDocumentID(fileDB)
@@ -3482,7 +3512,8 @@ def upload_file(file, category='history'):
             name=filename,
             path=relative_path,  # Store relative path for consistent deletion
             category=category,
-            file_type=file_type
+            file_type=file_type,
+            owner_id=str(current_user.id)  # Set the owner_id to current user's ID
         )
         fileDB.save()
         fileID = str(fileDB.id)  # Ensure we're using string ID consistently
@@ -3637,7 +3668,7 @@ def getDefaults(name):
 class User(AuditMixin, DynamicDocument, UserMixin):
     firstname = StringField()
     name = StringField()
-    email = StringField()
+    email = StringField(unique=True)
     pw_hash = StringField()
     csrf_token = StringField()
     salutation = StringField()
@@ -3669,7 +3700,8 @@ class User(AuditMixin, DynamicDocument, UserMixin):
     def to_json(self):
         return mongoToJson(self)
     def get_id(self):
-        return str(self.email)
+        """Return the unique identifier for Flask-Login"""
+        return str(self.id)
 
     @property
     def is_admin(self):
@@ -3681,19 +3713,29 @@ class User(AuditMixin, DynamicDocument, UserMixin):
         return self.is_admin or str(self.id) == str(user_id)
 
 class File(AuditMixin, DynamicDocument):
-    name = StringField(required=True,min_length=4)
+    name = StringField(required=True, min_length=4)
+    owner_id = StringField(required=True)  # Add owner_id field
     meta = {'queryset_class': CustomQuerySet}
+    
     def searchFields(self):
         return ['name']
+    
     def fields(self, list_order = False):
-        name = {'name' :  'name', 'label' : 'Name', 'class' : '', 'type' : 'SingleLine', 'required' : True,"full_width" : False}
-        category = {'name' :  'category', 'label' : 'Kategorie', 'class' : 'hidden-xs', 'type' : 'TextField',"full_width" : False}
-        document_id = {'name' :  'document_id', 'label' : 'Dokument', 'class' : 'hidden-xs', 'type' : 'TextField',"full_width" : True}
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, "full_width": False}
+        category = {'name': 'category', 'label': 'Kategorie', 'class': 'hidden-xs', 'type': 'TextField', "full_width": False}
+        if list_order:
+            return [name, category]
+        return [name, category]
+    
+    def can_access(self, user):
+        """Check if a user can access this file"""
+        return user.is_admin or str(user.id) == str(self.owner_id)
+    
+    def save(self, *args, **kwargs):
+        if not self.owner_id and current_user and current_user.is_authenticated:
+            self.owner_id = str(current_user.id)
+        return super().save(*args, **kwargs)
 
-        if list_order != None and list_order == True:
-            #fields in the overview table of the collection
-            return [name]
-        return [name]
     def to_json(self):
         return mongoToJson(self)
 
@@ -3828,24 +3870,30 @@ class Model(AuditMixin, DynamicDocument):
         return mongoToJson(self)
 
 class History(AuditMixin, DynamicDocument):
-    username = StringField()
+    user_id = StringField(required=True)  # Store user ID instead of username
     chat_started = IntField()
     messages = StringField()
     first_message = StringField()
     link = StringField(default='')
     file_ids = ListField(StringField())
+    
     def searchFields(self):
         return ['messages','first_message']
+    
     def fields(self, list_order=False):
-        username = {'name': 'username', 'label': 'Username', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
+        user_id = {'name': 'user_id', 'label': 'User ID', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
         chat_started = {'name': 'chat_started', 'label': ' Started', 'class': '', 'type': 'IntField', 'required': True, 'full_width': False}
         first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
         messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
-        link = {'name' :  'link', 'label' : 'Chat', 'class' : '', 'type' : 'ButtonField','full_width':False,'link':'/chat/history'}
+        link = {'name': 'link', 'label': 'Chat', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/history'}
         if list_order:
-            return [link,first_message]
-        return [username,first_message,chat_started, messages,link]
-        
+            return [link, first_message]
+        return [user_id, first_message, chat_started, messages, link]
+    
+    def can_view(self, user):
+        """Check if a user can view this history"""
+        return user.is_admin or str(user.id) == str(self.user_id)
+
 class Prompt(AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     welcome_message = StringField(required=True, min_length=1)
@@ -3962,12 +4010,13 @@ class dbDates():
 # -*- coding: utf-8 -*-
 import sys
 sys.path.append('core')
-from core.db_document import File
+from core.db_document import File, Prompt
 from core.db_connect import *
 import os
 
 import json,datetime
 from flask import session
+from flask_login import current_user
 
 from db_default import getCounter
 from bson import ObjectId
@@ -4104,39 +4153,125 @@ def updateDocument(form_data, document, collection):
 
 def eraseDocument(id, document, collection):
     try:
-        print(f"[DEBUG] Attempting to delete document with id={id}")
+        print(f"[DEBUG] eraseDocument called with id={id}, collection={collection.__name__}")
         object_id = ObjectId(id)
         document = collection.objects(_id=object_id).first()
         
         if document is not None:
             print(f"[DEBUG] Found document to delete: {document.to_json()}")
             
+            # Get base path for constructing absolute paths
+            base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+            print(f"[DEBUG] Base path: {base_path}")
+            
             # Handle file deletion for both File collection and associated files
             if collection == File:
+                # Check if user has permission to delete this file
+                if not document.can_access(current_user):
+                    print(f"[DEBUG] Access denied for file deletion: {id}")
+                    return {'status': 'error', 'message': 'Access denied. You can only delete your own files.'}
+                
+                # Check if file is used by any prompt
+                prompts_using_file = Prompt.objects(document_id=str(id))
+                if prompts_using_file:
+                    print(f"[DEBUG] File {id} is used by prompts, cannot delete")
+                    return {'status': 'error', 'message': 'File is used by one or more prompts and cannot be deleted'}
+                    
                 # Direct file document deletion
                 try:
-                    file_path = os.path.join(document.path, f"{id}.{document.file_type}")
-                    os.remove(file_path)
-                    print(f"[DEBUG] Deleted associated file: {file_path}")
-                except FileNotFoundError:
-                    print('[DEBUG] File not found, continuing with document deletion')
-            else:
-                # Delete associated files from File collection
-                associated_files = File.objects(document_id=str(id))
-                for file_doc in associated_files:
-                    try:
-                        file_path = os.path.join(file_doc.path, f"{file_doc.id}.{file_doc.file_type}")
-                        os.remove(file_path)
-                        file_doc.delete()
-                        print(f"[DEBUG] Deleted associated file: {file_path}")
-                    except FileNotFoundError:
-                        print(f'[DEBUG] File not found for {file_doc.id}, continuing with deletion')
-                    except Exception as e:
-                        print(f'[DEBUG] Error deleting associated file: {str(e)}')
+                    # Use the same path construction as upload_files
+                    file_path = os.path.join(base_path, document.path, f"{id}.{document.file_type}")
+                    print(f"[DEBUG] Attempting to delete file at: {file_path}")
+                    print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
                     
-            document.delete()
-            print(f"[DEBUG] Document deleted successfully")
-            return {'status': 'ok', 'message': 'deleted'}
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                        print(f"[DEBUG] Successfully deleted file: {file_path}")
+                    else:
+                        print(f'[DEBUG] Physical file not found at: {file_path}')
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting physical file: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting physical file: {str(e)}'}
+                
+                try:
+                    document.delete()
+                    print(f"[DEBUG] Successfully deleted file document from database")
+                    return {'status': 'ok', 'message': 'deleted'}
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting file document: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting file document: {str(e)}'}
+            else:
+                # For non-File collections, handle associated files
+                file_ids = []
+                
+                # Check for files linked by document_id
+                associated_files = File.objects(document_id=str(id))
+                file_ids.extend([str(f.id) for f in associated_files])
+                
+                # Check for files in file_ids array (used by History documents)
+                if hasattr(document, 'file_ids') and document.file_ids:
+                    file_ids.extend(document.file_ids)
+                
+                # Remove duplicates
+                file_ids = list(set(file_ids))
+                print(f"[DEBUG] Found {len(file_ids)} associated files")
+                print(f"[DEBUG] File IDs to process: {file_ids}")
+                
+                deleted_files = []
+                failed_files = []
+                
+                for file_id in file_ids:
+                    try:
+                        print(f"[DEBUG] Processing associated file: {file_id}")
+                        file_doc = File.objects(id=file_id).first()
+                        if not file_doc:
+                            print(f"[DEBUG] File document not found: {file_id}")
+                            failed_files.append(file_id)
+                            continue
+                            
+                        # Check if file is used by any prompt
+                        prompts_using_file = Prompt.objects(document_id=str(file_id))
+                        if prompts_using_file:
+                            print(f"[DEBUG] File {file_id} is used by prompts, skipping")
+                            failed_files.append(file_id)
+                            continue
+                        
+                        # Check if user has permission to delete this file
+                        if not file_doc.can_access(current_user):
+                            print(f"[DEBUG] Access denied for associated file deletion: {file_id}")
+                            failed_files.append(file_id)
+                            continue
+                            
+                        # Delete physical file
+                        # Use the same path construction as upload_files
+                        file_path = os.path.join(base_path, file_doc.path, f"{file_id}.{file_doc.file_type}")
+                        print(f"[DEBUG] Attempting to delete associated file at: {file_path}")
+                        print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
+                        
+                        if os.path.exists(file_path):
+                            os.remove(file_path)
+                            print(f"[DEBUG] Successfully deleted associated file: {file_path}")
+                        else:
+                            print(f'[DEBUG] Physical file not found at: {file_path}')
+                        
+                        # Delete file document
+                        file_doc.delete()
+                        deleted_files.append(file_id)
+                        print(f"[DEBUG] Successfully deleted associated file document: {file_id}")
+                    except Exception as e:
+                        print(f'[DEBUG] Error deleting associated file {file_id}: {str(e)}')
+                        failed_files.append(file_id)
+                
+                try:
+                    document.delete()
+                    status_msg = 'deleted'
+                    if failed_files:
+                        status_msg += f' (some associated files could not be deleted: {", ".join(map(str, failed_files))})'
+                    print(f"[DEBUG] Successfully deleted main document with status: {status_msg}")
+                    return {'status': 'ok', 'message': status_msg}
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting main document: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting document: {str(e)}'}
         else:
             print(f"[DEBUG] No document found with id={id}")
             return {'status': 'error', 'message': 'document not found'}
@@ -4337,7 +4472,11 @@ def getConfig():
 def chat(prompt_id=None, history_id=None):
     config = getConfig()
 
+    # Add user information to config
     config['username'] = current_user.email
+    config['user_id'] = str(current_user.id)
+    config['is_admin'] = current_user.is_admin
+
     config['chat_started'] = int(time.time())
     config['history'] = []
     config['latest_prompts'] = []
@@ -4390,10 +4529,9 @@ def chat(prompt_id=None, history_id=None):
         history = json.loads(
             handleDocument('history', history_id, request, return_json=True))
         config['chat_started'] = history['chat_started']
-        config['username'] = history['username']
         config['messages'] = json.loads(history['messages'])
     else:
-        chat_history = History.objects().order_by('-id').limit(3)
+        chat_history = History.objects(user_id=str(current_user.id)).order_by('-id').limit(3)
         if chat_history:
             config['history'] = chat_history
         latest_prompts = Prompt.objects().order_by('-id').limit(3)
@@ -4413,15 +4551,14 @@ def stream():
 @dms_chat.route('/save_chat', methods=['POST'])
 @login_required
 def save_chat():
-    username = request.form.get('username')
     chat_started = request.form.get('chat_started')
     messages = request.form.get('messages')
     
-    print(f"[DEBUG] Saving chat for user {username} started at {chat_started}")
+    print(f"[DEBUG] Saving chat for user {current_user.id} started at {chat_started}")
     print(f"[DEBUG] Messages to save: {messages}")
 
-    chat_history = History.objects(username=username,
-                                   chat_started=chat_started)
+    chat_history = History.objects(user_id=str(current_user.id),
+                                 chat_started=chat_started)
     print(f"[DEBUG] Found {len(chat_history)} existing chat(s)")
     
     if len(chat_history) == 1:
@@ -4452,7 +4589,7 @@ def save_chat():
     else:
         print("[DEBUG] Creating new chat")
         chat_history = History()
-        chat_history.username = username
+        chat_history.user_id = str(current_user.id)
         chat_history.chat_started = chat_started
         chat_history.messages = messages
         chat_history.first_message = "Neuer Chat"  # Set default title
@@ -4532,7 +4669,7 @@ def upload_chat_file():
 @dms_chat.route('/nav_items', methods=['GET'])
 def get_nav_items():
     # Get latest history items for current user only, ordered by last modified date
-    history = History.objects(username=current_user.email).order_by('-modified_date', '-id').limit(15)
+    history = History.objects(user_id=str(current_user.id)).order_by('-modified_date', '-id').limit(15)
     # Get latest prompts
     prompts = Prompt.objects().order_by('-id').limit(5)
     
@@ -4560,8 +4697,8 @@ def delete_all_history():
         print(f"[DEBUG] Found {len(preserved_file_ids)} files to preserve from prompts")
         
         # Delete all history documents for the current user
-        histories = History.objects(username=current_user.email)
-        print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.email}")
+        histories = History.objects(user_id=str(current_user.id))
+        print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.id}")
         deleted_count = 0
         failed_count = 0
         preserved_count = 0
@@ -4582,6 +4719,11 @@ def delete_all_history():
                             
                         file_doc = File.objects(id=file_id).first()
                         if file_doc:
+                            # Check if user has permission to delete this file
+                            if not file_doc.can_access(current_user):
+                                print(f"[DEBUG] Access denied for file deletion: {file_id}")
+                                continue
+                                
                             # Construct absolute path using the relative path stored in DB
                             file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
                             print(f"[DEBUG] Attempting to delete file: {file_path}")
@@ -5163,13 +5305,11 @@ function appendData(text, botMessageElement) {
 function saveChatData(messages) {
   console.log("Saving chat data:");
   console.log("- chat_started:", chat_started);
-  console.log("- username:", username);
   console.log("- messages:", JSON.stringify(messages, null, 2));
 
-  if (!chat_started || !username) {
+  if (!chat_started) {
     console.error("Missing required data for saving chat:");
     console.error("- chat_started:", chat_started);
-    console.error("- username:", username);
     return Promise.reject(new Error("Missing required data for saving chat"));
   }
 
@@ -5180,7 +5320,6 @@ function saveChatData(messages) {
 
   // Create FormData
   const formData = new FormData();
-  formData.append("username", username);
   formData.append("chat_started", chat_started);
   formData.append("messages", JSON.stringify(messages));
 
