@@ -257,59 +257,151 @@ function appendNormalText(container, text) {
   let inList = false;
   let listElement = null;
   let orderNumber = 1; // Track ordered list numbering
+  let inTable = false;
+  let tableElement = null;
+  let tableHeader = false;
 
-  lines.forEach((line) => {
+  lines.forEach((line, index) => {
+    // Check for horizontal rule
+    if (line.match(/^[\-*_]{3,}$/)) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1;
+      }
+      if (inTable) {
+        container.appendChild(tableElement);
+        inTable = false;
+      }
+      const hr = document.createElement("hr");
+      hr.className = "my-4 border-t-2 border-gray-300";
+      container.appendChild(hr);
+      return;
+    }
+
+    // Check for table
+    const tableMatch = line.match(/^\|(.+)\|$/);
+    if (tableMatch) {
+      const cells = tableMatch[1].split("|").map((cell) => cell.trim());
+
+      if (!inTable) {
+        tableElement = document.createElement("table");
+        tableElement.className =
+          "min-w-full my-4 border-collapse border border-gray-300";
+        inTable = true;
+        tableHeader = true;
+      }
+
+      const row = document
+        .createElement(tableHeader ? "thead" : "tbody")
+        .appendChild(document.createElement("tr"));
+      row.className = tableHeader ? "bg-gray-100" : "";
+
+      cells.forEach((cell) => {
+        const td = document.createElement(tableHeader ? "th" : "td");
+        td.className = "border border-gray-300 px-4 py-2 text-left";
+        td.innerHTML = processInlineMarkdown(cell);
+        row.appendChild(td);
+      });
+
+      if (tableHeader) {
+        tableElement.appendChild(row.parentElement);
+        tableHeader = false;
+      } else {
+        tableElement.appendChild(row.parentElement);
+      }
+      return;
+    } else if (inTable) {
+      container.appendChild(tableElement);
+      inTable = false;
+    }
+
     // Check for heading patterns - note the order change: h2 before h1
     const h2Match = line.match(/^## (.*)/);
     const h1Match = line.match(/^# (.*)/);
     const h3Match = line.match(/^### (.*)/);
-    const ulMatch = line.match(/^\* (.*)/);
+    const ulMatch = line.match(/^[\*\-] (.*)/);
     const olMatch = line.match(/^(\d+)\. (.*)/);
+    const taskMatch = line.match(/^[\*\-] \[([ x])\] (.*)/);
+    const nestedQuoteMatch = line.match(/^>+ (.*)/);
 
-    if (h2Match) {
+    if (nestedQuoteMatch) {
       if (inList) {
         container.appendChild(listElement);
         inList = false;
-        orderNumber = 1; // Reset counter when list ends
+        orderNumber = 1;
+      }
+      const quoteDepth = line.match(/^>+/)[0].length;
+      const blockquote = document.createElement("blockquote");
+      blockquote.className = `border-l-4 border-gray-300 pl-4 py-2 my-2 italic text-gray-600 ml-${(quoteDepth - 1) * 4}`;
+      blockquote.innerHTML = processInlineMarkdown(nestedQuoteMatch[1]);
+      container.appendChild(blockquote);
+    } else if (taskMatch) {
+      if (!inList || listElement.tagName !== "UL") {
+        if (inList) {
+          container.appendChild(listElement);
+          orderNumber = 1;
+        }
+        listElement = document.createElement("ul");
+        listElement.className = "mb-2";
+        inList = true;
+      }
+      const li = document.createElement("li");
+      li.className = "text-gray-700 mb-1 flex items-center";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = taskMatch[1] === "x";
+      checkbox.disabled = true;
+      checkbox.className = "mr-2";
+      li.appendChild(checkbox);
+      const textSpan = document.createElement("span");
+      textSpan.innerHTML = processInlineMarkdown(taskMatch[2]);
+      li.appendChild(textSpan);
+      listElement.appendChild(li);
+    } else if (h2Match) {
+      if (inList) {
+        container.appendChild(listElement);
+        inList = false;
+        orderNumber = 1;
       }
       const h2 = document.createElement("h2");
       h2.className = "text-3xl font-bold mt-3 mb-2 text-gray-700";
-      h2.textContent = processInlineMarkdown(h2Match[1]);
+      h2.innerHTML = processInlineMarkdown(h2Match[1]);
       container.appendChild(h2);
     } else if (h1Match) {
       if (inList) {
         container.appendChild(listElement);
         inList = false;
-        orderNumber = 1; // Reset counter when list ends
+        orderNumber = 1;
       }
       const h1 = document.createElement("h1");
       h1.className = "text-2xl font-bold mt-2 mb-2 text-gray-700";
-      h1.textContent = processInlineMarkdown(h1Match[1]);
+      h1.innerHTML = processInlineMarkdown(h1Match[1]);
       container.appendChild(h1);
     } else if (h3Match) {
       if (inList) {
         container.appendChild(listElement);
         inList = false;
-        orderNumber = 1; // Reset counter when list ends
+        orderNumber = 1;
       }
       const h3 = document.createElement("h3");
       h3.className = "text-xl font-bold mt-2 mb-2 text-gray-700";
-      h3.textContent = processInlineMarkdown(h3Match[1]);
+      h3.innerHTML = processInlineMarkdown(h3Match[1]);
       container.appendChild(h3);
     } else if (ulMatch) {
       if (!inList || listElement.tagName !== "UL") {
         if (inList) {
           container.appendChild(listElement);
-          orderNumber = 1; // Reset counter when switching list types
+          orderNumber = 1;
         }
         listElement = document.createElement("ul");
-        listElement.className = "mb-2"; // Increased bottom margin
+        listElement.className = "mb-2";
         inList = true;
       }
       const li = document.createElement("li");
-      li.className = "text-gray-700 mb-1"; // Added margin between list items
+      li.className = "text-gray-700 mb-1";
       const bulletPoint = document.createElement("span");
-      bulletPoint.className = "inline-block w-4"; // Space for bullet point
+      bulletPoint.className = "inline-block w-4";
       bulletPoint.textContent = "•";
       li.appendChild(bulletPoint);
       const textSpan = document.createElement("span");
@@ -321,16 +413,16 @@ function appendNormalText(container, text) {
         if (inList) {
           container.appendChild(listElement);
         }
-        listElement = document.createElement("ul"); // Using ul for consistent styling
-        listElement.className = "mb-2"; // Increased bottom margin
+        listElement = document.createElement("ul");
+        listElement.className = "mb-2";
         inList = true;
       }
       const li = document.createElement("li");
-      li.className = "text-gray-700 mb-1"; // Added margin between list items
+      li.className = "text-gray-700 mb-1";
       const numberPoint = document.createElement("span");
-      numberPoint.className = "inline-block w-4"; // Space for number
-      numberPoint.textContent = orderNumber + "."; // Use the current number
-      orderNumber++; // Increment for next item
+      numberPoint.className = "inline-block w-4";
+      numberPoint.textContent = orderNumber + ".";
+      orderNumber++;
       li.appendChild(numberPoint);
       const textSpan = document.createElement("span");
       textSpan.innerHTML = processInlineMarkdown(olMatch[2]);
@@ -340,26 +432,27 @@ function appendNormalText(container, text) {
       if (inList) {
         container.appendChild(listElement);
         inList = false;
-        orderNumber = 1; // Reset counter when list ends
+        orderNumber = 1;
       }
-      // If no heading pattern, treat as normal text
       if (line === "") {
-        // Add a smaller break for empty lines
         const spacer = document.createElement("div");
-        spacer.className = "h-2"; // Increased gap
+        spacer.className = "h-2";
         container.appendChild(spacer);
       } else {
         const p = document.createElement("p");
-        p.className = "mb-2 text-gray-700"; // Increased margin and matching color
+        p.className = "mb-2 text-gray-700";
         p.innerHTML = processInlineMarkdown(line);
         container.appendChild(p);
       }
     }
   });
 
-  // Append any remaining list
+  // Append any remaining list or table
   if (inList) {
     container.appendChild(listElement);
+  }
+  if (inTable) {
+    container.appendChild(tableElement);
   }
 
   // Remove the last margin-bottom from the last element if it has one
@@ -370,6 +463,11 @@ function appendNormalText(container, text) {
 }
 
 function processInlineMarkdown(text) {
+  // Process blockquotes (now handled in appendNormalText for nesting support)
+  if (text.startsWith("> ")) {
+    return `<blockquote class="border-l-4 border-gray-300 pl-4 py-2 my-2 italic text-gray-600">${text.substring(2)}</blockquote>`;
+  }
+
   // Process inline code first (to avoid conflicts with other syntax)
   text = text.replace(
     /`([^`]+)`/g,
