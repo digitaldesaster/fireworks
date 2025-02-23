@@ -127,6 +127,16 @@
                     <span class="truncate">View All Prompts</span>
                   </a>
                 </li>
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('doc', name='prompt') }}"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-primary rounded-lg group"
+                  >
+                    <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
+                    <span class="truncate">New Prompt</span>
+                  </a>
+                </li>
+                <li class="w-full border-t border-base-200 my-1"></li>
                 {% for prompt in prompts %}
                 <li class="w-full">
                   <div
@@ -303,12 +313,12 @@
       // Update prompts list
       const promptsList = document.getElementById("prompts-list");
       if (promptsList) {
-        // Keep only the view all link
-        const viewAllLink = promptsList
-          .querySelector(".view-all")
-          ?.closest("li");
+        // Keep the view all and new prompt links
+        const staticLinks = promptsList.querySelectorAll("li:nth-child(-n+3)");
         promptsList.innerHTML = "";
-        if (viewAllLink) promptsList.appendChild(viewAllLink);
+        staticLinks.forEach((link) =>
+          promptsList.appendChild(link.cloneNode(true)),
+        );
 
         // Add prompts with error handling
         data.prompts.forEach((prompt) => {
