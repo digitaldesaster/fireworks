@@ -189,8 +189,8 @@ def upload_chat_file():
 
 @dms_chat.route('/nav_items', methods=['GET'])
 def get_nav_items():
-    # Get all history items for current user only, ordered by last modified date
-    history = History.objects(username=current_user.email).order_by('-modified_date', '-id')
+    # Get latest history items for current user only, ordered by last modified date
+    history = History.objects(username=current_user.email).order_by('-modified_date', '-id').limit(15)
     # Get latest prompts
     prompts = Prompt.objects().order_by('-id').limit(5)
     
@@ -198,3 +198,20 @@ def get_nav_items():
         'history': json.loads(history.to_json()),
         'prompts': json.loads(prompts.to_json())
     })
+
+@dms_chat.route('/delete_all_history', methods=['POST'])
+@login_required
+def delete_all_history():
+    try:
+        # Delete all history documents for the current user
+        result = History.objects(username=current_user.email).delete()
+        return jsonify({
+            'status': 'success',
+            'message': 'All history documents deleted successfully',
+            'count': result
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
