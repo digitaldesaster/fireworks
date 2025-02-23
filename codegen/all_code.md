@@ -3642,6 +3642,7 @@ class History(AuditMixin, DynamicDocument):
     messages = StringField()
     first_message = StringField()
     link = StringField(default='')
+    file_ids = ListField(StringField())
     def searchFields(self):
         return ['messages','first_message']
     def fields(self, list_order=False):
@@ -4230,6 +4231,12 @@ def save_chat():
     if len(chat_history) == 1:
         chat_history = chat_history[0]
         chat_history.messages = messages
+        file_ids = []
+        for msg in json.loads(messages):
+            if 'attachments' in msg:
+                for attachment in msg['attachments']:
+                    file_ids.append(attachment['id'])
+        chat_history.file_ids = file_ids
         chat_history.save()
         return 'Chat aktualisiert!'
     else:
@@ -4241,6 +4248,12 @@ def save_chat():
             if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
                 chat_history.first_message = msg['content']
                 break
+        file_ids = []
+        for msg in json.loads(messages):
+            if 'attachments' in msg:
+                for attachment in msg['attachments']:
+                    file_ids.append(attachment['id'])
+        chat_history.file_ids = file_ids
         chat_history.save()
         return 'Neuer Chat erstellt!'
 
@@ -4294,7 +4307,21 @@ def get_nav_items():
 def delete_all_history():
     try:
         # Delete all history documents for the current user
-        result = History.objects(username=current_user.email).delete()
+        histories = History.objects(username=current_user.email)
+        for history in histories:
+            for file_id in history.file_ids:
+                file_doc = File.objects(id=file_id).first()
+                if file_doc:
+                    try:
+                        file_path = file_doc.path + str(file_doc.id) + '.' + file_doc.file_type
+                        os.remove(file_path)
+                        file_doc.delete()
+                        print(f"[DEBUG] Deleted associated file: {file_path}")
+                    except FileNotFoundError:
+                        print(f"[DEBUG] File not found for {file_id}, continuing with deletion")
+                    except Exception as e:
+                        print(f"[DEBUG] Error deleting associated file: {str(e)}")
+        result = histories.delete()
         return jsonify({
             'status': 'success',
             'message': 'All history documents deleted successfully',
@@ -4838,6 +4865,11 @@ function appendData(text, botMessageElement) {
 }
 
 function saveChatData(messages) {
+  console.log(
+    "Saving chat data with messages:",
+    JSON.stringify(messages, null, 2),
+  );
+
   // Get CSRF token from meta tag
   const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
@@ -4952,9 +4984,14 @@ async function streamMessage() {
 
     // Add attachments if any exist
     if (currentMessageAttachments.length > 0) {
-      messageObj.attachments = [...currentMessageAttachments];
+      messageObj.attachments = currentMessageAttachments.map((attachment) => ({
+        id: attachment.file_id,
+        name: attachment.file_name,
+      }));
       currentMessageAttachments = []; // Clear for next message
     }
+
+    console.log("Message object before sending:", messageObj);
 
     messages.push(messageObj);
     addUserMessage(userMessage); // Display the user message in the chat
@@ -5250,6 +5287,8 @@ document
             content: userMessage,
             attachments: [result.attachment],
           });
+          // Save chat data after adding the system message with file context
+          saveChatData(messages);
         }
 
         // Update display text

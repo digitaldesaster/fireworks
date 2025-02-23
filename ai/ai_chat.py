@@ -134,24 +134,69 @@ def save_chat():
     username = request.form.get('username')
     chat_started = request.form.get('chat_started')
     messages = request.form.get('messages')
+    
+    print(f"[DEBUG] Saving chat for user {username} started at {chat_started}")
+    print(f"[DEBUG] Messages to save: {messages}")
 
     chat_history = History.objects(username=username,
                                    chat_started=chat_started)
+    print(f"[DEBUG] Found {len(chat_history)} existing chat(s)")
+    
     if len(chat_history) == 1:
+        print("[DEBUG] Updating existing chat")
         chat_history = chat_history[0]
         chat_history.messages = messages
+        file_ids = []
+        for msg in json.loads(messages):
+            if 'attachments' in msg:
+                for attachment in msg['attachments']:
+                    file_ids.append(attachment['id'])
+        chat_history.file_ids = file_ids
         chat_history.save()
         return 'Chat aktualisiert!'
     else:
+        print("[DEBUG] Creating new chat")
         chat_history = History()
         chat_history.username = username
         chat_history.chat_started = chat_started
         chat_history.messages = messages
-        for msg in json.loads(messages):
-            if msg.get('role') == 'user' and isinstance(msg.get('content'), str):
+        
+        # Parse messages once
+        parsed_messages = json.loads(messages)
+        
+        # First try to find a user message
+        first_message_found = False
+        for msg in parsed_messages:
+            # Only look for actual user messages, not system or file context messages
+            if msg.get('role') == 'user' and isinstance(msg.get('content'), str) and not msg.get('isFileContext'):
                 chat_history.first_message = msg['content']
+                first_message_found = True
+                print(f"[DEBUG] Found user message as first message: {msg['content']}")
                 break
+                
+        # If no user message found, then fall back to file upload
+        if not first_message_found:
+            # Look for the first system message with attachments
+            for msg in parsed_messages:
+                if msg.get('role') == 'system' and msg.get('attachments'):
+                    for attachment in msg['attachments']:
+                        if attachment.get('name'):
+                            chat_history.first_message = f"File uploaded: {attachment['name']}"
+                            print(f"[DEBUG] Using file upload as first message: {chat_history.first_message}")
+                            break
+                    if chat_history.first_message:
+                        break
+        
+        # Collect file IDs from all messages
+        file_ids = []
+        for msg in parsed_messages:
+            if 'attachments' in msg:
+                for attachment in msg['attachments']:
+                    file_ids.append(attachment['id'])
+        chat_history.file_ids = file_ids
+        
         chat_history.save()
+        print(f"[DEBUG] New chat created with first message: {chat_history.first_message}")
         return 'Neuer Chat erstellt!'
 
 
@@ -170,22 +215,39 @@ def load_ui(template):
 @dms_chat.route('/upload', methods=['POST'])
 @login_required
 def upload_chat_file():
-    if 'file' not in request.files:
-        return jsonify({'status': 'error', 'message': 'No file part'})
-    
-    result = upload_file(request.files['file'])
-    
-    if result['status'] == 'ok':
-        # Add file metadata to the response
-        result['attachment'] = {
-            'type': 'file',
-            'id': result['file_id'],
-            'name': result['filename'],
-            'file_type': result['file_type'],
-            'timestamp': int(time.time())
-        }
+    try:
+        if 'file' not in request.files:
+            print("[DEBUG] No file part in request")
+            return jsonify({'status': 'error', 'message': 'No file part'}), 400
         
-    return jsonify(result)
+        file = request.files['file']
+        if not file or not file.filename:
+            print("[DEBUG] No file selected")
+            return jsonify({'status': 'error', 'message': 'No file selected'}), 400
+            
+        print(f"[DEBUG] Processing upload for file: {file.filename}")
+        result = upload_file(file)
+        print(f"[DEBUG] Upload result: {result}")
+        
+        if result.get('status') == 'ok':
+            # Add file metadata to the response
+            result['attachment'] = {
+                'type': 'file',
+                'id': result['file_id'],
+                'name': result['filename'],  # Use filename from response
+                'file_type': result['file_type'],  # Use file_type from response
+                'timestamp': int(time.time())
+            }
+            print(f"[DEBUG] Returning successful response: {result}")
+            return jsonify(result)
+        else:
+            print(f"[DEBUG] Upload failed: {result.get('message', 'Unknown error')}")
+            return jsonify(result), 400
+            
+    except Exception as e:
+        error_msg = f"Upload error: {str(e)}"
+        print(f"[DEBUG] {error_msg}")
+        return jsonify({'status': 'error', 'message': error_msg}), 500
 
 @dms_chat.route('/nav_items', methods=['GET'])
 def get_nav_items():
@@ -203,14 +265,80 @@ def get_nav_items():
 @login_required
 def delete_all_history():
     try:
+        # Get base path for constructing absolute paths
+        base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        print(f"[DEBUG] Base path for deletion: {base_path}")
+        
         # Delete all history documents for the current user
-        result = History.objects(username=current_user.email).delete()
+        histories = History.objects(username=current_user.email)
+        print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.email}")
+        deleted_count = 0
+        failed_count = 0
+        
+        for history in histories:
+            print(f"[DEBUG] Processing history document: {history.id}")
+            print(f"[DEBUG] File IDs to delete: {history.file_ids}")
+            
+            for file_id in history.file_ids:
+                print(f"[DEBUG] Processing file ID: {file_id}")
+                file_doc = File.objects(id=file_id).first()
+                
+                if file_doc:
+                    print(f"[DEBUG] Found file document: {file_doc.to_json()}")
+                    try:
+                        # Construct absolute path using the relative path stored in DB
+                        file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
+                        print(f"[DEBUG] Full file path for deletion: {file_path}")
+                        
+                        # Try to delete the file from disk
+                        if os.path.exists(file_path):
+                            print(f"[DEBUG] File exists at {file_path}, attempting deletion")
+                            try:
+                                os.remove(file_path)
+                                print(f"[DEBUG] Successfully deleted file from disk: {file_path}")
+                            except Exception as e:
+                                print(f"[DEBUG] Error deleting file from disk: {str(e)}")
+                                failed_count += 1
+                        else:
+                            print(f"[DEBUG] File not found on disk at {file_path}")
+                        
+                        # Always try to delete the database record
+                        try:
+                            file_doc.delete()
+                            print(f"[DEBUG] Successfully deleted file document from database")
+                            deleted_count += 1
+                        except Exception as e:
+                            print(f"[DEBUG] Error deleting file document from database: {str(e)}")
+                            failed_count += 1
+                            
+                    except Exception as e:
+                        print(f"[DEBUG] Error processing file {file_id}: {str(e)}")
+                        failed_count += 1
+                else:
+                    print(f"[DEBUG] No file document found for ID: {file_id}")
+        
+        # Delete all history documents after handling files
+        try:
+            result = histories.delete()
+            print(f"[DEBUG] Deleted {result} history documents")
+        except Exception as e:
+            print(f"[DEBUG] Error deleting history documents: {str(e)}")
+            raise
+        
+        status_message = f'Successfully deleted {deleted_count} files'
+        if failed_count > 0:
+            status_message += f' ({failed_count} deletions failed)'
+        status_message += f' and {result} history documents'
+        
         return jsonify({
             'status': 'success',
-            'message': 'All history documents deleted successfully',
-            'count': result
+            'message': status_message,
+            'deleted_files': deleted_count,
+            'failed_deletions': failed_count,
+            'deleted_histories': result
         })
     except Exception as e:
+        print(f"[DEBUG] Top-level error in delete_all_history: {str(e)}")
         return jsonify({
             'status': 'error',
             'message': str(e)

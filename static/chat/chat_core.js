@@ -57,7 +57,7 @@ function initChatMessages() {
   displayedFileIds.clear();
 
   if (messages.length === 0) {
-    messages = [{ role: "system", content: systemMessage }];
+    messages.push({ role: "system", content: systemMessage });
   }
 
   // Display file banners first if they exist in the system message
@@ -115,6 +115,9 @@ function initChatMessages() {
     } else {
       // Display existing messages and their attachments
       for (const message of messages) {
+        // Skip system messages marked as file context
+        if (message.isFileContext) continue;
+
         // Display attachments if they exist
         if (message.attachments && message.attachments.length > 0) {
           const chatMessages = document.getElementById("chat_messages");
@@ -190,39 +193,56 @@ function appendData(text, botMessageElement) {
 }
 
 function saveChatData(messages) {
+  console.log("Saving chat data:");
+  console.log("- chat_started:", chat_started);
+  console.log("- username:", username);
+  console.log("- messages:", JSON.stringify(messages, null, 2));
+
+  if (!chat_started || !username) {
+    console.error("Missing required data for saving chat:");
+    console.error("- chat_started:", chat_started);
+    console.error("- username:", username);
+    return Promise.reject(new Error("Missing required data for saving chat"));
+  }
+
   // Get CSRF token from meta tag
   const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
-  // Daten für den POST-Request
+  // Create FormData
   const formData = new FormData();
   formData.append("username", username);
   formData.append("chat_started", chat_started);
   formData.append("messages", JSON.stringify(messages));
 
-  // Dynamische Generierung des API-Endpunkts aus der aktuellen URL
-  const url = `${window.location.origin}/chat/save_chat`;
-
-  // POST-Request an den API-Endpunkt senden
-  fetch(url, {
+  // Send POST request to save chat
+  return fetch("/chat/save_chat", {
     method: "POST",
     headers: {
       "X-CSRFToken": csrfToken,
     },
     body: formData,
+    credentials: "same-origin",
   })
     .then((response) => {
-      if (response.ok) {
-        console.log("api call successful");
+      if (!response.ok) {
+        console.error(
+          "Save chat response not OK:",
+          response.status,
+          response.statusText,
+        );
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       return response.text();
     })
     .then((data) => {
-      console.log(data); // Logge die Antwort des Servers
+      console.log("Chat saved successfully. Server response:", data);
+      return data;
     })
     .catch((error) => {
-      console.error("Fehler beim Senden des Requests:", error);
+      console.error("Error saving chat:", error);
+      throw error;
     });
 }
 
@@ -302,15 +322,19 @@ async function streamMessage() {
       content: userMessage,
     };
 
-    // Add attachments if any exist
-    if (currentMessageAttachments.length > 0) {
-      messageObj.attachments = [...currentMessageAttachments];
-      currentMessageAttachments = []; // Clear for next message
-    }
+    console.log("Current messages array before adding user message:", messages);
 
     messages.push(messageObj);
     addUserMessage(userMessage); // Display the user message in the chat
     chatInput.value = ""; // Clear the input field after sending the message
+
+    // Save chat immediately after adding user message
+    try {
+      await saveChatData(messages);
+      console.log("Chat saved after user message");
+    } catch (error) {
+      console.error("Failed to save chat after user message:", error);
+    }
 
     toggleButtonVisibility();
     stop_stream = false;
@@ -356,34 +380,56 @@ async function streamMessage() {
           botMessageElement.innerHTML = "";
           appendData(accumulatedResponse, botMessageElement);
           messages.push({ role: "assistant", content: accumulatedResponse });
-          console.log("Stream finished, messages array:", messages);
+
+          console.log(
+            "Current messages array before saving after AI response:",
+            messages,
+          );
+
+          // Save chat after AI response
+          try {
+            await saveChatData(messages);
+            console.log("Chat saved after AI response");
+          } catch (error) {
+            console.error("Failed to save chat after AI response:", error);
+          }
+
           toggleButtonVisibility();
           chatInput.readOnly = false;
-          saveChatData(messages);
           break;
         }
+
         const text = new TextDecoder().decode(value);
         const stopIndex = text.indexOf("###STOP###");
 
         if (stopIndex !== -1) {
-          // Add the text before ###STOP### and then break
           accumulatedResponse += text.substring(0, stopIndex);
           botMessageElement.innerHTML = "";
           appendData(accumulatedResponse, botMessageElement);
           messages.push({ role: "assistant", content: accumulatedResponse });
-          console.log("Stream finished, messages array:", messages);
+
+          console.log(
+            "Current messages array before saving after AI response:",
+            messages,
+          );
+
+          // Save chat after AI response
+          try {
+            await saveChatData(messages);
+            console.log("Chat saved after AI response");
+          } catch (error) {
+            console.error("Failed to save chat after AI response:", error);
+          }
+
           toggleButtonVisibility();
           chatInput.readOnly = false;
-          saveChatData(messages);
           break;
         } else {
           accumulatedResponse += text;
+          botMessageElement.innerHTML = "";
+          appendData(accumulatedResponse, botMessageElement);
+          scrollToBottom();
         }
-
-        // Before updating, clear the existing content to avoid duplication
-        botMessageElement.innerHTML = "";
-        appendData(accumulatedResponse, botMessageElement);
-        scrollToBottom();
       }
     } catch (error) {
       console.error("Streaming failed:", error);
@@ -392,7 +438,22 @@ async function streamMessage() {
         role: "assistant",
         content: `Error occurred: ${error.message}`,
       });
-      saveChatData(messages);
+
+      console.log(
+        "Current messages array before saving after error:",
+        messages,
+      );
+
+      // Save chat after error
+      try {
+        await saveChatData(messages);
+        console.log("Chat saved after error");
+      } catch (saveError) {
+        console.error("Failed to save chat after error:", saveError);
+      }
+
+      toggleButtonVisibility();
+      chatInput.readOnly = false;
     }
   }
 }
@@ -547,65 +608,63 @@ document
       const result = await response.json();
 
       if (result.status === "ok") {
-        console.log("File uploaded successfully");
+        console.log("File uploaded successfully:", result);
 
-        // Store attachment for next message
-        if (result.attachment) {
-          currentMessageAttachments.push(result.attachment);
+        // Initialize messages array if empty
+        if (messages.length === 0) {
+          messages.push({
+            role: "system",
+            content: systemMessage,
+            attachments: [],
+          });
         }
 
-        // Remove prompts div if it exists
-        const promptsDiv = document.getElementById("prompts");
-        if (promptsDiv) promptsDiv.remove();
+        // Add file to system message attachments
+        if (!messages[0].attachments) {
+          messages[0].attachments = [];
+        }
+        messages[0].attachments.push({
+          type: "file",
+          id: result.file_id,
+          name: result.filename,
+          file_type: result.file_type,
+          timestamp: Math.floor(Date.now() / 1000),
+        });
 
-        // Add file banner after the last message
+        // For non-image files, add the context as a hidden system message
+        if (!["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())) {
+          messages.push({
+            role: "system",
+            content: `Using context from file: ${result.filename}\n\n${result.content}`,
+            attachments: [result.attachment],
+            isFileContext: true,
+          });
+        }
+
+        // Save chat state immediately after adding file
+        try {
+          await saveChatData(messages);
+          console.log("Chat state saved after file upload");
+        } catch (error) {
+          console.error("Failed to save chat state after file upload:", error);
+        }
+
+        // Display file banner
         const chatMessages = document.getElementById("chat_messages");
         const banner = displayFileBanner(
           fileName,
           result.file_id,
           chatMessages,
         );
-
-        // Only scroll if we actually added a new banner
         if (banner) {
           setTimeout(() => {
             banner.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 100);
         }
 
-        let userMessage;
-        if (
-          result.file_type &&
-          ["jpg", "jpeg", "png"].includes(result.file_type.toLowerCase())
-        ) {
-          userMessage = [
-            { type: "text", text: "Please analyze the following image:" },
-            {
-              type: "image_url",
-              image_url: {
-                url: `data:image/${result.file_type};base64,${result.base64_image}`,
-              },
-            },
-          ];
-          const messageObj = {
-            role: "user",
-            content: userMessage,
-            attachments: [result.attachment],
-          };
-          messages.push(messageObj);
-          addUserMessage(userMessage);
-          streamMessage();
-        } else {
-          userMessage = `Please use the following information as further context, Always answer in the same language as the conversation started or the question is in: ${result.filename}\n\n${result.content}`;
-          messages.push({
-            role: "system",
-            content: userMessage,
-            attachments: [result.attachment],
-          });
-        }
-
         // Update display text
         document.getElementById("file-name-display").textContent = "Upload";
+        console.log("Current messages array:", messages);
       } else {
         console.error("Upload failed:", result.message);
         document.getElementById("file-name-display").textContent =

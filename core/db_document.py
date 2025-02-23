@@ -282,6 +282,7 @@ class History(AuditMixin, DynamicDocument):
     messages = StringField()
     first_message = StringField()
     link = StringField(default='')
+    file_ids = ListField(StringField())
     def searchFields(self):
         return ['messages','first_message']
     def fields(self, list_order=False):

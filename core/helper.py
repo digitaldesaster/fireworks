@@ -356,10 +356,14 @@ def upload_files(request, category='', document_id=''):
     status = {'status': 'ok', 'files': []}
 
     if request.method == 'POST':
+        # Get base path for consistent path handling
+        base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        
         # Extract element IDs directly from the file input names
         element_ids = [key.split('files_', 1)[1] for key in request.files.keys()]
 
         for element_id in element_ids:
+            status[element_id] = []  # Initialize list for this element_id
             files = request.files.getlist(f'files_{element_id}')
             if not files or files[0].filename == '':
                 continue  # Skip if no files are selected
@@ -368,22 +372,38 @@ def upload_files(request, category='', document_id=''):
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     try:
-                        if category != '':
-                            filepath = os.path.join(current_path + DOCUMENT_FOLDER + '/' + category + '/')
-                        else:
-                            filepath = os.path.join(current_path + UPLOAD_FOLDER + '/')
+                        # Use consistent path structure
+                        relative_path = os.path.join('core', 'documents', category) if category else os.path.join('core', UPLOAD_FOLDER)
+                        absolute_path = os.path.join(base_path, relative_path)
+                        
+                        print(f"[DEBUG] Upload path (absolute): {absolute_path}")
+                        print(f"[DEBUG] Upload path (relative): {relative_path}")
 
-                        if not os.path.exists(filepath):
-                            os.makedirs(filepath)
+                        if not os.path.exists(absolute_path):
+                            print(f"[DEBUG] Creating directory: {absolute_path}")
+                            os.makedirs(absolute_path)
 
                         file_type = filename.rsplit('.', 1)[1]
-                        fileDB = File(name=filename, path=filepath, category=category, file_type=file_type, document_id=document_id, element_id=element_id)
+                        fileDB = File(
+                            name=filename, 
+                            path=relative_path,  # Store relative path
+                            category=category, 
+                            file_type=file_type, 
+                            document_id=document_id, 
+                            element_id=element_id
+                        )
                         fileDB.save()
                         fileID = getDocumentID(fileDB)
 
-                        file.save(os.path.join(filepath, f"{fileID}.{file_type}"))
+                        file_save_path = os.path.join(absolute_path, f"{fileID}.{file_type}")
+                        print(f"[DEBUG] Saving file to: {file_save_path}")
+                        file.save(file_save_path)
 
-                        status[element_id].append({'id': fileID, 'name': filename, 'path': os.path.join(filepath, f"{fileID}.{file_type}")})
+                        status[element_id].append({
+                            'id': fileID, 
+                            'name': filename, 
+                            'path': os.path.join(relative_path, f"{fileID}.{file_type}")
+                        })
 
                     except Exception as e:
                         status = {'status': 'error', 'message': f'Error while saving File! / {str(e)}'}
@@ -497,67 +517,99 @@ def encode_image(image_path):
 def upload_file(file, category='history'):
     """Handle file upload for chat functionality and return file context"""
     try:
-        if not file or file.filename == '':
+        if not file:
+            print("[DEBUG] No file object provided")
+            return {'status': 'error', 'message': 'No file provided'}
+            
+        if not hasattr(file, 'filename'):
+            print("[DEBUG] File object has no filename attribute")
+            return {'status': 'error', 'message': 'Invalid file object'}
+            
+        if not file.filename:
+            print("[DEBUG] Empty filename")
             return {'status': 'error', 'message': 'No file selected'}
             
-        if not allowed_file(file.filename):
-            return {'status': 'error', 'message': 'File type not allowed'}
-            
+        print(f"[DEBUG] Processing file: {file.filename}")
         filename = secure_filename(file.filename)
-        file_type = filename.rsplit('.', 1)[1].lower()
+        
+        # More robust file type extraction
+        try:
+            file_type = filename.rsplit('.', 1)[1].lower() if '.' in filename else None
+            if not file_type:
+                print("[DEBUG] Could not extract file type")
+                return {'status': 'error', 'message': 'Could not determine file type'}
+        except Exception as e:
+            print(f"[DEBUG] Error extracting file type: {str(e)}")
+            return {'status': 'error', 'message': 'Invalid file type'}
+            
+        if not allowed_file(filename):
+            print(f"[DEBUG] File type {file_type} not allowed")
+            return {'status': 'error', 'message': f'File type {file_type} not allowed'}
         
         if file_type not in ['pdf', 'txt', 'jpeg', 'jpg', 'png']:
-            return {'status': 'error', 'message': 'Only PDF and TXT files are supported'}
+            print(f"[DEBUG] Unsupported file type: {file_type}")
+            return {'status': 'error', 'message': 'Only PDF, TXT, and image files are supported'}
             
-        # Fix the filepath to use absolute path
+        # Get base path and construct relative/absolute paths consistently
         base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        filepath = os.path.join(base_path, 'core', 'documents', category)
-        print(f"[DEBUG] Upload path: {filepath}")
+        relative_path = os.path.join('core', 'documents', category)
+        absolute_path = os.path.join(base_path, relative_path)
         
-        if not os.path.exists(filepath):
-            print(f"[DEBUG] Creating directory: {filepath}")
-            os.makedirs(filepath)
+        print(f"[DEBUG] Upload base path: {base_path}")
+        print(f"[DEBUG] Upload relative path: {relative_path}")
+        print(f"[DEBUG] Upload absolute path: {absolute_path}")
+        
+        if not os.path.exists(absolute_path):
+            print(f"[DEBUG] Creating directory: {absolute_path}")
+            os.makedirs(absolute_path)
             
         fileDB = File(
             name=filename,
-            path=filepath,
+            path=relative_path,  # Store relative path for consistent deletion
             category=category,
             file_type=file_type
         )
         fileDB.save()
-        fileID = getDocumentID(fileDB)
+        fileID = str(fileDB.id)  # Ensure we're using string ID consistently
         
-        file_save_path = os.path.join(filepath, f"{fileID}.{file_type}")
+        file_save_path = os.path.join(absolute_path, f"{fileID}.{file_type}")
         print(f"[DEBUG] Saving file to: {file_save_path}")
         file.save(file_save_path)
         
-        # Get context immediately after saving
+        response = {
+            'status': 'ok',
+            'file_id': fileID,
+            'filename': filename,  # Keep original name for frontend
+            'name': filename,      # Also include as name for consistency
+            'file_type': file_type,  # Keep original file_type for frontend
+            'type': file_type,       # Also include as type for consistency
+            'path': relative_path
+        }
+        
+        # Add context for text-based files
         if file_type in ['pdf', 'txt']:
-            context = prepare_context_from_files([fileDB])
-            print(f"[DEBUG] Context result: {context}")
-            
-            if context['status'] == 'ok':
-                return {
-                    'status': 'ok',
-                    'file_id': fileID,
-                    'filename': filename,
-                    'file_type': file_type,
-                    'content': context['data'],
-                    'character_count': context['character_count']
-                }
-            else:
-                return context
+            try:
+                context = prepare_context_from_files([fileDB])
+                if context['status'] == 'ok':
+                    response['content'] = context['data']
+                    response['character_count'] = context['character_count']
+            except Exception as e:
+                print(f"[DEBUG] Error getting file context: {str(e)}")
+                # Don't fail the upload if context extraction fails
+                pass
+                
+        # Add base64 for images
         elif file_type in ['jpeg', 'jpg', 'png']:
-            base64_image = encode_image(file_save_path)
-            return {
-                'status': 'ok', 
-                'file_id': fileID, 
-                'filename': filename, 
-                'file_type': file_type,
-                'base64_image': base64_image
-            }
-        else:
-            return {'status': 'error', 'message': 'Unsupported file type'}
+            try:
+                response['base64_image'] = encode_image(file_save_path)
+            except Exception as e:
+                print(f"[DEBUG] Error encoding image: {str(e)}")
+                # Don't fail the upload if image encoding fails
+                pass
+                
+        print(f"[DEBUG] Upload successful, returning response: {response}")
+        return response
+        
     except Exception as e:
         print(f"[DEBUG] Upload error: {str(e)}")
         return {'status': 'error', 'message': str(e)}
