@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, jsonify, send_from_directory, abort
 from core import auth
-from datetime import timedelta
+from datetime import timedelta, datetime
 import os
 from flask_login import LoginManager, current_user, login_required
 from core.db_user import User
@@ -15,6 +15,31 @@ from core.db_helper import getFile
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
+# Add format_time_ago filter
+@app.template_filter('format_time_ago')
+def format_time_ago(date):
+	if not date:
+		return ""
+	
+	now = datetime.now()
+	diff = now - date
+	
+	minutes = diff.total_seconds() / 60
+	hours = minutes / 60
+	days = diff.days
+	
+	if minutes < 1:
+		return "just now"
+	elif minutes < 60:
+		return f"{int(minutes)}m ago"
+	elif hours < 24:
+		return f"{int(hours)}h ago"
+	elif days == 1:
+		return "yesterday"
+	elif days < 7:
+		return f"{days}d ago"
+	else:
+		return date.strftime('%d.%m.%Y')
 
 # Import and register the chat blueprint
 from ai.ai_chat import dms_chat

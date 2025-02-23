@@ -141,6 +141,10 @@
                         >{{ prompt.name }}</span
                       >
                     </a>
+                    <span
+                      class="text-[10px] text-gray-500 whitespace-nowrap shrink-0"
+                      >{{ format_time_ago(prompt.modified_date) }}</span
+                    >
                     <a
                       href="{{ url_for('prompt.edit', id=prompt.id) }}"
                       class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -236,7 +240,25 @@
 
   // Function to format date
   function formatDate(dateString) {
-    const date = new Date(dateString);
+    let date;
+    if (typeof dateString === "string") {
+      // Try to parse the formatted date string from mongoToJson (DD.MM.YYYY HH:MM)
+      const parts = dateString.split(" ");
+      if (parts.length === 2) {
+        const [datePart, timePart] = parts;
+        const [day, month, year] = datePart.split(".");
+        const [hours, minutes] = timePart.split(":");
+        date = new Date(year, month - 1, day, hours, minutes);
+      } else {
+        date = new Date(dateString);
+      }
+    } else if (dateString?.$date) {
+      // Handle MongoDB ISODate format
+      date = new Date(dateString.$date);
+    } else {
+      return "";
+    }
+
     const now = new Date();
     const diffMs = now - date;
     const diffMins = Math.floor(diffMs / 60000);
@@ -292,8 +314,13 @@
         data.prompts.forEach((prompt) => {
           try {
             if (!prompt?._id?.$oid || !prompt?.name) {
+              console.warn("Invalid prompt data:", prompt);
               return;
             }
+
+            console.log("Prompt modified date:", prompt.modified_date);
+            const formattedDate = formatDate(prompt.modified_date);
+            console.log("Formatted date:", formattedDate);
 
             const li = document.createElement("li");
             li.className = "w-full";
@@ -302,6 +329,7 @@
                 <a href="/chat/prompt/${prompt._id.$oid}" class="flex-1 min-w-0" title="${prompt.name}">
                   <span class="truncate text-xs block">${prompt.name}</span>
                 </a>
+                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formattedDate}</span>
                 <a href="/d/prompt/${prompt._id.$oid}" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Edit prompt" title="Edit prompt">
                   <span class="icon-[tabler--edit] size-3.5 text-primary"></span>
                 </a>
@@ -339,7 +367,7 @@
                  class="flex items-center gap-2 w-full px-4 py-2 hover:bg-base-200 rounded-lg"
                  title="${item.first_message || "Untitled Chat"}">
                 <span class="truncate flex-1 text-xs">${item.first_message || "Untitled Chat"}</span>
-                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formatDate(item.modified_date?.$date)}</span>
+                <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formatDate(item.modified_date)}</span>
               </a>
             `;
             historyList.appendChild(li);
