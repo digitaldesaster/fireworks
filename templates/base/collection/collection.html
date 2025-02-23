@@ -46,12 +46,14 @@
               </div>
 
               <div class="flex-none">
+                {% if show_new_button %}
                 <a
                   href="{{ url_for('doc',name = collection_name) }}"
                   class="btn btn-primary whitespace-nowrap"
                 >
                   New
                 </a>
+                {% endif %}
               </div>
             </div>
 

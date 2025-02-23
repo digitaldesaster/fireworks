@@ -105,6 +105,9 @@ def getList(name, request, filter=None, return_json=False):
     filter_data = getFilter(default.document_name)
     mode = default.collection_name
 
+    # Determine if we should show the new button - hide for user collection
+    show_new_button = name != 'user'
+
     # Handle combined filters for user permissions and existing filters
     if filter:
         if filter_param:
@@ -162,6 +165,7 @@ def getList(name, request, filter=None, return_json=False):
                                  table_content=table_content,
                                  filter=filter_param,
                                  filter_data=filter_data,
+                                 show_new_button=show_new_button,
                                  product_name=product_name)
     except:
         pass
@@ -188,6 +192,7 @@ def getList(name, request, filter=None, return_json=False):
                          table_content=table_content,
                          filter=filter_param,
                          filter_data=filter_data,
+                         show_new_button=show_new_button,
                          product_name=product_name)
 
 def handleDocument(name, id, request, return_json=False):
