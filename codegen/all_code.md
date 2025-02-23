@@ -3976,7 +3976,7 @@ def eraseDocument(id, document, collection):
             if collection == File:
                 # Direct file document deletion
                 try:
-                    file_path = document.path + id + "." + document.file_type
+                    file_path = os.path.join(document.path, f"{id}.{document.file_type}")
                     os.remove(file_path)
                     print(f"[DEBUG] Deleted associated file: {file_path}")
                 except FileNotFoundError:
@@ -3986,7 +3986,7 @@ def eraseDocument(id, document, collection):
                 associated_files = File.objects(document_id=str(id))
                 for file_doc in associated_files:
                     try:
-                        file_path = file_doc.path + str(file_doc.id) + "." + file_doc.file_type
+                        file_path = os.path.join(file_doc.path, f"{file_doc.id}.{file_doc.file_type}")
                         os.remove(file_path)
                         file_doc.delete()
                         print(f"[DEBUG] Deleted associated file: {file_path}")
