@@ -267,77 +267,76 @@ def delete_all_history():
         base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         print(f"[DEBUG] Base path for deletion: {base_path}")
         
+        # Get all prompts' file IDs to preserve them
+        all_prompts = Prompt.objects()
+        preserved_file_ids = set()
+        for prompt in all_prompts:
+            # Get files associated with this prompt
+            prompt_files = File.objects(document_id=str(prompt.id))
+            for file in prompt_files:
+                preserved_file_ids.add(str(file.id))
+        print(f"[DEBUG] Found {len(preserved_file_ids)} files to preserve from prompts")
+        
         # Delete all history documents for the current user
         histories = History.objects(username=current_user.email)
         print(f"[DEBUG] Found {histories.count()} history documents for user {current_user.email}")
         deleted_count = 0
         failed_count = 0
+        preserved_count = 0
         
         for history in histories:
-            print(f"[DEBUG] Processing history document: {history.id}")
-            print(f"[DEBUG] File IDs to delete: {history.file_ids}")
-            
-            for file_id in history.file_ids:
-                print(f"[DEBUG] Processing file ID: {file_id}")
-                file_doc = File.objects(id=file_id).first()
+            try:
+                print(f"[DEBUG] Processing history document: {history.id}")
+                print(f"[DEBUG] File IDs to process: {history.file_ids}")
                 
-                if file_doc:
-                    print(f"[DEBUG] Found file document: {file_doc.to_json()}")
+                # Process associated files first
+                for file_id in history.file_ids:
                     try:
-                        # Construct absolute path using the relative path stored in DB
-                        file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
-                        print(f"[DEBUG] Full file path for deletion: {file_path}")
-                        
-                        # Try to delete the file from disk
-                        if os.path.exists(file_path):
-                            print(f"[DEBUG] File exists at {file_path}, attempting deletion")
-                            try:
+                        # Skip if file is used by a prompt
+                        if file_id in preserved_file_ids:
+                            print(f"[DEBUG] Preserving file {file_id} as it's used by a prompt")
+                            preserved_count += 1
+                            continue
+                            
+                        file_doc = File.objects(id=file_id).first()
+                        if file_doc:
+                            # Construct absolute path using the relative path stored in DB
+                            file_path = os.path.join(base_path, file_doc.path, f"{str(file_id)}.{file_doc.file_type}")
+                            print(f"[DEBUG] Attempting to delete file: {file_path}")
+                            
+                            # Delete file from disk if it exists
+                            if os.path.exists(file_path):
                                 os.remove(file_path)
                                 print(f"[DEBUG] Successfully deleted file from disk: {file_path}")
-                            except Exception as e:
-                                print(f"[DEBUG] Error deleting file from disk: {str(e)}")
-                                failed_count += 1
-                        else:
-                            print(f"[DEBUG] File not found on disk at {file_path}")
-                        
-                        # Always try to delete the database record
-                        try:
-                            file_doc.delete()
-                            print(f"[DEBUG] Successfully deleted file document from database")
-                            deleted_count += 1
-                        except Exception as e:
-                            print(f"[DEBUG] Error deleting file document from database: {str(e)}")
-                            failed_count += 1
                             
+                            # Delete file document from database
+                            file_doc.delete()
+                            print(f"[DEBUG] Successfully deleted file document from database: {file_id}")
                     except Exception as e:
-                        print(f"[DEBUG] Error processing file {file_id}: {str(e)}")
+                        print(f"[DEBUG] Error deleting file {file_id}: {str(e)}")
                         failed_count += 1
-                else:
-                    print(f"[DEBUG] No file document found for ID: {file_id}")
-        
-        # Delete all history documents after handling files
-        try:
-            result = histories.delete()
-            print(f"[DEBUG] Deleted {result} history documents")
-        except Exception as e:
-            print(f"[DEBUG] Error deleting history documents: {str(e)}")
-            raise
-        
-        status_message = f'Successfully deleted {deleted_count} files'
-        if failed_count > 0:
-            status_message += f' ({failed_count} deletions failed)'
-        status_message += f' and {result} history documents'
+                
+                # Delete the history document
+                history.delete()
+                deleted_count += 1
+                print(f"[DEBUG] Successfully deleted history: {history.id}")
+                
+            except Exception as e:
+                print(f"[DEBUG] Error processing history {history.id}: {str(e)}")
+                failed_count += 1
+                continue
         
         return jsonify({
             'status': 'success',
-            'message': status_message,
-            'deleted_files': deleted_count,
-            'failed_deletions': failed_count,
-            'deleted_histories': result
+            'message': f'Successfully deleted {deleted_count} history documents. Preserved {preserved_count} prompt files. Failed to delete {failed_count} items.',
+            'deleted_count': deleted_count,
+            'preserved_count': preserved_count,
+            'failed_count': failed_count
         })
+        
     except Exception as e:
-        print(f"[DEBUG] Top-level error in delete_all_history: {str(e)}")
+        print(f"[DEBUG] Error in delete_all_history: {str(e)}")
         return jsonify({
             'status': 'error',
-            'message': str(e)
+            'message': f'Error deleting history: {str(e)}'
         }), 500

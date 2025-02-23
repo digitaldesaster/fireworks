@@ -102,9 +102,8 @@ function initChatMessages() {
         const contentElement = template.querySelector(".content");
         contentElement.textContent = welcomeMessage;
 
-        // Remove the bottom margin from the outer div
-        const outerDiv = template.querySelector(".flex.space-x-4");
-        outerDiv.classList.remove("mb-6");
+        // Add margin-bottom to the chat messages container instead of removing it from the message
+        chatMessages.classList.add("mb-6");
 
         chatMessages.appendChild(template);
 
