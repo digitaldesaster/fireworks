@@ -49,6 +49,7 @@ pip install -r requirements.txt
 ```bash
 npm install -D tailwindcss
 npx tailwindcss init
+npm i -D @iconify/tailwind @iconify/json
 ```
 
 ### 6. Start the Flask Server, Browser-Sync, and the TailwindCSS Watcher
