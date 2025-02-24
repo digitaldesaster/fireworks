@@ -256,18 +256,22 @@ function appendNormalText(container, text) {
   const lines = text.split("\n");
   let inList = false;
   let listElement = null;
-  let orderNumber = 1; // Track ordered list numbering
   let inTable = false;
   let tableElement = null;
   let tableHeader = false;
 
+  // New structure for managing lists
+  const listContext = {
+    lists: [], // Stack of list elements
+    indentLevels: [], // Corresponding indent levels
+  };
+
   lines.forEach((line, index) => {
     // Check for horizontal rule
     if (line.match(/^[\-*_]{3,}$/)) {
+      // End any open lists
       if (inList) {
-        container.appendChild(listElement);
         inList = false;
-        orderNumber = 1;
       }
       if (inTable) {
         container.appendChild(tableElement);
@@ -316,21 +320,24 @@ function appendNormalText(container, text) {
       inTable = false;
     }
 
-    // Check for heading patterns - fixed size hierarchy
+    // Check for heading patterns
     const h1Match = line.match(/^# (.*)/);
     const h2Match = line.match(/^## (.*)/);
     const h3Match = line.match(/^### (.*)/);
+
+    // Check for list patterns
+    const indentedListMatch = line.match(/^(\s+)([\*\-]|\d+\.)\s+(.*)/);
     const ulMatch = line.match(/^[\*\-] (.*)/);
     const olMatch = line.match(/^(\d+)\. (.*)/);
     const taskMatch = line.match(/^[\*\-] \[([ x])\] (.*)/);
     const nestedQuoteMatch = line.match(/^>+ (.*)/);
 
     if (nestedQuoteMatch) {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
+      // End any open lists
+      if (listContext.lists.length > 0) {
+        cleanupLists(container, listContext);
       }
+
       const quoteDepth = line.match(/^>+/)[0].length;
       const blockquote = document.createElement("blockquote");
       // Reduced spacing for blockquotes
@@ -369,46 +376,82 @@ function appendNormalText(container, text) {
 
       blockquote.innerHTML = processInlineMarkdown(nestedQuoteMatch[1]);
       container.appendChild(blockquote);
-    } else if (h1Match) {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
+    } else if (h1Match || h2Match || h3Match) {
+      // End any open lists
+      if (listContext.lists.length > 0) {
+        cleanupLists(container, listContext);
       }
-      const h1 = document.createElement("h1");
-      h1.className = "text-2xl font-bold mt-1 mb-3 text-gray-700"; // Reduced margins
-      h1.innerHTML = processInlineMarkdown(h1Match[1]);
-      container.appendChild(h1);
-    } else if (h2Match) {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
+
+      // Handle headings (existing code)
+      if (h1Match) {
+        const h1 = document.createElement("h1");
+        h1.className = "text-2xl font-bold mt-1 mb-3 text-gray-700";
+        h1.innerHTML = processInlineMarkdown(h1Match[1]);
+        container.appendChild(h1);
+      } else if (h2Match) {
+        const h2 = document.createElement("h2");
+        h2.className = "text-xl font-bold mt-1 mb-1 text-gray-700";
+        h2.innerHTML = processInlineMarkdown(h2Match[1]);
+        container.appendChild(h2);
+      } else if (h3Match) {
+        const h3 = document.createElement("h3");
+        h3.className = "text-lg font-bold mt-1 mb-1 text-gray-800";
+        h3.innerHTML = processInlineMarkdown(h3Match[1]);
+        container.appendChild(h3);
       }
-      const h2 = document.createElement("h2");
-      h2.className = "text-xl font-bold mt-1 mb-1 text-gray-700"; // Reduced margins
-      h2.innerHTML = processInlineMarkdown(h2Match[1]);
-      container.appendChild(h2);
-    } else if (h3Match) {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
+    } else if (indentedListMatch || ulMatch || olMatch) {
+      // Process any type of list item (indented or not)
+      let indentation = 0;
+      let listMarker = "";
+      let content = "";
+      let isIndented = false;
+
+      if (indentedListMatch) {
+        indentation = indentedListMatch[1].length;
+        listMarker = indentedListMatch[2];
+        content = indentedListMatch[3];
+        isIndented = true;
+      } else if (ulMatch) {
+        listMarker = "*";
+        content = ulMatch[1];
+      } else if (olMatch) {
+        listMarker = olMatch[1] + ".";
+        content = olMatch[2];
       }
-      const h3 = document.createElement("h3");
-      h3.className = "text-lg font-bold mt-1 mb-1 text-gray-800"; // Reduced margins
-      h3.innerHTML = processInlineMarkdown(h3Match[1]);
-      container.appendChild(h3);
+
+      const isOrdered = listMarker.includes(".");
+      const listType = isOrdered ? "ol" : "ul";
+
+      // Handle list nesting
+      processListItem(container, listContext, {
+        indentation,
+        listType,
+        content,
+        listMarker,
+        isIndented,
+      });
+
+      inList = true;
     } else if (taskMatch) {
-      if (!inList || listElement.tagName !== "UL") {
-        if (inList) {
-          container.appendChild(listElement);
-          orderNumber = 1;
-        }
-        listElement = document.createElement("ul");
-        listElement.className = "mb-2";
-        inList = true;
+      // Clean up any lists with different indentation
+      while (
+        listContext.lists.length > 0 &&
+        listContext.lists[listContext.lists.length - 1].tagName !== "UL"
+      ) {
+        listContext.lists.pop();
+        listContext.indentLevels.pop();
       }
+
+      // Create UL if needed
+      if (listContext.lists.length === 0) {
+        const ul = document.createElement("ul");
+        ul.className = "mb-2";
+        container.appendChild(ul);
+        listContext.lists.push(ul);
+        listContext.indentLevels.push(0);
+      }
+
+      // Create the task list item
       const li = document.createElement("li");
       li.className = "text-gray-700 mb-1 flex items-center";
       const checkbox = document.createElement("input");
@@ -420,53 +463,17 @@ function appendNormalText(container, text) {
       const textSpan = document.createElement("span");
       textSpan.innerHTML = processInlineMarkdown(taskMatch[2]);
       li.appendChild(textSpan);
-      listElement.appendChild(li);
-    } else if (ulMatch) {
-      if (!inList || listElement.tagName !== "UL") {
-        if (inList) {
-          container.appendChild(listElement);
-          orderNumber = 1;
-        }
-        listElement = document.createElement("ul");
-        listElement.className = "mb-1"; // Reduced margin
-        inList = true;
-      }
-      const li = document.createElement("li");
-      li.className = "text-gray-700 mb-0.5"; // Reduced margin
-      const bulletPoint = document.createElement("span");
-      bulletPoint.className = "inline-block w-4";
-      bulletPoint.textContent = "•";
-      li.appendChild(bulletPoint);
-      const textSpan = document.createElement("span");
-      textSpan.innerHTML = processInlineMarkdown(ulMatch[1]);
-      li.appendChild(textSpan);
-      listElement.appendChild(li);
-    } else if (olMatch) {
-      if (!inList || listElement.tagName !== "OL") {
-        if (inList) {
-          container.appendChild(listElement);
-        }
-        listElement = document.createElement("ul");
-        listElement.className = "mb-2";
-        inList = true;
-      }
-      const li = document.createElement("li");
-      li.className = "text-gray-700 mb-1";
-      const numberPoint = document.createElement("span");
-      numberPoint.className = "inline-block w-4";
-      numberPoint.textContent = orderNumber + ".";
-      orderNumber++;
-      li.appendChild(numberPoint);
-      const textSpan = document.createElement("span");
-      textSpan.innerHTML = processInlineMarkdown(olMatch[2]);
-      li.appendChild(textSpan);
-      listElement.appendChild(li);
+
+      // Add to the current list
+      listContext.lists[listContext.lists.length - 1].appendChild(li);
+
+      inList = true;
     } else {
-      if (inList) {
-        container.appendChild(listElement);
-        inList = false;
-        orderNumber = 1;
+      // Handle non-list content - clean up any open lists
+      if (listContext.lists.length > 0) {
+        cleanupLists(container, listContext);
       }
+
       if (line === "") {
         const spacer = document.createElement("div");
         spacer.className = "h-1"; // Reduced empty line height
@@ -477,13 +484,17 @@ function appendNormalText(container, text) {
         p.innerHTML = processInlineMarkdown(line);
         container.appendChild(p);
       }
+
+      inList = false;
     }
   });
 
-  // Append any remaining list or table
-  if (inList) {
-    container.appendChild(listElement);
+  // Clean up any remaining lists
+  if (listContext.lists.length > 0) {
+    cleanupLists(container, listContext);
   }
+
+  // Clean up any remaining table
   if (inTable) {
     container.appendChild(tableElement);
   }
@@ -492,6 +503,126 @@ function appendNormalText(container, text) {
   const lastElement = container.lastElementChild;
   if (lastElement) {
     lastElement.classList.remove("mb-0.5", "mb-1", "mb-2");
+  }
+}
+
+// Helper function to clean up any open lists
+function cleanupLists(container, listContext) {
+  if (listContext.lists.length > 0) {
+    container.appendChild(listContext.lists[0]);
+    listContext.lists = [];
+    listContext.indentLevels = [];
+  }
+}
+
+// Helper function to process a list item and handle nesting properly
+function processListItem(container, listContext, item) {
+  const { indentation, listType, content, listMarker, isIndented } = item;
+
+  // Adjust the list stack based on indentation
+  if (isIndented) {
+    // Remove lists at greater indentation levels
+    while (
+      listContext.lists.length > 0 &&
+      listContext.indentLevels[listContext.indentLevels.length - 1] >=
+        indentation
+    ) {
+      listContext.lists.pop();
+      listContext.indentLevels.pop();
+    }
+  } else {
+    // For non-indented items, clear lists and create a new top-level list
+    listContext.lists = [];
+    listContext.indentLevels = [];
+  }
+
+  // Create list item
+  const li = document.createElement("li");
+  li.className = "text-gray-700 mb-0.5";
+
+  // Add bullet or number
+  if (listType === "ul") {
+    const bulletPoint = document.createElement("span");
+    bulletPoint.className = "inline-block w-4";
+    bulletPoint.textContent = "•";
+    li.appendChild(bulletPoint);
+  } else {
+    const numberPoint = document.createElement("span");
+    numberPoint.className = "inline-block w-4";
+    const num = listMarker.replace(".", "");
+    numberPoint.textContent = num + ".";
+    if (parseInt(num)) {
+      li.value = parseInt(num);
+    }
+    li.appendChild(numberPoint);
+  }
+
+  // Add content
+  const textSpan = document.createElement("span");
+  textSpan.innerHTML = processInlineMarkdown(content);
+  li.appendChild(textSpan);
+
+  // Find or create the appropriate list
+  let parentList;
+
+  if (listContext.lists.length === 0) {
+    // Create a new top-level list
+    parentList = document.createElement(listType);
+    parentList.className = "mb-2";
+
+    if (isIndented) {
+      // This is an indented item without a parent - rare case
+      container.appendChild(parentList);
+    } else {
+      // Normal top-level list
+      container.appendChild(parentList);
+    }
+
+    listContext.lists.push(parentList);
+    listContext.indentLevels.push(indentation);
+  } else {
+    // Get the current deepest list
+    const currentList = listContext.lists[listContext.lists.length - 1];
+
+    if (isIndented) {
+      // This is a nested list item - create a new list inside the last list item
+      const parentLi = currentList.lastElementChild;
+
+      // Check if parent already has a list of this type
+      let nestedList = null;
+      if (parentLi) {
+        for (let i = 0; i < parentLi.children.length; i++) {
+          const child = parentLi.children[i];
+          if (child.tagName && child.tagName.toLowerCase() === listType) {
+            nestedList = child;
+            break;
+          }
+        }
+      }
+
+      if (!nestedList && parentLi) {
+        // Create a new nested list
+        nestedList = document.createElement(listType);
+        nestedList.className = "ml-6 mt-1 pl-2 border-l border-gray-200";
+        parentLi.appendChild(nestedList);
+      }
+
+      parentList = nestedList || currentList;
+
+      if (nestedList) {
+        // Add the new list to our context
+        listContext.lists.push(nestedList);
+        listContext.indentLevels.push(indentation);
+      }
+    } else {
+      // This is a new item at the same level as the current list
+      parentList = currentList;
+    }
+  }
+
+  // Add the list item to the appropriate list
+  if (parentList) {
+    parentList.appendChild(li);
   }
 }
 

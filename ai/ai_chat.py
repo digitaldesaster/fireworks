@@ -40,6 +40,22 @@ Formatiere deine Antworten mit Markdown:
 - *Kursivschrift* für Betonungen
 - Listen mit * für Aufzählungen
 - Nummerierte Listen mit 1. 2. 3.
+- Verschachtelte Listen durch Einrücken mit 2 Leerzeichen:
+  * Hauptpunkt
+    * Unterpunkt
+    * Weiterer Unterpunkt
+  * Nächster Hauptpunkt
+- Verschachtelte nummerierte Listen:
+  1. Erster Punkt
+     1. Unterpunkt 1.1
+     2. Unterpunkt 1.2
+  2. Zweiter Punkt
+- Gemischte verschachtelte Listen:
+  * Hauptpunkt
+    1. Nummerierter Unterpunkt
+    2. Weiterer nummerierter Unterpunkt
+  * Nächster Hauptpunkt
+    * Unnummerierter Unterpunkt
 - `Inline-Code` für kurze Codebeispiele
 - Links mit [Text](URL)
 - ~~Durchgestrichen~~ für nicht mehr gültiges
@@ -50,9 +66,13 @@ Beispiel einer formatierten Antwort:
 Dies ist ein Absatz mit **wichtigen** und *betonten* Worten.
 * Erster Listenpunkt
 * Zweiter Listenpunkt mit `Code`
+  * Ein Unterpunkt
+  * Noch ein Unterpunkt
 * Dritter Punkt mit [Link](https://example.com)
 
 1. Erster nummerierter Punkt
+   1. Nummerierter Unterpunkt
+   2. Weiterer nummerierter Unterpunkt
 2. Zweiter nummerierter Punkt
 
 Wenn du längeren Code generierst, dann setze den Code in dreifache Backticks."""
