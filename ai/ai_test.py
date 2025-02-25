@@ -13,10 +13,15 @@ messages = [
     {"role": "user", "content": "Hallo"}
 ]
 
-model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-chat'}
+#model = {'provider':'azure','model':'gpt-4o-sweden-02','name':'gpt-4o-sweden-02'}
+#model = {'provider':'openai','model':'gpt-4o-mini','name':'gpt-4o-mini'}
+#model = {'provider':'perplexity','model':'llama-3.1-sonar-large-128k-online','name':'perplexity-llama-3.1-online'}
+#model = {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'}
 
-#response = llm_call(messages, model, stream=False)
-#print(response)
+# Stream response handling
+# response = llm_call(messages, model, stream=True)
+# for chunk in response:
+#     print(chunk)
 
 # History.objects().delete()
 # Prompt.objects().delete()

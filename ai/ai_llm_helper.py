@@ -1,5 +1,6 @@
 import os,json,sys
 from openai import OpenAI
+from openai import AzureOpenAI
 import anthropic
 
 from dotenv import load_dotenv
@@ -9,6 +10,11 @@ together_api_key=os.getenv("TOGETHER_API_KEY")
 anthropic_api_key=os.getenv("ANTHROPIC_API_KEY")
 deepseek_api_key=os.getenv("DEEPSEEK_API_KEY")
 perplexity_api_key=os.getenv("PERPLEXITY_API_KEY")
+
+azure_api_version = os.getenv('AZURE_API_VERSION_SE_02')
+azure_api_key = os.getenv('AZURE_API_KEY_MN_SE_02')
+azure_endpoint = os.getenv('AZURE_API_BASE_MN_SE_02')
+azure_deployment = os.getenv('AZURE_API_MODEL_MN_SE_02')
 
 #Notice: I was not able to have a function with streaming (using yield) and no streaming (return) at the same time.
 
@@ -47,6 +53,8 @@ def llm_call_stream(messages, model):
             client = OpenAI(api_key=perplexity_api_key,base_url='https://api.perplexity.ai')
         elif model['provider']=='openai':
             client = OpenAI(api_key=openai_api_key)
+        elif model['provider']=='azure':
+            client = AzureOpenAI(azure_endpoint=azure_endpoint,api_key=azure_api_key,api_version=azure_api_version)
 
         response = client.chat.completions.create(
             model=model['model'],
@@ -56,10 +64,18 @@ def llm_call_stream(messages, model):
 
         accumulated_text = ""
         for line in response:
-            if line.choices[0].delta.content:
-                accumulated_text += line.choices[0].delta.content
-                yield line.choices[0].delta.content.encode('utf-8')
-            elif line.choices[0].finish_reason in ['eos', 'stop']:
+            # Skip empty chunks or chunks without choices
+            if not hasattr(line, 'choices') or len(line.choices) == 0:
+                continue
+                
+            # Handle content if present
+            if hasattr(line.choices[0], 'delta') and hasattr(line.choices[0].delta, 'content'):
+                if line.choices[0].delta.content:
+                    accumulated_text += line.choices[0].delta.content
+                    yield line.choices[0].delta.content.encode('utf-8')
+            
+            # Handle completion
+            if hasattr(line.choices[0], 'finish_reason') and line.choices[0].finish_reason in ['eos', 'stop']:
                 if accumulated_text:
                     yield " ".encode('utf-8')
                 try:
@@ -86,6 +102,8 @@ def llm_call_no_stream(messages, model):
             client = OpenAI(api_key=deepseek_api_key,base_url='https://api.deepseek.com')
         elif model['provider']=='openai':
             client = OpenAI(api_key=openai_api_key)
+        elif model['provider']=='azure':
+            client = AzureOpenAI(azure_endpoint=azure_endpoint,api_key=azure_api_key,api_version=azure_api_version)
 
         response = client.chat.completions.create(
             model=model['model'],
