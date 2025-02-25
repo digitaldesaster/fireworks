@@ -63,4 +63,4 @@ def getCounter(name):
             return str(document.value)
     return 0
 
-initDefault()
+#initDefault()

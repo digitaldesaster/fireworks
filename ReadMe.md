@@ -52,7 +52,15 @@ npx tailwindcss init
 npm i -D @iconify/tailwind @iconify/json
 ```
 
-### 6. Start the Flask Server, Browser-Sync, and the TailwindCSS Watcher
+### 6. Create Folder /core/documents
+
+```bash
+mkdir core/documents
+sudo chown -R www-data:www-data /var/www/tests_alex/fireworks/core/documents
+sudo chmod -R 775 /var/www/tests_alex/fireworks/core/documents
+```
+
+### 7. Start the Flask Server, Browser-Sync, and the TailwindCSS Watcher
 
 Press `cmd + shift + p` and run "Start All" to start the Flask server, Browser-Sync, and the TailwindCSS watcher.
 
@@ -62,13 +70,13 @@ Or start them separately:
 - Start Browser-Sync
 - Watch CSS with TailwindCSS
 
-### 7. Remove the .git Folder
+### 8. Remove the .git Folder
 
 ```bash
 sudo rm -rf .git
 ```
 
-### 8. Prepare the Git Repository
+### 9. Prepare the Git Repository
 
 ```bash
 git init
@@ -83,13 +91,13 @@ git commit -m "Initial commit"
 git branch -M main
 ```
 
-### 9. Initialize a New Git Repository
+### 10. Initialize a New Git Repository
 
 ```bash
 gh repo create my_new_project --public --source=. --remote=origin
 ```
 
-### 10. Push the Changes to the Remote Repository
+### 11. Push the Changes to the Remote Repository
 
 ```bash
 git push -u origin main

@@ -11,12 +11,11 @@ load_dotenv()
 # Retrieve your MongoDB password from an environment variable
 mongodb_pwd = os.getenv('MONGODB_PWD')
 mongodb_user = os.getenv('MONGODB_USER')
-
-# Your MongoDB URI
-mongodb_uri = f"mongodb+srv://{mongodb_user}:{mongodb_pwd}@cluster0.3sguoku.mongodb.net/flyon?retryWrites=true&w=majority&appName=Cluster0"
+mongodb_uri = os.getenv('MONGODB_URI')
 
 # Connect to your MongoDB database with SSL certificate verification
-connect(host=mongodb_uri, tlsCAFile=certifi.where())
+#connect(host=mongodb_uri, tlsCAFile=certifi.where())
+connect(host=mongodb_uri)
 
 # class User(DynamicDocument):
 #   user_name = StringField()

@@ -95,8 +95,16 @@ def loadData(mydata):
     return None
 
 def getList(name, request, filter=None, return_json=False):
+    print(f"[DEBUG] getList called for {name}")
     default = getDefaults(name)
     if default == None:
+        print("[DEBUG] No defaults found")
+        return redirect(url_for('index'))
+        
+    # Check if user can list this collection
+    if not default.document.can_list(current_user):
+        print("[DEBUG] User cannot list this collection")
+        flash('Access denied.', 'error')
         return redirect(url_for('index'))
         
     data, prev, next, last, recordsTotal = initData()
@@ -104,25 +112,34 @@ def getList(name, request, filter=None, return_json=False):
     
     filter_data = getFilter(default.document_name)
     mode = default.collection_name
-
-    # Determine if we should show the new button - hide for user collection
-    show_new_button = name != 'user'
-
-    # Handle combined filters for user permissions and existing filters
+    
+    # Get access control filter for this document type
+    access_filter = default.document.get_list_filter(current_user)
+    print(f"[DEBUG] Access filter: {access_filter}")
+    
+    # Combine all filters
+    combined_filter = {}
+    if access_filter:
+        combined_filter.update(access_filter)
     if filter:
-        if filter_param:
-            filter_dict = getFilterDict(filter_param)
-            filter.update(filter_dict)
-        mydata = searchDocuments(default.collection, default.document.searchFields(), 
-                               start, limit, search, filter, product_name, mode)
-    else:
-        mydata = searchDocuments(default.collection, default.document.searchFields(),
-                               start, limit, search, filter_param, product_name, mode)
+        combined_filter.update(filter)
+    if filter_param:
+        filter_dict = getFilterDict(filter_param)
+        combined_filter.update(filter_dict)
+    
+    print(f"[DEBUG] Combined filter: {combined_filter}")
+
+    # Process the search query with combined filters
+    # Pass empty dict if no filter to avoid "no filter found" error
+    filter_to_use = combined_filter if combined_filter else {}
+    mydata = searchDocuments(default.collection, default.document.searchFields(), 
+                           start, limit, search, filter_to_use, product_name, mode)
+    print(f"[DEBUG] Search results: {mydata}")
 
     processedData = loadData(mydata)
-
     if processedData:
         data, start, end, prev, next, recordsTotal, last = processedData
+        print(f"[DEBUG] Found {recordsTotal} records")
         recordsTotal = int(recordsTotal) if recordsTotal is not None else 0
         if return_json:
             return jsonify({
@@ -165,7 +182,7 @@ def getList(name, request, filter=None, return_json=False):
                                  table_content=table_content,
                                  filter=filter_param,
                                  filter_data=filter_data,
-                                 show_new_button=show_new_button,
+                                 show_new_button=True,
                                  product_name=product_name)
     except:
         pass
@@ -192,38 +209,35 @@ def getList(name, request, filter=None, return_json=False):
                          table_content=table_content,
                          filter=filter_param,
                          filter_data=filter_data,
-                         show_new_button=show_new_button,
+                         show_new_button=True,
                          product_name=product_name)
 
 def handleDocument(name, id, request, return_json=False):
     try:
-        print(f"[DEBUG] Starting handleDocument with name={name}, id={id}")
-        print(f"[DEBUG] Request method: {request.method}")
-        print(f"[DEBUG] Request form data: {request.form}")
         default = getDefaults(name)
-        print(f"[DEBUG] getDefaults result: {default}")
-
         if default is None:
-            print(f"[DEBUG] No defaults found for name: {name}")
             flash('Invalid document type', 'error')
             return redirect(url_for('index'))
 
-        # Add permission check for user documents
-        if name == 'user' and id:
-            if not current_user.can_view_user(id):
-                flash('Access denied. You can only view your own profile.', 'error')
-                return redirect(url_for('list', collection='user'))
+        # For existing documents, verify access
+        if id:
+            doc = default.collection.objects(_id=ObjectId(id)).first()
+            if not doc or not doc.can_access(current_user):
+                flash('Access denied.', 'error')
+                return redirect(url_for('list', collection=default.collection_name))
+
+        # For new documents
+        else:
+            # Check if user can list (create new) documents of this type
+            if not default.document.can_list(current_user):
+                flash('Access denied.', 'error')
+                return redirect(url_for('index'))
                 
-        # Add permission check for history documents
-        if name == 'history' and id:
-            try:
-                history_doc = default.collection.objects(_id=ObjectId(id)).first()
-                if history_doc and not history_doc.can_view(current_user):
-                    flash('Access denied. You can only view your own history.', 'error')
-                    return redirect(url_for('list', collection='history'))
-            except Exception as e:
-                print(f"[DEBUG] Error checking history access: {str(e)}")
-                return redirect(url_for('list', collection='history'))
+            # Set user_id for new documents if they use it
+            if request.method == 'POST' and hasattr(default.document, 'user_id'):
+                form_data = htmlFormToDict(request.form)
+                form_data['user_id'] = str(current_user.id)
+                request.form = form_data
 
         print(f"[DEBUG] Got defaults: document_name={default.document_name}, collection_name={default.collection_name}")
         mode = default.document_name
@@ -239,6 +253,9 @@ def handleDocument(name, id, request, return_json=False):
                     raise Exception("Failed to get document instance")
                 data = json.loads(doc.to_json())
                 data['id'] = ''  # Empty ID for new document
+                # Set user_id for new history documents
+                if name == 'history':
+                    data['user_id'] = str(current_user.id)
             except Exception as e:
                 print(f"[DEBUG] Error initializing new document: {str(e)}")
                 flash('Error creating new document', 'error')
@@ -351,27 +368,53 @@ def deleteDocument(request):
         return {'status': 'error', 'message': data.get('message', 'document not deleted')}
 
 def tableContent(documents, table_header):
-    tableContent=[]
+    print(f"[DEBUG] Creating table content for {len(documents)} documents")
+    tableContent = []
 
     for document in documents:
+        print(f"[DEBUG] Processing document: {document}")
         tableRow = []
         for field in table_header:
             if field['name'] in document.keys() and 'id' in document.keys():
-                if field['name'].find('_date') !=-1:
-           
-                    date= document[field['name']]['$date']
-                    document[field['name']] = datetime.datetime.fromtimestamp(date/1000).strftime('%d.%m.%Y')
-                if 'link' in field.keys():
-                    tableRow.append({'name': field['name'], 'value' : document[field['name']], 'class' : field['class'], 'id' : document['id'],'type':field['type'],'link':field['link'],'label':field['label']})
+                value = document[field['name']]
+                
+                # Handle date fields
+                if field['name'].find('_date') != -1:
+                    if isinstance(value, dict) and '$date' in value:
+                        date = value['$date']
+                        value = datetime.datetime.fromtimestamp(date/1000).strftime('%d.%m.%Y')
+                
+                # Handle link fields for history
+                if field['type'] == 'ButtonField' and field.get('link') == '/chat/history':
+                    link = f"{field['link']}/{document['id']}"
+                    tableRow.append({
+                        'name': field['name'],
+                        'value': value,
+                        'class': field['class'],
+                        'id': document['id'],
+                        'type': field['type'],
+                        'link': link,
+                        'label': field['label']
+                    })
                 else:
-                    tableRow.append({'name': field['name'], 'value' : document[field['name']], 'class' : field['class'], 'id' : document['id'],'type':field['type'],'label':field['label']})
-                    
-
+                    tableRow.append({
+                        'name': field['name'],
+                        'value': value,
+                        'class': field['class'],
+                        'id': document['id'],
+                        'type': field['type'],
+                        'label': field.get('label', field['name'])
+                    })
             else:
+                print(f"[DEBUG] Field {field['name']} not found in document or no id")
                 tableRow.append('')
-        tableContent.append(tableRow)
-
+        
+        if tableRow:  # Only add rows that have content
+            tableContent.append(tableRow)
+            
+    print(f"[DEBUG] Created {len(tableContent)} table rows")
     return tableContent
+
 def getElements(data, document):
     elements=[]
     fields = document.fields()
@@ -485,7 +528,7 @@ def upload_files(request, category='', document_id=''):
                             file_type=file_type, 
                             document_id=document_id, 
                             element_id=element_id,
-                            owner_id=str(current_user.id)  # Set the owner_id to current user's ID
+                            user_id=str(current_user.id)  # Set the user_id to current user's ID
                         )
                         fileDB.save()
                         fileID = getDocumentID(fileDB)
@@ -545,63 +588,106 @@ def prepFilterData(form_data):
 #only pdf/txt files are supported for now
 def prepare_context_from_files(files):
     result = {
-        "status": "",
+        "status": "error",
         "data": "",
         "character_count": 0
     }
-    combined_text = ""
-    try:
-        for file in files:
-            # Convert MongoDB document to dict if needed
-            if hasattr(file, 'to_mongo'):
-                file = file.to_mongo()
-                file_id = str(file['_id'])
-            else:
-                file_id = file['_id']['$oid']
-
-            file_path = os.path.join(file['path'], f"{file_id}.{file['file_type'].lower()}")
-            
-            if file['file_type'].lower() == 'pdf':
-                try:
-                    with open(file_path, 'rb') as pdf_file:
-                        pdf_reader = PdfReader(pdf_file)
-                        combined_text += f"Content of File: {file['name']}\n"
-                        combined_text += "-" * 50 + "\n"
-                        for page_num in range(len(pdf_reader.pages)):
-                            page = pdf_reader.pages[page_num]
-                            text = page.extract_text()
-                            if text:
-                                text = ' '.join(text.split())
-                                text = text.replace(' .', '.').replace(' ,', ',')
-                                paragraphs = text.split('\n')
-                                formatted_text = '\n\n'.join(p.strip() for p in paragraphs if p.strip())
-                                combined_text += formatted_text
-                            else:
-                                combined_text += "[No text found on this page]\n"
-                            combined_text += "\n\n"
-                        combined_text += "-" * 50 + "\n\n"
-                except Exception as e:
-                    result["status"] = "error"
-                    result["data"] = f"Error reading {file['name']}: {e}"
-                    return result
-            elif file['file_type'].lower() == 'txt':
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as txt_file:
-                        text = txt_file.read()
-                        combined_text += f"Content of File: {file['name']}\n"
-                        combined_text += "-" * 50 + "\n"
-                        combined_text += text
-                        combined_text += "\n\n" + "-" * 50 + "\n\n"
-                except Exception as e:
-                    result["status"] = "error"
-                    result["data"] = f"Error reading {file['name']}: {e}"
-                    return result
-        result["status"] = "ok"
-        result["data"] = combined_text
-        result["character_count"] = len(combined_text)
-    except Exception as e:
+    
+    print(f"[DEBUG] prepare_context_from_files called with {len(files)} files")
+    
+    if not files:
+        print("[DEBUG] No files provided")
         result["status"] = "error"
-        result["data"] = str(e)
+        result["data"] = "No files provided"
+        return result
+
+    try:
+        combined_text = []
+        base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        print(f"[DEBUG] Base path for file reading: {base_path}")
+        
+        for file in files:
+            try:
+                print(f"[DEBUG] Processing file: {file.get('name', 'Unknown')}")
+                # Convert MongoDB document to dict if needed
+                if hasattr(file, 'to_mongo'):
+                    file = file.to_mongo().to_dict()
+                    print("[DEBUG] Converted MongoDB document to dict")
+                
+                # Get file ID consistently
+                if isinstance(file.get('_id'), dict) and '$oid' in file['_id']:
+                    file_id = file['_id']['$oid']
+                elif isinstance(file.get('_id'), str):
+                    file_id = file['_id']
+                else:
+                    file_id = str(file['_id'])
+                print(f"[DEBUG] File ID: {file_id}")
+                
+                # Build full file path
+                file_path = os.path.join(base_path, file['path'], f"{file_id}.{file['file_type'].lower()}")
+                print(f"[DEBUG] Full file path: {file_path}")
+                
+                if not os.path.exists(file_path):
+                    print(f"[DEBUG] File not found at path: {file_path}")
+                    continue
+                
+                print(f"[DEBUG] Reading file: {file['name']}")
+                file_content = f"\nContent of File: {file['name']}\n{'='*50}\n"
+                
+                if file['file_type'].lower() == 'pdf':
+                    try:
+                        with open(file_path, 'rb') as pdf_file:
+                            pdf_reader = PdfReader(pdf_file)
+                            print(f"[DEBUG] PDF has {len(pdf_reader.pages)} pages")
+                            for page_num in range(len(pdf_reader.pages)):
+                                page = pdf_reader.pages[page_num]
+                                text = page.extract_text()
+                                if text:
+                                    print(f"[DEBUG] Extracted text from page {page_num + 1}")
+                                    text = ' '.join(text.split())
+                                    text = text.replace(' .', '.').replace(' ,', ',')
+                                    paragraphs = text.split('\n')
+                                    formatted_text = '\n\n'.join(p.strip() for p in paragraphs if p.strip())
+                                    file_content += formatted_text + "\n\n"
+                                else:
+                                    print(f"[DEBUG] No text found on page {page_num + 1}")
+                                    file_content += "[No text found on this page]\n\n"
+                    except Exception as e:
+                        print(f"[DEBUG] Error reading PDF {file['name']}: {str(e)}")
+                        continue
+                        
+                elif file['file_type'].lower() == 'txt':
+                    try:
+                        with open(file_path, 'r', encoding='utf-8') as txt_file:
+                            text = txt_file.read()
+                            print(f"[DEBUG] Read {len(text)} characters from text file")
+                            file_content += text
+                    except Exception as e:
+                        print(f"[DEBUG] Error reading TXT {file['name']}: {str(e)}")
+                        continue
+                        
+                file_content += f"\n{'='*50}\n"
+                print(f"[DEBUG] Added {len(file_content)} characters of content")
+                combined_text.append(file_content)
+                
+            except Exception as e:
+                print(f"[DEBUG] Error processing file: {str(e)}")
+                continue
+            
+        if combined_text:
+            result["status"] = "ok"
+            result["data"] = "\n".join(combined_text)
+            result["character_count"] = len(result["data"])
+            print(f"[DEBUG] Successfully combined {len(combined_text)} files with total {result['character_count']} characters")
+        else:
+            print("[DEBUG] No content could be extracted from files")
+            result["status"] = "error"
+            result["data"] = "No content could be extracted from files"
+            
+    except Exception as e:
+        print(f"[DEBUG] Error in prepare_context_from_files: {str(e)}")
+        result["status"] = "error"
+        result["data"] = f"Error processing files: {str(e)}"
 
     return result
 
@@ -660,13 +746,13 @@ def upload_file(file, category='history'):
             
         fileDB = File(
             name=filename,
-            path=relative_path,  # Store relative path for consistent deletion
+            path=relative_path,
             category=category,
             file_type=file_type,
-            owner_id=str(current_user.id)  # Set the owner_id to current user's ID
+            user_id=str(current_user.id)
         )
         fileDB.save()
-        fileID = str(fileDB.id)  # Ensure we're using string ID consistently
+        fileID = str(fileDB.id)
         
         file_save_path = os.path.join(absolute_path, f"{fileID}.{file_type}")
         print(f"[DEBUG] Saving file to: {file_save_path}")
@@ -675,24 +761,37 @@ def upload_file(file, category='history'):
         response = {
             'status': 'ok',
             'file_id': fileID,
-            'filename': filename,  # Keep original name for frontend
-            'name': filename,      # Also include as name for consistency
-            'file_type': file_type,  # Keep original file_type for frontend
-            'type': file_type,       # Also include as type for consistency
+            'filename': filename,
+            'name': filename,
+            'file_type': file_type,
+            'type': file_type,
             'path': relative_path
         }
         
-        # Add context for text-based files
+        # Always get context for text-based files
         if file_type in ['pdf', 'txt']:
             try:
-                context = prepare_context_from_files([fileDB])
+                # Convert fileDB to dict format expected by prepare_context_from_files
+                file_dict = {
+                    '_id': fileID,
+                    'name': filename,
+                    'path': relative_path,
+                    'file_type': file_type
+                }
+                
+                print(f"[DEBUG] Getting context for file: {file_dict}")
+                context = prepare_context_from_files([file_dict])
+                
                 if context['status'] == 'ok':
+                    print(f"[DEBUG] Successfully extracted context with {context['character_count']} characters")
                     response['content'] = context['data']
                     response['character_count'] = context['character_count']
+                else:
+                    print(f"[DEBUG] Context extraction failed: {context['data']}")
+                    response['content'] = f"[Error extracting content from {filename}]"
             except Exception as e:
                 print(f"[DEBUG] Error getting file context: {str(e)}")
-                # Don't fail the upload if context extraction fails
-                pass
+                response['content'] = f"[Error processing {filename}: {str(e)}]"
                 
         # Add base64 for images
         elif file_type in ['jpeg', 'jpg', 'png']:
@@ -700,8 +799,7 @@ def upload_file(file, category='history'):
                 response['base64_image'] = encode_image(file_save_path)
             except Exception as e:
                 print(f"[DEBUG] Error encoding image: {str(e)}")
-                # Don't fail the upload if image encoding fails
-                pass
+                response['base64_image'] = None
                 
         print(f"[DEBUG] Upload successful, returning response: {response}")
         return response

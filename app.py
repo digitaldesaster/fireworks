@@ -7,6 +7,7 @@ from core.db_user import User
 from flask_wtf.csrf import CSRFProtect
 import json
 from werkzeug.utils import secure_filename
+from bson.objectid import ObjectId
 
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument, upload_file
@@ -94,8 +95,28 @@ def index():
 @app.route('/d/<name>/<id>/<return_format>', methods=['POST', 'GET'])
 @login_required
 def doc(name, id='', return_format='html'):
+	# Add special handling for history documents
+	if name == 'history' and id:
+		# Get the history document
+		from core.db_default import getDefaults
+		default = getDefaults('history')
+		if default:
+			try:
+				doc = default.collection.objects(_id=ObjectId(id)).first()
+				if not doc or doc.user_id != str(current_user.id):
+					flash('Access denied. You can only view your own history.', 'error')
+					return redirect(url_for('list', collection='history'))
+			except Exception as e:
+				print(f"[DEBUG] Error accessing history document: {str(e)}")
+				flash('Error accessing history document', 'error')
+				return redirect(url_for('list', collection='history'))
+
 	if return_format == 'json':
-		return handleDocument(name, id, request, return_json=True)
+		result = handleDocument(name, id, request, return_json=True)
+		# Ensure we're returning valid JSON
+		if isinstance(result, str):
+			return result
+		return jsonify(result)
 	else:
 		return handleDocument(name, id, request)
 
@@ -113,11 +134,17 @@ def delete_document():
 @login_required
 def list(collection):
 	mode = request.args.get('mode')
-	if collection in ['user', 'users']:
+	
+	# Handle special collections
+	if collection == 'history':
+		# History is always filtered by current user
+		return getList('history', request, return_json=(mode == 'json'))
+	elif collection in ['user', 'users']:
 		if not current_user.is_admin:
 			flash('Access denied. Only administrators can view the user list.', 'error')
 			return redirect(url_for('index'))
 		return getList('user', request, return_json=(mode == 'json'))
+		
 	return getList(collection, request, return_json=(mode == 'json'))
 
 # Route to download a file

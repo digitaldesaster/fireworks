@@ -6,70 +6,73 @@ from core.db_document import File, getDefaults, Filter
 import json
 import os
 
-def searchDocuments(collection, searchFields,start = 0, limit = 10, search = '',filter='',product_name='',mode=''):
-    searchAnd = []
-    searchDict={}
+def searchDocuments(collection, searchFields, start=0, limit=10, search='', filter=None, product_name='', mode=''):
+    print(f"[DEBUG] searchDocuments called with filter={filter}")
+    searchDict = {}
 
-    if (search != None and search !=''):
+    # Handle search term if provided
+    if search and search.strip():
         searchArray = []
         for name in searchFields:
-            #search contains string, option i means case insentive
-            searchArray.append({name: {'$regex': search, '$options' : 'i'}})
-
+            searchArray.append({name: {'$regex': search, '$options': 'i'}})
         searchDict = {'$or': searchArray}
 
-        if filter !='':
-            searchAnd = getFilterDict(filter)
+    # Handle filter
+    if filter:
+        if isinstance(filter, str):
+            # For string filters, use getFilterDict
+            filter_dict = getFilterDict(filter)
+            print(f"[DEBUG] Filter string converted to: {filter_dict}")
+            if filter_dict:
+                if searchDict:
+                    if '$and' not in searchDict:
+                        searchDict = {'$and': [searchDict]}
+                    searchDict['$and'].extend(filter_dict)
+                else:
+                    searchDict = {'$and': filter_dict}
+        else:
+            # For direct dictionary filters (like user_id filter)
+            print(f"[DEBUG] Using direct filter: {filter}")
+            if searchDict:
+                if '$and' not in searchDict:
+                    searchDict = {'$and': [searchDict, filter]}
+                else:
+                    searchDict['$and'].append(filter)
+            else:
+                searchDict.update(filter)
 
-        if product_name!='':
-            searchAnd.append({'name' : product_name})
+    # Handle product name
+    if product_name:
+        product_filter = {'name': product_name}
+        if searchDict:
+            if '$and' not in searchDict:
+                searchDict = {'$and': [searchDict, product_filter]}
+            else:
+                searchDict['$and'].append(product_filter)
+        else:
+            searchDict = product_filter
 
-        if searchAnd != []:
-            searchDict['$and'] = searchAnd
+    print(f"[DEBUG] Final search dict: {searchDict}")
 
-        if mode =='channels':
+    try:
+        # Test the query first
+        test_count = collection.objects(__raw__=searchDict).count()
+        print(f"[DEBUG] Test query found {test_count} documents")
+        
+        # Apply the query
+        if mode == 'channels':
             recordsTotal = collection.objects(__raw__=searchDict).count()
             documents = collection.objects(__raw__=searchDict).order_by('category_id').skip(start).limit(limit)
         else:
             recordsTotal = collection.objects(__raw__=searchDict).count()
             documents = collection.objects(__raw__=searchDict).skip(start).limit(limit)
-        return processDocuments(documents,recordsTotal,start,limit)
-    else:
-        if filter !='':
-            searchDict = {}
-            searchAnd = getFilterDict(filter)
-            if searchAnd !=[]:
-                if product_name!='':
-                    searchAnd.append({'name' : product_name})
-                searchDict['$and'] = searchAnd
-                if mode =='channels':
-                    recordsTotal = collection.objects(__raw__=searchDict).count()
-                    documents = collection.objects(__raw__=searchDict).order_by('category_id').skip(start).limit(limit)
-                else:
-                    recordsTotal = collection.objects(__raw__=searchDict).count()
-                    documents = collection.objects(__raw__=searchDict).skip(start).limit(limit)
-                return processDocuments(documents,recordsTotal,start,limit)
-            else:
-                return {'status' : 'error', 'message' : 'no filter found' }
-        else:
-            if product_name!='':
-                searchDict['$and'] = [{'name' : product_name}]
-                if mode =='channels':
-                    recordsTotal = collection.objects(__raw__=searchDict).count()
-                    documents = collection.objects(__raw__=searchDict).order_by('category_id').skip(start).limit(limit)
-                else:
-                    recordsTotal = collection.objects(__raw__=searchDict).count()
-                    documents = collection.objects(__raw__=searchDict).skip(start).limit(limit)
-                return processDocuments(documents,recordsTotal,start,limit)
-            else:
-                if mode=='channels':
-                    recordsTotal = collection.objects().count()
-                    documents = collection.objects.order_by('category_id').skip(start).limit(limit)
 
-                else:
-                    recordsTotal = collection.objects().count()
-                    documents = collection.objects.skip(start).limit(limit)
-                return processDocuments(documents,recordsTotal,start,limit)
+        return processDocuments(documents, recordsTotal, start, limit)
+    except Exception as e:
+        print(f"[DEBUG] Error in searchDocuments: {str(e)}")
+        print(f"[DEBUG] Collection: {collection}")
+        print(f"[DEBUG] Search dict: {searchDict}")
+        return {'status': 'error', 'message': str(e)}
 
 
 
@@ -158,8 +161,8 @@ def getFilter(category):
 def processDocuments(documents, recordsTotal, start, limit):
     print('processDocuments')
     
-    # Handle case where documents is None or recordsTotal is not defined
-    if documents is None or recordsTotal is None:
+    # Handle case where documents is None
+    if documents is None:
         return {'status': 'error', 'message': 'no documents found'}
 
     # Calculate pagination values
@@ -171,6 +174,7 @@ def processDocuments(documents, recordsTotal, start, limit):
     end = min(start + limit, recordsTotal)
     display_start = start + 1 if recordsTotal > 0 else start
 
+    # Return successful response even if no documents found (empty list is valid)
     return {
         'status': 'ok',
         'message': '',

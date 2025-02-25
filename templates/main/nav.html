@@ -123,17 +123,27 @@
           <div
             id="admin-collapse-content"
             class="collapse hidden w-full overflow-hidden transition-[height] duration-300"
+            role="menu"
             aria-labelledby="admin-collapse"
           >
             <div>
-              <ul class="menu space-y-0.5 w-full">
+              <ul class="menu w-full space-y-0.5">
                 <li class="w-full">
                   <a
                     href="{{ url_for('list', collection='user') }}"
                     class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 rounded-lg"
                   >
-                    <span class="icon-[tabler--users] size-3.5 shrink-0"></span>
+                    <span class="icon-[tabler--users] size-5 shrink-0"></span>
                     <span class="truncate">Manage Users</span>
+                  </a>
+                </li>
+                <li class="w-full">
+                  <a
+                    href="{{ url_for('list', collection='models') }}"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 rounded-lg"
+                  >
+                    <span class="icon-[tabler--brain] size-5 shrink-0"></span>
+                    <span class="truncate">Manage Models</span>
                   </a>
                 </li>
               </ul>

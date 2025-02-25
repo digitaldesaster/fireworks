@@ -22,6 +22,6 @@ model = {'provider': 'deepseek', 'model': 'deepseek-chat', 'name': 'deepseek-cha
 # Prompt.objects().delete()
 # File.objects().delete()
 
-user = User.objects(email='alexander.fillips@gmail.com').first()
+user = User.objects(email='alexander.fillips@micronova.de').first()
 user.role = 'admin'
 user.save()

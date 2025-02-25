@@ -18,4 +18,19 @@ module.exports = {
     themes: ["light", "dark", "gourmet"],
     vendors: true, // Enable vendor-specific CSS generation
   },
+  safelist: [
+    'list-inside',
+    'list-disc',
+    'list-decimal',
+    'marker:text-purple-500',
+    'mb-2',
+    {
+      pattern: /^list-/,
+      variants: ['hover', 'focus'],
+    },
+    {
+      pattern: /^marker:/,
+      variants: ['hover', 'focus'],
+    }
+  ]
 };

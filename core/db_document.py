@@ -129,7 +129,21 @@ def getDefaults(name):
         print("[DEBUG] No defaults found")
         return None
 
-class User(UserMixin, DynamicDocument):
+class AccessControlMixin:
+    def can_access(self, user):
+        """Default access control - allows access to all users"""
+        return True
+        
+    def can_list(self, user):
+        """Default list access control - allows listing to all users"""
+        return True
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Default list filter - no filtering"""
+        return None
+
+class User(UserMixin, AccessControlMixin, DynamicDocument):
     firstname = StringField(required=True)
     name = StringField(required=True)
     email = StringField(required=True, unique=True)
@@ -177,19 +191,31 @@ class User(UserMixin, DynamicDocument):
         """Check if user has admin role"""
         return self.role == 'admin'
     
-    def can_view_user(self, user_id):
-        """Check if user has permission to view a specific user profile"""
-        return self.is_admin or str(self.id) == str(user_id)
+    def can_access(self, user):
+        """Check if a user can access this specific user profile"""
+        return user.is_admin or str(user.id) == str(self.id)
 
-class File(AuditMixin, DynamicDocument):
+    def can_list(self, user):
+        """Only admins can list all users"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Regular users can only see themselves"""
+        if not user.is_admin:
+            return {'_id': user.id}
+        return None
+
+class File(AccessControlMixin, AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=4)
-    owner_id = StringField(required=True)  # Add owner_id field
+    owner_id = StringField(required=True)
+    category = StringField(default='')  # 'prompt' or 'history' or other categories
     meta = {'queryset_class': CustomQuerySet}
     
     def searchFields(self):
         return ['name']
     
-    def fields(self, list_order = False):
+    def fields(self, list_order=False):
         name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, "full_width": False}
         category = {'name': 'category', 'label': 'Kategorie', 'class': 'hidden-xs', 'type': 'TextField', "full_width": False}
         if list_order:
@@ -198,8 +224,37 @@ class File(AuditMixin, DynamicDocument):
     
     def can_access(self, user):
         """Check if a user can access this file"""
-        return user.is_admin or str(user.id) == str(self.owner_id)
+        # Admin can access all files
+        if user.is_admin:
+            return True
+            
+        # If file is part of a prompt, anyone can access
+        if self.category == 'prompt':
+            return True
+            
+        # For history files or other categories, only owner can access
+        return str(user.id) == str(self.owner_id)
     
+    def can_list(self, user):
+        """Users can list files"""
+        return True
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Filter logic for file listing"""
+        if user.is_admin:
+            return None  # Admins see all files
+            
+        # Regular users see:
+        # 1. Their own files (including history files)
+        # 2. Files associated with prompts
+        return {
+            '$or': [
+                {'owner_id': str(user.id)},
+                {'category': 'prompt'}
+            ]
+        }
+
     def save(self, *args, **kwargs):
         if not self.owner_id and current_user and current_user.is_authenticated:
             self.owner_id = str(current_user.id)
@@ -208,26 +263,41 @@ class File(AuditMixin, DynamicDocument):
     def to_json(self):
         return mongoToJson(self)
 
-class Filter(AuditMixin, DynamicDocument):
-    name = StringField(required=True,min_length=4)
+class Filter(AccessControlMixin, AuditMixin, DynamicDocument):
+    name = StringField(required=True, min_length=4)
     meta = {'queryset_class': CustomQuerySet}
+    
     def searchFields(self):
         return ['name']
-    def fields(self, list_order = False):
-        name = {'name' :  'name', 'label' : 'Name', 'class' : '', 'type' : 'SingleLine', 'required' : True}
-        category = {'name' :  'category', 'label' : 'Kategorie', 'class' : '', 'type' : 'SingleLine'}
+        
+    def fields(self, list_order=False):
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True}
+        category = {'name': 'category', 'label': 'Kategorie', 'class': '', 'type': 'SingleLine'}
 
-        if list_order != None and list_order == True:
-            #fields in the overview table of the collection
+        if list_order:
             return [name, category]
         return [name, category]
+
+    def can_access(self, user):
+        """Only admins can access filters"""
+        return user.is_admin
+        
+    def can_list(self, user):
+        """Only admins can list filters"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No additional filtering needed since access is already admin-only"""
+        return None
+
     def to_json(self):
         return mongoToJson(self)
 
 #example of a DynamicDocument with all available fields
 #fields are then used in the form_elements.html to create the form
 #the fields are then used in the db_crud.py to create the document
-class Example(AuditMixin, DynamicDocument):
+class Example(AccessControlMixin, AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     email = StringField(required=True, min_length=1)
     salutation = StringField(default='')
@@ -314,9 +384,22 @@ class Example(AuditMixin, DynamicDocument):
     def to_json(self):
         return mongoToJson(self)
 
+    def can_access(self, user):
+        """Only admins can access examples"""
+        return user.is_admin
+        
+    def can_list(self, user):
+        """Only admins can list examples"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No additional filtering needed since access is already admin-only"""
+        return None
+
 #AI Documents
 #AI Chat Bot Code
-class Model(AuditMixin, DynamicDocument):
+class Model(AccessControlMixin, AuditMixin, DynamicDocument):
     provider = StringField(required=True, min_length=1)
     model = StringField(required=True, min_length=1)
     name = StringField(required=True, min_length=1)
@@ -335,35 +418,73 @@ class Model(AuditMixin, DynamicDocument):
             return [name, provider, model]
         return [name, provider, model]
 
+    def can_access(self, user):
+        """Only admins can access models"""
+        return user.is_admin
+        
+    def can_list(self, user):
+        """Only admins can list models"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No additional filtering needed since access is already admin-only"""
+        return None
+
     def to_json(self):
         return mongoToJson(self)
 
-class History(AuditMixin, DynamicDocument):
-    user_id = StringField(required=True)  # Store user ID instead of username
+class History(AccessControlMixin, AuditMixin, DynamicDocument):
+    user_id = StringField(required=True)
     chat_started = IntField()
     messages = StringField()
     first_message = StringField()
     link = StringField(default='')
     file_ids = ListField(StringField())
     
+    meta = {'queryset_class': CustomQuerySet}
+    
     def searchFields(self):
-        return ['messages','first_message']
+        return ['messages', 'first_message']
     
     def fields(self, list_order=False):
         user_id = {'name': 'user_id', 'label': 'User ID', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
-        chat_started = {'name': 'chat_started', 'label': ' Started', 'class': '', 'type': 'IntField', 'required': True, 'full_width': False}
+        created_date = {'name': 'created_date', 'label': 'Date', 'class': '', 'type': 'Date', 'full_width': False}
         first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
         messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
         link = {'name': 'link', 'label': 'Chat', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/history'}
+        
         if list_order:
-            return [link, first_message]
+            # Show these fields in the list view
+            return [created_date, first_message, link]
+        # Show these fields in the edit form
         return [user_id, first_message, chat_started, messages, link]
     
-    def can_view(self, user):
-        """Check if a user can view this history"""
+    def can_access(self, user):
+        """Check if a user can access this specific history entry"""
         return user.is_admin or str(user.id) == str(self.user_id)
+    
+    def can_list(self, user):
+        """Users can always list their own history"""
+        return True
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Filter to only show user's own history"""
+        print(f"[DEBUG] Getting list filter for user {user.id}")
+        filter_dict = {'user_id': str(user.id)}
+        print(f"[DEBUG] Returning filter: {filter_dict}")
+        return filter_dict
+    
+    def save(self, *args, **kwargs):
+        if not self.user_id and current_user and current_user.is_authenticated:
+            self.user_id = str(current_user.id)
+        return super().save(*args, **kwargs)
 
-class Prompt(AuditMixin, DynamicDocument):
+    def to_json(self):
+        return mongoToJson(self)
+
+class Prompt(AccessControlMixin, AuditMixin, DynamicDocument):
     name = StringField(required=True, min_length=1)
     welcome_message = StringField(required=True, min_length=1)
     system_message = StringField(required=True, min_length=1)
@@ -395,6 +516,19 @@ class Prompt(AuditMixin, DynamicDocument):
         if list_order:
             return [link, name, prompt]
         return [name, welcome_message, system_message, prompt, files, link]
+
+    def can_access(self, user):
+        """Check if user can access this prompt"""
+        return True  # All users can access prompts
+        
+    def can_list(self, user):
+        """Check if user can list prompts"""
+        return True  # All users can list prompts
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No filtering needed for prompts"""
+        return None  # No filtering - everyone sees all prompts
 
     def to_json(self):
         return mongoToJson(self)
