@@ -33,6 +33,7 @@ def llm_call_stream(messages, model):
         output_tokens = 0
         accumulated_text = ""
         for line in response:
+            print(line.type)
             if line.type == 'message_start':
                 input_tokens = line.message.usage.input_tokens
             elif line.type == 'message_delta':
@@ -63,6 +64,7 @@ def llm_call_stream(messages, model):
         )
 
         accumulated_text = ""
+        citations = []
         for line in response:
             # Skip empty chunks or chunks without choices
             if not hasattr(line, 'choices') or len(line.choices) == 0:
@@ -79,7 +81,13 @@ def llm_call_stream(messages, model):
                 if accumulated_text:
                     yield " ".encode('utf-8')
                 try:
-                    yield f"###STOP###{json.dumps(line.usage)}".encode('utf-8')
+                    response_data = line.model_dump()
+                    if 'citations' in response_data:
+                        citations = response_data['citations']
+                        print("Citations found:", citations)  # Print citations when found
+                    usage_data = line.usage.model_dump()
+                    usage_data['citations'] = citations
+                    yield f"###STOP###{json.dumps(usage_data)}".encode('utf-8')
                 except:
                     yield "###STOP###null".encode('utf-8')
 
@@ -116,4 +124,3 @@ def llm_call(messages, model, stream=True):
     if stream:
         return llm_call_stream(messages, model)
     return llm_call_no_stream(messages, model)
-        

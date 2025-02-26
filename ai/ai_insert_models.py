@@ -13,14 +13,19 @@ from core.db_connect import *
 models = [
   {'provider':'openai','model':'gpt-4o','name':'OpenAI - GPT-4o'},
   {'provider':'openai','model':'gpt-4o-mini','name':'OpenAI - GPT-4o Mini'},
-  # {'provider':'openai','model':'gpt-4-turbo-preview','name':'gpt-4-turbo'},
-  # {'provider':'together','model':'meta-llama/Llama-2-70b-chat-hf','name':'meta-llama-2-70b'},
-  # {'provider':'anthropic','model':'claude-3-haiku-20240307','name':'claude-3-haiku'},
-  # {'provider':'anthropic','model':'claude-3-opus-20240229','name':'claude-3-opus'},
-  #  {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'},
-  #  {'provider':'deepseek','model':'deepseek-chat','name':'deepseek-chat'},
-   {'provider':'perplexity','model':'llama-3.1-sonar-large-128k-online','name':'Online - Perplexity Llama 3.1'},
-   {'provider':'azure','model':'gpt-4o-sweden-02','name':'Azure - GPT-4o - Sweden'},
+  {'provider':'openai','model':'gpt-4-turbo-preview','name':'gpt-4-turbo'},
+  {'provider':'together','model':'meta-llama/Llama-2-70b-chat-hf','name':'meta-llama-2-70b'},
+  {'provider':'anthropic','model':'claude-3-haiku-20240307','name':'claude-3-haiku'},
+  {'provider':'anthropic','model':'claude-3-opus-20240229','name':'claude-3-opus'},
+  {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'},
+  {'provider':'deepseek','model':'deepseek-chat','name':'deepseek-chat'},
+  {'provider':'perplexity','model':'sonar-deep-research','name':'Perplexity - Sonar Deep Research'},
+  {'provider':'perplexity','model':'sonar-reasoning-pro','name':'Perplexity - Sonar Reasoning Pro'},
+  {'provider':'perplexity','model':'sonar-reasoning','name':'Perplexity - Sonar Reasoning'},
+  {'provider':'perplexity','model':'sonar-pro','name':'Perplexity - Sonar Pro'},
+  {'provider':'perplexity','model':'sonar','name':'Perplexity - Sonar'},
+  {'provider':'perplexity','model':'r1-1776','name':'Perplexity - R1-1776'},
+   #{'provider':'azure','model':'gpt-4o-sweden-02','name':'Azure - GPT-4o - Sweden'},
   ]
 
 # Delete existing models
