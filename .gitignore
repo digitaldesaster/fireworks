@@ -37,3 +37,4 @@ build/
 package-lock.json
 
 core/documents/
+static/css/output.css

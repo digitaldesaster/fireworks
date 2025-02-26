@@ -1,3 +1,9 @@
-# add the javascript animation library [motion.dev](https://motion.dev/)
+# replace Window Alert with Modal for History Cleanup
+# add vectore database support
+# test out other perplexity models
+# test gemini models
+# add agentic behavior to the bot
 
-# remove Flyon UI and replace it with pure tailwind css
+
+# add the javascript animation library [motion.dev](https://motion.dev/)
+# remove Flyon UI and replace it with pure tailwind css ???

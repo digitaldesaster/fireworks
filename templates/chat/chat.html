@@ -116,6 +116,22 @@
       var selected_model = models[0]['model'];
       var selected_model_name = models[0]['name'];
       var selectedModelElement = document.getElementById('selected_model');
+      var modelBadgeElement = document.querySelector('[data-model-badge]');
+
+      // Function to update badge color based on model name
+      function updateModelBadgeColor(modelName) {
+        if (modelBadgeElement) {
+          // Remove any existing badge color classes
+          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
+          
+          // Add appropriate class based on model name
+          if (modelName.includes('Azure')) {
+            modelBadgeElement.classList.add('badge-success');
+          } else {
+            modelBadgeElement.classList.add('badge-error');
+          }
+        }
+      }
 
       // Check localStorage for saved model
       if (localStorage.getItem('selected_model') !== null) {
@@ -127,6 +143,8 @@
       }
 
       selectedModelElement.innerText = selected_model_name;
+      // Set initial badge color
+      updateModelBadgeColor(selected_model_name);
 
       document.addEventListener('click', function (e) {
         if (e.target.closest('#prompts .prompt')) {
@@ -151,6 +169,8 @@
           selected_model_name = event.target.dataset.name;
           localStorage.setItem('selected_model', selected_model);
           selectedModelElement.innerText = selected_model_name;
+          // Update badge color when model changes
+          updateModelBadgeColor(selected_model_name);
           const modelSelectorButton = document.getElementById('modelSelectorButton');
           if (modelSelectorButton) {
             modelSelectorButton.click();
