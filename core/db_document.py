@@ -453,6 +453,7 @@ class History(AccessControlMixin, AuditMixin, DynamicDocument):
         first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
         messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
         link = {'name': 'link', 'label': 'Chat', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/history'}
+        chat_started = {'name': 'chat_started', 'label': 'Chat Started', 'class': '', 'type': 'IntField', 'full_width': False}
         
         if list_order:
             # Show these fields in the list view

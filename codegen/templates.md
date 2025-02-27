@@ -21,6 +21,21 @@ module.exports = {
     themes: ["light", "dark", "gourmet"],
     vendors: true, // Enable vendor-specific CSS generation
   },
+  safelist: [
+    'list-inside',
+    'list-disc',
+    'list-decimal',
+    'marker:text-purple-500',
+    'mb-2',
+    {
+      pattern: /^list-/,
+      variants: ['hover', 'focus'],
+    },
+    {
+      pattern: /^marker:/,
+      variants: ['hover', 'focus'],
+    }
+  ]
 };
 ```
 
@@ -261,6 +276,73 @@ module.exports = {
     </main>
 
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+  </body>
+</html>
+```
+
+## base/document/prompt_form.html
+
+```
+<!doctype html>
+<html lang="en" class="overflow-y-scroll">
+  {% include('/main/header.html') %}
+  <body class="bg-gray-50 min-h-screen">
+    {% include('/main/nav.html') %}
+
+    <section class="p-4 sm:p-6 flex items-center lg:ml-64">
+      <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
+        <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg p-3 sm:p-4">
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-row justify-between items-center gap-2 sm:gap-4">
+              <h1 class="text-xl font-semibold text-gray-900">{{ page.title }}</h1>
+              <div class="flex-none">
+                <a href="{{ url_for('list', collection=mode) }}" class="btn btn-secondary whitespace-nowrap">
+                  Back to List
+                </a>
+              </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="id" value="{{ document.id }}">
+              <input type="hidden" name="user_id" value="{{ document.user_id }}">
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for element in elements %}
+                  {% if element.type == 'TextField' %}
+                    <div class="{% if element.full_width %}col-span-1 md:col-span-2{% endif %}">
+                      <label for="{{ element.id }}" class="block mb-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
+                      <input type="text" id="{{ element.id }}" name="{{ element.name }}" value="{{ element.value }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" {% if element.required %}required{% endif %}>
+                    </div>
+                  {% elif element.type == 'TextArea' %}
+                    <div class="{% if element.full_width %}col-span-1 md:col-span-2{% endif %}">
+                      <label for="{{ element.id }}" class="block mb-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
+                      <textarea id="{{ element.id }}" name="{{ element.name }}" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" {% if element.required %}required{% endif %}>{{ element.value }}</textarea>
+                    </div>
+                  {% elif element.type == 'EditorField' %}
+                    <div class="col-span-1 md:col-span-2">
+                      <label for="{{ element.id }}" class="block mb-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
+                      <textarea id="{{ element.id }}" name="{{ element.name }}" rows="10" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" {% if element.required %}required{% endif %}>{{ element.value }}</textarea>
+                    </div>
+                  {% elif element.type == 'CheckBox' %}
+                    <div class="{% if element.full_width %}col-span-1 md:col-span-2{% endif %}">
+                      <div class="flex items-center">
+                        <input type="checkbox" id="{{ element.id }}" name="{{ element.name }}" value="1" {% if element.value %}checked{% endif %} class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500">
+                        <label for="{{ element.id }}" class="ml-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              
+              <div class="mt-6 flex justify-end">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
 ```
@@ -1139,7 +1221,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
         >
           {% for field in document %}
           <td
-            class="font-normal leading-normal px-4 py-2 border-r border-slate-200 dark:border-slate-700 last:border-r-0"
+            class="font-normal leading-normal px-4 py-2 border-r border-slate-200 dark:border-slate-700 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
           >
             {% if field.type == 'ButtonField' %}
             <div class="flex justify-start items-center">
@@ -1152,7 +1234,11 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
                 </button>
               </a>
             </div>
-            {% else %} {{field.value}} {% endif %}
+            {% else %} 
+              <div class="{% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}">
+                {{field.value}}
+              </div>
+            {% endif %}
           </td>
           {% endfor %}
           <td class="w-16 px-4 py-2 text-right sticky right-0 bg-white">
@@ -1201,6 +1287,259 @@ for i in range(1, 20):
 
     # Create user with generated data
     create_user(username, name, email, password, role='user')
+```
+
+## components/confirm_modal.html
+
+```
+<div
+  id="{{ modal_id }}"
+  tabindex="-1"
+  class="hidden overflow-y-auto overflow-x-hidden bg-gray-600 bg-opacity-65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
+  data-action="{{ action_url|default('') }}"
+  data-redirect="{{ redirect_url|default('') }}"
+  data-message="{{ message|default('Are you sure?') }}"
+  data-title="{{ title|default('Confirm Action') }}"
+>
+  <div
+    class="modal-content relative p-4 w-full max-w-md max-h-full"
+  >
+    <div class="relative bg-white rounded-lg shadow">
+      <button
+        type="button"
+        class="close-modal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+      >
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="p-4 md:p-5 text-center">
+        <svg
+          class="mx-auto mb-4 text-gray-400 w-12 h-12"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+        <h3 class="mb-2 text-lg font-medium text-gray-900">{{ title|default('Confirm Action') }}</h3>
+        <p class="mb-5 text-gray-500">{{ message|default('Are you sure?') }}</p>
+        <button
+          type="button"
+          class="confirm-action text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+        >
+          Yes, I'm sure
+        </button>
+        <button
+          type="button"
+          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+        >
+          No, cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+## components/confirm_modal.js
+
+```
+// Generic confirmation modal handler
+class ConfirmModal {
+  constructor(modalId) {
+    this.modal = document.getElementById(modalId);
+    if (!this.modal) {
+      console.error(`Modal with ID ${modalId} not found`);
+      return;
+    }
+    
+    console.log(`Initializing modal: ${modalId}`);
+    
+    this.modalContent = this.modal.querySelector('.modal-content');
+    console.log('Modal content:', this.modalContent);
+    
+    // Use more specific selectors to find the buttons
+    this.confirmButton = this.modal.querySelector('button.confirm-action');
+    console.log('Confirm button:', this.confirmButton);
+    
+    this.cancelButton = this.modal.querySelector('button.cancel-action');
+    console.log('Cancel button:', this.cancelButton);
+    
+    this.closeButton = this.modal.querySelector('button.close-modal');
+    console.log('Close button:', this.closeButton);
+    
+    this.actionUrl = this.modal.dataset.action || '';
+    this.redirectUrl = this.modal.dataset.redirect || '';
+    
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    // Close modal when clicking cancel or close buttons
+    if (this.cancelButton) {
+      this.cancelButton.addEventListener('click', (e) => {
+        console.log('Cancel button clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        this.hideModal();
+      });
+    }
+    
+    if (this.closeButton) {
+      this.closeButton.addEventListener('click', (e) => {
+        console.log('Close button clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        this.hideModal();
+      });
+    }
+    
+    // Close modal when clicking outside
+    this.modal.addEventListener('click', (event) => {
+      if (this.modalContent && !this.modalContent.contains(event.target)) {
+        console.log('Clicked outside modal');
+        this.hideModal();
+      }
+    });
+    
+    // Handle confirm action
+    if (this.confirmButton) {
+      this.confirmButton.addEventListener('click', (e) => {
+        console.log('Confirm button clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        this.handleConfirmAction();
+      });
+    } else {
+      console.error('Confirm button not found in modal');
+    }
+  }
+
+  showModal() {
+    console.log('Showing modal');
+    this.modal.classList.remove('hidden');
+  }
+
+  hideModal() {
+    console.log('Hiding modal');
+    this.modal.classList.add('hidden');
+  }
+
+  handleConfirmAction() {
+    // Default implementation for API calls
+    if (this.actionUrl) {
+      console.log(`Making request to: ${this.actionUrl}`);
+      fetch(this.actionUrl)
+        .then(response => response.json())
+        .then(result => {
+          console.log('Response:', result);
+          if (result.status === 'ok') {
+            if (this.redirectUrl) {
+              console.log(`Redirecting to: ${this.redirectUrl}`);
+              window.location.href = this.redirectUrl;
+            }
+            // Trigger a custom event that specific implementations can listen for
+            const event = new CustomEvent('confirmAction:success', { 
+              detail: { modalId: this.modal.id, result } 
+            });
+            document.dispatchEvent(event);
+          } else {
+            console.error('Action failed:', result);
+            // Trigger error event
+            const event = new CustomEvent('confirmAction:error', { 
+              detail: { modalId: this.modal.id, result } 
+            });
+            document.dispatchEvent(event);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        })
+        .finally(() => {
+          this.hideModal();
+        });
+    }
+  }
+}
+
+// Initialize all confirm modals on the page
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, initializing modals');
+  
+  // Find all confirm modals
+  const modals = document.querySelectorAll('[id$="_modal"]');
+  console.log(`Found ${modals.length} modals`);
+  
+  // Initialize each modal
+  modals.forEach(modal => {
+    console.log(`Creating ConfirmModal for ${modal.id}`);
+    new ConfirmModal(modal.id);
+  });
+  
+  // Add trigger handlers for buttons that should open modals
+  const modalTriggers = document.querySelectorAll('[data-modal-target]');
+  console.log(`Found ${modalTriggers.length} modal triggers`);
+  
+  modalTriggers.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      const modalId = this.dataset.modalTarget;
+      console.log(`Trigger clicked for modal: ${modalId}`);
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('hidden');
+      } else {
+        console.error(`Modal with ID ${modalId} not found`);
+      }
+    });
+  });
+  
+  // Add file deletion functionality (migrated from delete_document.js)
+  document.querySelectorAll('.delete_file').forEach(button => {
+    button.addEventListener('click', function (event) {
+      event.preventDefault();
+      const documentId = this.getAttribute('document_id');
+      const fileId = this.id;
+      const url = `/delete_document?id=${fileId}&type=files`;
+      
+      fetch(url)
+      .then(response => response.json())
+      .then(data => {
+          if (data.status=='ok') {
+              const fileElement = document.getElementById(documentId);
+              if (fileElement) {
+                  fileElement.remove();
+                  console.log("File removed!")
+              }
+          } else {
+              console.error('Failed to delete document:', data);
+          }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  });
+});
 ```
 
 ## chat/chat_messages_rendered.html
@@ -1470,8 +1809,8 @@ for i in range(1, 20):
       >
         <button
           id="modelSelectorButton"
-          class="badge badge-outline badge-primary dropdown-toggle"
-          data-dropdown-toggle
+          class="badge badge-outline dropdown-toggle"
+          data-model-badge
         >
           <span id="selected_model"></span>
         </button>
@@ -1702,6 +2041,22 @@ for i in range(1, 20):
       var selected_model = models[0]['model'];
       var selected_model_name = models[0]['name'];
       var selectedModelElement = document.getElementById('selected_model');
+      var modelBadgeElement = document.querySelector('[data-model-badge]');
+
+      // Function to update badge color based on model name
+      function updateModelBadgeColor(modelName) {
+        if (modelBadgeElement) {
+          // Remove any existing badge color classes
+          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
+          
+          // Add appropriate class based on model name
+          if (modelName.includes('Azure')) {
+            modelBadgeElement.classList.add('badge-success');
+          } else {
+            modelBadgeElement.classList.add('badge-error');
+          }
+        }
+      }
 
       // Check localStorage for saved model
       if (localStorage.getItem('selected_model') !== null) {
@@ -1713,6 +2068,8 @@ for i in range(1, 20):
       }
 
       selectedModelElement.innerText = selected_model_name;
+      // Set initial badge color
+      updateModelBadgeColor(selected_model_name);
 
       document.addEventListener('click', function (e) {
         if (e.target.closest('#prompts .prompt')) {
@@ -1737,6 +2094,8 @@ for i in range(1, 20):
           selected_model_name = event.target.dataset.name;
           localStorage.setItem('selected_model', selected_model);
           selectedModelElement.innerText = selected_model_name;
+          // Update badge color when model changes
+          updateModelBadgeColor(selected_model_name);
           const modelSelectorButton = document.getElementById('modelSelectorButton');
           if (modelSelectorButton) {
             modelSelectorButton.click();

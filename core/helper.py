@@ -385,7 +385,7 @@ def tableContent(documents, table_header):
                         value = datetime.datetime.fromtimestamp(date/1000).strftime('%d.%m.%Y')
                 
                 # Handle link fields for history
-                if field['type'] == 'ButtonField' and field.get('link') == '/chat/history':
+                if field['type'] == 'ButtonField':
                     link = f"{field['link']}/{document['id']}"
                     tableRow.append({
                         'name': field['name'],

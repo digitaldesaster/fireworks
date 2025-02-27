@@ -12,7 +12,7 @@ from bson.objectid import ObjectId
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument, upload_file
 from core.db_helper import getFile
-from core.db_document import File, Prompt
+from core.db_document import File, Prompt, getDefaults
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
@@ -98,7 +98,6 @@ def doc(name, id='', return_format='html'):
 	# Add special handling for history documents
 	if name == 'history' and id:
 		# Get the history document
-		from core.db_default import getDefaults
 		default = getDefaults('history')
 		if default:
 			try:
