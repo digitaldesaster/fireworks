@@ -70,8 +70,7 @@ def llm_call_stream(messages, model):
             # O1 models don't support streaming, so always use non-streaming approach
             response = client.chat.completions.create(
                 model=model['model'],
-                messages=prepared_messages,
-                stream=True
+                messages=prepared_messages
             )
             # Handle non-streaming O1 response
             content = response.choices[0].message.content
