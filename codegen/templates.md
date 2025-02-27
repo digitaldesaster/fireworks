@@ -280,73 +280,6 @@ module.exports = {
 </html>
 ```
 
-## base/document/prompt_form.html
-
-```
-<!doctype html>
-<html lang="en" class="overflow-y-scroll">
-  {% include('/main/header.html') %}
-  <body class="bg-gray-50 min-h-screen">
-    {% include('/main/nav.html') %}
-
-    <section class="p-4 sm:p-6 flex items-center lg:ml-64">
-      <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
-        <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg p-3 sm:p-4">
-          <div class="flex flex-col gap-4">
-            <div class="flex flex-row justify-between items-center gap-2 sm:gap-4">
-              <h1 class="text-xl font-semibold text-gray-900">{{ page.title }}</h1>
-              <div class="flex-none">
-                <a href="{{ url_for('list', collection=mode) }}" class="btn btn-secondary whitespace-nowrap">
-                  Back to List
-                </a>
-              </div>
-            </div>
-
-            <form method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="id" value="{{ document.id }}">
-              <input type="hidden" name="user_id" value="{{ document.user_id }}">
-              
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {% for element in elements %}
-                  {% if element.type == 'TextField' %}
-                    <div class="{% if element.full_width %}col-span-1 md:col-span-2{% endif %}">
-                      <label for="{{ element.id }}" class="block mb-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
-                      <input type="text" id="{{ element.id }}" name="{{ element.name }}" value="{{ element.value }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" {% if element.required %}required{% endif %}>
-                    </div>
-                  {% elif element.type == 'TextArea' %}
-                    <div class="{% if element.full_width %}col-span-1 md:col-span-2{% endif %}">
-                      <label for="{{ element.id }}" class="block mb-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
-                      <textarea id="{{ element.id }}" name="{{ element.name }}" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" {% if element.required %}required{% endif %}>{{ element.value }}</textarea>
-                    </div>
-                  {% elif element.type == 'EditorField' %}
-                    <div class="col-span-1 md:col-span-2">
-                      <label for="{{ element.id }}" class="block mb-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
-                      <textarea id="{{ element.id }}" name="{{ element.name }}" rows="10" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" {% if element.required %}required{% endif %}>{{ element.value }}</textarea>
-                    </div>
-                  {% elif element.type == 'CheckBox' %}
-                    <div class="{% if element.full_width %}col-span-1 md:col-span-2{% endif %}">
-                      <div class="flex items-center">
-                        <input type="checkbox" id="{{ element.id }}" name="{{ element.name }}" value="1" {% if element.value %}checked{% endif %} class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500">
-                        <label for="{{ element.id }}" class="ml-2 text-sm font-medium text-gray-900">{{ element.label }}</label>
-                      </div>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-              
-              <div class="mt-6 flex justify-end">
-                <button type="submit" class="btn btn-primary">Save</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </body>
-</html>
-```
-
 ## base/document/form.html
 
 ```
@@ -395,83 +328,17 @@ module.exports = {
                   <button
                     type="button"
                     class="btn btn-error w-1/2"
-                    id="deleteButton"
+                    data-modal-target="confirm_modal"
+                    data-action="{{url_for('delete_document')}}?id={{document.id}}&type={{page.document_name}}"
+                    data-redirect="{{ page.collection_url }}"
+                    data-message="Are you sure you want to delete this {{page.document_name}}? This action cannot be undone."
+                    data-title="Confirm Deletion"
                   >
                     Delete
                   </button>
                 </div>
               </div>
             </form>
-
-            <div
-              id="deleteModal"
-              tabindex="-1"
-              class="hidden overflow-y-auto overflow-x-hidden bg-gray-600 bg-opacity-65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
-            >
-              <div
-                id="modalContent"
-                class="relative p-4 w-full max-w-md max-h-full"
-              >
-                <div class="relative bg-white rounded-lg shadow">
-                  <button
-                    type="button"
-                    class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                    id="closeModal"
-                  >
-                    <svg
-                      class="w-3 h-3"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 14"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                      />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                  </button>
-                  <div class="p-4 md:p-5 text-center">
-                    <svg
-                      class="mx-auto mb-4 text-gray-400 w-12 h-12"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                      />
-                    </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500">
-                      Are you sure?
-                    </h3>
-                    <button
-                      id="confirmDelete"
-                      type="button"
-                      class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-                    >
-                      Yes, I'm sure
-                    </button>
-                    <button
-                      id="cancelDelete"
-                      type="button"
-                      class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-                    >
-                      No, cancel
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -488,10 +355,8 @@ module.exports = {
     </script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-
-        {% include 'base/document/js/delete_document.js' %}
+        // We're now using the global confirm modal, so we don't need delete_document.js
         {% include 'base/document/js/search_field.js' %}
-
       });
     </script>
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
@@ -543,9 +408,13 @@ module.exports = {
       </a>
     </span>
     <button
-      id="{{file.id}}"
-      document_id="{{file.document_id}}"
-      class="delete_file bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"
+      type="button"
+      data-modal-target="confirm_modal"
+      data-action="/delete_document?id={{file.id}}&type=files"
+      data-document-id="{{file.document_id}}"
+      data-message="Are you sure you want to delete this file? This action cannot be undone."
+      data-title="Delete File"
+      class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"
     >
       Delete
     </button>
@@ -1022,169 +891,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
       </div>
     </section>
 
-    <!-- Delete Modal -->
-    <div
-      id="deleteModal"
-      tabindex="-1"
-      class="hidden overflow-y-auto overflow-x-hidden bg-gray-600 bg-opacity-65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
-    >
-      <div id="modalContent" class="relative p-4 w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-lg shadow">
-          <button
-            type="button"
-            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-            id="closeModal"
-          >
-            <svg
-              class="w-3 h-3"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-              />
-            </svg>
-            <span class="sr-only">Close modal</span>
-          </button>
-          <div class="p-4 md:p-5 text-center">
-            <svg
-              class="mx-auto mb-4 text-gray-400 w-12 h-12"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-            <h3 class="mb-5 text-lg font-normal text-gray-500">
-              Are you sure?
-            </h3>
-            <button
-              id="confirmDelete"
-              type="button"
-              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-            >
-              Yes, I'm sure
-            </button>
-            <button
-              id="cancelDelete"
-              type="button"
-              class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-            >
-              No, cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
-    <script>
-      document.querySelectorAll(".delete-btn").forEach((button) => {
-        button.addEventListener("click", function () {
-          const id = this.dataset.id;
-          const type = this.dataset.type;
-          const modal = document.getElementById("deleteModal");
-          const modalContent = document.getElementById("modalContent");
-          const confirmDelete = document.getElementById("confirmDelete");
-          const cancelDelete = document.getElementById("cancelDelete");
-          const closeButton = document.getElementById("closeModal");
-
-          // Show modal
-          modal.classList.remove("hidden");
-
-          // Handle delete confirmation
-          const handleDelete = () => {
-            const url = "{{ url_for('delete_document') }}";
-
-            fetch(url + "?id=" + id + "&type=" + type, {
-              method: "GET",
-              headers: {
-                "X-CSRFToken": "{{ csrf_token() }}",
-              },
-            })
-              .then((response) => response.json())
-              .then((result) => {
-                if (result.status === "ok") {
-                  // Remove the row from the table
-                  const row = button.closest("tr");
-                  row.remove();
-
-                  // Show success notification
-                  const notification = document.createElement("div");
-                  notification.className =
-                    "fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50";
-                  notification.textContent = "Document deleted successfully";
-                  document.body.appendChild(notification);
-                  setTimeout(() => notification.remove(), 3000);
-                } else {
-                  // Show error notification
-                  const notification = document.createElement("div");
-                  notification.className =
-                    "fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded shadow-lg z-50";
-                  notification.textContent =
-                    "Error deleting document: " + result.message;
-                  document.body.appendChild(notification);
-                  setTimeout(() => notification.remove(), 3000);
-                }
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-                // Show error notification
-                const notification = document.createElement("div");
-                notification.className =
-                  "fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded shadow-lg z-50";
-                notification.textContent = "Error deleting document";
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 3000);
-              })
-              .finally(() => {
-                modal.classList.add("hidden");
-                cleanup();
-              });
-          };
-
-          // Handle modal close
-          const handleClose = () => {
-            modal.classList.add("hidden");
-            cleanup();
-          };
-
-          // Cleanup event listeners
-          const cleanup = () => {
-            confirmDelete.removeEventListener("click", handleDelete);
-            cancelDelete.removeEventListener("click", handleClose);
-            closeButton.removeEventListener("click", handleClose);
-            modal.removeEventListener("click", handleOutsideClick);
-          };
-
-          // Handle click outside modal
-          const handleOutsideClick = (event) => {
-            if (!modalContent.contains(event.target)) {
-              handleClose();
-            }
-          };
-
-          // Add event listeners
-          confirmDelete.addEventListener("click", handleDelete);
-          cancelDelete.addEventListener("click", handleClose);
-          closeButton.addEventListener("click", handleClose);
-          modal.addEventListener("click", handleOutsideClick);
-        });
-      });
-    </script>
   </body>
 </html>
 ```
@@ -1217,6 +924,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
       <tbody>
         {% for document in table_content %}
         <tr
+          id="tr-{{document[0].id}}"
           class="{% if not loop.last %}border-b border-slate-200 dark:border-slate-700{% endif %}"
         >
           {% for field in document %}
@@ -1251,9 +959,12 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
               </a>
               <button
                 type="button"
-                class="btn btn-error btn-sm btn-outline delete-btn"
-                data-id="{{document[0].id}}"
-                data-type="{{collection_name}}"
+                class="btn btn-error btn-sm btn-outline"
+                data-modal-target="confirm_modal"
+                data-action="{{ url_for('delete_document') }}?id={{document[0].id}}&type={{collection_name}}"
+                data-document-id="tr-{{document[0].id}}"
+                data-message="Are you sure you want to delete this {{collection_name}}? This action cannot be undone."
+                data-title="Delete {{collection_name|capitalize}}"
               >
                 <span class="icon-[tabler--trash] size-4"></span>
               </button>
@@ -1293,13 +1004,9 @@ for i in range(1, 20):
 
 ```
 <div
-  id="{{ modal_id }}"
+  id="confirm_modal"
   tabindex="-1"
   class="hidden overflow-y-auto overflow-x-hidden bg-gray-600 bg-opacity-65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
-  data-action="{{ action_url|default('') }}"
-  data-redirect="{{ redirect_url|default('') }}"
-  data-message="{{ message|default('Are you sure?') }}"
-  data-title="{{ title|default('Confirm Action') }}"
 >
   <div
     class="modal-content relative p-4 w-full max-w-md max-h-full"
@@ -1342,8 +1049,8 @@ for i in range(1, 20):
             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
           />
         </svg>
-        <h3 class="mb-2 text-lg font-medium text-gray-900">{{ title|default('Confirm Action') }}</h3>
-        <p class="mb-5 text-gray-500">{{ message|default('Are you sure?') }}</p>
+        <h3 class="mb-2 text-lg font-medium text-gray-900">Confirm Action</h3>
+        <p class="mb-5 text-gray-500">Are you sure?</p>
         <button
           type="button"
           class="confirm-action text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
@@ -1377,20 +1084,22 @@ class ConfirmModal {
     console.log(`Initializing modal: ${modalId}`);
     
     this.modalContent = this.modal.querySelector('.modal-content');
-    console.log('Modal content:', this.modalContent);
-    
-    // Use more specific selectors to find the buttons
     this.confirmButton = this.modal.querySelector('button.confirm-action');
-    console.log('Confirm button:', this.confirmButton);
-    
     this.cancelButton = this.modal.querySelector('button.cancel-action');
-    console.log('Cancel button:', this.cancelButton);
-    
     this.closeButton = this.modal.querySelector('button.close-modal');
-    console.log('Close button:', this.closeButton);
     
-    this.actionUrl = this.modal.dataset.action || '';
-    this.redirectUrl = this.modal.dataset.redirect || '';
+    // Elements for dynamic content
+    this.titleElement = this.modal.querySelector('h3');
+    this.messageElement = this.modal.querySelector('p');
+    
+    // Store modal ID for reference
+    this.modalId = modalId;
+    
+    // Initialize with default data attributes
+    this.actionUrl = '';
+    this.redirectUrl = '';
+    this.documentId = '';
+    this.documentType = '';
     
     this.setupEventListeners();
   }
@@ -1436,8 +1145,14 @@ class ConfirmModal {
     }
   }
 
-  showModal() {
+  showModal(triggerElement) {
     console.log('Showing modal');
+    
+    // Update modal content based on trigger element's data attributes
+    if (triggerElement) {
+      this.updateModalFromTrigger(triggerElement);
+    }
+    
     this.modal.classList.remove('hidden');
   }
 
@@ -1445,45 +1160,104 @@ class ConfirmModal {
     console.log('Hiding modal');
     this.modal.classList.add('hidden');
   }
+  
+  updateModalFromTrigger(triggerElement) {
+    // Get data attributes from trigger element
+    this.actionUrl = triggerElement.dataset.action || '';
+    this.redirectUrl = triggerElement.dataset.redirect || '';
+    this.documentId = triggerElement.dataset.documentId || '';
+    this.documentType = triggerElement.dataset.documentType || '';
+    
+    // Update modal content
+    if (this.titleElement && triggerElement.dataset.title) {
+      this.titleElement.textContent = triggerElement.dataset.title;
+    }
+    
+    if (this.messageElement && triggerElement.dataset.message) {
+      this.messageElement.textContent = triggerElement.dataset.message;
+    }
+    
+    // Update modal data attributes (for backward compatibility)
+    this.modal.dataset.action = this.actionUrl;
+    this.modal.dataset.redirect = this.redirectUrl;
+  }
 
   handleConfirmAction() {
-    // Default implementation for API calls
-    if (this.actionUrl) {
-      console.log(`Making request to: ${this.actionUrl}`);
-      fetch(this.actionUrl)
-        .then(response => response.json())
-        .then(result => {
-          console.log('Response:', result);
-          if (result.status === 'ok') {
-            if (this.redirectUrl) {
-              console.log(`Redirecting to: ${this.redirectUrl}`);
-              window.location.href = this.redirectUrl;
-            }
-            // Trigger a custom event that specific implementations can listen for
-            const event = new CustomEvent('confirmAction:success', { 
-              detail: { modalId: this.modal.id, result } 
-            });
-            document.dispatchEvent(event);
-          } else {
-            console.error('Action failed:', result);
-            // Trigger error event
-            const event = new CustomEvent('confirmAction:error', { 
-              detail: { modalId: this.modal.id, result } 
-            });
-            document.dispatchEvent(event);
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        })
-        .finally(() => {
-          this.hideModal();
-        });
+    // Use the action URL from object property
+    const url = this.actionUrl;
+    
+    if (!url) {
+      console.error('No action URL specified for modal');
+      this.hideModal();
+      return;
     }
+    
+    console.log(`Making request to: ${url}`);
+    
+    // Determine if we should use POST method
+    const usePost = this.modal.dataset.method === 'post' || url.includes('delete_all_history');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+    
+    // Prepare fetch options
+    const fetchOptions = {
+      method: usePost ? 'POST' : 'GET',
+      headers: {}
+    };
+    
+    // Add CSRF token for POST requests
+    if (usePost && csrfToken) {
+      fetchOptions.headers['X-CSRFToken'] = csrfToken;
+    }
+    
+    fetch(url, fetchOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log('Response:', result);
+        if (result.status === 'ok') {
+          // Handle document/element removal if document ID is provided
+          if (this.documentId) {
+            const element = document.getElementById(this.documentId);
+            if (element) {
+              console.log(`Removing element with ID: ${this.documentId}`);
+              element.remove();
+            }
+          }
+          
+          // Handle redirect if URL provided
+          if (this.redirectUrl) {
+            console.log(`Redirecting to: ${this.redirectUrl}`);
+            window.location.href = this.redirectUrl;
+          }
+          
+          // Trigger success event
+          const event = new CustomEvent('confirmAction:success', { 
+            detail: { 
+              modalId: this.modalId, 
+              result, 
+              documentType: this.documentType,
+              action: url.split('?')[0].split('/').pop() // Extract action name from URL
+            } 
+          });
+          document.dispatchEvent(event);
+        } else {
+          console.error('Action failed:', result);
+          // Trigger error event
+          const event = new CustomEvent('confirmAction:error', { 
+            detail: { modalId: this.modalId, result } 
+          });
+          document.dispatchEvent(event);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        this.hideModal();
+      });
   }
 }
 
-// Initialize all confirm modals on the page
+// Initialize the global confirm modal when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, initializing modals');
   
@@ -1491,52 +1265,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const modals = document.querySelectorAll('[id$="_modal"]');
   console.log(`Found ${modals.length} modals`);
   
+  // Store modal instances in a global object for reference
+  window.modalInstances = {};
+  
   // Initialize each modal
   modals.forEach(modal => {
     console.log(`Creating ConfirmModal for ${modal.id}`);
-    new ConfirmModal(modal.id);
+    window.modalInstances[modal.id] = new ConfirmModal(modal.id);
   });
   
   // Add trigger handlers for buttons that should open modals
   const modalTriggers = document.querySelectorAll('[data-modal-target]');
   console.log(`Found ${modalTriggers.length} modal triggers`);
   
-  modalTriggers.forEach(button => {
-    button.addEventListener('click', function(event) {
+  modalTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function(event) {
       event.preventDefault();
       const modalId = this.dataset.modalTarget;
       console.log(`Trigger clicked for modal: ${modalId}`);
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.remove('hidden');
-      } else {
-        console.error(`Modal with ID ${modalId} not found`);
-      }
-    });
-  });
-  
-  // Add file deletion functionality (migrated from delete_document.js)
-  document.querySelectorAll('.delete_file').forEach(button => {
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      const documentId = this.getAttribute('document_id');
-      const fileId = this.id;
-      const url = `/delete_document?id=${fileId}&type=files`;
       
-      fetch(url)
-      .then(response => response.json())
-      .then(data => {
-          if (data.status=='ok') {
-              const fileElement = document.getElementById(documentId);
-              if (fileElement) {
-                  fileElement.remove();
-                  console.log("File removed!")
-              }
-          } else {
-              console.error('Failed to delete document:', data);
-          }
-      })
-      .catch(error => console.error('Error:', error));
+      const modalInstance = window.modalInstances[modalId];
+      if (modalInstance) {
+        modalInstance.showModal(this);
+      } else {
+        console.error(`Modal instance for ID ${modalId} not found`);
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.remove('hidden');
+        } else {
+          console.error(`Modal with ID ${modalId} not found`);
+        }
+      }
     });
   });
 });
@@ -2116,6 +1875,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Fireworks</title>
   <link
     rel="stylesheet"
@@ -2125,6 +1885,7 @@ document.addEventListener('DOMContentLoaded', function() {
     rel="stylesheet"
     href="{{ url_for('static', filename='css/flatpickr.min.css') }}"
   />
+  <script src="{{ url_for('static', filename='js/confirm_modal.js') }}" defer></script>
 </head>
 ```
 
@@ -2393,7 +2154,10 @@ document.addEventListener('DOMContentLoaded', function() {
                   <button
                     type="button"
                     class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-error rounded-lg group"
-                    onclick="handleDeleteHistory()"
+                    data-modal-target="confirm_modal"
+                    data-action="{{ url_for('dms_chat.delete_all_history') }}"
+                    data-message="Are you sure you want to delete all history documents? This action cannot be undone."
+                    data-title="Delete All History"
                   >
                     <span class="icon-[tabler--trash] size-3.5 shrink-0"></span>
                     <span class="truncate">Delete History </span>
@@ -2596,31 +2360,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Function to handle history deletion
   async function handleDeleteHistory() {
-    if (
-      !confirm(
-        "Are you sure you want to delete all history documents? This action cannot be undone.",
-      )
-    ) {
-      return;
-    }
+    // This function is kept for backward compatibility
+    // but is no longer directly called by the button click
+    console.log("Legacy handleDeleteHistory called");
+  }
 
-    try {
-      const response = await fetch(
-        "{{ url_for('dms_chat.delete_all_history') }}",
-        {
-          method: "POST",
-          headers: {
-            "X-CSRFToken": "{{ csrf_token() }}",
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to delete history");
-      }
-
-      const result = await response.json();
-
+  // Listen for the confirmAction:success event from our confirm modal
+  document.addEventListener('confirmAction:success', async function(event) {
+    const { modalId, result, documentType } = event.detail;
+    
+    // If this is from delete all history action
+    if (result && result.action === 'delete_all_history') {
       // Check if we're on a history page or list history page
       const currentPath = window.location.pathname;
       if (
@@ -2634,11 +2384,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Update the navigation items
       await updateNavItems();
-    } catch (error) {
-      console.error("Error deleting history:", error);
-      showErrorNotification("Failed to delete history. Please try again.");
     }
-  }
+  });
 
   // Initialize nav items when the page loads
   document.addEventListener("DOMContentLoaded", updateNavItems);
@@ -2655,5 +2402,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Update every 30 seconds, but use debouncing to prevent overlapping calls
   setInterval(debouncedUpdate, 30000);
 </script>
+
+{% include 'components/confirm_modal.html' %}
 ```
 
