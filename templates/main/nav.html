@@ -51,8 +51,8 @@
   </div>
 
   <div class="navbar-end flex items-center gap-2">
-    <!-- Dark Mode Toggle - Only visible on screens larger than sm -->
-    <div class="items-center mr-2 hidden sm:flex">
+    <!-- Dark Mode Toggle - Only visible on screens larger than md -->
+    <div class="items-center mr-2 hidden md:flex">
       <div class="flex items-center gap-1">
         <span class="icon-[tabler--sun] size-5 text-yellow-500"></span>
         <input
@@ -68,7 +68,7 @@
     </div>
     <!-- User Avatar Dropdown for Desktop -->
     <div
-      class="dropdown relative inline-flex max-sm:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
+      class="dropdown relative inline-flex max-md:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
     >
       <button
         type="button"
@@ -108,10 +108,10 @@
         </form>
       </ul>
     </div>
-    <!-- Mobile Menu Button - Only visible on sm screens and below -->
+    <!-- Mobile Menu Button - Only visible on md screens and below -->
     <button
       type="button"
-      class="btn btn-text max-sm:btn-square sm:hidden"
+      class="btn btn-text max-md:btn-square md:hidden"
       aria-haspopup="dialog"
       aria-expanded="false"
       aria-controls="mobile-menu-overlay"
@@ -124,7 +124,7 @@
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start w-64 max-w-64 sm:fixed sm:top-[57px] sm:bottom-0 sm:left-0 sm:z-40 sm:flex sm:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start w-64 max-w-64 md:fixed md:top-[57px] md:bottom-0 md:left-0 md:z-40 md:flex md:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
   <div
@@ -134,7 +134,7 @@
     <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
       <ul class="menu w-full space-y-0.5 p-0">
         <!-- Dark Mode Toggle (Mobile View) - Aligned with other menu items -->
-        <li class="w-full sm:hidden">
+        <li class="w-full md:hidden">
           <div class="flex items-center gap-2 px-4 py-2 w-full">
             <span class="icon-[tabler--sun-moon] size-5 shrink-0"></span>
             <span class="truncate flex-1">Mode</span>
@@ -371,7 +371,7 @@
     </div>
 
     <!-- Fixed Footer Section -->
-    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 sm:hidden">
+    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 md:hidden">
       <form action="{{ url_for('logout') }}" method="post" class="w-full">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button
@@ -712,8 +712,8 @@
 
 <!-- Screen Size Indicator Script -->
 <script>
-  // Function to update screen size information
   function updateScreenSizeIndicator() {
+    // Get current dimensions
     const width = window.innerWidth;
     const height = window.innerHeight;
 
