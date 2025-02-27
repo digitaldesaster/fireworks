@@ -10,20 +10,22 @@ class ConfirmModal {
     console.log(`Initializing modal: ${modalId}`);
     
     this.modalContent = this.modal.querySelector('.modal-content');
-    console.log('Modal content:', this.modalContent);
-    
-    // Use more specific selectors to find the buttons
     this.confirmButton = this.modal.querySelector('button.confirm-action');
-    console.log('Confirm button:', this.confirmButton);
-    
     this.cancelButton = this.modal.querySelector('button.cancel-action');
-    console.log('Cancel button:', this.cancelButton);
-    
     this.closeButton = this.modal.querySelector('button.close-modal');
-    console.log('Close button:', this.closeButton);
     
-    this.actionUrl = this.modal.dataset.action || '';
-    this.redirectUrl = this.modal.dataset.redirect || '';
+    // Elements for dynamic content
+    this.titleElement = this.modal.querySelector('h3');
+    this.messageElement = this.modal.querySelector('p');
+    
+    // Store modal ID for reference
+    this.modalId = modalId;
+    
+    // Initialize with default data attributes
+    this.actionUrl = '';
+    this.redirectUrl = '';
+    this.documentId = '';
+    this.documentType = '';
     
     this.setupEventListeners();
   }
@@ -69,8 +71,14 @@ class ConfirmModal {
     }
   }
 
-  showModal() {
+  showModal(triggerElement) {
     console.log('Showing modal');
+    
+    // Update modal content based on trigger element's data attributes
+    if (triggerElement) {
+      this.updateModalFromTrigger(triggerElement);
+    }
+    
     this.modal.classList.remove('hidden');
   }
 
@@ -78,45 +86,104 @@ class ConfirmModal {
     console.log('Hiding modal');
     this.modal.classList.add('hidden');
   }
+  
+  updateModalFromTrigger(triggerElement) {
+    // Get data attributes from trigger element
+    this.actionUrl = triggerElement.dataset.action || '';
+    this.redirectUrl = triggerElement.dataset.redirect || '';
+    this.documentId = triggerElement.dataset.documentId || '';
+    this.documentType = triggerElement.dataset.documentType || '';
+    
+    // Update modal content
+    if (this.titleElement && triggerElement.dataset.title) {
+      this.titleElement.textContent = triggerElement.dataset.title;
+    }
+    
+    if (this.messageElement && triggerElement.dataset.message) {
+      this.messageElement.textContent = triggerElement.dataset.message;
+    }
+    
+    // Update modal data attributes (for backward compatibility)
+    this.modal.dataset.action = this.actionUrl;
+    this.modal.dataset.redirect = this.redirectUrl;
+  }
 
   handleConfirmAction() {
-    // Default implementation for API calls
-    if (this.actionUrl) {
-      console.log(`Making request to: ${this.actionUrl}`);
-      fetch(this.actionUrl)
-        .then(response => response.json())
-        .then(result => {
-          console.log('Response:', result);
-          if (result.status === 'ok') {
-            if (this.redirectUrl) {
-              console.log(`Redirecting to: ${this.redirectUrl}`);
-              window.location.href = this.redirectUrl;
-            }
-            // Trigger a custom event that specific implementations can listen for
-            const event = new CustomEvent('confirmAction:success', { 
-              detail: { modalId: this.modal.id, result } 
-            });
-            document.dispatchEvent(event);
-          } else {
-            console.error('Action failed:', result);
-            // Trigger error event
-            const event = new CustomEvent('confirmAction:error', { 
-              detail: { modalId: this.modal.id, result } 
-            });
-            document.dispatchEvent(event);
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        })
-        .finally(() => {
-          this.hideModal();
-        });
+    // Use the action URL from object property
+    const url = this.actionUrl;
+    
+    if (!url) {
+      console.error('No action URL specified for modal');
+      this.hideModal();
+      return;
     }
+    
+    console.log(`Making request to: ${url}`);
+    
+    // Determine if we should use POST method
+    const usePost = this.modal.dataset.method === 'post' || url.includes('delete_all_history');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+    
+    // Prepare fetch options
+    const fetchOptions = {
+      method: usePost ? 'POST' : 'GET',
+      headers: {}
+    };
+    
+    // Add CSRF token for POST requests
+    if (usePost && csrfToken) {
+      fetchOptions.headers['X-CSRFToken'] = csrfToken;
+    }
+    
+    fetch(url, fetchOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log('Response:', result);
+        if (result.status === 'ok') {
+          // Handle document/element removal if document ID is provided
+          if (this.documentId) {
+            const element = document.getElementById(this.documentId);
+            if (element) {
+              console.log(`Removing element with ID: ${this.documentId}`);
+              element.remove();
+            }
+          }
+          
+          // Handle redirect if URL provided
+          if (this.redirectUrl) {
+            console.log(`Redirecting to: ${this.redirectUrl}`);
+            window.location.href = this.redirectUrl;
+          }
+          
+          // Trigger success event
+          const event = new CustomEvent('confirmAction:success', { 
+            detail: { 
+              modalId: this.modalId, 
+              result, 
+              documentType: this.documentType,
+              action: url.split('?')[0].split('/').pop() // Extract action name from URL
+            } 
+          });
+          document.dispatchEvent(event);
+        } else {
+          console.error('Action failed:', result);
+          // Trigger error event
+          const event = new CustomEvent('confirmAction:error', { 
+            detail: { modalId: this.modalId, result } 
+          });
+          document.dispatchEvent(event);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        this.hideModal();
+      });
   }
 }
 
-// Initialize all confirm modals on the page
+// Initialize the global confirm modal when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, initializing modals');
   
@@ -124,52 +191,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const modals = document.querySelectorAll('[id$="_modal"]');
   console.log(`Found ${modals.length} modals`);
   
+  // Store modal instances in a global object for reference
+  window.modalInstances = {};
+  
   // Initialize each modal
   modals.forEach(modal => {
     console.log(`Creating ConfirmModal for ${modal.id}`);
-    new ConfirmModal(modal.id);
+    window.modalInstances[modal.id] = new ConfirmModal(modal.id);
   });
   
   // Add trigger handlers for buttons that should open modals
   const modalTriggers = document.querySelectorAll('[data-modal-target]');
   console.log(`Found ${modalTriggers.length} modal triggers`);
   
-  modalTriggers.forEach(button => {
-    button.addEventListener('click', function(event) {
+  modalTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function(event) {
       event.preventDefault();
       const modalId = this.dataset.modalTarget;
       console.log(`Trigger clicked for modal: ${modalId}`);
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.remove('hidden');
-      } else {
-        console.error(`Modal with ID ${modalId} not found`);
-      }
-    });
-  });
-  
-  // Add file deletion functionality (migrated from delete_document.js)
-  document.querySelectorAll('.delete_file').forEach(button => {
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      const documentId = this.getAttribute('document_id');
-      const fileId = this.id;
-      const url = `/delete_document?id=${fileId}&type=files`;
       
-      fetch(url)
-      .then(response => response.json())
-      .then(data => {
-          if (data.status=='ok') {
-              const fileElement = document.getElementById(documentId);
-              if (fileElement) {
-                  fileElement.remove();
-                  console.log("File removed!")
-              }
-          } else {
-              console.error('Failed to delete document:', data);
-          }
-      })
-      .catch(error => console.error('Error:', error));
+      const modalInstance = window.modalInstances[modalId];
+      if (modalInstance) {
+        modalInstance.showModal(this);
+      } else {
+        console.error(`Modal instance for ID ${modalId} not found`);
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.remove('hidden');
+        } else {
+          console.error(`Modal with ID ${modalId} not found`);
+        }
+      }
     });
   });
 }); 

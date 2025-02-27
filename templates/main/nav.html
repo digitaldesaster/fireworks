@@ -10,6 +10,18 @@
       Fireworks
     </a>
   </div>
+  
+  <!-- Screen Size Indicator (Temporary) -->
+  <div id="screen-size-indicator" class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2">
+    <span class="icon-[tabler--device-desktop-analytics] size-4"></span>
+    <span class="screen-width">0</span> × <span class="screen-height">0</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="640" data-name="sm">sm</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="768" data-name="md">md</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1024" data-name="lg">lg</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1280" data-name="xl">xl</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1536" data-name="2xl">2xl</span>
+  </div>
+  
   <div class="navbar-end flex items-center gap-2">
     <!-- User Avatar Dropdown for Desktop -->
     <div
@@ -260,7 +272,10 @@
                   <button
                     type="button"
                     class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-error rounded-lg group"
-                    onclick="handleDeleteHistory()"
+                    data-modal-target="confirm_modal"
+                    data-action="{{ url_for('dms_chat.delete_all_history') }}"
+                    data-message="Are you sure you want to delete all history documents? This action cannot be undone."
+                    data-title="Delete All History"
                   >
                     <span class="icon-[tabler--trash] size-3.5 shrink-0"></span>
                     <span class="truncate">Delete History </span>
@@ -463,49 +478,37 @@
 
   // Function to handle history deletion
   async function handleDeleteHistory() {
-    if (
-      !confirm(
-        "Are you sure you want to delete all history documents? This action cannot be undone.",
-      )
-    ) {
-      return;
-    }
+    // This function is kept for backward compatibility
+    // but is no longer directly called by the button click
+    console.log("Legacy handleDeleteHistory called");
+  }
 
-    try {
-      const response = await fetch(
-        "{{ url_for('dms_chat.delete_all_history') }}",
-        {
-          method: "POST",
-          headers: {
-            "X-CSRFToken": "{{ csrf_token() }}",
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to delete history");
-      }
-
-      const result = await response.json();
-
+  // Listen for the confirmAction:success event from our confirm modal
+  document.addEventListener('confirmAction:success', async function(event) {
+    const { modalId, result, documentType, action } = event.detail;
+    
+    // If this is from delete all history action
+    if (result && (result.action === 'delete_all_history' || action === 'delete_all_history')) {
+      console.log('History deletion was successful');
+      
       // Check if we're on a history page or list history page
       const currentPath = window.location.pathname;
       if (
         currentPath.includes("/chat/history/") ||
-        currentPath.includes("/list/history")
+        currentPath.includes("/list/history") ||
+        currentPath.includes("/d/history")
       ) {
+        console.log('On history page, redirecting to index');
         // Redirect to index page
         window.location.href = "/";
         return;
       }
 
+      console.log('Not on history page, updating navigation items');
       // Update the navigation items
       await updateNavItems();
-    } catch (error) {
-      console.error("Error deleting history:", error);
-      showErrorNotification("Failed to delete history. Please try again.");
     }
-  }
+  });
 
   // Initialize nav items when the page loads
   document.addEventListener("DOMContentLoaded", updateNavItems);
@@ -521,4 +524,176 @@
 
   // Update every 30 seconds, but use debouncing to prevent overlapping calls
   setInterval(debouncedUpdate, 30000);
+  
+  // Special handler for the delete history button in the collapsed menu
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteHistoryBtn = document.querySelector('button[data-action*="delete_all_history"]');
+    if (deleteHistoryBtn) {
+      console.log('Found delete history button, adding special handler');
+      deleteHistoryBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Delete history button clicked via special handler');
+        
+        const modalId = this.dataset.modalTarget;
+        const modalInstance = window.modalInstances ? window.modalInstances[modalId] : null;
+        
+        if (modalInstance) {
+          console.log('Using modal instance for delete history', this.dataset);
+          // Make sure we correctly update the modal from this button's data attributes
+          modalInstance.updateModalFromTrigger(this);
+          modalInstance.showModal();
+        } else {
+          // Fallback: try to get modal directly
+          console.log('No modal instance found, trying direct access');
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            // Update modal content directly
+            const title = modal.querySelector('h3');
+            const message = modal.querySelector('p');
+            const confirmBtn = modal.querySelector('button.confirm-action');
+            
+            // Set data attributes on the modal itself for the confirm action
+            modal.dataset.action = this.dataset.action;
+            modal.dataset.method = 'post'; // Force POST method for delete_all_history
+            
+            if (title) title.textContent = this.dataset.title || 'Confirm Action';
+            if (message) message.textContent = this.dataset.message || 'Are you sure?';
+            
+            // Attach direct click handler to confirm button as fallback
+            if (confirmBtn) {
+              confirmBtn.onclick = function() {
+                const url = modal.dataset.action;
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                
+                fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'X-CSRFToken': csrfToken
+                  }
+                })
+                .then(response => response.json())
+                .then(result => {
+                  console.log('History deletion result:', result);
+                  if (result.status === 'ok') {
+                    // Show success notification
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white';
+                    notification.textContent = 'History deleted successfully';
+                    document.body.appendChild(notification);
+                    setTimeout(() => notification.remove(), 3000);
+                    
+                    // Check if we're on a history-related page
+                    const currentPath = window.location.pathname;
+                    if (
+                      currentPath.includes("/chat/history/") ||
+                      currentPath.includes("/list/history") ||
+                      currentPath.includes("/d/history")
+                    ) {
+                      console.log('On history page, redirecting to index');
+                      window.location.href = "/";
+                      return;
+                    }
+                    
+                    // Update the navigation
+                    console.log('Not on history page, updating navigation');
+                    updateNavItems();
+                  }
+                  modal.classList.add('hidden');
+                })
+                .catch(error => {
+                  console.error('Error deleting history:', error);
+                  modal.classList.add('hidden');
+                });
+              };
+            }
+            
+            // Show modal
+            modal.classList.remove('hidden');
+          }
+        }
+      });
+    } else {
+      console.warn('Delete history button not found on DOMContentLoaded');
+      
+      // Try again after a slight delay to account for dynamic content
+      setTimeout(function() {
+        const delayedButton = document.querySelector('button[data-action*="delete_all_history"]');
+        if (delayedButton) {
+          console.log('Found delete history button after delay');
+          delayedButton.click(); // Trigger the click to ensure it works
+        } else {
+          console.error('Delete history button not found even after delay');
+        }
+      }, 500);
+    }
+  });
 </script>
+
+<!-- Screen Size Indicator Script -->
+<script>
+  // Function to update screen size information
+  function updateScreenSizeIndicator() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    // Update the displayed dimensions
+    document.querySelectorAll('.screen-width').forEach(el => {
+      el.textContent = width;
+    });
+    
+    document.querySelectorAll('.screen-height').forEach(el => {
+      el.textContent = height;
+    });
+    
+    // Show the indicator on all screens 
+    const indicator = document.getElementById('screen-size-indicator');
+    if (indicator) {
+      indicator.classList.remove('hidden', 'md:flex');
+      indicator.classList.add('flex');
+    }
+
+    // Define breakpoints in order from smallest to largest
+    const breakpoints = [
+      { name: 'sm', minWidth: 640 },
+      { name: 'md', minWidth: 768 },
+      { name: 'lg', minWidth: 1024 },
+      { name: 'xl', minWidth: 1280 },
+      { name: '2xl', minWidth: 1536 }
+    ];
+    
+    // Find the highest active breakpoint
+    let activeBreakpoint = null;
+    for (let i = breakpoints.length - 1; i >= 0; i--) {
+      if (width >= breakpoints[i].minWidth) {
+        activeBreakpoint = breakpoints[i].name;
+        break;
+      }
+    }
+    
+    // Update all breakpoint tags
+    document.querySelectorAll('.breakpoint-tag').forEach(tag => {
+      const name = tag.dataset.name;
+      
+      // Reset all styles
+      tag.classList.remove('bg-green-500', 'text-white', 'font-bold', 'bg-gray-100', 'opacity-50');
+      
+      if (name === activeBreakpoint) {
+        // Highlight the active breakpoint
+        tag.classList.add('bg-green-500', 'text-white', 'font-bold');
+      } else {
+        // Make other breakpoints subtle
+        tag.classList.add('bg-gray-100', 'opacity-50');
+      }
+    });
+  }
+  
+  // Run on page load
+  document.addEventListener('DOMContentLoaded', updateScreenSizeIndicator);
+  
+  // Run whenever the window is resized
+  window.addEventListener('resize', updateScreenSizeIndicator);
+</script>
+
+{% include 'components/confirm_modal.html' %}

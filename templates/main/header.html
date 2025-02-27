@@ -1,6 +1,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Fireworks</title>
   <link
     rel="stylesheet"
@@ -10,4 +11,5 @@
     rel="stylesheet"
     href="{{ url_for('static', filename='css/flatpickr.min.css') }}"
   />
+  <script src="{{ url_for('static', filename='js/confirm_modal.js') }}" defer></script>
 </head>

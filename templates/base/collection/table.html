@@ -23,6 +23,7 @@
       <tbody>
         {% for document in table_content %}
         <tr
+          id="tr-{{document[0].id}}"
           class="{% if not loop.last %}border-b border-slate-200 dark:border-slate-700{% endif %}"
         >
           {% for field in document %}
@@ -57,9 +58,12 @@
               </a>
               <button
                 type="button"
-                class="btn btn-error btn-sm btn-outline delete-btn"
-                data-id="{{document[0].id}}"
-                data-type="{{collection_name}}"
+                class="btn btn-error btn-sm btn-outline"
+                data-modal-target="confirm_modal"
+                data-action="{{ url_for('delete_document') }}?id={{document[0].id}}&type={{collection_name}}"
+                data-document-id="tr-{{document[0].id}}"
+                data-message="Are you sure you want to delete this {{collection_name}}? This action cannot be undone."
+                data-title="Delete {{collection_name|capitalize}}"
               >
                 <span class="icon-[tabler--trash] size-4"></span>
               </button>

@@ -2,50 +2,76 @@
   id="chat_ui"
   class="fixed bottom-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full h-40 bg-base-100"
 >
-  <div
-    class="flex flex-col absolute bottom-0 left-0 right-0 h-32 ml-2 mr-2 mb-2 md:ml-10 md:mr-10 md:mb-4 rounded-xl bg-white shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-gray-100"
-  >
-    <div class="p-3 pr-16 overflow-hidden">
-      <textarea
-        id="chat_input"
-        placeholder="Type your message and press Command or Strg + Enter"
-        rows="3"
-        class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
-      ></textarea>
-    </div>
-    <div class="ml-6 mb-4 flex items-center gap-2">
-      <div
-        class="dropdown relative inline-flex [--placement:top]"
-        data-dropdown
-      >
-        <button
-          id="modelSelectorButton"
-          class="badge badge-outline dropdown-toggle"
-          data-model-badge
-        >
-          <span id="selected_model"></span>
-        </button>
+  <div class="h-full w-full 2xl:max-w-7xl 2xl:mx-auto relative">
+    <div
+      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 mx-2 mb-2 md:mx-10 md:mb-4 xl:mx-16 xl:mb-4 2xl:mx-20 2xl:mb-4 rounded-xl bg-white shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-gray-100"
+    >
+      <div class="p-3 pr-16 overflow-hidden">
+        <textarea
+          id="chat_input"
+          placeholder="Type your message and press Command or Strg + Enter"
+          rows="3"
+          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
+        ></textarea>
+      </div>
+      <div class="ml-6 mb-4 flex items-center gap-2">
         <div
-          class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="modelSelectorButton"
+          class="dropdown relative inline-flex [--placement:top]"
+          data-dropdown
         >
-          {% for model in config.models %}
           <button
-            id="{{ model.model }}"
-            data-name="{{ model.name }}"
-            class="model dropdown-item w-full text-left px-4 py-2 hover:bg-gray-100"
+            id="modelSelectorButton"
+            class="badge badge-outline dropdown-toggle"
+            data-model-badge
           >
-            {{ model.name }}
+            <span id="selected_model"></span>
           </button>
-          {% endfor %}
+          <div
+            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="modelSelectorButton"
+          >
+            {% for model in config.models %}
+            <button
+              id="{{ model.model }}"
+              data-name="{{ model.name }}"
+              class="model dropdown-item w-full text-left px-4 py-2 hover:bg-gray-100"
+            >
+              {{ model.name }}
+            </button>
+            {% endfor %}
+          </div>
         </div>
+
+        <label for="file-upload" class="cursor-pointer">
+          <div
+            class="badge badge-outline badge-secondary flex items-center gap-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+              />
+            </svg>
+            <span id="file-name-display">Upload</span>
+          </div>
+        </label>
+        <input type="file" id="file-upload" class="hidden" />
       </div>
 
-      <label for="file-upload" class="cursor-pointer">
-        <div
-          class="badge badge-outline badge-secondary flex items-center gap-1"
+      <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
+        <button
+          id="reset_button"
+          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,79 +79,55 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-4 h-4"
+            class="w-6 h-6"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+              d="M12 4.5v15m7.5-7.5h-15"
             />
           </svg>
-          <span id="file-name-display">Upload</span>
-        </div>
-      </label>
-      <input type="file" id="file-upload" class="hidden" />
-    </div>
+        </button>
 
-    <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
-      <button
-        id="reset_button"
-        class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+        <button
+          id="chat_button"
+          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
-        </svg>
-      </button>
-
-      <button
-        id="chat_button"
-        class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+            />
+          </svg>
+        </button>
+        <button
+          id="stop_button"
+          class="hidden bg-red-500 hover:bg-red-400 text-white font-extralight p-2.5 rounded"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-          />
-        </svg>
-      </button>
-      <button
-        id="stop_button"
-        class="hidden bg-red-500 hover:bg-red-400 text-white font-extralight p-2.5 rounded"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </div>

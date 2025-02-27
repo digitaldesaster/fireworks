@@ -1,11 +1,7 @@
 <div
-  id="{{ modal_id }}"
+  id="confirm_modal"
   tabindex="-1"
   class="hidden overflow-y-auto overflow-x-hidden bg-gray-600 bg-opacity-65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
-  data-action="{{ action_url|default('') }}"
-  data-redirect="{{ redirect_url|default('') }}"
-  data-message="{{ message|default('Are you sure?') }}"
-  data-title="{{ title|default('Confirm Action') }}"
 >
   <div
     class="modal-content relative p-4 w-full max-w-md max-h-full"
@@ -48,8 +44,8 @@
             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
           />
         </svg>
-        <h3 class="mb-2 text-lg font-medium text-gray-900">{{ title|default('Confirm Action') }}</h3>
-        <p class="mb-5 text-gray-500">{{ message|default('Are you sure?') }}</p>
+        <h3 class="mb-2 text-lg font-medium text-gray-900">Confirm Action</h3>
+        <p class="mb-5 text-gray-500">Are you sure?</p>
         <button
           type="button"
           class="confirm-action text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
