@@ -1,20 +1,20 @@
 <div class="flex flex-col gap-4">
   {% include('/base/collection/pagination.html') %}
   <div
-    class="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700"
+    class="overflow-x-auto rounded-lg border border-base-content/10"
   >
     <table class="table border-collapse w-full">
       <thead>
         <tr>
           {% for header in table_header %}
           <th
-            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-slate-200 dark:border-slate-700 last:border-r-0"
+            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-base-content/10 last:border-r-0"
           >
             {{header.label}}
           </th>
           {% endfor %}
           <th
-            class="w-16 px-4 py-3 text-right border-b border-r border-slate-200 dark:border-slate-700 last:border-r-0 sticky right-0 bg-white z-10"
+            class="w-16 px-4 py-3 text-right border-b border-r border-base-content/10 last:border-r-0 sticky right-0 bg-base-100 z-10"
           >
             Actions
           </th>
@@ -24,11 +24,11 @@
         {% for document in table_content %}
         <tr
           id="tr-{{document[0].id}}"
-          class="{% if not loop.last %}border-b border-slate-200 dark:border-slate-700{% endif %}"
+          class="{% if not loop.last %}border-b border-base-content/10{% endif %}"
         >
           {% for field in document %}
           <td
-            class="font-normal leading-normal px-4 py-2 border-r border-slate-200 dark:border-slate-700 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
+            class="font-normal leading-normal px-4 py-2 border-r border-base-content/10 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
           >
             {% if field.type == 'ButtonField' %}
             <div class="flex justify-start items-center">
@@ -48,7 +48,7 @@
             {% endif %}
           </td>
           {% endfor %}
-          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-white">
+          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-base-100">
             <div class="flex gap-2 justify-end">
               <a
                 href="{{document_url}}/{{document[0].id}}"

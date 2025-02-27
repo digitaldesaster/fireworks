@@ -5,7 +5,7 @@
 >
   {% if config.history %}
   <h3
-    class="text-center text-xl font-semibold text-gray-700 dark:text-gray-300"
+    class="text-center text-xl font-semibold text-base-content"
   >
     Last Chats
   </h3>
@@ -14,17 +14,17 @@
     <a href="/chat/history/{{ item.id }}" class="no-underline">
       <div
         id="history_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ item.first_message }}</span>
       </div>
     </a>
     {% endfor %}
   </div>
-  <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+  <hr class="h-px my-2 bg-base-content/10 border-0" />
   {% endif %} {% if config.latest_prompts %}
   <h3
-    class="text-center text-xl font-semibold text-gray-700 dark:text-gray-300"
+    class="text-center text-xl font-semibold text-base-content"
   >
     Latest Prompts
   </h3>
@@ -33,7 +33,7 @@
     <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
       <div
         id="prompt_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ prompt.name }}</span>
       </div>
@@ -43,12 +43,12 @@
   {% endif %} {% if not config.history and not config.latest_prompts %}
   <div class="flex flex-row flex-wrap justify-center gap-4">
     <div
-      class="prompt relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+      class="prompt relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
     >
       <span class="truncate">Wer war Ada Lovelace?</span>
     </div>
     <div
-      class="group relative prompt h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+      class="group relative prompt h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
     >
       <span class="truncate">Schreibe eine index.html</span>
     </div>

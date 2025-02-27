@@ -245,6 +245,20 @@ module.exports = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Flask App</title>
+    <!-- Early Theme Initialization -->
+    <script>
+      (function() {
+        // Apply theme before page renders to avoid flash of wrong theme
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+          document.documentElement.dataset.theme = 'dark';
+        } else {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/output.css') }}"
@@ -343,6 +357,20 @@ module.exports = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - Flask App</title>
+    <!-- Early Theme Initialization -->
+    <script>
+      (function() {
+        // Apply theme before page renders to avoid flash of wrong theme
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+          document.documentElement.dataset.theme = 'dark';
+        } else {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/output.css') }}"
@@ -450,7 +478,7 @@ module.exports = {
 <!doctype html>
 <html lang="en" data-theme="light" class="h-full overflow-y-scroll">
   {% include('main/header.html') %}
-  <body class="min-h-full flex flex-col bg-gray-50">
+  <body class="min-h-full flex flex-col bg-base-100">
     {% include('main/nav.html') %}
     <main class="flex-1 lg:pl-64">
       <div class="h-full flex items-center justify-center p-4">
@@ -483,13 +511,13 @@ module.exports = {
 <!doctype html>
 <html lang="en" class="overflow-y-scroll">
   {% include('/main/header.html') %}
-  <body class="bg-gray-50 min-h-screen">
+  <body class="bg-base-100 min-h-screen">
     {% include('/main/nav.html') %}
 
     <section class="p-6 flex items-center lg:ml-64">
       <div class="max-w-screen-xl mx-auto px-4 lg:px-12 w-full">
         <!-- Start coding here -->
-        <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+        <div class="relative bg-base-100 shadow-md sm:rounded-lg">
           <div class="flex items-center justify-center pt-4 px-4">
             <form
               method="POST"
@@ -595,7 +623,7 @@ module.exports = {
   />
   {% for file in element.value %} {% if file.element_id == element.id %}
   <div id="{{file.document_id}}" class="flex items-center justify-between mt-2">
-    <span class="mt-1 text-sm text-gray-600">
+    <span class="mt-1 text-sm text-base-content/60">
       <a
         href="{{url_for('download_file',file_id=file.id)}}"
         class="text-blue-600 hover:text-blue-500"
@@ -632,15 +660,15 @@ module.exports = {
     document_field="{{element.document_field}}"
     type="text"
     placeholder="Search..."
-    class="searchField bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+    class="searchField bg-base-200 border border-base-content/10 text-base-content text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
   />
 
   <!-- Dropdown Menu -->
   <div
     id="dropdownMenu"
-    class="z-10 hidden bg-white rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
+    class="z-10 hidden bg-base-100 rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
   >
-    <ul id="userList" class="py-2 text-gray-700"></ul>
+    <ul id="userList" class="py-2 text-base-content"></ul>
   </div>
   {% endif %} {% if element.type == 'IntField' or element.type =='FloatField' %}
 
@@ -726,90 +754,6 @@ module.exports = {
     {% endif %} -->
 </div>
 {% endfor %}
-```
-
-## base/document/js/delete_document.js
-
-```
-// Function to handle form submission for delete action
-function submitDeleteForm() {
-  var url =
-    "{{url_for('delete_document')}}" +
-    "?id=" +
-    "{{document.id}}&type={{page.document_name}}";
-
-  fetch(url)
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      if (result.status === "ok") {
-        console.log("Document Deleted");
-        window.location.href = "{{ page.collection_url }}";
-      } else {
-        console.log("Document not deleted");
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
-const modal = document.getElementById("deleteModal");
-const deleteButton = document.getElementById("deleteButton");
-const closeButton = document.getElementById("closeModal");
-const confirmButton = document.getElementById("confirmDelete");
-const cancelButton = document.getElementById("cancelDelete");
-const modalContent = document.getElementById('modalContent');
-
-function showModal() {
-  modal.classList.remove("hidden");
-}
-
-function hideModal() {
-  modal.classList.add("hidden");
-}
-
-deleteButton.addEventListener("click", showModal);
-closeButton.addEventListener("click", hideModal);
-cancelButton.addEventListener("click", hideModal);
-
-confirmButton.addEventListener("click", function (ev) {
-  ev.preventDefault();
-  submitDeleteForm();
-});
-
-modal.addEventListener('click', function(event) {
-  if (!modalContent.contains(event.target)) {
-    hideModal();
-  }
-});
-
-
-document.querySelectorAll('.delete_file').forEach(button => {
-    button.addEventListener('click', function (event) {
-        event.preventDefault();
-        const documentId = this.getAttribute('document_id');
-        const fileId = this.id;
-
-        const url = "{{ url_for('delete_document') }}" + "?id="+fileId + "&type=files";
-        console.log(url)
-
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status=='ok') {
-                const fileElement = document.getElementById(documentId);
-                if (fileElement) {
-                    fileElement.remove();
-                    console.log("File removed!")
-                }
-            } else {
-                console.error('Failed to delete document:', data);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    });
-});
 ```
 
 ## base/document/js/search_field.js
@@ -950,7 +894,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
       {% endif %}
     </nav>
 
-    <div class="text-sm text-gray-500">
+    <div class="text-sm text-base-content/60">
       {% if total != None and total > 0 %} Showing
       <span class="font-medium">{{start}}</span>
       to
@@ -1026,13 +970,13 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
 <!doctype html>
 <html lang="en" class="overflow-y-scroll">
   {% include('/main/header.html') %}
-  <body class="bg-gray-50 min-h-screen">
+  <body class="bg-base-100 min-h-screen">
     {% include('/main/nav.html') %}
 
     <section class="p-4 sm:p-6 flex items-center lg:ml-64">
       <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
         <div
-          class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg p-3 sm:p-4"
+          class="relative bg-base-100 shadow-md sm:rounded-lg p-3 sm:p-4 border border-base-content/10"
         >
           <div class="flex flex-col gap-4">
             <div
@@ -1048,7 +992,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
                       class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
                     >
                       <svg
-                        class="w-4 h-4 text-gray-500"
+                        class="w-4 h-4 text-base-content/50"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -1062,7 +1006,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
                     <input
                       type="text"
                       name="search"
-                      class="w-full max-w-md pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      class="w-full max-w-md pl-10 pr-4 py-2 border border-base-content/20 bg-base-100 text-base-content rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                       placeholder="Search"
                       value="{{ search }}"
                     />
@@ -1099,20 +1043,20 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
 <div class="flex flex-col gap-4">
   {% include('/base/collection/pagination.html') %}
   <div
-    class="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700"
+    class="overflow-x-auto rounded-lg border border-base-content/10"
   >
     <table class="table border-collapse w-full">
       <thead>
         <tr>
           {% for header in table_header %}
           <th
-            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-slate-200 dark:border-slate-700 last:border-r-0"
+            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-base-content/10 last:border-r-0"
           >
             {{header.label}}
           </th>
           {% endfor %}
           <th
-            class="w-16 px-4 py-3 text-right border-b border-r border-slate-200 dark:border-slate-700 last:border-r-0 sticky right-0 bg-white z-10"
+            class="w-16 px-4 py-3 text-right border-b border-r border-base-content/10 last:border-r-0 sticky right-0 bg-base-100 z-10"
           >
             Actions
           </th>
@@ -1122,11 +1066,11 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
         {% for document in table_content %}
         <tr
           id="tr-{{document[0].id}}"
-          class="{% if not loop.last %}border-b border-slate-200 dark:border-slate-700{% endif %}"
+          class="{% if not loop.last %}border-b border-base-content/10{% endif %}"
         >
           {% for field in document %}
           <td
-            class="font-normal leading-normal px-4 py-2 border-r border-slate-200 dark:border-slate-700 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
+            class="font-normal leading-normal px-4 py-2 border-r border-base-content/10 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
           >
             {% if field.type == 'ButtonField' %}
             <div class="flex justify-start items-center">
@@ -1146,7 +1090,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
             {% endif %}
           </td>
           {% endfor %}
-          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-white">
+          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-base-100">
             <div class="flex gap-2 justify-end">
               <a
                 href="{{document_url}}/{{document[0].id}}"
@@ -1203,15 +1147,15 @@ for i in range(1, 20):
 <div
   id="confirm_modal"
   tabindex="-1"
-  class="hidden overflow-y-auto overflow-x-hidden bg-gray-600 bg-opacity-65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
+  class="hidden overflow-y-auto overflow-x-hidden bg-base-300/65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
 >
   <div
     class="modal-content relative p-4 w-full max-w-md max-h-full"
   >
-    <div class="relative bg-white rounded-lg shadow">
+    <div class="relative bg-base-100 rounded-lg shadow">
       <button
         type="button"
-        class="close-modal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+        class="close-modal absolute top-3 right-2.5 text-base-content/60 bg-transparent hover:bg-base-200 hover:text-base-content rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
       >
         <svg
           class="w-3 h-3"
@@ -1232,7 +1176,7 @@ for i in range(1, 20):
       </button>
       <div class="p-4 md:p-5 text-center">
         <svg
-          class="mx-auto mb-4 text-gray-400 w-12 h-12"
+          class="mx-auto mb-4 text-base-content/60 w-12 h-12"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -1246,17 +1190,17 @@ for i in range(1, 20):
             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
           />
         </svg>
-        <h3 class="mb-2 text-lg font-medium text-gray-900">Confirm Action</h3>
-        <p class="mb-5 text-gray-500">Are you sure?</p>
+        <h3 class="mb-2 text-lg font-medium text-base-content">Confirm Action</h3>
+        <p class="mb-5 text-base-content/60">Are you sure?</p>
         <button
           type="button"
-          class="confirm-action text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+          class="confirm-action text-primary-content bg-error hover:bg-error-focus focus:ring-4 focus:outline-none focus:ring-error/30 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
         >
           Yes, I'm sure
         </button>
         <button
           type="button"
-          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-base-content focus:outline-none bg-base-100 rounded-lg border border-base-300 hover:bg-base-200 focus:z-10 focus:ring-4 focus:ring-base-200"
         >
           No, cancel
         </button>
@@ -1508,20 +1452,20 @@ document.addEventListener('DOMContentLoaded', function() {
   {% for message in config.messages %} {% if message.role =='user' %}
   <div class="flex space-x-4 mb-4">
     <div
-      class="flex justify-center items-center w-10 h-10 bg-gray-500 text-white rounded-full"
+      class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full"
     >
       {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
       config.name else '' }}
     </div>
     <div
-      class="message content bg-neutral-content rounded-lg p-4 flex-1 min-w-0 break-words"
+      class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
       id="message-{{ loop.index }}"
     ></div>
   </div>
   {% endif %} {% if message.role =='assistant' %}
   <div class="flex space-x-4 mb-4">
     <div
-      class="flex justify-center items-center w-10 h-10 bg-gray-600 text-white rounded-full"
+      class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -1539,7 +1483,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </svg>
     </div>
     <div
-      class="message content bg-secondary-content rounded-lg p-4 flex-1 min-w-0 break-words"
+      class="message content bg-base-200 text-base-content rounded-lg p-4 flex-1 min-w-0 break-words"
       id="message-{{ loop.index }}"
     ></div>
   </div>
@@ -1565,13 +1509,13 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 <div class="flex space-x-4 mb-6">
   <div
-    class="flex justify-center items-center w-10 h-10 bg-gray-500 text-white rounded-full flex-shrink-0"
+    class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full flex-shrink-0"
   >
     {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
     config.name else '' }}
   </div>
   <div
-    class="message content bg-neutral-content rounded-lg p-4 flex-1 min-w-0 break-words"
+    class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
   ></div>
 </div>
 ```
@@ -1580,14 +1524,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ```
 <div class="flex flex-col w-full">
-    <div class="h-8 bg-gray-800 w-full flex rounded-t justify-between items-center px-4">
+    <div class="h-8 bg-neutral w-full flex rounded-t justify-between items-center px-4">
       <!-- Language Info Placeholder -->
-      <span class="text-sm text-white language-info"></span>
+      <span class="text-sm text-neutral-content language-info"></span>
 
       <div class="flex flex-row items-center gap-2">
-        <span class="copied hidden text-sm font-extralight text-green-400">copied!</span>
+        <span class="copied hidden text-sm font-extralight text-success">copied!</span>
         <!-- Copy Button -->
-      <button class="h-4 w-4 copy-btn flex items-center justify-center text-white hover:text-green-400">
+      <button class="h-4 w-4 copy-btn flex items-center justify-center text-neutral-content hover:text-success">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
         </svg>
@@ -1596,7 +1540,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
     </div>
     <div class="w-full">
-      <pre class="bg-gray-700 text-sm text-white rounded-b p-2 overflow-x-auto whitespace-pre-wrap">
+      <pre class="bg-neutral-focus text-sm text-neutral-content rounded-b p-2 overflow-x-auto whitespace-pre-wrap">
       </pre>
     </div>
   </div>
@@ -1612,7 +1556,7 @@ document.addEventListener('DOMContentLoaded', function() {
 >
   {% if config.history %}
   <h3
-    class="text-center text-xl font-semibold text-gray-700 dark:text-gray-300"
+    class="text-center text-xl font-semibold text-base-content"
   >
     Last Chats
   </h3>
@@ -1621,17 +1565,17 @@ document.addEventListener('DOMContentLoaded', function() {
     <a href="/chat/history/{{ item.id }}" class="no-underline">
       <div
         id="history_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ item.first_message }}</span>
       </div>
     </a>
     {% endfor %}
   </div>
-  <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+  <hr class="h-px my-2 bg-base-content/10 border-0" />
   {% endif %} {% if config.latest_prompts %}
   <h3
-    class="text-center text-xl font-semibold text-gray-700 dark:text-gray-300"
+    class="text-center text-xl font-semibold text-base-content"
   >
     Latest Prompts
   </h3>
@@ -1640,7 +1584,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
       <div
         id="prompt_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ prompt.name }}</span>
       </div>
@@ -1650,12 +1594,12 @@ document.addEventListener('DOMContentLoaded', function() {
   {% endif %} {% if not config.history and not config.latest_prompts %}
   <div class="flex flex-row flex-wrap justify-center gap-4">
     <div
-      class="prompt relative h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+      class="prompt relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
     >
       <span class="truncate">Wer war Ada Lovelace?</span>
     </div>
     <div
-      class="group relative prompt h-12 w-64 flex items-center justify-center bg-indigo-500 hover:bg-indigo-700 text-white rounded-xl cursor-pointer px-4"
+      class="group relative prompt h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
     >
       <span class="truncate">Schreibe eine index.html</span>
     </div>
@@ -1670,7 +1614,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 <div class="flex space-x-4 mb-6">
   <div
-    class="flex justify-center items-center w-10 h-10 bg-gray-600 text-white rounded-full flex-shrink-0"
+    class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full flex-shrink-0"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -1689,11 +1633,11 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
   <div class="flex-1 min-w-0">
     <div
-      class="message content bg-secondary-content rounded-lg p-4 break-words"
+      class="message content bg-base-200 text-base-content rounded-lg p-4 break-words"
     ></div>
     <div class="flex justify-start mt-2">
       <button
-        class="copy-btn flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 active:scale-95 transition-all duration-100 rounded px-2 py-1 hover:bg-gray-100"
+        class="copy-btn flex items-center gap-1 text-sm text-base-content/60 hover:text-base-content active:scale-95 transition-all duration-100 rounded px-2 py-1 hover:bg-base-200"
       >
         <svg
           class="w-4 h-4 copy-icon"
@@ -1747,50 +1691,76 @@ document.addEventListener('DOMContentLoaded', function() {
   id="chat_ui"
   class="fixed bottom-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full h-40 bg-base-100"
 >
-  <div
-    class="flex flex-col absolute bottom-0 left-0 right-0 h-32 ml-2 mr-2 mb-2 md:ml-10 md:mr-10 md:mb-4 rounded-xl bg-white shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-gray-100"
-  >
-    <div class="p-3 pr-16 overflow-hidden">
-      <textarea
-        id="chat_input"
-        placeholder="Type your message and press Command or Strg + Enter"
-        rows="3"
-        class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
-      ></textarea>
-    </div>
-    <div class="ml-6 mb-4 flex items-center gap-2">
-      <div
-        class="dropdown relative inline-flex [--placement:top]"
-        data-dropdown
-      >
-        <button
-          id="modelSelectorButton"
-          class="badge badge-outline dropdown-toggle"
-          data-model-badge
-        >
-          <span id="selected_model"></span>
-        </button>
+  <div class="h-full w-full 2xl:max-w-7xl 2xl:mx-auto relative">
+    <div
+      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 mx-2 mb-2 md:mx-10 md:mb-4 xl:mx-16 xl:mb-4 2xl:mx-20 2xl:mb-4 rounded-xl bg-base-100 shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-base-content/10"
+    >
+      <div class="p-3 pr-16 overflow-hidden">
+        <textarea
+          id="chat_input"
+          placeholder="Type your message and press Command or Strg + Enter"
+          rows="3"
+          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
+        ></textarea>
+      </div>
+      <div class="ml-6 mb-4 flex items-center gap-2">
         <div
-          class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="modelSelectorButton"
+          class="dropdown relative inline-flex [--placement:top]"
+          data-dropdown
         >
-          {% for model in config.models %}
           <button
-            id="{{ model.model }}"
-            data-name="{{ model.name }}"
-            class="model dropdown-item w-full text-left px-4 py-2 hover:bg-gray-100"
+            id="modelSelectorButton"
+            class="badge badge-outline dropdown-toggle"
+            data-model-badge
           >
-            {{ model.name }}
+            <span id="selected_model"></span>
           </button>
-          {% endfor %}
+          <div
+            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="modelSelectorButton"
+          >
+            {% for model in config.models %}
+            <button
+              id="{{ model.model }}"
+              data-name="{{ model.name }}"
+              class="model dropdown-item w-full text-left px-4 py-2 hover:bg-base-200"
+            >
+              {{ model.name }}
+            </button>
+            {% endfor %}
+          </div>
         </div>
+
+        <label for="file-upload" class="cursor-pointer">
+          <div
+            class="badge badge-outline badge-secondary flex items-center gap-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+              />
+            </svg>
+            <span id="file-name-display">Upload</span>
+          </div>
+        </label>
+        <input type="file" id="file-upload" class="hidden" />
       </div>
 
-      <label for="file-upload" class="cursor-pointer">
-        <div
-          class="badge badge-outline badge-secondary flex items-center gap-1"
+      <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
+        <button
+          id="reset_button"
+          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -1798,79 +1768,55 @@ document.addEventListener('DOMContentLoaded', function() {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-4 h-4"
+            class="w-6 h-6"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+              d="M12 4.5v15m7.5-7.5h-15"
             />
           </svg>
-          <span id="file-name-display">Upload</span>
-        </div>
-      </label>
-      <input type="file" id="file-upload" class="hidden" />
-    </div>
+        </button>
 
-    <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
-      <button
-        id="reset_button"
-        class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+        <button
+          id="chat_button"
+          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
-        </svg>
-      </button>
-
-      <button
-        id="chat_button"
-        class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+            />
+          </svg>
+        </button>
+        <button
+          id="stop_button"
+          class="hidden bg-red-500 hover:bg-red-400 text-white font-extralight p-2.5 rounded"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-          />
-        </svg>
-      </button>
-      <button
-        id="stop_button"
-        class="hidden bg-red-500 hover:bg-red-400 text-white font-extralight p-2.5 rounded"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -1892,7 +1838,7 @@ document.addEventListener('DOMContentLoaded', function() {
     {% include('/main/nav.html') %}
 
     <section class="flex-1 flex items-start overflow-y-auto lg:ml-64">
-      <div class="px-4 md:px-10 w-full">
+      <div class="px-2 md:px-10 xl:px-16 2xl:px-20 w-full 2xl:max-w-7xl 2xl:mx-auto">
         <div class="relative min-h-[calc(100vh-8rem)] pb-32">
           <main id="main" class="flex flex-col h-full">
             {% if config.messages|length == 0 %}
@@ -1932,11 +1878,11 @@ document.addEventListener('DOMContentLoaded', function() {
           <!-- File Banner Template -->
           <template id="file-banner-template">
             <div class="mb-6">
-              <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+              <div class="bg-info/10 border-l-4 border-info p-4">
                 <div class="flex">
                   <div class="flex-shrink-0">
                     <svg
-                      class="h-5 w-5 text-blue-400"
+                      class="h-5 w-5 text-info"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -1948,12 +1894,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     </svg>
                   </div>
                   <div class="ml-3 flex items-center gap-3">
-                    <p class="text-sm text-blue-700">
+                    <p class="text-sm text-info-content">
                       Using context from file: <span class="filename"></span>
                     </p>
                     <a
                       href="#"
-                      class="download-link text-blue-700 hover:text-blue-900"
+                      class="download-link text-info hover:text-info-focus"
                     >
                       <svg
                         class="w-4 h-4"
@@ -2074,6 +2020,20 @@ document.addEventListener('DOMContentLoaded', function() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Fireworks</title>
+  <!-- Early Theme Initialization -->
+  <script>
+    (function() {
+      // Apply theme before page renders to avoid flash of wrong theme
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.dataset.theme = 'dark';
+      } else {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/output.css') }}"
@@ -2101,7 +2061,27 @@ document.addEventListener('DOMContentLoaded', function() {
       Fireworks
     </a>
   </div>
+  
+  <!-- Screen Size Indicator (Temporary) -->
+  <div id="screen-size-indicator" class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2">
+    <span class="icon-[tabler--device-desktop-analytics] size-4"></span>
+    <span class="screen-width">0</span> × <span class="screen-height">0</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="640" data-name="sm">sm</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="768" data-name="md">md</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1024" data-name="lg">lg</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1280" data-name="xl">xl</span>
+    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1536" data-name="2xl">2xl</span>
+  </div>
+  
   <div class="navbar-end flex items-center gap-2">
+    <!-- Dark Mode Toggle -->
+    <div class="flex items-center mr-2">
+      <div class="flex items-center gap-1">
+        <span class="icon-[tabler--sun] size-5 text-yellow-500"></span>
+        <input type="checkbox" class="switch theme-controller switch-sm" id="darkModeToggle" value="dark" />
+        <span class="icon-[tabler--moon] size-5 text-slate-700 dark:text-slate-300"></span>
+      </div>
+    </div>
     <!-- User Avatar Dropdown for Desktop -->
     <div
       class="dropdown relative inline-flex max-lg:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
@@ -2163,7 +2143,7 @@ document.addEventListener('DOMContentLoaded', function() {
   class="overlay drawer drawer-start w-64 max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body w-64 bg-white h-full flex flex-col overflow-hidden">
+  <div class="drawer-body w-64 bg-base-100 h-full flex flex-col overflow-hidden">
     <!-- Fixed Header Section -->
     <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
       <ul class="menu w-full space-y-0.5 p-0">
@@ -2564,21 +2544,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Listen for the confirmAction:success event from our confirm modal
   document.addEventListener('confirmAction:success', async function(event) {
-    const { modalId, result, documentType } = event.detail;
+    const { modalId, result, documentType, action } = event.detail;
     
     // If this is from delete all history action
-    if (result && result.action === 'delete_all_history') {
+    if (result && (result.action === 'delete_all_history' || action === 'delete_all_history')) {
+      console.log('History deletion was successful');
+      
       // Check if we're on a history page or list history page
       const currentPath = window.location.pathname;
       if (
         currentPath.includes("/chat/history/") ||
-        currentPath.includes("/list/history")
+        currentPath.includes("/list/history") ||
+        currentPath.includes("/d/history")
       ) {
+        console.log('On history page, redirecting to index');
         // Redirect to index page
         window.location.href = "/";
         return;
       }
 
+      console.log('Not on history page, updating navigation items');
       // Update the navigation items
       await updateNavItems();
     }
@@ -2598,6 +2583,202 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Update every 30 seconds, but use debouncing to prevent overlapping calls
   setInterval(debouncedUpdate, 30000);
+  
+  // Special handler for the delete history button in the collapsed menu
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteHistoryBtn = document.querySelector('button[data-action*="delete_all_history"]');
+    if (deleteHistoryBtn) {
+      console.log('Found delete history button, adding special handler');
+      deleteHistoryBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Delete history button clicked via special handler');
+        
+        const modalId = this.dataset.modalTarget;
+        const modalInstance = window.modalInstances ? window.modalInstances[modalId] : null;
+        
+        if (modalInstance) {
+          console.log('Using modal instance for delete history', this.dataset);
+          // Make sure we correctly update the modal from this button's data attributes
+          modalInstance.updateModalFromTrigger(this);
+          modalInstance.showModal();
+        } else {
+          // Fallback: try to get modal directly
+          console.log('No modal instance found, trying direct access');
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            // Update modal content directly
+            const title = modal.querySelector('h3');
+            const message = modal.querySelector('p');
+            const confirmBtn = modal.querySelector('button.confirm-action');
+            
+            // Set data attributes on the modal itself for the confirm action
+            modal.dataset.action = this.dataset.action;
+            modal.dataset.method = 'post'; // Force POST method for delete_all_history
+            
+            if (title) title.textContent = this.dataset.title || 'Confirm Action';
+            if (message) message.textContent = this.dataset.message || 'Are you sure?';
+            
+            // Attach direct click handler to confirm button as fallback
+            if (confirmBtn) {
+              confirmBtn.onclick = function() {
+                const url = modal.dataset.action;
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                
+                fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'X-CSRFToken': csrfToken
+                  }
+                })
+                .then(response => response.json())
+                .then(result => {
+                  console.log('History deletion result:', result);
+                  if (result.status === 'ok') {
+                    // Show success notification
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white';
+                    notification.textContent = 'History deleted successfully';
+                    document.body.appendChild(notification);
+                    setTimeout(() => notification.remove(), 3000);
+                    
+                    // Check if we're on a history-related page
+                    const currentPath = window.location.pathname;
+                    if (
+                      currentPath.includes("/chat/history/") ||
+                      currentPath.includes("/list/history") ||
+                      currentPath.includes("/d/history")
+                    ) {
+                      console.log('On history page, redirecting to index');
+                      window.location.href = "/";
+                      return;
+                    }
+                    
+                    // Update the navigation
+                    console.log('Not on history page, updating navigation');
+                    updateNavItems();
+                  }
+                  modal.classList.add('hidden');
+                })
+                .catch(error => {
+                  console.error('Error deleting history:', error);
+                  modal.classList.add('hidden');
+                });
+              };
+            }
+            
+            // Show modal
+            modal.classList.remove('hidden');
+          }
+        }
+      });
+    } else {
+      console.warn('Delete history button not found on DOMContentLoaded');
+      
+      // Try again after a slight delay to account for dynamic content
+      setTimeout(function() {
+        const delayedButton = document.querySelector('button[data-action*="delete_all_history"]');
+        if (delayedButton) {
+          console.log('Found delete history button after delay');
+          delayedButton.click(); // Trigger the click to ensure it works
+        } else {
+          console.error('Delete history button not found even after delay');
+        }
+      }, 500);
+    }
+  });
+</script>
+
+<!-- Screen Size Indicator Script -->
+<script>
+  // Function to update screen size information
+  function updateScreenSizeIndicator() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    // Update the displayed dimensions
+    document.querySelectorAll('.screen-width').forEach(el => {
+      el.textContent = width;
+    });
+    
+    document.querySelectorAll('.screen-height').forEach(el => {
+      el.textContent = height;
+    });
+    
+    // Show the indicator on all screens 
+    const indicator = document.getElementById('screen-size-indicator');
+    if (indicator) {
+      indicator.classList.remove('hidden', 'md:flex');
+      indicator.classList.add('flex');
+    }
+
+    // Define breakpoints in order from smallest to largest
+    const breakpoints = [
+      { name: 'sm', minWidth: 640 },
+      { name: 'md', minWidth: 768 },
+      { name: 'lg', minWidth: 1024 },
+      { name: 'xl', minWidth: 1280 },
+      { name: '2xl', minWidth: 1536 }
+    ];
+    
+    // Find the highest active breakpoint
+    let activeBreakpoint = null;
+    for (let i = breakpoints.length - 1; i >= 0; i--) {
+      if (width >= breakpoints[i].minWidth) {
+        activeBreakpoint = breakpoints[i].name;
+        break;
+      }
+    }
+    
+    // Update all breakpoint tags
+    document.querySelectorAll('.breakpoint-tag').forEach(tag => {
+      const name = tag.dataset.name;
+      
+      // Reset all styles
+      tag.classList.remove('bg-green-500', 'text-white', 'font-bold', 'bg-gray-100', 'opacity-50');
+      
+      if (name === activeBreakpoint) {
+        // Highlight the active breakpoint
+        tag.classList.add('bg-green-500', 'text-white', 'font-bold');
+      } else {
+        // Make other breakpoints subtle
+        tag.classList.add('bg-gray-100', 'opacity-50');
+      }
+    });
+  }
+  
+  // Run on page load
+  document.addEventListener('DOMContentLoaded', updateScreenSizeIndicator);
+  
+  // Run whenever the window is resized
+  window.addEventListener('resize', updateScreenSizeIndicator);
+</script>
+
+<!-- Theme Persistence Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    
+    // Check saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial state
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.dataset.theme = 'dark';
+      if (darkModeToggle) darkModeToggle.checked = true;
+    }
+    
+    // Add change event listener to toggle
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('change', function() {
+        const newTheme = this.checked ? 'dark' : 'light';
+        document.documentElement.dataset.theme = newTheme;
+        localStorage.setItem('theme', newTheme);
+      });
+    }
+  });
 </script>
 
 {% include 'components/confirm_modal.html' %}
@@ -4826,15 +5007,15 @@ from core.db_connect import *
 models = [
   # {'provider':'openai','model':'gpt-4o','name':'OpenAI - GPT-4o'},
   # {'provider':'openai','model':'gpt-4o-mini','name':'OpenAI - GPT-4o Mini'},
-  {'provider':'perplexity','model':'sonar-deep-research','name':'US - Perplexity - Sonar Deep Research'},
-  {'provider':'perplexity','model':'sonar-reasoning-pro','name':'US - Perplexity - Sonar Reasoning Pro'},
-  {'provider':'perplexity','model':'sonar-reasoning','name':'US - Perplexity - Sonar Reasoning'},
-  {'provider':'perplexity','model':'sonar-pro','name':'US - Perplexity - Sonar Pro'},
-  {'provider':'perplexity','model':'sonar','name':'US - Perplexity - Sonar'},
-  {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1'},
-  {'provider':'azure','model':'gpt-4o-sweden-02','name':'EU - Azure - GPT-4o - Sweden'},
-  {'provider':'azure','model':'gpt-4o-mini-sweden-02','name':'EU - Azure - GPT-4o Mini - Sweden'},
-  # {'provider':'azure','model':'o1-mini','name':'EU Azure - o1-mini Sweden'},
+  {'provider':'perplexity','model':'sonar-deep-research','name':'US - Perplexity - Sonar Deep Research', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar-reasoning-pro','name':'US - Perplexity - Sonar Reasoning Pro', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar-reasoning','name':'US - Perplexity - Sonar Reasoning', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar-pro','name':'US - Perplexity - Sonar Pro', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar','name':'US - Perplexity - Sonar', 'region':'US','model_family':'sonar' },
+  {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1', 'region':'US','model_family':'deepseek'},
+  {'provider':'azure','model':'gpt-4o-sweden-02','name':'EU - Azure - GPT-4o - Sweden', 'region':'EU','model_family':'gpt4o'},
+  {'provider':'azure','model':'gpt-4o-mini-sweden-02','name':'EU - Azure - GPT-4o Mini - Sweden', 'region':'EU','model_family':'gpt4o'},
+  {'provider':'azure','model':'o1-mini','name':'EU Azure - o1-mini Sweden', 'region':'EU','model_family':'o1'},
   ]
 
 # Delete existing models
@@ -4946,6 +5127,37 @@ search("Wann spielt der FCBayern?")
 - `ai_insert_models.py`: Database models initialization
 - `__init__.py`: Package initialization
 
+### Supported Models
+
+The system supports multiple AI providers:
+
+- **OpenAI**: GPT-3.5, GPT-4, and O1 models (o1-mini, o1-preview)
+- **Anthropic**: Claude models
+- **Together AI**: Various open-source models
+- **DeepSeek**: DeepSeek language models
+- **Perplexity**: Perplexity language models
+- **Azure OpenAI**: Microsoft-hosted OpenAI models
+
+#### O1 Model Support
+
+OpenAI O1 models are supported with some limitations:
+- **No system message support** - System messages are automatically converted to user messages
+- **No streaming support** - Responses are always processed in non-streaming mode
+- Content filtering results are captured
+- Detailed token usage information is available
+
+Important O1 model limitations:
+1. System messages are converted by prepending them to the first user message
+2. All requests use non-streaming mode regardless of the `stream` parameter
+
+To use O1 models, configure in model settings:
+```python
+model = {
+    "provider": "openai",
+    "model": "o1-mini"  # or other O1 models
+}
+```
+
 ### Frontend Components
 
 #### Templates (`/templates/chat/`)
@@ -4984,6 +5196,13 @@ search("Wann spielt der FCBayern?")
 - Message history persistence
 - Custom prompt management
 - HTMX-powered dynamic updates
+- Support for OpenAI's O1 models with detailed token analytics
+
+## Testing
+
+Use the testing scripts to validate model connectivity:
+- `ai_test.py`: General API testing
+- `test_o1_models.py`: Specific testing for O1 model compatibility
 ```
 
 ## ToDo.md
@@ -5030,50 +5249,22 @@ csrf = CSRFProtect()
 
 
 def getConfig():
-    system_message = """Du bist ein hilfreicher Assistent! Antworte immer auf Deutsch! 
+    system_message = """Du bist ein hilfreicher, präziser Assistent! Antworte immer auf Deutsch!
 
-Formatiere deine Antworten mit Markdown:
-- Überschriften mit # für Haupttitel und ## für Untertitel
-- **Fettschrift** für wichtige Begriffe
+Wichtige Anweisungen:
+1. Halte deine Antworten präzise und fokussiert auf die gestellte Frage.
+2. Generiere KEINE Code-Beispiele, es sei denn, diese werden ausdrücklich angefordert.
+3. Füge KEINE unnötigen Abschnitte wie Impressum, Datenschutz, Quellen, etc. hinzu.
+4. Beende deine Antwort klar und ohne mehrfache Schlussformulierungen.
+
+Du kannst Markdown für die Formatierung verwenden, wenn es den Inhalt verbessert:
+- Überschriften mit # für wichtige Themen
+- **Fettschrift** für Schlüsselbegriffe
 - *Kursivschrift* für Betonungen
-- Listen mit * für Aufzählungen
-- Nummerierte Listen mit 1. 2. 3.
-- Verschachtelte Listen durch Einrücken mit 2 Leerzeichen:
-  * Hauptpunkt
-    * Unterpunkt
-    * Weiterer Unterpunkt
-  * Nächster Hauptpunkt
-- Verschachtelte nummerierte Listen:
-  1. Erster Punkt
-     1. Unterpunkt 1.1
-     2. Unterpunkt 1.2
-  2. Zweiter Punkt
-- Gemischte verschachtelte Listen:
-  * Hauptpunkt
-    1. Nummerierter Unterpunkt
-    2. Weiterer nummerierter Unterpunkt
-  * Nächster Hauptpunkt
-    * Unnummerierter Unterpunkt
-- `Inline-Code` für kurze Codebeispiele
-- Links mit [Text](URL)
-- ~~Durchgestrichen~~ für nicht mehr gültiges
+- Listen für übersichtliche Aufzählungen
+- `Code` nur wenn ausdrücklich relevant
 
-Beispiel einer formatierten Antwort:
-# Haupttitel
-## Untertitel
-Dies ist ein Absatz mit **wichtigen** und *betonten* Worten.
-* Erster Listenpunkt
-* Zweiter Listenpunkt mit `Code`
-  * Ein Unterpunkt
-  * Noch ein Unterpunkt
-* Dritter Punkt mit [Link](https://example.com)
-
-1. Erster nummerierter Punkt
-   1. Nummerierter Unterpunkt
-   2. Weiterer nummerierter Unterpunkt
-2. Zweiter nummerierter Punkt
-
-Wenn du längeren Code generierst, dann setze den Code in dreifache Backticks."""
+Konzentriere dich auf qualitativ hochwertige, relevante Informationen statt auf ausschweifende Formatierung."""
 
     welcome_message = "Hallo wie kann ich helfen?"
     messages = []
@@ -5455,39 +5646,142 @@ def llm_call_stream(messages, model):
         elif model['provider']=='azure':
             client = AzureOpenAI(azure_endpoint=azure_endpoint,api_key=azure_api_key,api_version=azure_api_version)
 
-        response = client.chat.completions.create(
-            model=model['model'],
-            messages=messages,
-            stream=True
-        )
-
-        accumulated_text = ""
-        citations = []
-        for line in response:
-            # Skip empty chunks or chunks without choices
-            if not hasattr(line, 'choices') or len(line.choices) == 0:
-                continue
-                
-            # Handle content if present
-            if hasattr(line.choices[0], 'delta') and hasattr(line.choices[0].delta, 'content'):
-                if line.choices[0].delta.content:
-                    accumulated_text += line.choices[0].delta.content
-                    yield line.choices[0].delta.content.encode('utf-8')
+        # Check if the model is an O1 model (o1-mini, o1-preview, etc.)
+        is_o1_model = model['model'].startswith('o1-')
+        
+        # Handle O1 models - they don't support system messages or streaming
+        if is_o1_model:
+            # O1 models don't support system messages, so convert system to user if present
+            prepared_messages = messages.copy()
+            if len(prepared_messages) > 0 and prepared_messages[0]['role'] == 'system':
+                prepared_messages[0]['role'] = 'user'
             
-            # Handle completion
-            if hasattr(line.choices[0], 'finish_reason') and line.choices[0].finish_reason in ['eos', 'stop']:
-                if accumulated_text:
-                    yield " ".encode('utf-8')
-                try:
-                    response_data = line.model_dump()
-                    if 'citations' in response_data:
-                        citations = response_data['citations']
-                        print("Citations found:", citations)  # Print citations when found
-                    usage_data = line.usage.model_dump()
-                    usage_data['citations'] = citations
-                    yield f"###STOP###{json.dumps(usage_data)}".encode('utf-8')
-                except:
-                    yield "###STOP###null".encode('utf-8')
+            # O1 models don't support streaming, so always use non-streaming approach
+            response = client.chat.completions.create(
+                model=model['model'],
+                messages=prepared_messages
+            )
+            # Handle non-streaming O1 response
+            content = response.choices[0].message.content
+            yield content.encode('utf-8')
+            yield " ".encode('utf-8')
+            
+            # Extract detailed usage data from the response
+            try:
+                usage_data = {
+                    'completion_tokens': response.usage.completion_tokens,
+                    'prompt_tokens': response.usage.prompt_tokens,
+                    'total_tokens': response.usage.total_tokens
+                }
+                
+                # Add detailed token information if available
+                if hasattr(response.usage, 'completion_tokens_details'):
+                    usage_data['completion_tokens_details'] = {
+                        'reasoning_tokens': getattr(response.usage.completion_tokens_details, 'reasoning_tokens', 0)
+                    }
+                
+                # Add content filter results if available
+                if hasattr(response.choices[0], 'content_filter_results'):
+                    usage_data['content_filter_results'] = response.choices[0].content_filter_results
+                
+                yield f"###STOP###{json.dumps(usage_data)}".encode('utf-8')
+            except Exception as e:
+                print(f"Error extracting usage data: {e}")
+                yield "###STOP###null".encode('utf-8')
+        else:
+            # Use streaming for non-O1 models
+            response = client.chat.completions.create(
+                model=model['model'],
+                messages=messages,
+                stream=True
+            )
+            
+            accumulated_text = ""
+            citations = []
+            usage_data = {}
+            
+            for line in response:
+                # Skip empty chunks or chunks without choices
+                if not hasattr(line, 'choices') or len(line.choices) == 0:
+                    continue
+                    
+                # Handle content if present
+                if hasattr(line.choices[0], 'delta') and hasattr(line.choices[0].delta, 'content'):
+                    if line.choices[0].delta.content:
+                        accumulated_text += line.choices[0].delta.content
+                        yield line.choices[0].delta.content.encode('utf-8')
+                
+                # Handle completion
+                if hasattr(line.choices[0], 'finish_reason') and line.choices[0].finish_reason in ['eos', 'stop']:
+                    if accumulated_text:
+                        yield " ".encode('utf-8')
+                    try:
+                        # Try to get data from model_dump or fallback to dictionary
+                        try:
+                            response_data = line.model_dump()
+                            if 'citations' in response_data:
+                                citations = response_data['citations']
+                        except AttributeError:
+                            # If model_dump is not available, build usage data from what we've collected
+                            response_data = {}
+                        
+                        # Build the final usage data
+                        final_usage_data = {}
+                        
+                        # Traditional usage info
+                        if hasattr(line, 'usage'):
+                            try:
+                                usage_info = line.usage.model_dump()
+                                final_usage_data.update(usage_info)
+                            except AttributeError:
+                                # Fallback for when model_dump is not available
+                                if hasattr(line.usage, 'completion_tokens'):
+                                    final_usage_data['completion_tokens'] = line.usage.completion_tokens
+                                if hasattr(line.usage, 'prompt_tokens'):
+                                    final_usage_data['prompt_tokens'] = line.usage.prompt_tokens
+                                if hasattr(line.usage, 'total_tokens'):
+                                    final_usage_data['total_tokens'] = line.usage.total_tokens
+                        
+                        # Add citations if found
+                        if citations:
+                            final_usage_data['citations'] = citations
+                            
+                        yield f"###STOP###{json.dumps(final_usage_data)}".encode('utf-8')
+                    except Exception as e:
+                        print(f"Error in final response processing: {e}")
+                        yield "###STOP###null".encode('utf-8')
+
+def prepare_messages_for_o1(messages):
+    """
+    Prepares messages for O1 models which don't support system messages.
+    Converts any system message to a user message or prepends it to the first user message.
+    """
+    prepared_messages = []
+    system_content = None
+    
+    # Extract system message if present
+    for msg in messages:
+        if msg['role'] == 'system':
+            system_content = msg['content']
+        else:
+            prepared_messages.append(msg)
+    
+    # If there was a system message, prepend it to the first user message
+    if system_content and prepared_messages:
+        for i, msg in enumerate(prepared_messages):
+            if msg['role'] == 'user':
+                # Prepend system content to the first user message
+                prepared_messages[i]['content'] = f"System: {system_content}\n\nUser: {msg['content']}"
+                break
+    
+    # If no user message was found but we have a system message, convert system to user
+    if system_content and not prepared_messages:
+        prepared_messages.append({
+            'role': 'user',
+            'content': f"System: {system_content}\n\nRespond to this system instruction."
+        })
+    
+    return prepared_messages
 
 def llm_call_no_stream(messages, model):
     if model['provider'] == 'anthropic':
@@ -5506,16 +5800,29 @@ def llm_call_no_stream(messages, model):
             client = OpenAI(api_key=together_api_key,base_url='https://api.together.xyz/v1')
         elif model['provider']=='deepseek':
             client = OpenAI(api_key=deepseek_api_key,base_url='https://api.deepseek.com')
+        elif model['provider']=='perplexity':
+            client = OpenAI(api_key=perplexity_api_key,base_url='https://api.perplexity.ai')
         elif model['provider']=='openai':
             client = OpenAI(api_key=openai_api_key)
         elif model['provider']=='azure':
             client = AzureOpenAI(azure_endpoint=azure_endpoint,api_key=azure_api_key,api_version=azure_api_version)
 
-        response = client.chat.completions.create(
-            model=model['model'],
-            messages=messages,
-            stream=False
-        )
+        # Check if the model is an O1 model and handle system messages
+        is_o1_model = model['model'].startswith('o1-')
+        if is_o1_model:
+            prepared_messages = prepare_messages_for_o1(messages)
+            response = client.chat.completions.create(
+                model=model['model'],
+                messages=prepared_messages,
+                stream=False
+            )
+        else:
+            response = client.chat.completions.create(
+                model=model['model'],
+                messages=messages,
+                stream=False
+            )
+            
         return response.choices[0].message.content
 
 def llm_call(messages, model, stream=True):
@@ -5538,17 +5845,18 @@ from ai.ai_llm_helper import llm_call
 from core.db_document import History, Prompt, File, Model, Example, User
 
 messages = [
-    {"role": "system", "content": "Du bist ein hilfreicher Assistent"},
-    {"role": "user", "content": "Wann spielt der FC Bayern?"}
+    {"role": "system", "content": "Du bist ein Experte für Geschichte. Antworte immer in deutscher Sprache."},
+    {"role": "user", "content": "Wer war Ada Lovelace?"}
 ]
 
 #model = {'provider':'azure','model':'gpt-4o-sweden-02','name':'gpt-4o-sweden-02'}
 #model = {'provider':'openai','model':'gpt-4o-mini','name':'gpt-4o-mini'}
-model = {'provider':'perplexity','model':'sonar-pro','name':'Perplexity - Sonar Reasoning Pro'}
+#model = {'provider':'perplexity','model':'sonar-pro','name':'Perplexity - Sonar Reasoning Pro'}
 #model = {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'}
+model = {'provider':'azure','model':'o1-mini','name':'o1-mini'}
 
 #Stream response handling
-response = llm_call(messages, model, stream=True)
+response = llm_call(messages, model)
 for chunk in response:
     print(chunk)
 
@@ -5927,7 +6235,7 @@ function appendNormalText(container, text) {
         inTable = false;
       }
       const hr = document.createElement("hr");
-      hr.className = "my-4 border-t-2 border-gray-300";
+      hr.className = "my-4 border-t-2 border-base-content/20";
       container.appendChild(hr);
       return;
     }
@@ -5940,7 +6248,7 @@ function appendNormalText(container, text) {
       if (!inTable) {
         tableElement = document.createElement("table");
         tableElement.className =
-          "min-w-full my-4 border-collapse border border-gray-300";
+          "min-w-full my-4 border-collapse border border-base-content/20";
         inTable = true;
         tableHeader = true;
       }
@@ -5948,11 +6256,11 @@ function appendNormalText(container, text) {
       const row = document
         .createElement(tableHeader ? "thead" : "tbody")
         .appendChild(document.createElement("tr"));
-      row.className = tableHeader ? "bg-gray-100" : "";
+      row.className = tableHeader ? "bg-base-200" : "";
 
       cells.forEach((cell) => {
         const td = document.createElement(tableHeader ? "th" : "td");
-        td.className = "border border-gray-300 px-4 py-2 text-left";
+        td.className = "border border-base-content/20 px-4 py-2 text-left";
         td.innerHTML = processInlineMarkdown(cell);
         row.appendChild(td);
       });
@@ -5996,30 +6304,30 @@ function appendNormalText(container, text) {
       switch (quoteDepth) {
         case 1:
           blockquote.classList.add(
-            "border-blue-300",
-            "text-gray-700",
-            "bg-gray-50",
+            "border-primary/50",
+            "text-base-content",
+            "bg-base-200",
           );
           break;
         case 2:
           blockquote.classList.add(
-            "border-purple-300",
-            "text-gray-700",
-            "bg-gray-100",
+            "border-secondary/50",
+            "text-base-content",
+            "bg-base-200/70",
           );
           break;
         case 3:
           blockquote.classList.add(
-            "border-indigo-300",
-            "text-gray-700",
-            "bg-gray-200",
+            "border-accent/50",
+            "text-base-content",
+            "bg-base-300",
           );
           break;
         default:
           blockquote.classList.add(
-            "border-gray-400",
-            "text-gray-700",
-            "bg-gray-300",
+            "border-base-content/30",
+            "text-base-content",
+            "bg-base-300",
           );
       }
 
@@ -6034,17 +6342,17 @@ function appendNormalText(container, text) {
       // Handle headings (existing code)
       if (h1Match) {
         const h1 = document.createElement("h1");
-        h1.className = "text-2xl font-bold mt-1 mb-3 text-gray-700";
+        h1.className = "text-2xl font-bold mt-1 mb-3 text-base-content";
         h1.innerHTML = processInlineMarkdown(h1Match[1]);
         container.appendChild(h1);
       } else if (h2Match) {
         const h2 = document.createElement("h2");
-        h2.className = "text-xl font-bold mt-1 mb-1 text-gray-700";
+        h2.className = "text-xl font-bold mt-1 mb-1 text-base-content";
         h2.innerHTML = processInlineMarkdown(h2Match[1]);
         container.appendChild(h2);
       } else if (h3Match) {
         const h3 = document.createElement("h3");
-        h3.className = "text-lg font-bold mt-1 mb-1 text-gray-800";
+        h3.className = "text-lg font-bold mt-1 mb-1 text-base-content";
         h3.innerHTML = processInlineMarkdown(h3Match[1]);
         container.appendChild(h3);
       }
@@ -6102,7 +6410,7 @@ function appendNormalText(container, text) {
 
       // Create the task list item
       const li = document.createElement("li");
-      li.className = "text-gray-700 mb-1 flex items-center";
+      li.className = "text-base-content mb-1 flex items-center";
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = taskMatch[1] === "x";
@@ -6129,7 +6437,7 @@ function appendNormalText(container, text) {
         container.appendChild(spacer);
       } else {
         const p = document.createElement("p");
-        p.className = "mb-1 text-gray-700"; // Reduced margin
+        p.className = "mb-1 text-base-content"; // Reduced margin
         p.innerHTML = processInlineMarkdown(line);
         container.appendChild(p);
       }
@@ -6187,7 +6495,7 @@ function processListItem(container, listContext, item) {
 
   // Create list item
   const li = document.createElement("li");
-  li.className = "text-gray-700 mb-0.5";
+  li.className = "text-base-content mb-0.5";
 
   // Add bullet or number
   if (listType === "ul") {
@@ -6252,7 +6560,7 @@ function processListItem(container, listContext, item) {
       if (!nestedList && parentLi) {
         // Create a new nested list
         nestedList = document.createElement(listType);
-        nestedList.className = "ml-6 mt-1 pl-2 border-l border-gray-200";
+        nestedList.className = "ml-6 mt-1 pl-2 border-l border-base-content/20";
         parentLi.appendChild(nestedList);
       }
 
@@ -6278,7 +6586,7 @@ function processListItem(container, listContext, item) {
 function processInlineMarkdown(text) {
   // Process blockquotes (now handled in appendNormalText for nesting support)
   if (text.startsWith("> ")) {
-    return `<blockquote class="border-l-4 border-gray-300 pl-4 py-2 my-2 italic text-gray-600">${text.substring(2)}</blockquote>`;
+    return `<blockquote class="border-l-4 border-base-content/20 pl-4 py-2 my-2 italic text-base-content/70">${text.substring(2)}</blockquote>`;
   }
 
   // Process inline code first (to avoid conflicts with other syntax)
@@ -6595,7 +6903,7 @@ function addBotMessage(text) {
       checkIcon.classList.remove("hidden");
       copyText.classList.add("hidden");
       checkText.classList.remove("hidden");
-      copyButton.classList.add("text-green-600", "bg-green-50");
+      copyButton.classList.add("text-success", "bg-success/10");
 
       // Reset after 2 seconds
       setTimeout(() => {
@@ -6603,7 +6911,7 @@ function addBotMessage(text) {
         checkIcon.classList.add("hidden");
         copyText.classList.remove("hidden");
         checkText.classList.add("hidden");
-        copyButton.classList.remove("text-green-600", "bg-green-50");
+        copyButton.classList.remove("text-success", "bg-success/10");
       }, 2000);
     } catch (err) {
       console.error("Failed to copy formatted content:", err);

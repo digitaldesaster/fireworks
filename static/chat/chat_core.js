@@ -278,7 +278,7 @@ function appendNormalText(container, text) {
         inTable = false;
       }
       const hr = document.createElement("hr");
-      hr.className = "my-4 border-t-2 border-gray-300";
+      hr.className = "my-4 border-t-2 border-base-content/20";
       container.appendChild(hr);
       return;
     }
@@ -291,7 +291,7 @@ function appendNormalText(container, text) {
       if (!inTable) {
         tableElement = document.createElement("table");
         tableElement.className =
-          "min-w-full my-4 border-collapse border border-gray-300";
+          "min-w-full my-4 border-collapse border border-base-content/20";
         inTable = true;
         tableHeader = true;
       }
@@ -299,11 +299,11 @@ function appendNormalText(container, text) {
       const row = document
         .createElement(tableHeader ? "thead" : "tbody")
         .appendChild(document.createElement("tr"));
-      row.className = tableHeader ? "bg-gray-100" : "";
+      row.className = tableHeader ? "bg-base-200" : "";
 
       cells.forEach((cell) => {
         const td = document.createElement(tableHeader ? "th" : "td");
-        td.className = "border border-gray-300 px-4 py-2 text-left";
+        td.className = "border border-base-content/20 px-4 py-2 text-left";
         td.innerHTML = processInlineMarkdown(cell);
         row.appendChild(td);
       });
@@ -347,30 +347,30 @@ function appendNormalText(container, text) {
       switch (quoteDepth) {
         case 1:
           blockquote.classList.add(
-            "border-blue-300",
-            "text-gray-700",
-            "bg-gray-50",
+            "border-primary/50",
+            "text-base-content",
+            "bg-base-200",
           );
           break;
         case 2:
           blockquote.classList.add(
-            "border-purple-300",
-            "text-gray-700",
-            "bg-gray-100",
+            "border-secondary/50",
+            "text-base-content",
+            "bg-base-200/70",
           );
           break;
         case 3:
           blockquote.classList.add(
-            "border-indigo-300",
-            "text-gray-700",
-            "bg-gray-200",
+            "border-accent/50",
+            "text-base-content",
+            "bg-base-300",
           );
           break;
         default:
           blockquote.classList.add(
-            "border-gray-400",
-            "text-gray-700",
-            "bg-gray-300",
+            "border-base-content/30",
+            "text-base-content",
+            "bg-base-300",
           );
       }
 
@@ -385,17 +385,17 @@ function appendNormalText(container, text) {
       // Handle headings (existing code)
       if (h1Match) {
         const h1 = document.createElement("h1");
-        h1.className = "text-2xl font-bold mt-1 mb-3 text-gray-700";
+        h1.className = "text-2xl font-bold mt-1 mb-3 text-base-content";
         h1.innerHTML = processInlineMarkdown(h1Match[1]);
         container.appendChild(h1);
       } else if (h2Match) {
         const h2 = document.createElement("h2");
-        h2.className = "text-xl font-bold mt-1 mb-1 text-gray-700";
+        h2.className = "text-xl font-bold mt-1 mb-1 text-base-content";
         h2.innerHTML = processInlineMarkdown(h2Match[1]);
         container.appendChild(h2);
       } else if (h3Match) {
         const h3 = document.createElement("h3");
-        h3.className = "text-lg font-bold mt-1 mb-1 text-gray-800";
+        h3.className = "text-lg font-bold mt-1 mb-1 text-base-content";
         h3.innerHTML = processInlineMarkdown(h3Match[1]);
         container.appendChild(h3);
       }
@@ -453,7 +453,7 @@ function appendNormalText(container, text) {
 
       // Create the task list item
       const li = document.createElement("li");
-      li.className = "text-gray-700 mb-1 flex items-center";
+      li.className = "text-base-content mb-1 flex items-center";
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = taskMatch[1] === "x";
@@ -480,7 +480,7 @@ function appendNormalText(container, text) {
         container.appendChild(spacer);
       } else {
         const p = document.createElement("p");
-        p.className = "mb-1 text-gray-700"; // Reduced margin
+        p.className = "mb-1 text-base-content"; // Reduced margin
         p.innerHTML = processInlineMarkdown(line);
         container.appendChild(p);
       }
@@ -538,7 +538,7 @@ function processListItem(container, listContext, item) {
 
   // Create list item
   const li = document.createElement("li");
-  li.className = "text-gray-700 mb-0.5";
+  li.className = "text-base-content mb-0.5";
 
   // Add bullet or number
   if (listType === "ul") {
@@ -603,7 +603,7 @@ function processListItem(container, listContext, item) {
       if (!nestedList && parentLi) {
         // Create a new nested list
         nestedList = document.createElement(listType);
-        nestedList.className = "ml-6 mt-1 pl-2 border-l border-gray-200";
+        nestedList.className = "ml-6 mt-1 pl-2 border-l border-base-content/20";
         parentLi.appendChild(nestedList);
       }
 
@@ -629,7 +629,7 @@ function processListItem(container, listContext, item) {
 function processInlineMarkdown(text) {
   // Process blockquotes (now handled in appendNormalText for nesting support)
   if (text.startsWith("> ")) {
-    return `<blockquote class="border-l-4 border-gray-300 pl-4 py-2 my-2 italic text-gray-600">${text.substring(2)}</blockquote>`;
+    return `<blockquote class="border-l-4 border-base-content/20 pl-4 py-2 my-2 italic text-base-content/70">${text.substring(2)}</blockquote>`;
   }
 
   // Process inline code first (to avoid conflicts with other syntax)
@@ -946,7 +946,7 @@ function addBotMessage(text) {
       checkIcon.classList.remove("hidden");
       copyText.classList.add("hidden");
       checkText.classList.remove("hidden");
-      copyButton.classList.add("text-green-600", "bg-green-50");
+      copyButton.classList.add("text-success", "bg-success/10");
 
       // Reset after 2 seconds
       setTimeout(() => {
@@ -954,7 +954,7 @@ function addBotMessage(text) {
         checkIcon.classList.add("hidden");
         copyText.classList.remove("hidden");
         checkText.classList.add("hidden");
-        copyButton.classList.remove("text-green-600", "bg-green-50");
+        copyButton.classList.remove("text-success", "bg-success/10");
       }, 2000);
     } catch (err) {
       console.error("Failed to copy formatted content:", err);

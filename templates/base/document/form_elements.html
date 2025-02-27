@@ -28,7 +28,7 @@
   />
   {% for file in element.value %} {% if file.element_id == element.id %}
   <div id="{{file.document_id}}" class="flex items-center justify-between mt-2">
-    <span class="mt-1 text-sm text-gray-600">
+    <span class="mt-1 text-sm text-base-content/60">
       <a
         href="{{url_for('download_file',file_id=file.id)}}"
         class="text-blue-600 hover:text-blue-500"
@@ -65,15 +65,15 @@
     document_field="{{element.document_field}}"
     type="text"
     placeholder="Search..."
-    class="searchField bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+    class="searchField bg-base-200 border border-base-content/10 text-base-content text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
   />
 
   <!-- Dropdown Menu -->
   <div
     id="dropdownMenu"
-    class="z-10 hidden bg-white rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
+    class="z-10 hidden bg-base-100 rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
   >
-    <ul id="userList" class="py-2 text-gray-700"></ul>
+    <ul id="userList" class="py-2 text-base-content"></ul>
   </div>
   {% endif %} {% if element.type == 'IntField' or element.type =='FloatField' %}
 

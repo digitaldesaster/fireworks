@@ -2,16 +2,16 @@
   id="chat_ui"
   class="fixed bottom-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full h-40 bg-base-100"
 >
-  <div class="h-full w-full 2xl:max-w-7xl 2xl:mx-auto relative">
+  <div class="relative h-full w-full mx-auto 2xl:max-w-7xl">
     <div
-      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 mx-2 mb-2 md:mx-10 md:mb-4 xl:mx-16 xl:mb-4 2xl:mx-20 2xl:mb-4 rounded-xl bg-white shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-gray-100"
+      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 ml-2 mr-2 mb-2 md:ml-10 md:mr-10 md:mb-4 xl:mx-16 2xl:mx-20 rounded-xl bg-white dark:bg-base-200 shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-base-300"
     >
       <div class="p-3 pr-16 overflow-hidden">
         <textarea
           id="chat_input"
           placeholder="Type your message and press Command or Strg + Enter"
           rows="3"
-          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
+          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none bg-white dark:bg-base-200 text-gray-900 dark:text-base-content placeholder-gray-500 dark:placeholder-base-content/50"
         ></textarea>
       </div>
       <div class="ml-6 mb-4 flex items-center gap-2">
@@ -27,7 +27,7 @@
             <span id="selected_model"></span>
           </button>
           <div
-            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
+            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden bg-white dark:bg-base-200"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="modelSelectorButton"
@@ -36,7 +36,7 @@
             <button
               id="{{ model.model }}"
               data-name="{{ model.name }}"
-              class="model dropdown-item w-full text-left px-4 py-2 hover:bg-gray-100"
+              class="model dropdown-item w-full text-left px-4 py-2 text-gray-900 dark:text-base-content hover:bg-gray-100 dark:hover:bg-base-300"
             >
               {{ model.name }}
             </button>
@@ -71,7 +71,7 @@
       <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
         <button
           id="reset_button"
-          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
+          class="bg-slate-800 hover:bg-slate-600 dark:bg-primary dark:hover:bg-primary-focus text-white dark:text-primary-content font-extralight p-2.5 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@
 
         <button
           id="chat_button"
-          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
+          class="bg-slate-800 hover:bg-slate-600 dark:bg-primary dark:hover:bg-primary-focus text-white dark:text-primary-content font-extralight p-2.5 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@
         </button>
         <button
           id="stop_button"
-          class="hidden bg-red-500 hover:bg-red-400 text-white font-extralight p-2.5 rounded"
+          class="hidden bg-red-500 hover:bg-red-400 dark:bg-error dark:hover:bg-error-focus text-white dark:text-error-content font-extralight p-2.5 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

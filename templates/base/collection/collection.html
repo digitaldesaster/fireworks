@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en" class="overflow-y-scroll">
   {% include('/main/header.html') %}
-  <body class="bg-gray-50 min-h-screen">
+  <body class="bg-base-100 min-h-screen">
     {% include('/main/nav.html') %}
 
     <section class="p-4 sm:p-6 flex items-center lg:ml-64">
       <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
         <div
-          class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg p-3 sm:p-4"
+          class="relative bg-base-100 shadow-md sm:rounded-lg p-3 sm:p-4 border border-base-content/10"
         >
           <div class="flex flex-col gap-4">
             <div
@@ -23,7 +23,7 @@
                       class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
                     >
                       <svg
-                        class="w-4 h-4 text-gray-500"
+                        class="w-4 h-4 text-base-content/50"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -37,7 +37,7 @@
                     <input
                       type="text"
                       name="search"
-                      class="w-full max-w-md pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      class="w-full max-w-md pl-10 pr-4 py-2 border border-base-content/20 bg-base-100 text-base-content rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                       placeholder="Search"
                       value="{{ search }}"
                     />
