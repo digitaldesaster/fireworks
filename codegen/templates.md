@@ -1225,7 +1225,7 @@ document.querySelectorAll(".searchField").forEach((searchField) => {
           >
             {% if field.type == 'ButtonField' %}
             <div class="flex justify-start items-center">
-              <a href="{{field.link}}/{{field.id}}" class="w-full">
+              <a href="{{field.link}}" class="w-full">
                 <button
                   type="button"
                   class="btn btn-primary btn-outline btn-sm {{field.class}} truncate"
