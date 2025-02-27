@@ -10,30 +10,65 @@
       Fireworks
     </a>
   </div>
-  
+
   <!-- Screen Size Indicator (Temporary) -->
-  <div id="screen-size-indicator" class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2">
+  <div
+    id="screen-size-indicator"
+    class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2"
+  >
     <span class="icon-[tabler--device-desktop-analytics] size-4"></span>
     <span class="screen-width">0</span> × <span class="screen-height">0</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="640" data-name="sm">sm</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="768" data-name="md">md</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1024" data-name="lg">lg</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1280" data-name="xl">xl</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1536" data-name="2xl">2xl</span>
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="640"
+      data-name="sm"
+      >sm</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="768"
+      data-name="md"
+      >md</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1024"
+      data-name="lg"
+      >lg</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1280"
+      data-name="xl"
+      >xl</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1536"
+      data-name="2xl"
+      >2xl</span
+    >
   </div>
-  
+
   <div class="navbar-end flex items-center gap-2">
-    <!-- Dark Mode Toggle -->
-    <div class="flex items-center mr-2">
+    <!-- Dark Mode Toggle - Only visible on screens larger than sm -->
+    <div class="items-center mr-2 hidden sm:flex">
       <div class="flex items-center gap-1">
         <span class="icon-[tabler--sun] size-5 text-yellow-500"></span>
-        <input type="checkbox" class="switch theme-controller switch-sm" id="darkModeToggle" value="dark" />
-        <span class="icon-[tabler--moon] size-5 text-slate-700 dark:text-slate-300"></span>
+        <input
+          type="checkbox"
+          class="switch theme-controller switch-sm"
+          id="darkModeToggle"
+          value="dark"
+        />
+        <span
+          class="icon-[tabler--moon] size-5 text-slate-700 dark:text-slate-300"
+        ></span>
       </div>
     </div>
     <!-- User Avatar Dropdown for Desktop -->
     <div
-      class="dropdown relative inline-flex max-lg:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
+      class="dropdown relative inline-flex max-sm:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
     >
       <button
         type="button"
@@ -73,10 +108,10 @@
         </form>
       </ul>
     </div>
-    <!-- Mobile Menu Button -->
+    <!-- Mobile Menu Button - Only visible on sm screens and below -->
     <button
       type="button"
-      class="btn btn-text max-lg:btn-square lg:hidden"
+      class="btn btn-text max-sm:btn-square sm:hidden"
       aria-haspopup="dialog"
       aria-expanded="false"
       aria-controls="mobile-menu-overlay"
@@ -89,13 +124,34 @@
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start w-64 max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start w-64 max-w-64 sm:fixed sm:top-[57px] sm:bottom-0 sm:left-0 sm:z-40 sm:flex sm:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body w-64 bg-base-100 h-full flex flex-col overflow-hidden">
+  <div
+    class="drawer-body w-64 bg-base-100 h-full flex flex-col overflow-hidden"
+  >
     <!-- Fixed Header Section -->
     <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
       <ul class="menu w-full space-y-0.5 p-0">
+        <!-- Dark Mode Toggle (Mobile View) - Aligned with other menu items -->
+        <li class="w-full sm:hidden">
+          <div class="flex items-center gap-2 px-4 py-2 w-full">
+            <span class="icon-[tabler--sun-moon] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Mode</span>
+            <div class="flex items-center gap-1">
+              <span class="icon-[tabler--sun] size-4 text-yellow-500"></span>
+              <input
+                type="checkbox"
+                class="switch theme-controller switch-sm"
+                id="mobileDarkModeToggle"
+                value="dark"
+              />
+              <span
+                class="icon-[tabler--moon] size-4 text-slate-700 dark:text-slate-300"
+              ></span>
+            </div>
+          </div>
+        </li>
         <li class="w-full">
           <a
             href="{{ url_for('index') }}"
@@ -315,12 +371,12 @@
     </div>
 
     <!-- Fixed Footer Section -->
-    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 lg:hidden">
+    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 sm:hidden">
       <form action="{{ url_for('logout') }}" method="post" class="w-full">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button
           type="submit"
-          class="btn btn-ghost w-full justify-start gap-2 text-error"
+          class="flex items-center gap-2 px-4 py-2 w-full hover:bg-base-200 rounded-lg text-error"
         >
           <span class="icon-[tabler--logout-2] size-5 shrink-0"></span>
           <span class="truncate">Sign Out</span>
@@ -492,13 +548,17 @@
   }
 
   // Listen for the confirmAction:success event from our confirm modal
-  document.addEventListener('confirmAction:success', async function(event) {
+  document.addEventListener("confirmAction:success", async function (event) {
     const { modalId, result, documentType, action } = event.detail;
-    
+
     // If this is from delete all history action
-    if (result && (result.action === 'delete_all_history' || action === 'delete_all_history')) {
-      console.log('History deletion was successful');
-      
+    if (
+      result &&
+      (result.action === "delete_all_history" ||
+        action === "delete_all_history")
+    ) {
+      console.log("History deletion was successful");
+
       // Check if we're on a history page or list history page
       const currentPath = window.location.pathname;
       if (
@@ -506,13 +566,13 @@
         currentPath.includes("/list/history") ||
         currentPath.includes("/d/history")
       ) {
-        console.log('On history page, redirecting to index');
+        console.log("On history page, redirecting to index");
         // Redirect to index page
         window.location.href = "/";
         return;
       }
 
-      console.log('Not on history page, updating navigation items');
+      console.log("Not on history page, updating navigation items");
       // Update the navigation items
       await updateNavItems();
     }
@@ -532,107 +592,118 @@
 
   // Update every 30 seconds, but use debouncing to prevent overlapping calls
   setInterval(debouncedUpdate, 30000);
-  
+
   // Special handler for the delete history button in the collapsed menu
-  document.addEventListener('DOMContentLoaded', function() {
-    const deleteHistoryBtn = document.querySelector('button[data-action*="delete_all_history"]');
+  document.addEventListener("DOMContentLoaded", function () {
+    const deleteHistoryBtn = document.querySelector(
+      'button[data-action*="delete_all_history"]',
+    );
     if (deleteHistoryBtn) {
-      console.log('Found delete history button, adding special handler');
-      deleteHistoryBtn.addEventListener('click', function(e) {
+      console.log("Found delete history button, adding special handler");
+      deleteHistoryBtn.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        console.log('Delete history button clicked via special handler');
-        
+
+        console.log("Delete history button clicked via special handler");
+
         const modalId = this.dataset.modalTarget;
-        const modalInstance = window.modalInstances ? window.modalInstances[modalId] : null;
-        
+        const modalInstance = window.modalInstances
+          ? window.modalInstances[modalId]
+          : null;
+
         if (modalInstance) {
-          console.log('Using modal instance for delete history', this.dataset);
+          console.log("Using modal instance for delete history", this.dataset);
           // Make sure we correctly update the modal from this button's data attributes
           modalInstance.updateModalFromTrigger(this);
           modalInstance.showModal();
         } else {
           // Fallback: try to get modal directly
-          console.log('No modal instance found, trying direct access');
+          console.log("No modal instance found, trying direct access");
           const modal = document.getElementById(modalId);
           if (modal) {
             // Update modal content directly
-            const title = modal.querySelector('h3');
-            const message = modal.querySelector('p');
-            const confirmBtn = modal.querySelector('button.confirm-action');
-            
+            const title = modal.querySelector("h3");
+            const message = modal.querySelector("p");
+            const confirmBtn = modal.querySelector("button.confirm-action");
+
             // Set data attributes on the modal itself for the confirm action
             modal.dataset.action = this.dataset.action;
-            modal.dataset.method = 'post'; // Force POST method for delete_all_history
-            
-            if (title) title.textContent = this.dataset.title || 'Confirm Action';
-            if (message) message.textContent = this.dataset.message || 'Are you sure?';
-            
+            modal.dataset.method = "post"; // Force POST method for delete_all_history
+
+            if (title)
+              title.textContent = this.dataset.title || "Confirm Action";
+            if (message)
+              message.textContent = this.dataset.message || "Are you sure?";
+
             // Attach direct click handler to confirm button as fallback
             if (confirmBtn) {
-              confirmBtn.onclick = function() {
+              confirmBtn.onclick = function () {
                 const url = modal.dataset.action;
-                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                
+                const csrfToken =
+                  document.querySelector('meta[name="csrf-token"]')?.content ||
+                  "";
+
                 fetch(url, {
-                  method: 'POST',
+                  method: "POST",
                   headers: {
-                    'X-CSRFToken': csrfToken
-                  }
+                    "X-CSRFToken": csrfToken,
+                  },
                 })
-                .then(response => response.json())
-                .then(result => {
-                  console.log('History deletion result:', result);
-                  if (result.status === 'ok') {
-                    // Show success notification
-                    const notification = document.createElement('div');
-                    notification.className = 'fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white';
-                    notification.textContent = 'History deleted successfully';
-                    document.body.appendChild(notification);
-                    setTimeout(() => notification.remove(), 3000);
-                    
-                    // Check if we're on a history-related page
-                    const currentPath = window.location.pathname;
-                    if (
-                      currentPath.includes("/chat/history/") ||
-                      currentPath.includes("/list/history") ||
-                      currentPath.includes("/d/history")
-                    ) {
-                      console.log('On history page, redirecting to index');
-                      window.location.href = "/";
-                      return;
+                  .then((response) => response.json())
+                  .then((result) => {
+                    console.log("History deletion result:", result);
+                    if (result.status === "ok") {
+                      // Show success notification
+                      const notification = document.createElement("div");
+                      notification.className =
+                        "fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white";
+                      notification.textContent = "History deleted successfully";
+                      document.body.appendChild(notification);
+                      setTimeout(() => notification.remove(), 3000);
+
+                      // Check if we're on a history-related page
+                      const currentPath = window.location.pathname;
+                      if (
+                        currentPath.includes("/chat/history/") ||
+                        currentPath.includes("/list/history") ||
+                        currentPath.includes("/d/history")
+                      ) {
+                        console.log("On history page, redirecting to index");
+                        window.location.href = "/";
+                        return;
+                      }
+
+                      // Update the navigation
+                      console.log("Not on history page, updating navigation");
+                      updateNavItems();
                     }
-                    
-                    // Update the navigation
-                    console.log('Not on history page, updating navigation');
-                    updateNavItems();
-                  }
-                  modal.classList.add('hidden');
-                })
-                .catch(error => {
-                  console.error('Error deleting history:', error);
-                  modal.classList.add('hidden');
-                });
+                    modal.classList.add("hidden");
+                  })
+                  .catch((error) => {
+                    console.error("Error deleting history:", error);
+                    modal.classList.add("hidden");
+                  });
               };
             }
-            
+
             // Show modal
-            modal.classList.remove('hidden');
+            modal.classList.remove("hidden");
           }
         }
       });
     } else {
-      console.warn('Delete history button not found on DOMContentLoaded');
-      
+      console.warn("Delete history button not found on DOMContentLoaded");
+
       // Try again after a slight delay to account for dynamic content
-      setTimeout(function() {
-        const delayedButton = document.querySelector('button[data-action*="delete_all_history"]');
+      setTimeout(function () {
+        const delayedButton = document.querySelector(
+          'button[data-action*="delete_all_history"]',
+        );
         if (delayedButton) {
-          console.log('Found delete history button after delay');
+          console.log("Found delete history button after delay");
           delayedButton.click(); // Trigger the click to ensure it works
         } else {
-          console.error('Delete history button not found even after delay');
+          console.error("Delete history button not found even after delay");
         }
       }, 500);
     }
@@ -645,32 +716,32 @@
   function updateScreenSizeIndicator() {
     const width = window.innerWidth;
     const height = window.innerHeight;
-    
+
     // Update the displayed dimensions
-    document.querySelectorAll('.screen-width').forEach(el => {
+    document.querySelectorAll(".screen-width").forEach((el) => {
       el.textContent = width;
     });
-    
-    document.querySelectorAll('.screen-height').forEach(el => {
+
+    document.querySelectorAll(".screen-height").forEach((el) => {
       el.textContent = height;
     });
-    
-    // Show the indicator on all screens 
-    const indicator = document.getElementById('screen-size-indicator');
+
+    // Show the indicator on all screens
+    const indicator = document.getElementById("screen-size-indicator");
     if (indicator) {
-      indicator.classList.remove('hidden', 'md:flex');
-      indicator.classList.add('flex');
+      indicator.classList.remove("hidden", "md:flex");
+      indicator.classList.add("flex");
     }
 
     // Define breakpoints in order from smallest to largest
     const breakpoints = [
-      { name: 'sm', minWidth: 640 },
-      { name: 'md', minWidth: 768 },
-      { name: 'lg', minWidth: 1024 },
-      { name: 'xl', minWidth: 1280 },
-      { name: '2xl', minWidth: 1536 }
+      { name: "sm", minWidth: 640 },
+      { name: "md", minWidth: 768 },
+      { name: "lg", minWidth: 1024 },
+      { name: "xl", minWidth: 1280 },
+      { name: "2xl", minWidth: 1536 },
     ];
-    
+
     // Find the highest active breakpoint
     let activeBreakpoint = null;
     for (let i = breakpoints.length - 1; i >= 0; i--) {
@@ -679,52 +750,75 @@
         break;
       }
     }
-    
+
     // Update all breakpoint tags
-    document.querySelectorAll('.breakpoint-tag').forEach(tag => {
+    document.querySelectorAll(".breakpoint-tag").forEach((tag) => {
       const name = tag.dataset.name;
-      
+
       // Reset all styles
-      tag.classList.remove('bg-green-500', 'text-white', 'font-bold', 'bg-gray-100', 'opacity-50');
-      
+      tag.classList.remove(
+        "bg-green-500",
+        "text-white",
+        "font-bold",
+        "bg-gray-100",
+        "opacity-50",
+      );
+
       if (name === activeBreakpoint) {
         // Highlight the active breakpoint
-        tag.classList.add('bg-green-500', 'text-white', 'font-bold');
+        tag.classList.add("bg-green-500", "text-white", "font-bold");
       } else {
         // Make other breakpoints subtle
-        tag.classList.add('bg-gray-100', 'opacity-50');
+        tag.classList.add("bg-gray-100", "opacity-50");
       }
     });
   }
-  
+
   // Run on page load
-  document.addEventListener('DOMContentLoaded', updateScreenSizeIndicator);
-  
+  document.addEventListener("DOMContentLoaded", updateScreenSizeIndicator);
+
   // Run whenever the window is resized
-  window.addEventListener('resize', updateScreenSizeIndicator);
+  window.addEventListener("resize", updateScreenSizeIndicator);
 </script>
 
 <!-- Theme Persistence Script -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    
+  document.addEventListener("DOMContentLoaded", function () {
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const mobileDarkModeToggle = document.getElementById(
+      "mobileDarkModeToggle",
+    );
+
     // Check saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial state
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-      document.documentElement.dataset.theme = 'dark';
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    // Set initial state for both toggles
+    if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.dataset.theme = "dark";
       if (darkModeToggle) darkModeToggle.checked = true;
+      if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
     }
-    
-    // Add change event listener to toggle
+
+    // Add change event listener to desktop toggle
     if (darkModeToggle) {
-      darkModeToggle.addEventListener('change', function() {
-        const newTheme = this.checked ? 'dark' : 'light';
+      darkModeToggle.addEventListener("change", function () {
+        const newTheme = this.checked ? "dark" : "light";
         document.documentElement.dataset.theme = newTheme;
-        localStorage.setItem('theme', newTheme);
+        localStorage.setItem("theme", newTheme);
+        if (mobileDarkModeToggle) mobileDarkModeToggle.checked = this.checked;
+      });
+    }
+
+    // Add change event listener to mobile toggle
+    if (mobileDarkModeToggle) {
+      mobileDarkModeToggle.addEventListener("change", function () {
+        const newTheme = this.checked ? "dark" : "light";
+        document.documentElement.dataset.theme = newTheme;
+        localStorage.setItem("theme", newTheme);
+        if (darkModeToggle) darkModeToggle.checked = this.checked;
       });
     }
   });
