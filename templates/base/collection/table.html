@@ -27,7 +27,7 @@
         >
           {% for field in document %}
           <td
-            class="font-normal leading-normal px-4 py-2 border-r border-slate-200 dark:border-slate-700 last:border-r-0"
+            class="font-normal leading-normal px-4 py-2 border-r border-slate-200 dark:border-slate-700 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
           >
             {% if field.type == 'ButtonField' %}
             <div class="flex justify-start items-center">
@@ -40,7 +40,11 @@
                 </button>
               </a>
             </div>
-            {% else %} {{field.value}} {% endif %}
+            {% else %} 
+              <div class="{% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}">
+                {{field.value}}
+              </div>
+            {% endif %}
           </td>
           {% endfor %}
           <td class="w-16 px-4 py-2 text-right sticky right-0 bg-white">
