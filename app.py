@@ -12,7 +12,7 @@ from bson.objectid import ObjectId
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument, upload_file
 from core.db_helper import getFile
-from core.db_document import File, Prompt, getDefaults
+from core.db_document import File, Prompt, getDefaults, History
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
@@ -166,18 +166,61 @@ def download_file(file_id):
 			original_filename = file_data['name']
 			
 			print(f"[DEBUG] Attempting to send file: {path}/{filename}")
-			return send_from_directory(
-				path, 
-				filename,
-				as_attachment=True,
-				download_name=original_filename
-			)
+			
+			# Get base path for absolute file locations
+			base_path = os.path.abspath(os.path.dirname(__file__))
+			
+			# Try the direct path first
+			file_path = os.path.join(path, filename)
+			if os.path.exists(file_path):
+				print(f"[DEBUG] Found file at: {file_path}")
+				return send_from_directory(
+					path, 
+					filename,
+					as_attachment=True,
+					download_name=original_filename
+				)
+			
+			# Try absolute path
+			absolute_path = os.path.join(base_path, path, filename)
+			if os.path.exists(absolute_path):
+				print(f"[DEBUG] Found file at absolute path: {absolute_path}")
+				directory, file = os.path.split(absolute_path)
+				return send_from_directory(
+					directory, 
+					file,
+					as_attachment=True,
+					download_name=original_filename
+				)
+			
+			# Check for the file in standard directories based on category
+			category = file_data.get('category', '')
+			if category:
+				standard_path = os.path.join(base_path, 'core', 'documents', category, filename)
+				if os.path.exists(standard_path):
+					print(f"[DEBUG] Found file in standard location: {standard_path}")
+					directory, file = os.path.split(standard_path)
+					# Update the database record
+					file_obj.path = os.path.join('core', 'documents', category)
+					file_obj.save()
+					return send_from_directory(
+						directory, 
+						file,
+						as_attachment=True,
+						download_name=original_filename
+					)
+			
+			print(f"[DEBUG] File not found for id: {file_id}")
+			flash('The file could not be found on the server.', 'error')
+			return redirect(url_for('index'))
 		else:
-			print(f"[DEBUG] File not found: {file_id}")
-			abort(404)
+			print(f"[DEBUG] getFile returned error for id: {file_id} - {data.get('message', 'Unknown error')}")
+			flash('Error retrieving file information.', 'error')
+			return redirect(url_for('index'))
 	except Exception as e:
 		print(f"[DEBUG] Error in download_file: {str(e)}")
-		abort(500)
+		flash('An error occurred while downloading the file.', 'error')
+		return redirect(url_for('index'))
 
 @app.route('/d/<collection>/<id>')
 @login_required

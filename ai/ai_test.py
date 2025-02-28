@@ -13,16 +13,23 @@ messages = [
     {"role": "user", "content": "Wer war Ada Lovelace?"}
 ]
 
-#model = {'provider':'azure','model':'gpt-4o-sweden-02','name':'gpt-4o-sweden-02'}
-#model = {'provider':'openai','model':'gpt-4o-mini','name':'gpt-4o-mini'}
-#model = {'provider':'perplexity','model':'sonar-pro','name':'Perplexity - Sonar Reasoning Pro'}
-#model = {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'}
-model = {'provider':'azure','model':'o1-mini','name':'o1-mini'}
+# for model in Model.objects():
+#     print (model.to_json())
 
-#Stream response handling
-response = llm_call(messages, model)
-for chunk in response:
-    print(chunk)
+#model = {'provider':'azure','model':'gpt-4o-mini-sweden-02','name':'EU - Azure - GPT-4o Mini - Sweden', 'region':'EU','model_family':'gpt4o'}
+#model = {'provider':'azure','model':'gpt-4o-sweden-02','name':'EU - Azure - GPT-4o - Sweden', 'region':'EU','model_family':'gpt4o'}
+#model = {'provider':'azure','model':'o1-mini','name':'EU Azure - o1-mini Sweden', 'region':'EU','model_family':'o1'}
+#model = {'provider':'perplexity','model':'sonar-deep-research','name':'US - Perplexity - Sonar Deep Research', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar-reasoning-pro','name':'US - Perplexity - Sonar Reasoning Pro', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar-reasoning','name':'US - Perplexity - Sonar Reasoning', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar-pro','name':'US - Perplexity - Sonar Pro', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar','name':'US - Perplexity - Sonar', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1', 'region':'US','model_family':'deepseek'}
+
+# #Stream response handling
+# response = llm_call(messages, model)
+# for chunk in response:
+#     print(chunk)
 
 # History.objects().delete()
 # Prompt.objects().delete()

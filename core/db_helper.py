@@ -81,19 +81,40 @@ def getFile(file_id):
     try:
         file = File.objects(id=file_id).first()
         if file is not None:
-            # Verify file exists on disk
+            # Get the base directory (where the application is running)
+            base_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+            
+            # Check relative path
             file_path = os.path.join(file.path, f"{file_id}.{file.file_type}")
             if os.path.exists(file_path):
+                print(f"[DEBUG] File exists at path: {file_path}")
                 return {'status': 'ok', 'message': '', 'data': file.to_json()}
-            else:
-                print(f"[DEBUG] Physical file not found at: {file_path}")
-                return {'status': 'error', 'message': 'Physical file not found'}
+            
+            # Check absolute path
+            abs_path = os.path.join(base_path, file.path, f"{file_id}.{file.file_type}")
+            if os.path.exists(abs_path):
+                print(f"[DEBUG] File exists at absolute path: {abs_path}")
+                return {'status': 'ok', 'message': '', 'data': file.to_json()}
+            
+            # Check if the file exists in the category folder
+            if hasattr(file, 'category') and file.category:
+                category_path = os.path.join(base_path, 'core', 'documents', file.category, f"{file_id}.{file.file_type}")
+                if os.path.exists(category_path):
+                    print(f"[DEBUG] File found in category folder: {category_path}")
+                    # Update the file path in the database
+                    file.path = os.path.join('core', 'documents', file.category)
+                    file.save()
+                    return {'status': 'ok', 'message': '', 'data': file.to_json()}
+            
+            print(f"[DEBUG] Physical file not found at: {file_path}")
+            # Just return the file data anyway and let download_file handle the rest
+            return {'status': 'ok', 'message': '', 'data': file.to_json()}
         else:
             print(f"[DEBUG] No file record found for id: {file_id}")
             return {'status': 'error', 'message': 'File record not found'}
     except Exception as e:
         print(f"[DEBUG] Error in getFile: {str(e)}")
-        return {'status': 'error', 'message': f'Error retrieving file: {str(e)}'}
+        return {'status': 'error', 'message': str(e)}
 
 
 def getDocumentsByID(collection, name, start=0, limit=10, id=''):

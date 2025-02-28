@@ -37,6 +37,8 @@ for model_data in models:
         provider=model_data['provider'],
         model=model_data['model'],
         name=model_data['name'],
+        region=model_data['region'],
+        model_family=model_data['model_family'],
         created_date=now,
         created_by='system'
     )
