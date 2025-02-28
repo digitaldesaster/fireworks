@@ -77,7 +77,7 @@
         aria-expanded="false"
         aria-label="User menu"
       >
-        <div class="bg-primary text-primary-content rounded-full w-10">
+        <div class="bg-base-100 border border-secondary text-base-content rounded-full w-10 flex items-center justify-center">
           <span class="text-lg"
             >{{ current_user.firstname[0] }}{{ current_user.name[0] }}</span
           >
@@ -260,7 +260,7 @@
                 <li class="w-full">
                   <a
                     href="{{ url_for('doc', name='prompt') }}"
-                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-primary rounded-lg group"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-base-content rounded-lg group"
                   >
                     <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
                     <span class="truncate">New Prompt</span>
@@ -292,7 +292,7 @@
                       title="Edit prompt"
                     >
                       <span
-                        class="icon-[tabler--edit] size-3.5 text-primary"
+                        class="icon-[tabler--edit] size-3.5 text-base-content"
                       ></span>
                     </a>
                   </div>
@@ -485,7 +485,7 @@
                 </a>
                 <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formattedDate}</span>
                 <a href="/d/prompt/${prompt._id.$oid}" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Edit prompt" title="Edit prompt">
-                  <span class="icon-[tabler--edit] size-3.5 text-primary"></span>
+                  <span class="icon-[tabler--edit] size-3.5 text-base-content"></span>
                 </a>
               </div>
             `;

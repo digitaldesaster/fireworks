@@ -14,7 +14,7 @@
     <a href="/chat/history/{{ item.id }}" class="no-underline">
       <div
         id="history_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ item.first_message }}</span>
       </div>
@@ -33,7 +33,7 @@
     <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
       <div
         id="prompt_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
+        class="relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
       >
         <span class="truncate">{{ prompt.name }}</span>
       </div>
@@ -43,12 +43,12 @@
   {% endif %} {% if not config.history and not config.latest_prompts %}
   <div class="flex flex-row flex-wrap justify-center gap-4">
     <div
-      class="prompt relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
+      class="prompt relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
     >
       <span class="truncate">Wer war Ada Lovelace?</span>
     </div>
     <div
-      class="group relative prompt h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
+      class="group relative prompt h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
     >
       <span class="truncate">Schreibe eine index.html</span>
     </div>

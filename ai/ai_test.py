@@ -24,12 +24,12 @@ messages = [
 #model = {'provider':'perplexity','model':'sonar-reasoning','name':'US - Perplexity - Sonar Reasoning', 'region':'US','model_family':'sonar'}
 #model = {'provider':'perplexity','model':'sonar-pro','name':'US - Perplexity - Sonar Pro', 'region':'US','model_family':'sonar'}
 #model = {'provider':'perplexity','model':'sonar','name':'US - Perplexity - Sonar', 'region':'US','model_family':'sonar'}
-#model = {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1', 'region':'US','model_family':'deepseek'}
+model = {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1', 'region':'US','model_family':'deepseek'}
 
-# #Stream response handling
-# response = llm_call(messages, model)
-# for chunk in response:
-#     print(chunk)
+#Stream response handling
+response = llm_call(messages, model)
+for chunk in response:
+    print(chunk)
 
 # History.objects().delete()
 # Prompt.objects().delete()

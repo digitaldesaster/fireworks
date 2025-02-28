@@ -5,7 +5,7 @@
       {% if prev != null and prev != None %}
       <a
         href="{{collection_url}}?start=0&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
+        class="btn btn-outline"
         aria-label="First"
       >
         <span
@@ -15,7 +15,7 @@
       </a>
       <a
         href="{{collection_url}}?start={{prev}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
+        class="btn btn-outline"
         aria-label="Previous"
       >
         <span
@@ -32,7 +32,7 @@
       {% if next %}
       <a
         href="{{collection_url}}?start={{next}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
+        class="btn btn-outline"
         aria-label="Next"
       >
         <span class="hidden sm:inline">Next</span>
@@ -43,7 +43,7 @@
       {% endif %} {% if last != null and last != None %}
       <a
         href="{{collection_url}}?start={{last}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
+        class="btn btn-outline"
         aria-label="Last"
       >
         <span class="hidden sm:inline">Last</span>
@@ -70,7 +70,7 @@
     <button
       id="dropdown-default"
       type="button"
-      class="dropdown-toggle btn btn-primary btn-outline"
+      class="dropdown-toggle btn btn-outline"
       aria-haspopup="menu"
       aria-expanded="false"
       aria-label="Limit"
