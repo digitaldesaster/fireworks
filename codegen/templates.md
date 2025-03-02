@@ -39,114 +39,143 @@ module.exports = {
 };
 ```
 
-## login.html
+## index.html
 
 ```
 <!doctype html>
-<html lang="en" data-theme="light" class="overflow-y-scroll">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Flask App</title>
-    <!-- Early Theme Initialization -->
-    <script>
-      (function() {
-        // Apply theme before page renders to avoid flash of wrong theme
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-          document.documentElement.dataset.theme = 'dark';
-        } else {
-          document.documentElement.dataset.theme = 'light';
-        }
-      })();
-    </script>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/output.css') }}"
-    />
-  </head>
-  <body class="bg-base-200 min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md p-6">
-      <div class="rounded-box border-base-content/10 bg-base-100 p-8 shadow-lg">
-        <div class="text-center mb-8">
-          <h1 class="text-2xl font-bold text-base-content/90">Welcome Back</h1>
-          <p class="text-base-content/60 mt-2">Please sign in to continue</p>
-        </div>
-
-        <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-          <div class="space-y-6">
-            <div class="form-control">
-              <label class="label" for="email">
-                <span class="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="input input-bordered w-full"
-                placeholder="your@email.com"
-                value="{{ email if email }}"
-                required
-                autocomplete="email"
-              />
-            </div>
-
-            <div class="form-control">
-              <label class="label" for="password">
-                <span class="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="input input-bordered w-full"
-                placeholder="••••••••"
-                required
-                autocomplete="current-password"
-              />
-              <label class="label">
-                <a href="#" class="label-text-alt link link-hover"
-                  >Forgot password?</a
-                >
-              </label>
-            </div>
-
-            <div class="form-control">
-              <label class="label cursor-pointer justify-start gap-3">
-                <input
-                  type="checkbox"
-                  class="checkbox checkbox-primary"
-                  name="remember"
-                />
-                <span class="label-text">Remember me</span>
-              </label>
-            </div>
-
-            {% if status == 'error' %}
-            <div class="alert alert-error">
-              <span
-                >{{ message if message else 'Invalid email or password' }}</span
-              >
-            </div>
-            {% endif %}
-
-            <button type="submit" class="btn btn-primary w-full">
-              Sign in
-            </button>
-
-            <div class="text-center">
-              <a href="/register" class="link link-hover text-sm"
-                >Don't have an account? Register</a
-              >
+<html lang="en" data-theme="light" class="h-full overflow-y-scroll">
+  {% include('main/header.html') %}
+  <body class="min-h-full flex flex-col bg-base-100">
+    {% include('main/nav.html') %}
+    <main class="flex-1 lg:pl-64">
+      <div class="h-full flex items-center justify-center p-4">
+        <div class="card max-w-2xl mx-auto">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-2.5">
+              Welcome back, {{ current_user.firstname }} {{ current_user.name
+              }}!
+            </h5>
+            <p class="mb-4">
+              We're glad to see you again. Here's your personal dashboard
+              overview.
+            </p>
+            <div class="card-actions">
+              <button class="btn btn-outline">Learn More</button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </main>
+
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+  </body>
+</html>
+```
+
+## blur.html
+
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ada Lovelace: The First Computer Programmer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="h-full m-0 font-serif bg-gray-50 text-gray-800 leading-relaxed p-5 box-border"
+  >
+    <div
+      class="max-w-3xl min-h-[calc(100vh-40px)] mx-auto p-5 bg-white rounded-lg shadow-md"
+    >
+      <h1
+        id="title"
+        class="text-2xl font-bold mb-8 opacity-0 blur-xl transition-all duration-1000 ease-out"
+      >
+        Ada Lovelace: The First Computer Programmer
+      </h1>
+
+      <div class="paragraph mb-5 leading-loose" id="p1"></div>
+      <div class="paragraph mb-5 leading-loose" id="p2"></div>
+      <div class="paragraph mb-5 leading-loose" id="p3"></div>
+      <div class="paragraph mb-5 leading-loose" id="p4"></div>
+      <div class="paragraph mb-5 leading-loose" id="p5"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const title = document.getElementById("title");
+        const paragraphs = [
+          "Augusta Ada King, Countess of Lovelace, born on December 10, 1815, was a British mathematician and writer known for her work on Charles Babbage's proposed mechanical general-purpose computer, the Analytical Engine.",
+
+          "The daughter of renowned poet Lord Byron, Ada was raised by her mother, Lady Byron, who promoted Ada's interest in mathematics and logic in an effort to prevent her from developing her father's perceived insanity.",
+
+          "In 1833, through her mentor, mathematician and scientist Mary Somerville, Ada met Charles Babbage and became fascinated with his Analytical Engine. Recognizing that the machine had applications beyond pure calculation, she created the first algorithm intended to be carried out by such a machine.",
+
+          "Her notes on the Analytical Engine include what is recognized as the first published algorithm specifically tailored for implementation on a computer, making her the world's first computer programmer.",
+
+          "Beyond her algorithmic contributions, Ada demonstrated remarkable foresight in her understanding of computing's potential. She envisioned that computers could go beyond mere number-crunching to manipulate symbols and even create music—concepts that wouldn't be realized until a century later.",
+        ];
+
+        // Function to split text into words for word-by-word streaming
+        function prepareTextForWordStreaming(text, element) {
+          const words = text.split(" ");
+
+          words.forEach((word) => {
+            const wordSpan = document.createElement("span");
+            wordSpan.className =
+              "inline-block opacity-0 blur-lg mr-1 transition-all duration-500 ease-out";
+            wordSpan.textContent = word;
+            element.appendChild(wordSpan);
+          });
+
+          return element.querySelectorAll("span");
+        }
+
+        // First make the title visible with blur transition
+        setTimeout(() => {
+          title.classList.remove("opacity-0", "blur-xl");
+        }, 150);
+
+        // Process paragraphs sequentially
+        function streamParagraph(index) {
+          if (index >= paragraphs.length) return;
+
+          const paragraphElement = document.getElementById("p" + (index + 1));
+          const words = prepareTextForWordStreaming(
+            paragraphs[index],
+            paragraphElement,
+          );
+
+          let lastWordTimeout = 0;
+
+          // Stream in words one by one with blur effect
+          words.forEach((word, wIndex) => {
+            const timeout = 400 + wIndex * 30;
+            setTimeout(() => {
+              word.classList.remove("opacity-0", "blur-lg");
+            }, timeout);
+
+            // Keep track of when the last word will appear
+            if (wIndex === words.length - 1) {
+              lastWordTimeout = timeout;
+            }
+          });
+
+          // Move to next paragraph after the current one is complete
+          // Add a buffer after the last word appears
+          setTimeout(() => {
+            streamParagraph(index + 1);
+          }, lastWordTimeout + 200);
+        }
+
+        // Start streaming the first paragraph after title appears
+        setTimeout(() => {
+          streamParagraph(0);
+        }, 500);
+      });
+    </script>
   </body>
 </html>
 ```
@@ -275,652 +304,951 @@ module.exports = {
 </html>
 ```
 
-## index.html
+## login.html
 
 ```
 <!doctype html>
-<html lang="en" data-theme="light" class="h-full overflow-y-scroll">
-  {% include('main/header.html') %}
-  <body class="min-h-full flex flex-col bg-base-100">
-    {% include('main/nav.html') %}
-    <main class="flex-1 lg:pl-64">
-      <div class="h-full flex items-center justify-center p-4">
-        <div class="card max-w-2xl mx-auto">
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2.5">
-              Welcome back, {{ current_user.firstname }} {{ current_user.name
-              }}!
-            </h5>
-            <p class="mb-4">
-              We're glad to see you again. Here's your personal dashboard
-              overview.
-            </p>
-            <div class="card-actions">
-              <button class="btn btn-primary">Learn More</button>
+<html lang="en" data-theme="light" class="overflow-y-scroll">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Flask App</title>
+    <!-- Early Theme Initialization -->
+    <script>
+      (function() {
+        // Apply theme before page renders to avoid flash of wrong theme
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+          document.documentElement.dataset.theme = 'dark';
+        } else {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/output.css') }}"
+    />
+  </head>
+  <body class="bg-base-200 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md p-6">
+      <div class="rounded-box border-base-content/10 bg-base-100 p-8 shadow-lg">
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-bold text-base-content/90">Welcome Back</h1>
+          <p class="text-base-content/60 mt-2">Please sign in to continue</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <div class="space-y-6">
+            <div class="form-control">
+              <label class="label" for="email">
+                <span class="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="input input-bordered w-full"
+                placeholder="your@email.com"
+                value="{{ email if email }}"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-control">
+              <label class="label" for="password">
+                <span class="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="input input-bordered w-full"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+              />
+              <label class="label">
+                <a href="#" class="label-text-alt link link-hover"
+                  >Forgot password?</a
+                >
+              </label>
+            </div>
+
+            <div class="form-control">
+              <label class="label cursor-pointer justify-start gap-3">
+                <input
+                  type="checkbox"
+                  class="checkbox checkbox-primary"
+                  name="remember"
+                />
+                <span class="label-text">Remember me</span>
+              </label>
+            </div>
+
+            {% if status == 'error' %}
+            <div class="alert alert-error">
+              <span
+                >{{ message if message else 'Invalid email or password' }}</span
+              >
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary w-full">
+              Sign in
+            </button>
+
+            <div class="text-center">
+              <a href="/register" class="link link-hover text-sm"
+                >Don't have an account? Register</a
+              >
             </div>
           </div>
-        </div>
+        </form>
       </div>
-    </main>
-
+    </div>
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
   </body>
 </html>
 ```
 
-## base/document/form.html
+## chat/chat_messages_rendered.html
 
 ```
-<!doctype html>
-<html lang="en" class="overflow-y-scroll">
-  {% include('/main/header.html') %}
-  <body class="bg-base-100 min-h-screen">
-    {% include('/main/nav.html') %}
-
-    <section class="p-6 flex items-center lg:ml-64">
-      <div class="max-w-screen-xl mx-auto px-4 lg:px-12 w-full">
-        <!-- Start coding here -->
-        <div class="relative bg-base-100 shadow-md sm:rounded-lg">
-          <div class="flex items-center justify-center pt-4 px-4">
-            <form
-              method="POST"
-              enctype="multipart/form-data"
-              id="documentForm"
-              class="w-full max-w-lg"
-            >
-              <input
-                type="hidden"
-                name="csrf_token"
-                value="{{ csrf_token() }}"
-              />
-              <input type="hidden" name="id" value="{{document.id}}" />
-
-              <h1 class="text-2xl font-bold">{{page.title}}</h1>
-              <hr class="my-4" />
-              <div class="flex flex-wrap -mx-3 mb-6">
-                {% include('/base/document/form_elements.html') %}
-              </div>
-
-              <!-- Save and Delete Buttons -->
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div
-                  class="w-full px-3 mb-6 md:mb-0 flex justify-between space-x-3"
-                >
-                  <button
-                    type="submit"
-                    class="btn btn-primary w-1/2"
-                    id="saveButton"
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-error w-1/2"
-                    data-modal-target="confirm_modal"
-                    data-action="{{url_for('delete_document')}}?id={{document.id}}&type={{page.document_name}}"
-                    data-redirect="{{ page.collection_url }}"
-                    data-message="Are you sure you want to delete this {{page.document_name}}? This action cannot be undone."
-                    data-title="Confirm Deletion"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    <script>
-      window.addEventListener("load", function () {
-        // Basic
-        flatpickr("#flatpickr-date", {
-          monthSelectorType: "static",
-          locale: "de",
-          dateFormat: "d.m.Y",
-        });
-      });
-    </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // We're now using the global confirm modal, so we don't need delete_document.js
-        {% include 'base/document/js/search_field.js' %}
-      });
-    </script>
-    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/flatpickr.min.js') }}"></script>
-  </body>
-</html>
-```
-
-## base/document/form_elements.html
-
-```
-{% for element in elements %}
 <div
-  class="{{ 'w-full' if element.full_width else 'w-full md:w-1/2' }} px-3 mb-6 md:mb-0"
+  id="chat_messages"
+  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 overflow-auto flex flex-col space-y-2"
 >
-  <label
-    for="{{ element.id }}"
-    class="label label-text"
-  >
-    {{ element.label }}
-  </label>
-
-  {% if element.type == 'ButtonField' %}
-  <a href="{{element.link}}/{{document.id}}"
-    ><button
-      type="button"
-      class="btn btn-primary"
+  {% for message in config.messages %} {% if message.role =='user' %}
+  <div class="flex space-x-4 mb-4">
+    <div
+      class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full"
     >
-      {{element.label}}
-    </button></a
-  >
-  {% endif %} {% if element.type == 'FileField' %}
-  <input
-    class="input max-w-sm"
-    id="{{element.id}}"
-    type="file"
-    name="files_{{element.id}}"
-    multiple
-  />
-  {% for file in element.value %} {% if file.element_id == element.id %}
-  <div id="{{file.document_id}}" class="flex items-center justify-between mt-2">
-    <span class="mt-1 text-sm text-base-content/60">
-      <a
-        href="{{url_for('download_file',file_id=file.id)}}"
-        class="text-blue-600 hover:text-blue-500"
-        target="_blank"
+      {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
+      config.name else '' }}
+    </div>
+    <div
+      class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
+      id="message-{{ loop.index }}"
+    ></div>
+  </div>
+  {% endif %} {% if message.role =='assistant' %}
+  <div class="flex space-x-4 mb-4">
+    <div
+      class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
       >
-        {{ file.name }}
-      </a>
-    </span>
-    <button
-      type="button"
-      data-modal-target="confirm_modal"
-      data-action="/delete_document?id={{file.id}}&type=files"
-      data-document-id="{{file.document_id}}"
-      data-message="Are you sure you want to delete this file? This action cannot be undone."
-      data-title="Delete File"
-      class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"
-    >
-      Delete
-    </button>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+        />
+      </svg>
+    </div>
+    <div
+      class="message content bg-base-200 text-base-content rounded-lg p-4 flex-1 min-w-0 break-words"
+      id="message-{{ loop.index }}"
+    ></div>
   </div>
-  {% endif %} {% endfor %} {% endif %} {% if element.type=='DocumentField' %}
-  <!-- Search Field -->
-  <input
-    type="hidden"
-    value="{{element.value_id if element.value_id else document.get(element.name + '_id', '')}}"
-    name="{{ element.name }}_hidden"
-    id="{{ element.name }}_hidden"
-  />
-  <input
-    id="{{element.id}}"
-    name="{{element.name}}"
-    value="{{element.value if element.value else document.get(element.name, '')}}"
-    module="{{element.module}}"
-    document_field="{{element.document_field}}"
-    type="text"
-    placeholder="Search..."
-    class="searchField bg-base-200 border border-base-content/10 text-base-content text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-  />
-
-  <!-- Dropdown Menu -->
-  <div
-    id="dropdownMenu"
-    class="z-10 hidden bg-base-100 rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
-  >
-    <ul id="userList" class="py-2 text-base-content"></ul>
-  </div>
-  {% endif %} {% if element.type == 'IntField' or element.type =='FloatField' %}
-
-  <div class="max-w-sm mx-auto">
-    <input
-      type="text"
-      id="{{element.id}}"
-      name="{{element.name}}"
-      value="{{element.value if element.value is not none else ''}}"
-      class="input"
-    />
-  </div>
-
-  {% endif %} {% if element.type == 'Date' %}
-
-  <input
-    type="text"
-    class="input max-w-sm"
-    placeholder="DD.MM.YYYY"
-    id="flatpickr-date"
-    name="{{element.name}}"
-    value="{{element.value if element.value is not none else ''}}"
-  />
-
-  {% endif %} {% if element.type == 'CheckBox' %}
-  <label class="inline-flex items-center mb-5 cursor-pointer">
-    <input
-      type="hidden"
-      name="{{ element.name }}_hidden"
-      value="Off"
-    />
-    <input
-      type="checkbox"
-      name="{{ element.name }}"
-      class="switch switch-primary"
-      value="On"
-      {% if element.value == "On" %}checked{% endif %}
-    />
-  </label>
-  {% endif %} {% if element.type =='SimpleListField' %}
-  <select
-    class="select max-w-sm appearance-none"
-    aria-label="select"
-    id="{{element.id}}"
-    name="{{element.name}}"
-  >
-    {% for item in element.SimpleListField %} {% if item.value == element.value %}
-    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
-    {% else %}
-    <option value="{{item.value}}">{{item.name}}</option>
-    {% endif %} {% endfor %}
-  </select>
-  {% endif %} {% if element.type=='AdvancedListField' %}
-  <select class="select max-w-sm appearance-none" aria-label="select" id="{{element.id}}" name="{{element.name}}">
-    {% for item in element.AdvancedListField %} {% if item.value == element.value %}
-    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
-    {% else %}
-    <option value="{{item.value}}">{{item.name}}</option>
-    {% endif %} {% endfor %}
-  </select>
-  {% endif %} {% if element.type == 'SingleLine' %}
-  <input
-    id="{{ element.id }}"
-    name="{{ element.name }}"
-    type="text"
-    value="{{ element.value }}"
-    placeholder="{{ element.label }}"
-    class="input"
-    {% if element.required %}required{% endif %}
-  />
-  {% elif element.type == 'MultiLine' %}
-  <textarea
-    id="{{ element.id }}"
-    name="{{ element.name }}"
-    rows="4"
-    placeholder="{{ element.label }}"
-    class="textarea"
-    {% if element.required %}required{% endif %}
-  >{{ element.value if element.value is not none else '' }}</textarea>
-  {% endif %}
-    <!-- {% if element.required %}
-    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
-    {% endif %} -->
+  {% endif %} {% endfor %}
 </div>
-{% endfor %}
-```
 
-## base/document/js/search_field.js
-
-```
-document.querySelectorAll(".searchField").forEach((searchField) => {
-  searchField.addEventListener("input", function () {
-    const query = this.value;
-    const module = this.getAttribute("module"); // Get the module attribute value
-    const document_field = this.getAttribute("document_field");
-    const dropdown = this.nextElementSibling;
-    const userList = dropdown.querySelector("#userList");
-    const document_field_hidden = document.getElementById(
-      this.name + "_hidden",
-    );
-
-    // Clear hidden field if search field is empty
-    if (!query || query.length === 0) {
-      document_field_hidden.value = "";
-      document_field.value = "";
-      dropdown.classList.add("hidden");
-      return;
-    }
-
-    if (query.length > 3) {
-      // Construct the URL using the module value
-      const url =
-        `{{ url_for("list", collection="__MODULE__", mode="json") }}`.replace(
-          "__MODULE__",
-          module,
-        );
-
-      // Fetch users from the server based on the search query
-      fetch(`${url}&search=${encodeURIComponent(query)}&limit=100`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === "ok" && data.message === "success") {
-            dropdown.classList.remove("hidden");
-            console.log(data); // Log the result
-            userList.innerHTML = ""; // Clear the existing list
-
-            // Check if data.data is an array before iterating
-            if (Array.isArray(data.data)) {
-              // Append users to the list
-              data.data.forEach((user) => {
-                const userItem = document.createElement("li");
-                userItem.innerHTML = `
-                                    <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">
-                                        ${user[document_field]}
-                                    </a>
-                                `;
-                userItem.addEventListener("click", function (event) {
-                  event.preventDefault();
-                  searchField.value = user[document_field];
-                  document_field_hidden.value = user.id;
-                  dropdown.classList.add("hidden");
-                });
-                userList.appendChild(userItem);
-              });
-
-              // Log the length of the userList to verify
-              console.log(
-                `Number of users appended: ${userList.children.length}`,
-              );
-            } else {
-              console.error("Error: data.data is not an array");
-            }
-          } else {
-            console.error("Error: Unexpected response format");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error); // Log error message
-        });
-    } else {
-      dropdown.classList.add("hidden");
-    }
+<script>
+  // Process all messages after the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    {% for message in config.messages %}
+      const messageContent = {{message.content|tojson}};
+      const container = document.getElementById('message-{{ loop.index }}');
+      if (container) {
+        appendData(messageContent, container);
+      }
+    {% endfor %}
   });
-});
+</script>
 ```
 
-## base/collection/pagination.html
+## chat/chat_prompts.html
 
 ```
-{% if total != null %}
-<div class="flex flex-wrap items-center justify-between gap-2">
-  <div class="flex flex-wrap items-center gap-2 sm:gap-4">
-    <nav class="flex items-center gap-x-1" aria-label="Pagination">
-      {% if prev != null and prev != None %}
-      <a
-        href="{{collection_url}}?start=0&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="First"
+{% if config.messages | length == 0 %}
+<div
+  id="prompts"
+  class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4 mt-8"
+>
+  {% if config.history %}
+  <h3
+    class="text-center text-xl font-semibold text-base-content"
+  >
+    Last Chats
+  </h3>
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    {% for item in config.history %}
+    <a href="/chat/history/{{ item.id }}" class="no-underline">
+      <div
+        id="history_{{ loop.index }}"
+        class="relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
       >
-        <span
-          class="icon-[tabler--chevrons-left] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-        <span class="hidden sm:inline">First</span>
-      </a>
-      <a
-        href="{{collection_url}}?start={{prev}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="Previous"
-      >
-        <span
-          class="icon-[tabler--chevron-left] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-        <span class="hidden sm:inline">Previous</span>
-      </a>
-      {% endif %}
-
-      <div class="flex items-center gap-x-1">
-        <!-- Page numbers would go here -->
+        <span class="truncate">{{ item.first_message }}</span>
       </div>
-
-      {% if next %}
-      <a
-        href="{{collection_url}}?start={{next}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="Next"
+    </a>
+    {% endfor %}
+  </div>
+  <hr class="h-px my-2 bg-base-content/10 border-0" />
+  {% endif %} {% if config.latest_prompts %}
+  <h3
+    class="text-center text-xl font-semibold text-base-content"
+  >
+    Latest Prompts
+  </h3>
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    {% for prompt in config.latest_prompts %}
+    <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
+      <div
+        id="prompt_{{ loop.index }}"
+        class="relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
       >
-        <span class="hidden sm:inline">Next</span>
-        <span
-          class="icon-[tabler--chevron-right] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-      </a>
-      {% endif %} {% if last != null and last != None %}
-      <a
-        href="{{collection_url}}?start={{last}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="Last"
-      >
-        <span class="hidden sm:inline">Last</span>
-        <span
-          class="icon-[tabler--chevrons-right] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-      </a>
-      {% endif %}
-    </nav>
-
-    <div class="text-sm text-base-content/60">
-      {% if total != None and total > 0 %} Showing
-      <span class="font-medium">{{start}}</span>
-      to
-      <span class="font-medium">{{end}}</span>
-      of
-      <span class="font-medium">{{total}}</span>
-      results {% else %} No results found {% endif %}
+        <span class="truncate">{{ prompt.name }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %} {% if not config.history and not config.latest_prompts %}
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    <div
+      class="prompt relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
+    >
+      <span class="truncate">Wer war Ada Lovelace?</span>
+    </div>
+    <div
+      class="group relative prompt h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
+    >
+      <span class="truncate">Schreibe eine index.html</span>
     </div>
   </div>
-
-  <!-- Limit dropdown -->
-  <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
-    <button
-      id="dropdown-default"
-      type="button"
-      class="dropdown-toggle btn btn-primary btn-outline"
-      aria-haspopup="menu"
-      aria-expanded="false"
-      aria-label="Limit"
-    >
-      Limit
-      <span
-        class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"
-      ></span>
-    </button>
-    <ul
-      aria-labelledby="dropdown-default"
-      aria-orientation="vertical"
-      class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
-      role="menu"
-    >
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=5&search={{search}}&filter={{filter}}"
-        >
-          5 Items
-        </a>
-      </li>
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=10&search={{search}}&filter={{filter}}"
-        >
-          10 Items
-        </a>
-      </li>
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=20&search={{search}}&filter={{filter}}"
-        >
-          20 Items
-        </a>
-      </li>
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=50&search={{search}}&filter={{filter}}"
-        >
-          50 Items
-        </a>
-      </li>
-    </ul>
-  </div>
+  {% endif %}
 </div>
 {% endif %}
 ```
 
-## base/collection/collection.html
+## chat/bot_message_template.html
+
+```
+<div class="flex space-x-4 mb-6">
+  <div
+    class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full flex-shrink-0"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+      />
+    </svg>
+  </div>
+  <div class="flex-1 min-w-0">
+    <div
+      class="message content bg-base-200 text-base-content rounded-lg p-4 break-words min-h-[2.5rem] flex flex-col"
+    ></div>
+    <div class="flex justify-start mt-2">
+      <button
+        class="copy-btn flex items-center gap-1 text-sm text-base-content/60 hover:text-base-content active:scale-95 transition-all duration-100 rounded px-2 py-1 hover:bg-base-200"
+      >
+        <svg
+          class="w-4 h-4 copy-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
+          />
+        </svg>
+        <svg
+          class="w-4 h-4 check-icon hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.5 12.75l6 6 9-13.5"
+          />
+        </svg>
+        <span class="copy-text">Copy</span>
+        <span class="check-text hidden">Copied!</span>
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+## chat/chat_ui.html
+
+```
+<div
+  id="chat_ui"
+  class="fixed bottom-0 left-0 md:left-64 md:w-[calc(100%-16rem)] w-full h-40 bg-base-100"
+>
+  <div class="relative h-full w-full mx-auto 2xl:max-w-7xl">
+    <div
+      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 ml-2 mr-2 mb-2 md:ml-10 md:mr-10 md:mb-4 xl:mx-16 2xl:mx-20 rounded-xl bg-white dark:bg-base-200 shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-base-300"
+    >
+      <div class="p-3 pr-16 overflow-hidden">
+        <textarea
+          id="chat_input"
+          placeholder="Type your message and press Command or Strg + Enter"
+          rows="3"
+          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none bg-white dark:bg-base-200 text-gray-900 dark:text-base-content placeholder-gray-500 dark:placeholder-base-content/50"
+        ></textarea>
+      </div>
+      <div class="ml-6 mb-4 flex items-center gap-2">
+        <div
+          class="dropdown relative inline-flex [--placement:top]"
+          data-dropdown
+        >
+          <button
+            id="modelSelectorButton"
+            class="badge badge-outline dropdown-toggle"
+            data-model-badge
+          >
+            <span id="selected_model"></span>
+          </button>
+          <div
+            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden bg-white dark:bg-base-200"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="modelSelectorButton"
+          >
+            {% for model in config.models %}
+            <button
+              id="{{ model.model }}"
+              data-name="{{ model.name }}"
+              class="model dropdown-item w-full text-left px-4 py-2 text-gray-900 dark:text-base-content hover:bg-gray-100 dark:hover:bg-base-300"
+            >
+              {{ model.name }}
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <label for="file-upload" class="cursor-pointer">
+          <div
+            class="badge badge-outline badge-secondary flex items-center gap-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+              />
+            </svg>
+            <span id="file-name-display">Upload</span>
+          </div>
+        </label>
+        <input type="file" id="file-upload" class="hidden" />
+      </div>
+
+      <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
+        <button
+          id="reset_button"
+          class="bg-slate-800 hover:bg-slate-600 dark:bg-primary dark:hover:bg-primary-focus text-white dark:text-primary-content font-extralight p-2.5 rounded"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </button>
+
+        <button
+          id="chat_button"
+          class="bg-slate-800 hover:bg-slate-600 dark:bg-primary dark:hover:bg-primary-focus text-white dark:text-primary-content font-extralight p-2.5 rounded"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+            />
+          </svg>
+        </button>
+        <button
+          id="stop_button"
+          class="hidden bg-red-500 hover:bg-red-400 dark:bg-error dark:hover:bg-error-focus text-white dark:text-error-content font-extralight p-2.5 rounded"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+## chat/chat_messages.html
+
+```
+<div
+  id="chat_messages"
+  class="mt-4 mb-4 overflow-auto flex flex-col min-h-[200px]"
+></div>
+```
+
+## chat/chat copy.html
 
 ```
 <!doctype html>
-<html lang="en" class="overflow-y-scroll">
+<html lang="en" class="h-full">
   {% include('/main/header.html') %}
-  <body class="bg-base-100 min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <style>
+      /* Tailwind-compatible blur transition styles */
+      .blur-xl {
+        filter: blur(12px);
+      }
+
+      /* Remove the old blur-effect styles that might conflict with Tailwind */
+      /* 
+      .blur-effect {
+        transition:
+          opacity 0.5s ease-out,
+          filter 0.5s ease-out,
+          color 0.5s ease-out,
+          text-shadow 0.5s ease-out;
+        display: inline-block;
+      }
+      .blur-effect.opacity-0 {
+        opacity: 0;
+        filter: blur(8px);
+        color: rgba(0, 0, 0, 0.7);
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      }
+      .blur-lg {
+        filter: blur(8px);
+      }
+      */
+    </style>
+    <title>Chat</title>
+  </head>
+  <body class="min-h-full flex flex-col bg-base-100">
     {% include('/main/nav.html') %}
 
-    <section class="p-4 sm:p-6 flex items-center lg:ml-64">
-      <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
-        <div
-          class="relative bg-base-100 shadow-md sm:rounded-lg p-3 sm:p-4 border border-base-content/10"
-        >
-          <div class="flex flex-col gap-4">
-            <div
-              class="flex flex-row justify-between items-center gap-2 sm:gap-4"
-            >
-              <div class="flex-1">
-                <form
-                  method="GET"
-                  action="{{ url_for('list', collection=collection_name, start=start, limit=limit, filter=filter) }}"
-                >
-                  <div class="relative">
-                    <div
-                      class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-                    >
-                      <svg
-                        class="w-4 h-4 text-base-content/50"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </div>
-                    <input
-                      type="text"
-                      name="search"
-                      class="w-full max-w-md pl-10 pr-4 py-2 border border-base-content/20 bg-base-100 text-base-content rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                      placeholder="Search"
-                      value="{{ search }}"
-                    />
-                  </div>
-                </form>
-              </div>
+    <section class="flex-1 flex items-start overflow-y-auto md:ml-64">
+      <div
+        class="px-2 md:px-10 xl:px-16 2xl:px-20 w-full 2xl:max-w-7xl 2xl:mx-auto"
+      >
+        <div class="relative min-h-[calc(100vh-8rem)] pb-32">
+          <main id="main" class="flex flex-col h-full">
+            {% if config.messages|length == 0 %}
+            <!-- Show prompts and history first in a fresh chat -->
+            <div id="selected_prompts_container" class="flex-1">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            {% else %}
+            <!-- Show messages first in an existing chat -->
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            <div id="selected_prompts_container">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            {% endif %}
 
-              <div class="flex-none">
-                {% if show_new_button %}
-                <a
-                  href="{{ url_for('doc',name = collection_name) }}"
-                  class="btn btn-primary whitespace-nowrap"
-                >
-                  New
-                </a>
-                {% endif %}
+            <div id="chat_history_container" class="hidden"></div>
+            <div id="prompts_container" class="hidden"></div>
+            <div id="create_prompt_container" class="hidden"></div>
+            <div id="chat_ui_container">{% include '/chat/chat_ui.html' %}</div>
+          </main>
+
+          <!-- Bot Message Template -->
+          <template id="bot-message-template">
+            {% include '/chat/bot_message_template.html' %}
+          </template>
+
+          <!-- User Message Template -->
+          <template id="user-message-template">
+            {% include '/chat/user_message_template.html' %}
+          </template>
+
+          <!-- File Banner Template -->
+          <template id="file-banner-template">
+            <div class="mb-6">
+              <div class="alert alert-soft">
+                <div class="flex w-full items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <svg
+                      class="h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="text-sm">
+                      Using context from file:
+                      <span class="filename font-medium"></span>
+                    </p>
+                  </div>
+                  <a href="#" class="download-link" title="Download file">
+                    <svg
+                      class="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                      />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
+          </template>
 
-            {% include('/base/collection/table.html') %}
-          </div>
+          <template id="code_template">
+            {% include '/chat/code_block_template.html' %}
+          </template>
         </div>
       </div>
     </section>
 
+    <script>
+      // Global variables
+      const messages = {{ config.messages | tojson | safe }};
+      const systemMessage = {{ config.system_message|tojson }};
+      const welcomeMessage = {{ config.welcome_message|tojson }};
+      const models = {{ config.models | tojson | safe}};
+      const use_prompt_template = {{ config.use_prompt_template|tojson }};
+      const username = {{ config.username|tojson }};
+      const chat_started = {{ config.chat_started|tojson }};
+
+      // Model selection
+      var selected_model = models[0]['model'];
+      var selected_model_name = models[0]['name'];
+      var selectedModelElement = document.getElementById('selected_model');
+      var modelBadgeElement = document.querySelector('[data-model-badge]');
+
+      // Function to update badge color based on model name
+      function updateModelBadgeColor(modelName) {
+        if (modelBadgeElement) {
+          // Remove any existing badge color classes
+          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
+
+          // Add appropriate class based on model name
+          if (modelName.includes('Azure')) {
+            modelBadgeElement.classList.add('badge-success');
+          } else {
+            modelBadgeElement.classList.add('badge-error');
+          }
+        }
+      }
+
+      // Check localStorage for saved model
+      if (localStorage.getItem('selected_model') !== null) {
+        selected_model = localStorage.getItem('selected_model');
+        const model = models.find(m => m.model === selected_model);
+        if (model) {
+          selected_model_name = model.name;
+        }
+      }
+
+      selectedModelElement.innerText = selected_model_name;
+      // Set initial badge color
+      updateModelBadgeColor(selected_model_name);
+
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('#prompts .prompt')) {
+          var chatInput = document.getElementById('chat_input');
+          if (chatInput) {
+            chatInput.value = e.target.textContent;
+          }
+
+          var chatButton = document.getElementById('chat_button');
+          if (chatButton) {
+            chatButton.click();
+          }
+
+          var promptsDiv = document.getElementById('prompts');
+          if (promptsDiv) {
+            promptsDiv.remove();
+          }
+        }
+
+        if (event.target.classList.contains('model')) {
+          selected_model = event.target.id;
+          selected_model_name = event.target.dataset.name;
+          localStorage.setItem('selected_model', selected_model);
+          selectedModelElement.innerText = selected_model_name;
+          // Update badge color when model changes
+          updateModelBadgeColor(selected_model_name);
+          const modelSelectorButton = document.getElementById('modelSelectorButton');
+          if (modelSelectorButton) {
+            modelSelectorButton.click();
+          }
+        }
+      });
+    </script>
+
+    <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
   </body>
 </html>
 ```
 
-## base/collection/table.html
+## chat/user_message_template.html
 
 ```
-<div class="flex flex-col gap-4">
-  {% include('/base/collection/pagination.html') %}
+<div class="flex space-x-4 mb-6">
   <div
-    class="overflow-x-auto rounded-lg border border-base-content/10"
+    class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full flex-shrink-0"
   >
-    <table class="table border-collapse w-full">
-      <thead>
-        <tr>
-          {% for header in table_header %}
-          <th
-            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-base-content/10 last:border-r-0"
-          >
-            {{header.label}}
-          </th>
-          {% endfor %}
-          <th
-            class="w-16 px-4 py-3 text-right border-b border-r border-base-content/10 last:border-r-0 sticky right-0 bg-base-100 z-10"
-          >
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for document in table_content %}
-        <tr
-          id="tr-{{document[0].id}}"
-          class="{% if not loop.last %}border-b border-base-content/10{% endif %}"
-        >
-          {% for field in document %}
-          <td
-            class="font-normal leading-normal px-4 py-2 border-r border-base-content/10 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
-          >
-            {% if field.type == 'ButtonField' %}
-            <div class="flex justify-start items-center">
-              <a href="{{field.link}}" class="w-full">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-outline btn-sm {{field.class}} truncate"
-                >
-                  {{field.label}}
-                </button>
-              </a>
-            </div>
-            {% else %} 
-              <div class="{% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}">
-                {{field.value}}
-              </div>
-            {% endif %}
-          </td>
-          {% endfor %}
-          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-base-100">
-            <div class="flex gap-2 justify-end">
-              <a
-                href="{{document_url}}/{{document[0].id}}"
-                class="btn btn-primary btn-sm btn-outline"
-              >
-                <span class="icon-[tabler--edit] size-4"></span>
-              </a>
-              <button
-                type="button"
-                class="btn btn-error btn-sm btn-outline"
-                data-modal-target="confirm_modal"
-                data-action="{{ url_for('delete_document') }}?id={{document[0].id}}&type={{collection_name}}"
-                data-document-id="tr-{{document[0].id}}"
-                data-message="Are you sure you want to delete this {{collection_name}}? This action cannot be undone."
-                data-title="Delete {{collection_name|capitalize}}"
-              >
-                <span class="icon-[tabler--trash] size-4"></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
+    config.name else '' }}
   </div>
-  {% include('/base/collection/pagination.html') %}
+  <div
+    class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
+  ></div>
 </div>
+```
+
+## chat/code_block_template.html
+
+```
+<div class="flex flex-col w-full">
+  <div
+    class="h-8 bg-base-300 w-full flex rounded-t justify-between items-center px-4"
+  >
+    <!-- Language Info Placeholder -->
+    <span class="text-sm text-base-content language-info"></span>
+
+    <div class="flex flex-row items-center gap-2">
+      <span class="copied hidden text-sm font-extralight text-success"
+        >copied!</span
+      >
+      <!-- Copy Button -->
+      <button
+        class="h-4 w-4 copy-btn flex items-center justify-center text-base-content hover:text-success"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="w-full">
+    <pre
+      class="bg-base-200 text-sm text-base-content rounded-b p-2 overflow-x-auto whitespace-pre-wrap"
+    ></pre>
+  </div>
+</div>
+```
+
+## chat/chat.html
+
+```
+<!doctype html>
+<html lang="en" class="h-full">
+  {% include('/main/header.html') %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>Chat</title>
+  </head>
+  <body class="min-h-full flex flex-col bg-base-100">
+    {% include('/main/nav.html') %}
+
+    <section class="flex-1 flex items-start overflow-y-auto md:ml-64">
+      <div
+        class="px-2 md:px-10 xl:px-16 2xl:px-20 w-full 2xl:max-w-7xl 2xl:mx-auto"
+      >
+        <div class="relative min-h-[calc(100vh-8rem)] pb-32">
+          <main id="main" class="flex flex-col h-full">
+            {% if config.messages|length == 0 %}
+            <!-- Show prompts and history first in a fresh chat -->
+            <div id="selected_prompts_container" class="flex-1">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            {% else %}
+            <!-- Show messages first in an existing chat -->
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            <div id="selected_prompts_container">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            {% endif %}
+
+            <div id="chat_history_container" class="hidden"></div>
+            <div id="prompts_container" class="hidden"></div>
+            <div id="create_prompt_container" class="hidden"></div>
+            <div id="chat_ui_container">{% include '/chat/chat_ui.html' %}</div>
+          </main>
+
+          <!-- Bot Message Template -->
+          <template id="bot-message-template">
+            {% include '/chat/bot_message_template.html' %}
+          </template>
+
+          <!-- User Message Template -->
+          <template id="user-message-template">
+            {% include '/chat/user_message_template.html' %}
+          </template>
+
+          <!-- File Banner Template -->
+          <template id="file-banner-template">
+            <div class="mb-6">
+              <div class="alert alert-soft">
+                <div class="flex w-full items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <svg
+                      class="h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="text-sm">
+                      Using context from file:
+                      <span class="filename font-medium"></span>
+                    </p>
+                  </div>
+                  <a href="#" class="download-link" title="Download file">
+                    <svg
+                      class="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template id="code_template">
+            {% include '/chat/code_block_template.html' %}
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Global variables
+      const messages = {{ config.messages | tojson | safe }};
+      const systemMessage = {{ config.system_message|tojson }};
+      const welcomeMessage = {{ config.welcome_message|tojson }};
+      const models = {{ config.models | tojson | safe}};
+      const use_prompt_template = {{ config.use_prompt_template|tojson }};
+      const username = {{ config.username|tojson }};
+      const chat_started = {{ config.chat_started|tojson }};
+
+      // Model selection
+      var selected_model = models[0]['model'];
+      var selected_model_name = models[0]['name'];
+      var selectedModelElement = document.getElementById('selected_model');
+      var modelBadgeElement = document.querySelector('[data-model-badge]');
+
+      // Function to update badge color based on model name
+      function updateModelBadgeColor(modelName) {
+        if (modelBadgeElement) {
+          // Remove any existing badge color classes
+          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
+
+          // Add appropriate class based on model name
+          if (modelName.includes('Azure')) {
+            modelBadgeElement.classList.add('badge-success');
+          } else {
+            modelBadgeElement.classList.add('badge-error');
+          }
+        }
+      }
+
+      // Check localStorage for saved model
+      if (localStorage.getItem('selected_model') !== null) {
+        selected_model = localStorage.getItem('selected_model');
+        const model = models.find(m => m.model === selected_model);
+        if (model) {
+          selected_model_name = model.name;
+        }
+      }
+
+      selectedModelElement.innerText = selected_model_name;
+      // Set initial badge color
+      updateModelBadgeColor(selected_model_name);
+
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('#prompts .prompt')) {
+          var chatInput = document.getElementById('chat_input');
+          if (chatInput) {
+            chatInput.value = e.target.textContent;
+          }
+
+          var chatButton = document.getElementById('chat_button');
+          if (chatButton) {
+            chatButton.click();
+          }
+
+          var promptsDiv = document.getElementById('prompts');
+          if (promptsDiv) {
+            promptsDiv.remove();
+          }
+        }
+
+        if (event.target.classList.contains('model')) {
+          selected_model = event.target.id;
+          selected_model_name = event.target.dataset.name;
+          localStorage.setItem('selected_model', selected_model);
+          selectedModelElement.innerText = selected_model_name;
+          // Update badge color when model changes
+          updateModelBadgeColor(selected_model_name);
+          const modelSelectorButton = document.getElementById('modelSelectorButton');
+          if (modelSelectorButton) {
+            modelSelectorButton.click();
+          }
+        }
+      });
+    </script>
+
+    <script
+      src="{{ url_for('static', filename='/chat/chat_code_handler.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_markup.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_message_handler.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_initialize.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_save.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_core.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_event_handler.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_file_upload.js') }}"
+      type="module"
+    ></script>
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+    <script type="module">
+      import { initializeEventHandlers } from "{{ url_for('static', filename='/chat/chat_event_handler.js') }}";
+      document.addEventListener("DOMContentLoaded", initializeEventHandlers);
+    </script>
+  </body>
+</html>
 ```
 
 ## testing/create_users.py
@@ -942,75 +1270,6 @@ for i in range(1, 20):
 
     # Create user with generated data
     create_user(username, name, email, password, role='user')
-```
-
-## components/confirm_modal.html
-
-```
-<div
-  id="confirm_modal"
-  tabindex="-1"
-  class="hidden overflow-y-auto overflow-x-hidden bg-base-300/65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
->
-  <div
-    class="modal-content relative p-4 w-full max-w-md max-h-full"
-  >
-    <div class="relative bg-base-100 rounded-lg shadow">
-      <button
-        type="button"
-        class="close-modal absolute top-3 right-2.5 text-base-content/60 bg-transparent hover:bg-base-200 hover:text-base-content rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-      >
-        <svg
-          class="w-3 h-3"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 14"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-          />
-        </svg>
-        <span class="sr-only">Close modal</span>
-      </button>
-      <div class="p-4 md:p-5 text-center">
-        <svg
-          class="mx-auto mb-4 text-base-content/60 w-12 h-12"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-        <h3 class="mb-2 text-lg font-medium text-base-content">Confirm Action</h3>
-        <p class="mb-5 text-base-content/60">Are you sure?</p>
-        <button
-          type="button"
-          class="confirm-action text-primary-content bg-error hover:bg-error-focus focus:ring-4 focus:outline-none focus:ring-error/30 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-        >
-          Yes, I'm sure
-        </button>
-        <button
-          type="button"
-          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-base-content focus:outline-none bg-base-100 rounded-lg border border-base-300 hover:bg-base-200 focus:z-10 focus:ring-4 focus:ring-base-200"
-        >
-          No, cancel
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 ```
 
 ## components/confirm_modal.js
@@ -1245,574 +1504,73 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-## chat/chat_messages_rendered.html
+## components/confirm_modal.html
 
 ```
 <div
-  id="chat_messages"
-  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 overflow-auto flex flex-col space-y-2"
+  id="confirm_modal"
+  tabindex="-1"
+  class="hidden overflow-y-auto overflow-x-hidden bg-base-300/65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
 >
-  {% for message in config.messages %} {% if message.role =='user' %}
-  <div class="flex space-x-4 mb-4">
-    <div
-      class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full"
-    >
-      {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
-      config.name else '' }}
-    </div>
-    <div
-      class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
-      id="message-{{ loop.index }}"
-    ></div>
-  </div>
-  {% endif %} {% if message.role =='assistant' %}
-  <div class="flex space-x-4 mb-4">
-    <div
-      class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-        />
-      </svg>
-    </div>
-    <div
-      class="message content bg-base-200 text-base-content rounded-lg p-4 flex-1 min-w-0 break-words"
-      id="message-{{ loop.index }}"
-    ></div>
-  </div>
-  {% endif %} {% endfor %}
-</div>
-
-<script>
-  // Process all messages after the page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    {% for message in config.messages %}
-      const messageContent = {{message.content|tojson}};
-      const container = document.getElementById('message-{{ loop.index }}');
-      if (container) {
-        appendData(messageContent, container);
-      }
-    {% endfor %}
-  });
-</script>
-```
-
-## chat/user_message_template.html
-
-```
-<div class="flex space-x-4 mb-6">
   <div
-    class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full flex-shrink-0"
+    class="modal-content relative p-4 w-full max-w-md max-h-full"
   >
-    {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
-    config.name else '' }}
-  </div>
-  <div
-    class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
-  ></div>
-</div>
-```
-
-## chat/code_block_template.html
-
-```
-<div class="flex flex-col w-full">
-    <div class="h-8 bg-neutral w-full flex rounded-t justify-between items-center px-4">
-      <!-- Language Info Placeholder -->
-      <span class="text-sm text-neutral-content language-info"></span>
-
-      <div class="flex flex-row items-center gap-2">
-        <span class="copied hidden text-sm font-extralight text-success">copied!</span>
-        <!-- Copy Button -->
-      <button class="h-4 w-4 copy-btn flex items-center justify-center text-neutral-content hover:text-success">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-        </svg>
-      </button>
-      </div>
-      
-    </div>
-    <div class="w-full">
-      <pre class="bg-neutral-focus text-sm text-neutral-content rounded-b p-2 overflow-x-auto whitespace-pre-wrap">
-      </pre>
-    </div>
-  </div>
-```
-
-## chat/chat_prompts.html
-
-```
-{% if config.messages | length == 0 %}
-<div
-  id="prompts"
-  class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4 mt-8"
->
-  {% if config.history %}
-  <h3
-    class="text-center text-xl font-semibold text-base-content"
-  >
-    Last Chats
-  </h3>
-  <div class="flex flex-row flex-wrap justify-center gap-4">
-    {% for item in config.history %}
-    <a href="/chat/history/{{ item.id }}" class="no-underline">
-      <div
-        id="history_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-      >
-        <span class="truncate">{{ item.first_message }}</span>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-  <hr class="h-px my-2 bg-base-content/10 border-0" />
-  {% endif %} {% if config.latest_prompts %}
-  <h3
-    class="text-center text-xl font-semibold text-base-content"
-  >
-    Latest Prompts
-  </h3>
-  <div class="flex flex-row flex-wrap justify-center gap-4">
-    {% for prompt in config.latest_prompts %}
-    <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
-      <div
-        id="prompt_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-      >
-        <span class="truncate">{{ prompt.name }}</span>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-  {% endif %} {% if not config.history and not config.latest_prompts %}
-  <div class="flex flex-row flex-wrap justify-center gap-4">
-    <div
-      class="prompt relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-    >
-      <span class="truncate">Wer war Ada Lovelace?</span>
-    </div>
-    <div
-      class="group relative prompt h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-    >
-      <span class="truncate">Schreibe eine index.html</span>
-    </div>
-  </div>
-  {% endif %}
-</div>
-{% endif %}
-```
-
-## chat/bot_message_template.html
-
-```
-<div class="flex space-x-4 mb-6">
-  <div
-    class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full flex-shrink-0"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-6 h-6"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-      />
-    </svg>
-  </div>
-  <div class="flex-1 min-w-0">
-    <div
-      class="message content bg-base-200 text-base-content rounded-lg p-4 break-words"
-    ></div>
-    <div class="flex justify-start mt-2">
+    <div class="relative bg-base-100 rounded-lg shadow">
       <button
-        class="copy-btn flex items-center gap-1 text-sm text-base-content/60 hover:text-base-content active:scale-95 transition-all duration-100 rounded px-2 py-1 hover:bg-base-200"
+        type="button"
+        class="close-modal absolute top-3 right-2.5 text-base-content/60 bg-transparent hover:bg-base-200 hover:text-base-content rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
       >
         <svg
-          class="w-4 h-4 copy-icon"
+          class="w-3 h-3"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
+          viewBox="0 0 14 14"
         >
           <path
+            stroke="currentColor"
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
           />
         </svg>
-        <svg
-          class="w-4 h-4 check-icon hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12.75l6 6 9-13.5"
-          />
-        </svg>
-        <span class="copy-text">Copy</span>
-        <span class="check-text hidden">Copied!</span>
+        <span class="sr-only">Close modal</span>
       </button>
-    </div>
-  </div>
-</div>
-```
-
-## chat/chat_messages.html
-
-```
-<div
-  id="chat_messages"
-  class="mt-4 mb-4 overflow-auto flex flex-col min-h-[200px]"
-></div>
-```
-
-## chat/chat_ui.html
-
-```
-<div
-  id="chat_ui"
-  class="fixed bottom-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full h-40 bg-base-100"
->
-  <div class="h-full w-full 2xl:max-w-7xl 2xl:mx-auto relative">
-    <div
-      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 mx-2 mb-2 md:mx-10 md:mb-4 xl:mx-16 xl:mb-4 2xl:mx-20 2xl:mb-4 rounded-xl bg-base-100 shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-base-content/10"
-    >
-      <div class="p-3 pr-16 overflow-hidden">
-        <textarea
-          id="chat_input"
-          placeholder="Type your message and press Command or Strg + Enter"
-          rows="3"
-          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
-        ></textarea>
-      </div>
-      <div class="ml-6 mb-4 flex items-center gap-2">
-        <div
-          class="dropdown relative inline-flex [--placement:top]"
-          data-dropdown
+      <div class="p-4 md:p-5 text-center">
+        <svg
+          class="mx-auto mb-4 text-base-content/60 w-12 h-12"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
         >
-          <button
-            id="modelSelectorButton"
-            class="badge badge-outline dropdown-toggle"
-            data-model-badge
-          >
-            <span id="selected_model"></span>
-          </button>
-          <div
-            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="modelSelectorButton"
-          >
-            {% for model in config.models %}
-            <button
-              id="{{ model.model }}"
-              data-name="{{ model.name }}"
-              class="model dropdown-item w-full text-left px-4 py-2 hover:bg-base-200"
-            >
-              {{ model.name }}
-            </button>
-            {% endfor %}
-          </div>
-        </div>
-
-        <label for="file-upload" class="cursor-pointer">
-          <div
-            class="badge badge-outline badge-secondary flex items-center gap-1"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-4 h-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
-              />
-            </svg>
-            <span id="file-name-display">Upload</span>
-          </div>
-        </label>
-        <input type="file" id="file-upload" class="hidden" />
-      </div>
-
-      <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
-        <button
-          id="reset_button"
-          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
+          <path
             stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        </button>
-
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+        <h3 class="mb-2 text-lg font-medium text-base-content">Confirm Action</h3>
+        <p class="mb-5 text-base-content/60">Are you sure?</p>
         <button
-          id="chat_button"
-          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
+          type="button"
+          class="confirm-action text-primary-content bg-error hover:bg-error-focus focus:ring-4 focus:outline-none focus:ring-error/30 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-            />
-          </svg>
+          Yes, I'm sure
         </button>
         <button
-          id="stop_button"
-          class="hidden bg-red-500 hover:bg-red-400 text-white font-extralight p-2.5 rounded"
+          type="button"
+          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-base-content focus:outline-none bg-base-100 rounded-lg border border-base-300 hover:bg-base-200 focus:z-10 focus:ring-4 focus:ring-base-200"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
-            />
-          </svg>
+          No, cancel
         </button>
       </div>
     </div>
   </div>
 </div>
-```
-
-## chat/chat.html
-
-```
-<!doctype html>
-<html lang="en" class="h-full">
-  {% include('/main/header.html') %}
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Chat</title>
-  </head>
-  <body class="min-h-full flex flex-col bg-base-100">
-    {% include('/main/nav.html') %}
-
-    <section class="flex-1 flex items-start overflow-y-auto lg:ml-64">
-      <div class="px-2 md:px-10 xl:px-16 2xl:px-20 w-full 2xl:max-w-7xl 2xl:mx-auto">
-        <div class="relative min-h-[calc(100vh-8rem)] pb-32">
-          <main id="main" class="flex flex-col h-full">
-            {% if config.messages|length == 0 %}
-            <!-- Show prompts and history first in a fresh chat -->
-            <div id="selected_prompts_container" class="flex-1">
-              {% include '/chat/chat_prompts.html' %}
-            </div>
-            <div id="chat_messages_container" class="pb-40">
-              {% include '/chat/chat_messages.html' %}
-            </div>
-            {% else %}
-            <!-- Show messages first in an existing chat -->
-            <div id="chat_messages_container" class="pb-40">
-              {% include '/chat/chat_messages.html' %}
-            </div>
-            <div id="selected_prompts_container">
-              {% include '/chat/chat_prompts.html' %}
-            </div>
-            {% endif %}
-
-            <div id="chat_history_container" class="hidden"></div>
-            <div id="prompts_container" class="hidden"></div>
-            <div id="create_prompt_container" class="hidden"></div>
-            <div id="chat_ui_container">{% include '/chat/chat_ui.html' %}</div>
-          </main>
-
-          <!-- Bot Message Template -->
-          <template id="bot-message-template">
-            {% include '/chat/bot_message_template.html' %}
-          </template>
-
-          <!-- User Message Template -->
-          <template id="user-message-template">
-            {% include '/chat/user_message_template.html' %}
-          </template>
-
-          <!-- File Banner Template -->
-          <template id="file-banner-template">
-            <div class="mb-6">
-              <div class="bg-info/10 border-l-4 border-info p-4">
-                <div class="flex">
-                  <div class="flex-shrink-0">
-                    <svg
-                      class="h-5 w-5 text-info"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div class="ml-3 flex items-center gap-3">
-                    <p class="text-sm text-info-content">
-                      Using context from file: <span class="filename"></span>
-                    </p>
-                    <a
-                      href="#"
-                      class="download-link text-info hover:text-info-focus"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                        />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-
-          <template id="code_template">
-            {% include '/chat/code_block_template.html' %}
-          </template>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      // Global variables
-      const messages = {{ config.messages | tojson | safe }};
-      const systemMessage = {{ config.system_message|tojson }};
-      const welcomeMessage = {{ config.welcome_message|tojson }};
-      const models = {{ config.models | tojson | safe}};
-      const use_prompt_template = {{ config.use_prompt_template|tojson }};
-      const username = {{ config.username|tojson }};
-      const chat_started = {{ config.chat_started|tojson }};
-
-      // Model selection
-      var selected_model = models[0]['model'];
-      var selected_model_name = models[0]['name'];
-      var selectedModelElement = document.getElementById('selected_model');
-      var modelBadgeElement = document.querySelector('[data-model-badge]');
-
-      // Function to update badge color based on model name
-      function updateModelBadgeColor(modelName) {
-        if (modelBadgeElement) {
-          // Remove any existing badge color classes
-          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
-          
-          // Add appropriate class based on model name
-          if (modelName.includes('Azure')) {
-            modelBadgeElement.classList.add('badge-success');
-          } else {
-            modelBadgeElement.classList.add('badge-error');
-          }
-        }
-      }
-
-      // Check localStorage for saved model
-      if (localStorage.getItem('selected_model') !== null) {
-        selected_model = localStorage.getItem('selected_model');
-        const model = models.find(m => m.model === selected_model);
-        if (model) {
-          selected_model_name = model.name;
-        }
-      }
-
-      selectedModelElement.innerText = selected_model_name;
-      // Set initial badge color
-      updateModelBadgeColor(selected_model_name);
-
-      document.addEventListener('click', function (e) {
-        if (e.target.closest('#prompts .prompt')) {
-          var chatInput = document.getElementById('chat_input');
-          if (chatInput) {
-            chatInput.value = e.target.textContent;
-          }
-
-          var chatButton = document.getElementById('chat_button');
-          if (chatButton) {
-            chatButton.click();
-          }
-
-          var promptsDiv = document.getElementById('prompts');
-          if (promptsDiv) {
-            promptsDiv.remove();
-          }
-        }
-
-        if (event.target.classList.contains('model')) {
-          selected_model = event.target.id;
-          selected_model_name = event.target.dataset.name;
-          localStorage.setItem('selected_model', selected_model);
-          selectedModelElement.innerText = selected_model_name;
-          // Update badge color when model changes
-          updateModelBadgeColor(selected_model_name);
-          const modelSelectorButton = document.getElementById('modelSelectorButton');
-          if (modelSelectorButton) {
-            modelSelectorButton.click();
-          }
-        }
-      });
-    </script>
-
-    <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
-  </body>
-</html>
 ```
 
 ## main/header.html
@@ -1864,30 +1622,65 @@ document.addEventListener('DOMContentLoaded', function() {
       Fireworks
     </a>
   </div>
-  
+
   <!-- Screen Size Indicator (Temporary) -->
-  <div id="screen-size-indicator" class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2">
+  <div
+    id="screen-size-indicator"
+    class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2"
+  >
     <span class="icon-[tabler--device-desktop-analytics] size-4"></span>
     <span class="screen-width">0</span> × <span class="screen-height">0</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="640" data-name="sm">sm</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="768" data-name="md">md</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1024" data-name="lg">lg</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1280" data-name="xl">xl</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1536" data-name="2xl">2xl</span>
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="640"
+      data-name="sm"
+      >sm</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="768"
+      data-name="md"
+      >md</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1024"
+      data-name="lg"
+      >lg</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1280"
+      data-name="xl"
+      >xl</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1536"
+      data-name="2xl"
+      >2xl</span
+    >
   </div>
-  
+
   <div class="navbar-end flex items-center gap-2">
-    <!-- Dark Mode Toggle -->
-    <div class="flex items-center mr-2">
+    <!-- Dark Mode Toggle - Only visible on screens larger than md -->
+    <div class="items-center mr-2 hidden md:flex">
       <div class="flex items-center gap-1">
         <span class="icon-[tabler--sun] size-5 text-yellow-500"></span>
-        <input type="checkbox" class="switch theme-controller switch-sm" id="darkModeToggle" value="dark" />
-        <span class="icon-[tabler--moon] size-5 text-slate-700 dark:text-slate-300"></span>
+        <input
+          type="checkbox"
+          class="switch theme-controller switch-sm"
+          id="darkModeToggle"
+          value="dark"
+        />
+        <span
+          class="icon-[tabler--moon] size-5 text-slate-700 dark:text-slate-300"
+        ></span>
       </div>
     </div>
     <!-- User Avatar Dropdown for Desktop -->
     <div
-      class="dropdown relative inline-flex max-lg:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
+      class="dropdown relative inline-flex max-md:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
     >
       <button
         type="button"
@@ -1896,7 +1689,7 @@ document.addEventListener('DOMContentLoaded', function() {
         aria-expanded="false"
         aria-label="User menu"
       >
-        <div class="bg-primary text-primary-content rounded-full w-10">
+        <div class="bg-base-100 border border-secondary text-base-content rounded-full w-10 flex items-center justify-center">
           <span class="text-lg"
             >{{ current_user.firstname[0] }}{{ current_user.name[0] }}</span
           >
@@ -1927,10 +1720,10 @@ document.addEventListener('DOMContentLoaded', function() {
         </form>
       </ul>
     </div>
-    <!-- Mobile Menu Button -->
+    <!-- Mobile Menu Button - Only visible on md screens and below -->
     <button
       type="button"
-      class="btn btn-text max-lg:btn-square lg:hidden"
+      class="btn btn-text max-md:btn-square md:hidden"
       aria-haspopup="dialog"
       aria-expanded="false"
       aria-controls="mobile-menu-overlay"
@@ -1943,13 +1736,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start w-64 max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start w-64 max-w-64 md:fixed md:top-[57px] md:bottom-0 md:left-0 md:z-40 md:flex md:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body w-64 bg-base-100 h-full flex flex-col overflow-hidden">
+  <div
+    class="drawer-body w-64 bg-base-100 h-full flex flex-col overflow-hidden"
+  >
     <!-- Fixed Header Section -->
     <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
       <ul class="menu w-full space-y-0.5 p-0">
+        <!-- Dark Mode Toggle (Mobile View) - Aligned with other menu items -->
+        <li class="w-full md:hidden">
+          <div class="flex items-center gap-2 px-4 py-2 w-full">
+            <span class="icon-[tabler--sun-moon] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Mode</span>
+            <div class="flex items-center gap-1">
+              <span class="icon-[tabler--sun] size-4 text-yellow-500"></span>
+              <input
+                type="checkbox"
+                class="switch theme-controller switch-sm"
+                id="mobileDarkModeToggle"
+                value="dark"
+              />
+              <span
+                class="icon-[tabler--moon] size-4 text-slate-700 dark:text-slate-300"
+              ></span>
+            </div>
+          </div>
+        </li>
         <li class="w-full">
           <a
             href="{{ url_for('index') }}"
@@ -2058,7 +1872,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <li class="w-full">
                   <a
                     href="{{ url_for('doc', name='prompt') }}"
-                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-primary rounded-lg group"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-base-content rounded-lg group"
                   >
                     <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
                     <span class="truncate">New Prompt</span>
@@ -2090,7 +1904,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       title="Edit prompt"
                     >
                       <span
-                        class="icon-[tabler--edit] size-3.5 text-primary"
+                        class="icon-[tabler--edit] size-3.5 text-base-content"
                       ></span>
                     </a>
                   </div>
@@ -2169,12 +1983,12 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <!-- Fixed Footer Section -->
-    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 lg:hidden">
+    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 md:hidden">
       <form action="{{ url_for('logout') }}" method="post" class="w-full">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button
           type="submit"
-          class="btn btn-ghost w-full justify-start gap-2 text-error"
+          class="flex items-center gap-2 px-4 py-2 w-full hover:bg-base-200 rounded-lg text-error"
         >
           <span class="icon-[tabler--logout-2] size-5 shrink-0"></span>
           <span class="truncate">Sign Out</span>
@@ -2283,7 +2097,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </a>
                 <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formattedDate}</span>
                 <a href="/d/prompt/${prompt._id.$oid}" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Edit prompt" title="Edit prompt">
-                  <span class="icon-[tabler--edit] size-3.5 text-primary"></span>
+                  <span class="icon-[tabler--edit] size-3.5 text-base-content"></span>
                 </a>
               </div>
             `;
@@ -2346,13 +2160,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Listen for the confirmAction:success event from our confirm modal
-  document.addEventListener('confirmAction:success', async function(event) {
+  document.addEventListener("confirmAction:success", async function (event) {
     const { modalId, result, documentType, action } = event.detail;
-    
+
     // If this is from delete all history action
-    if (result && (result.action === 'delete_all_history' || action === 'delete_all_history')) {
-      console.log('History deletion was successful');
-      
+    if (
+      result &&
+      (result.action === "delete_all_history" ||
+        action === "delete_all_history")
+    ) {
+      console.log("History deletion was successful");
+
       // Check if we're on a history page or list history page
       const currentPath = window.location.pathname;
       if (
@@ -2360,13 +2178,13 @@ document.addEventListener('DOMContentLoaded', function() {
         currentPath.includes("/list/history") ||
         currentPath.includes("/d/history")
       ) {
-        console.log('On history page, redirecting to index');
+        console.log("On history page, redirecting to index");
         // Redirect to index page
         window.location.href = "/";
         return;
       }
 
-      console.log('Not on history page, updating navigation items');
+      console.log("Not on history page, updating navigation items");
       // Update the navigation items
       await updateNavItems();
     }
@@ -2386,107 +2204,118 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Update every 30 seconds, but use debouncing to prevent overlapping calls
   setInterval(debouncedUpdate, 30000);
-  
+
   // Special handler for the delete history button in the collapsed menu
-  document.addEventListener('DOMContentLoaded', function() {
-    const deleteHistoryBtn = document.querySelector('button[data-action*="delete_all_history"]');
+  document.addEventListener("DOMContentLoaded", function () {
+    const deleteHistoryBtn = document.querySelector(
+      'button[data-action*="delete_all_history"]',
+    );
     if (deleteHistoryBtn) {
-      console.log('Found delete history button, adding special handler');
-      deleteHistoryBtn.addEventListener('click', function(e) {
+      console.log("Found delete history button, adding special handler");
+      deleteHistoryBtn.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        console.log('Delete history button clicked via special handler');
-        
+
+        console.log("Delete history button clicked via special handler");
+
         const modalId = this.dataset.modalTarget;
-        const modalInstance = window.modalInstances ? window.modalInstances[modalId] : null;
-        
+        const modalInstance = window.modalInstances
+          ? window.modalInstances[modalId]
+          : null;
+
         if (modalInstance) {
-          console.log('Using modal instance for delete history', this.dataset);
+          console.log("Using modal instance for delete history", this.dataset);
           // Make sure we correctly update the modal from this button's data attributes
           modalInstance.updateModalFromTrigger(this);
           modalInstance.showModal();
         } else {
           // Fallback: try to get modal directly
-          console.log('No modal instance found, trying direct access');
+          console.log("No modal instance found, trying direct access");
           const modal = document.getElementById(modalId);
           if (modal) {
             // Update modal content directly
-            const title = modal.querySelector('h3');
-            const message = modal.querySelector('p');
-            const confirmBtn = modal.querySelector('button.confirm-action');
-            
+            const title = modal.querySelector("h3");
+            const message = modal.querySelector("p");
+            const confirmBtn = modal.querySelector("button.confirm-action");
+
             // Set data attributes on the modal itself for the confirm action
             modal.dataset.action = this.dataset.action;
-            modal.dataset.method = 'post'; // Force POST method for delete_all_history
-            
-            if (title) title.textContent = this.dataset.title || 'Confirm Action';
-            if (message) message.textContent = this.dataset.message || 'Are you sure?';
-            
+            modal.dataset.method = "post"; // Force POST method for delete_all_history
+
+            if (title)
+              title.textContent = this.dataset.title || "Confirm Action";
+            if (message)
+              message.textContent = this.dataset.message || "Are you sure?";
+
             // Attach direct click handler to confirm button as fallback
             if (confirmBtn) {
-              confirmBtn.onclick = function() {
+              confirmBtn.onclick = function () {
                 const url = modal.dataset.action;
-                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                
+                const csrfToken =
+                  document.querySelector('meta[name="csrf-token"]')?.content ||
+                  "";
+
                 fetch(url, {
-                  method: 'POST',
+                  method: "POST",
                   headers: {
-                    'X-CSRFToken': csrfToken
-                  }
+                    "X-CSRFToken": csrfToken,
+                  },
                 })
-                .then(response => response.json())
-                .then(result => {
-                  console.log('History deletion result:', result);
-                  if (result.status === 'ok') {
-                    // Show success notification
-                    const notification = document.createElement('div');
-                    notification.className = 'fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white';
-                    notification.textContent = 'History deleted successfully';
-                    document.body.appendChild(notification);
-                    setTimeout(() => notification.remove(), 3000);
-                    
-                    // Check if we're on a history-related page
-                    const currentPath = window.location.pathname;
-                    if (
-                      currentPath.includes("/chat/history/") ||
-                      currentPath.includes("/list/history") ||
-                      currentPath.includes("/d/history")
-                    ) {
-                      console.log('On history page, redirecting to index');
-                      window.location.href = "/";
-                      return;
+                  .then((response) => response.json())
+                  .then((result) => {
+                    console.log("History deletion result:", result);
+                    if (result.status === "ok") {
+                      // Show success notification
+                      const notification = document.createElement("div");
+                      notification.className =
+                        "fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white";
+                      notification.textContent = "History deleted successfully";
+                      document.body.appendChild(notification);
+                      setTimeout(() => notification.remove(), 3000);
+
+                      // Check if we're on a history-related page
+                      const currentPath = window.location.pathname;
+                      if (
+                        currentPath.includes("/chat/history/") ||
+                        currentPath.includes("/list/history") ||
+                        currentPath.includes("/d/history")
+                      ) {
+                        console.log("On history page, redirecting to index");
+                        window.location.href = "/";
+                        return;
+                      }
+
+                      // Update the navigation
+                      console.log("Not on history page, updating navigation");
+                      updateNavItems();
                     }
-                    
-                    // Update the navigation
-                    console.log('Not on history page, updating navigation');
-                    updateNavItems();
-                  }
-                  modal.classList.add('hidden');
-                })
-                .catch(error => {
-                  console.error('Error deleting history:', error);
-                  modal.classList.add('hidden');
-                });
+                    modal.classList.add("hidden");
+                  })
+                  .catch((error) => {
+                    console.error("Error deleting history:", error);
+                    modal.classList.add("hidden");
+                  });
               };
             }
-            
+
             // Show modal
-            modal.classList.remove('hidden');
+            modal.classList.remove("hidden");
           }
         }
       });
     } else {
-      console.warn('Delete history button not found on DOMContentLoaded');
-      
+      console.warn("Delete history button not found on DOMContentLoaded");
+
       // Try again after a slight delay to account for dynamic content
-      setTimeout(function() {
-        const delayedButton = document.querySelector('button[data-action*="delete_all_history"]');
+      setTimeout(function () {
+        const delayedButton = document.querySelector(
+          'button[data-action*="delete_all_history"]',
+        );
         if (delayedButton) {
-          console.log('Found delete history button after delay');
+          console.log("Found delete history button after delay");
           delayedButton.click(); // Trigger the click to ensure it works
         } else {
-          console.error('Delete history button not found even after delay');
+          console.error("Delete history button not found even after delay");
         }
       }, 500);
     }
@@ -2495,36 +2324,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Screen Size Indicator Script -->
 <script>
-  // Function to update screen size information
   function updateScreenSizeIndicator() {
+    // Get current dimensions
     const width = window.innerWidth;
     const height = window.innerHeight;
-    
+
     // Update the displayed dimensions
-    document.querySelectorAll('.screen-width').forEach(el => {
+    document.querySelectorAll(".screen-width").forEach((el) => {
       el.textContent = width;
     });
-    
-    document.querySelectorAll('.screen-height').forEach(el => {
+
+    document.querySelectorAll(".screen-height").forEach((el) => {
       el.textContent = height;
     });
-    
-    // Show the indicator on all screens 
-    const indicator = document.getElementById('screen-size-indicator');
+
+    // Show the indicator on all screens
+    const indicator = document.getElementById("screen-size-indicator");
     if (indicator) {
-      indicator.classList.remove('hidden', 'md:flex');
-      indicator.classList.add('flex');
+      indicator.classList.remove("hidden", "md:flex");
+      indicator.classList.add("flex");
     }
 
     // Define breakpoints in order from smallest to largest
     const breakpoints = [
-      { name: 'sm', minWidth: 640 },
-      { name: 'md', minWidth: 768 },
-      { name: 'lg', minWidth: 1024 },
-      { name: 'xl', minWidth: 1280 },
-      { name: '2xl', minWidth: 1536 }
+      { name: "sm", minWidth: 640 },
+      { name: "md", minWidth: 768 },
+      { name: "lg", minWidth: 1024 },
+      { name: "xl", minWidth: 1280 },
+      { name: "2xl", minWidth: 1536 },
     ];
-    
+
     // Find the highest active breakpoint
     let activeBreakpoint = null;
     for (let i = breakpoints.length - 1; i >= 0; i--) {
@@ -2533,57 +2362,695 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
       }
     }
-    
+
     // Update all breakpoint tags
-    document.querySelectorAll('.breakpoint-tag').forEach(tag => {
+    document.querySelectorAll(".breakpoint-tag").forEach((tag) => {
       const name = tag.dataset.name;
-      
+
       // Reset all styles
-      tag.classList.remove('bg-green-500', 'text-white', 'font-bold', 'bg-gray-100', 'opacity-50');
-      
+      tag.classList.remove(
+        "bg-green-500",
+        "text-white",
+        "font-bold",
+        "bg-gray-100",
+        "opacity-50",
+      );
+
       if (name === activeBreakpoint) {
         // Highlight the active breakpoint
-        tag.classList.add('bg-green-500', 'text-white', 'font-bold');
+        tag.classList.add("bg-green-500", "text-white", "font-bold");
       } else {
         // Make other breakpoints subtle
-        tag.classList.add('bg-gray-100', 'opacity-50');
+        tag.classList.add("bg-gray-100", "opacity-50");
       }
     });
   }
-  
+
   // Run on page load
-  document.addEventListener('DOMContentLoaded', updateScreenSizeIndicator);
-  
+  document.addEventListener("DOMContentLoaded", updateScreenSizeIndicator);
+
   // Run whenever the window is resized
-  window.addEventListener('resize', updateScreenSizeIndicator);
+  window.addEventListener("resize", updateScreenSizeIndicator);
 </script>
 
 <!-- Theme Persistence Script -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    
+  document.addEventListener("DOMContentLoaded", function () {
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const mobileDarkModeToggle = document.getElementById(
+      "mobileDarkModeToggle",
+    );
+
     // Check saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial state
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-      document.documentElement.dataset.theme = 'dark';
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    // Set initial state for both toggles
+    if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.dataset.theme = "dark";
       if (darkModeToggle) darkModeToggle.checked = true;
+      if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
     }
-    
-    // Add change event listener to toggle
+
+    // Add change event listener to desktop toggle
     if (darkModeToggle) {
-      darkModeToggle.addEventListener('change', function() {
-        const newTheme = this.checked ? 'dark' : 'light';
+      darkModeToggle.addEventListener("change", function () {
+        const newTheme = this.checked ? "dark" : "light";
         document.documentElement.dataset.theme = newTheme;
-        localStorage.setItem('theme', newTheme);
+        localStorage.setItem("theme", newTheme);
+        if (mobileDarkModeToggle) mobileDarkModeToggle.checked = this.checked;
+      });
+    }
+
+    // Add change event listener to mobile toggle
+    if (mobileDarkModeToggle) {
+      mobileDarkModeToggle.addEventListener("change", function () {
+        const newTheme = this.checked ? "dark" : "light";
+        document.documentElement.dataset.theme = newTheme;
+        localStorage.setItem("theme", newTheme);
+        if (darkModeToggle) darkModeToggle.checked = this.checked;
       });
     }
   });
 </script>
 
 {% include 'components/confirm_modal.html' %}
+```
+
+## base/collection/pagination.html
+
+```
+{% if total != null %}
+<div class="flex flex-wrap items-center justify-between gap-2">
+  <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+    <nav class="flex items-center gap-x-1" aria-label="Pagination">
+      {% if prev != null and prev != None %}
+      <a
+        href="{{collection_url}}?start=0&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="First"
+      >
+        <span
+          class="icon-[tabler--chevrons-left] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+        <span class="hidden sm:inline">First</span>
+      </a>
+      <a
+        href="{{collection_url}}?start={{prev}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="Previous"
+      >
+        <span
+          class="icon-[tabler--chevron-left] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+        <span class="hidden sm:inline">Previous</span>
+      </a>
+      {% endif %}
+
+      <div class="flex items-center gap-x-1">
+        <!-- Page numbers would go here -->
+      </div>
+
+      {% if next %}
+      <a
+        href="{{collection_url}}?start={{next}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="Next"
+      >
+        <span class="hidden sm:inline">Next</span>
+        <span
+          class="icon-[tabler--chevron-right] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+      </a>
+      {% endif %} {% if last != null and last != None %}
+      <a
+        href="{{collection_url}}?start={{last}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="Last"
+      >
+        <span class="hidden sm:inline">Last</span>
+        <span
+          class="icon-[tabler--chevrons-right] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="text-sm text-base-content/60">
+      {% if total != None and total > 0 %} Showing
+      <span class="font-medium">{{start}}</span>
+      to
+      <span class="font-medium">{{end}}</span>
+      of
+      <span class="font-medium">{{total}}</span>
+      results {% else %} No results found {% endif %}
+    </div>
+  </div>
+
+  <!-- Limit dropdown -->
+  <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
+    <button
+      id="dropdown-default"
+      type="button"
+      class="dropdown-toggle btn btn-outline"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-label="Limit"
+    >
+      Limit
+      <span
+        class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"
+      ></span>
+    </button>
+    <ul
+      aria-labelledby="dropdown-default"
+      aria-orientation="vertical"
+      class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
+      role="menu"
+    >
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=5&search={{search}}&filter={{filter}}"
+        >
+          5 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=10&search={{search}}&filter={{filter}}"
+        >
+          10 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=20&search={{search}}&filter={{filter}}"
+        >
+          20 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=50&search={{search}}&filter={{filter}}"
+        >
+          50 Items
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endif %}
+```
+
+## base/collection/collection.html
+
+```
+<!doctype html>
+<html lang="en" class="overflow-y-scroll">
+  {% include('/main/header.html') %}
+  <body class="bg-base-100 min-h-screen">
+    {% include('/main/nav.html') %}
+
+    <section class="p-4 sm:p-6 flex items-center lg:ml-64">
+      <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
+        <div
+          class="relative bg-base-100 shadow-md sm:rounded-lg p-3 sm:p-4 border border-base-content/10"
+        >
+          <div class="flex flex-col gap-4">
+            <div
+              class="flex flex-row justify-between items-center gap-2 sm:gap-4"
+            >
+              <div class="flex-1">
+                <form
+                  method="GET"
+                  action="{{ url_for('list', collection=collection_name, start=start, limit=limit, filter=filter) }}"
+                >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                    >
+                      <svg
+                        class="w-4 h-4 text-base-content/50"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      name="search"
+                      class="w-full max-w-md pl-10 pr-4 py-2 border border-base-content/20 bg-base-100 text-base-content rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                      placeholder="Search"
+                      value="{{ search }}"
+                    />
+                  </div>
+                </form>
+              </div>
+
+              <div class="flex-none">
+                {% if show_new_button %}
+                <a
+                  href="{{ url_for('doc',name = collection_name) }}"
+                  class="btn btn-outline whitespace-nowrap"
+                >
+                  New
+                </a>
+                {% endif %}
+              </div>
+            </div>
+
+            {% include('/base/collection/table.html') %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+  </body>
+</html>
+```
+
+## base/collection/table.html
+
+```
+<div class="flex flex-col gap-4">
+  {% include('/base/collection/pagination.html') %}
+  <div
+    class="overflow-x-auto rounded-lg border border-base-content/10"
+  >
+    <table class="table border-collapse w-full">
+      <thead>
+        <tr>
+          {% for header in table_header %}
+          <th
+            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-base-content/10 last:border-r-0"
+          >
+            {{header.label}}
+          </th>
+          {% endfor %}
+          <th
+            class="w-16 px-4 py-3 text-right border-b border-r border-base-content/10 last:border-r-0 sticky right-0 bg-base-100 z-10"
+          >
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for document in table_content %}
+        <tr
+          id="tr-{{document[0].id}}"
+          class="{% if not loop.last %}border-b border-base-content/10{% endif %}"
+        >
+          {% for field in document %}
+          <td
+            class="font-normal leading-normal px-4 py-2 border-r border-base-content/10 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
+          >
+            {% if field.type == 'ButtonField' %}
+            <div class="flex justify-start items-center">
+              <a href="{{field.link}}" class="w-full">
+                <button
+                  type="button"
+                  class="btn btn-outline btn-sm {{field.class}} truncate"
+                >
+                  {{field.label}}
+                </button>
+              </a>
+            </div>
+            {% else %} 
+              <div class="{% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}">
+                {{field.value}}
+              </div>
+            {% endif %}
+          </td>
+          {% endfor %}
+          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-base-100">
+            <div class="flex gap-2 justify-end">
+              <a
+                href="{{document_url}}/{{document[0].id}}"
+                class="btn btn-sm btn-outline"
+              >
+                <span class="icon-[tabler--edit] size-4"></span>
+              </a>
+              <button
+                type="button"
+                class="btn btn-error btn-sm btn-outline"
+                data-modal-target="confirm_modal"
+                data-action="{{ url_for('delete_document') }}?id={{document[0].id}}&type={{collection_name}}"
+                data-document-id="tr-{{document[0].id}}"
+                data-message="Are you sure you want to delete this {{collection_name}}? This action cannot be undone."
+                data-title="Delete {{collection_name|capitalize}}"
+              >
+                <span class="icon-[tabler--trash] size-4"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include('/base/collection/pagination.html') %}
+</div>
+```
+
+## base/document/form.html
+
+```
+<!doctype html>
+<html lang="en" class="overflow-y-scroll">
+  {% include('/main/header.html') %}
+  <body class="bg-base-100 min-h-screen">
+    {% include('/main/nav.html') %}
+
+    <section class="p-6 flex items-center lg:ml-64">
+      <div class="max-w-screen-xl mx-auto px-4 lg:px-12 w-full">
+        <!-- Start coding here -->
+        <div class="relative bg-base-100 shadow-md sm:rounded-lg">
+          <div class="flex items-center justify-center pt-4 px-4">
+            <form
+              method="POST"
+              enctype="multipart/form-data"
+              id="documentForm"
+              class="w-full max-w-lg"
+            >
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+              />
+              <input type="hidden" name="id" value="{{document.id}}" />
+
+              <h1 class="text-2xl font-bold">{{page.title}}</h1>
+              <hr class="my-4" />
+              <div class="flex flex-wrap -mx-3 mb-6">
+                {% include('/base/document/form_elements.html') %}
+              </div>
+
+              <!-- Save and Delete Buttons -->
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div
+                  class="w-full px-3 mb-6 md:mb-0 flex justify-between space-x-3"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-outline w-1/2"
+                    id="saveButton"
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-error w-1/2"
+                    data-modal-target="confirm_modal"
+                    data-action="{{url_for('delete_document')}}?id={{document.id}}&type={{page.document_name}}"
+                    data-redirect="{{ page.collection_url }}"
+                    data-message="Are you sure you want to delete this {{page.document_name}}? This action cannot be undone."
+                    data-title="Confirm Deletion"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      window.addEventListener("load", function () {
+        // Basic
+        flatpickr("#flatpickr-date", {
+          monthSelectorType: "static",
+          locale: "de",
+          dateFormat: "d.m.Y",
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // We're now using the global confirm modal, so we don't need delete_document.js
+        {% include 'base/document/js/search_field.js' %}
+      });
+    </script>
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/flatpickr.min.js') }}"></script>
+  </body>
+</html>
+```
+
+## base/document/form_elements.html
+
+```
+{% for element in elements %}
+<div
+  class="{{ 'w-full' if element.full_width else 'w-full md:w-1/2' }} px-3 mb-6 md:mb-0"
+>
+  <label
+    for="{{ element.id }}"
+    class="label label-text"
+  >
+    {{ element.label }}
+  </label>
+
+  {% if element.type == 'ButtonField' %}
+  <a href="{{element.link}}/{{document.id}}"
+    ><button
+      type="button"
+      class="btn btn-outline"
+    >
+      {{element.label}}
+    </button></a
+  >
+  {% endif %} {% if element.type == 'FileField' %}
+  <input
+    class="input max-w-sm"
+    id="{{element.id}}"
+    type="file"
+    name="files_{{element.id}}"
+    multiple
+  />
+  {% for file in element.value %} {% if file.element_id == element.id %}
+  <div id="{{file.document_id}}" class="flex items-center justify-between mt-2">
+    <span class="mt-1 text-sm text-base-content/60">
+      <a
+        href="{{url_for('download_file',file_id=file.id)}}"
+        class="text-blue-600 hover:text-blue-500"
+        target="_blank"
+      >
+        {{ file.name }}
+      </a>
+    </span>
+    <button
+      type="button"
+      data-modal-target="confirm_modal"
+      data-action="/delete_document?id={{file.id}}&type=files"
+      data-document-id="{{file.document_id}}"
+      data-message="Are you sure you want to delete this file? This action cannot be undone."
+      data-title="Delete File"
+      class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"
+    >
+      Delete
+    </button>
+  </div>
+  {% endif %} {% endfor %} {% endif %} {% if element.type=='DocumentField' %}
+  <!-- Search Field -->
+  <input
+    type="hidden"
+    value="{{element.value_id if element.value_id else document.get(element.name + '_id', '')}}"
+    name="{{ element.name }}_hidden"
+    id="{{ element.name }}_hidden"
+  />
+  <input
+    id="{{element.id}}"
+    name="{{element.name}}"
+    value="{{element.value if element.value else document.get(element.name, '')}}"
+    module="{{element.module}}"
+    document_field="{{element.document_field}}"
+    type="text"
+    placeholder="Search..."
+    class="searchField bg-base-200 border border-base-content/10 text-base-content text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+  />
+
+  <!-- Dropdown Menu -->
+  <div
+    id="dropdownMenu"
+    class="z-10 hidden bg-base-100 rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
+  >
+    <ul id="userList" class="py-2 text-base-content"></ul>
+  </div>
+  {% endif %} {% if element.type == 'IntField' or element.type =='FloatField' %}
+
+  <div class="max-w-sm mx-auto">
+    <input
+      type="text"
+      id="{{element.id}}"
+      name="{{element.name}}"
+      value="{{element.value if element.value is not none else ''}}"
+      class="input"
+    />
+  </div>
+
+  {% endif %} {% if element.type == 'Date' %}
+
+  <input
+    type="text"
+    class="input max-w-sm"
+    placeholder="DD.MM.YYYY"
+    id="flatpickr-date"
+    name="{{element.name}}"
+    value="{{element.value if element.value is not none else ''}}"
+  />
+
+  {% endif %} {% if element.type == 'CheckBox' %}
+  <label class="inline-flex items-center mb-5 cursor-pointer">
+    <input
+      type="hidden"
+      name="{{ element.name }}_hidden"
+      value="Off"
+    />
+    <input
+      type="checkbox"
+      name="{{ element.name }}"
+      class="switch"
+      value="On"
+      {% if element.value == "On" %}checked{% endif %}
+    />
+  </label>
+  {% endif %} {% if element.type =='SimpleListField' %}
+  <select
+    class="select max-w-sm appearance-none"
+    aria-label="select"
+    id="{{element.id}}"
+    name="{{element.name}}"
+  >
+    {% for item in element.SimpleListField %} {% if item.value == element.value %}
+    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
+    {% else %}
+    <option value="{{item.value}}">{{item.name}}</option>
+    {% endif %} {% endfor %}
+  </select>
+  {% endif %} {% if element.type=='AdvancedListField' %}
+  <select class="select max-w-sm appearance-none" aria-label="select" id="{{element.id}}" name="{{element.name}}">
+    {% for item in element.AdvancedListField %} {% if item.value == element.value %}
+    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
+    {% else %}
+    <option value="{{item.value}}">{{item.name}}</option>
+    {% endif %} {% endfor %}
+  </select>
+  {% endif %} {% if element.type == 'SingleLine' %}
+  <input
+    id="{{ element.id }}"
+    name="{{ element.name }}"
+    type="text"
+    value="{{ element.value }}"
+    placeholder="{{ element.label }}"
+    class="input"
+    {% if element.required %}required{% endif %}
+  />
+  {% elif element.type == 'MultiLine' %}
+  <textarea
+    id="{{ element.id }}"
+    name="{{ element.name }}"
+    rows="4"
+    placeholder="{{ element.label }}"
+    class="textarea"
+    {% if element.required %}required{% endif %}
+  >{{ element.value if element.value is not none else '' }}</textarea>
+  {% endif %}
+    <!-- {% if element.required %}
+    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+    {% endif %} -->
+</div>
+{% endfor %}
+```
+
+## base/document/js/search_field.js
+
+```
+document.querySelectorAll(".searchField").forEach((searchField) => {
+  searchField.addEventListener("input", function () {
+    const query = this.value;
+    const module = this.getAttribute("module"); // Get the module attribute value
+    const document_field = this.getAttribute("document_field");
+    const dropdown = this.nextElementSibling;
+    const userList = dropdown.querySelector("#userList");
+    const document_field_hidden = document.getElementById(
+      this.name + "_hidden",
+    );
+
+    // Clear hidden field if search field is empty
+    if (!query || query.length === 0) {
+      document_field_hidden.value = "";
+      document_field.value = "";
+      dropdown.classList.add("hidden");
+      return;
+    }
+
+    if (query.length > 3) {
+      // Construct the URL using the module value
+      const url =
+        `{{ url_for("list", collection="__MODULE__", mode="json") }}`.replace(
+          "__MODULE__",
+          module,
+        );
+
+      // Fetch users from the server based on the search query
+      fetch(`${url}&search=${encodeURIComponent(query)}&limit=100`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "ok" && data.message === "success") {
+            dropdown.classList.remove("hidden");
+            console.log(data); // Log the result
+            userList.innerHTML = ""; // Clear the existing list
+
+            // Check if data.data is an array before iterating
+            if (Array.isArray(data.data)) {
+              // Append users to the list
+              data.data.forEach((user) => {
+                const userItem = document.createElement("li");
+                userItem.innerHTML = `
+                                    <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                        ${user[document_field]}
+                                    </a>
+                                `;
+                userItem.addEventListener("click", function (event) {
+                  event.preventDefault();
+                  searchField.value = user[document_field];
+                  document_field_hidden.value = user.id;
+                  dropdown.classList.add("hidden");
+                });
+                userList.appendChild(userItem);
+              });
+
+              // Log the length of the userList to verify
+              console.log(
+                `Number of users appended: ${userList.children.length}`,
+              );
+            } else {
+              console.error("Error: data.data is not an array");
+            }
+          } else {
+            console.error("Error: Unexpected response format");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error); // Log error message
+        });
+    } else {
+      dropdown.classList.add("hidden");
+    }
+  });
+});
 ```
 

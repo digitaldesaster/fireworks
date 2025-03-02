@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ada Lovelace: The First Computer Programmer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="h-full m-0 font-serif bg-gray-50 text-gray-800 leading-relaxed p-5 box-border"
+  >
+    <div
+      class="max-w-3xl min-h-[calc(100vh-40px)] mx-auto p-5 bg-white rounded-lg shadow-md"
+    >
+      <h1
+        id="title"
+        class="text-2xl font-bold mb-8 opacity-0 blur-xl transition-all duration-1000 ease-out"
+      >
+        Ada Lovelace: The First Computer Programmer
+      </h1>
+
+      <div class="paragraph mb-5 leading-loose" id="p1"></div>
+      <div class="paragraph mb-5 leading-loose" id="p2"></div>
+      <div class="paragraph mb-5 leading-loose" id="p3"></div>
+      <div class="paragraph mb-5 leading-loose" id="p4"></div>
+      <div class="paragraph mb-5 leading-loose" id="p5"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const title = document.getElementById("title");
+        const paragraphs = [
+          "Augusta Ada King, Countess of Lovelace, born on December 10, 1815, was a British mathematician and writer known for her work on Charles Babbage's proposed mechanical general-purpose computer, the Analytical Engine.",
+
+          "The daughter of renowned poet Lord Byron, Ada was raised by her mother, Lady Byron, who promoted Ada's interest in mathematics and logic in an effort to prevent her from developing her father's perceived insanity.",
+
+          "In 1833, through her mentor, mathematician and scientist Mary Somerville, Ada met Charles Babbage and became fascinated with his Analytical Engine. Recognizing that the machine had applications beyond pure calculation, she created the first algorithm intended to be carried out by such a machine.",
+
+          "Her notes on the Analytical Engine include what is recognized as the first published algorithm specifically tailored for implementation on a computer, making her the world's first computer programmer.",
+
+          "Beyond her algorithmic contributions, Ada demonstrated remarkable foresight in her understanding of computing's potential. She envisioned that computers could go beyond mere number-crunching to manipulate symbols and even create music—concepts that wouldn't be realized until a century later.",
+        ];
+
+        // Function to split text into words for word-by-word streaming
+        function prepareTextForWordStreaming(text, element) {
+          const words = text.split(" ");
+
+          words.forEach((word) => {
+            const wordSpan = document.createElement("span");
+            wordSpan.className =
+              "inline-block opacity-0 blur-lg mr-1 transition-all duration-500 ease-out";
+            wordSpan.textContent = word;
+            element.appendChild(wordSpan);
+          });
+
+          return element.querySelectorAll("span");
+        }
+
+        // First make the title visible with blur transition
+        setTimeout(() => {
+          title.classList.remove("opacity-0", "blur-xl");
+        }, 150);
+
+        // Process paragraphs sequentially
+        function streamParagraph(index) {
+          if (index >= paragraphs.length) return;
+
+          const paragraphElement = document.getElementById("p" + (index + 1));
+          const words = prepareTextForWordStreaming(
+            paragraphs[index],
+            paragraphElement,
+          );
+
+          let lastWordTimeout = 0;
+
+          // Stream in words one by one with blur effect
+          words.forEach((word, wIndex) => {
+            const timeout = 400 + wIndex * 30;
+            setTimeout(() => {
+              word.classList.remove("opacity-0", "blur-lg");
+            }, timeout);
+
+            // Keep track of when the last word will appear
+            if (wIndex === words.length - 1) {
+              lastWordTimeout = timeout;
+            }
+          });
+
+          // Move to next paragraph after the current one is complete
+          // Add a buffer after the last word appears
+          setTimeout(() => {
+            streamParagraph(index + 1);
+          }, lastWordTimeout + 200);
+        }
+
+        // Start streaming the first paragraph after title appears
+        setTimeout(() => {
+          streamParagraph(0);
+        }, 500);
+      });
+    </script>
+  </body>
+</html>

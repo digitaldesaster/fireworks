@@ -15,7 +15,7 @@ from bson.objectid import ObjectId
 # Import functions from helper.py and db_helper.py
 from core.helper import getList, handleDocument, deleteDocument, upload_file
 from core.db_helper import getFile
-from core.db_document import File, Prompt, getDefaults
+from core.db_document import File, Prompt, getDefaults, History
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
@@ -169,18 +169,61 @@ def download_file(file_id):
 			original_filename = file_data['name']
 			
 			print(f"[DEBUG] Attempting to send file: {path}/{filename}")
-			return send_from_directory(
-				path, 
-				filename,
-				as_attachment=True,
-				download_name=original_filename
-			)
+			
+			# Get base path for absolute file locations
+			base_path = os.path.abspath(os.path.dirname(__file__))
+			
+			# Try the direct path first
+			file_path = os.path.join(path, filename)
+			if os.path.exists(file_path):
+				print(f"[DEBUG] Found file at: {file_path}")
+				return send_from_directory(
+					path, 
+					filename,
+					as_attachment=True,
+					download_name=original_filename
+				)
+			
+			# Try absolute path
+			absolute_path = os.path.join(base_path, path, filename)
+			if os.path.exists(absolute_path):
+				print(f"[DEBUG] Found file at absolute path: {absolute_path}")
+				directory, file = os.path.split(absolute_path)
+				return send_from_directory(
+					directory, 
+					file,
+					as_attachment=True,
+					download_name=original_filename
+				)
+			
+			# Check for the file in standard directories based on category
+			category = file_data.get('category', '')
+			if category:
+				standard_path = os.path.join(base_path, 'core', 'documents', category, filename)
+				if os.path.exists(standard_path):
+					print(f"[DEBUG] Found file in standard location: {standard_path}")
+					directory, file = os.path.split(standard_path)
+					# Update the database record
+					file_obj.path = os.path.join('core', 'documents', category)
+					file_obj.save()
+					return send_from_directory(
+						directory, 
+						file,
+						as_attachment=True,
+						download_name=original_filename
+					)
+			
+			print(f"[DEBUG] File not found for id: {file_id}")
+			flash('The file could not be found on the server.', 'error')
+			return redirect(url_for('index'))
 		else:
-			print(f"[DEBUG] File not found: {file_id}")
-			abort(404)
+			print(f"[DEBUG] getFile returned error for id: {file_id} - {data.get('message', 'Unknown error')}")
+			flash('Error retrieving file information.', 'error')
+			return redirect(url_for('index'))
 	except Exception as e:
 		print(f"[DEBUG] Error in download_file: {str(e)}")
-		abort(500)
+		flash('An error occurred while downloading the file.', 'error')
+		return redirect(url_for('index'))
 
 @app.route('/d/<collection>/<id>')
 @login_required
@@ -236,114 +279,143 @@ module.exports = {
 };
 ```
 
-## login.html
+## index.html
 
 ```
 <!doctype html>
-<html lang="en" data-theme="light" class="overflow-y-scroll">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Flask App</title>
-    <!-- Early Theme Initialization -->
-    <script>
-      (function() {
-        // Apply theme before page renders to avoid flash of wrong theme
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-          document.documentElement.dataset.theme = 'dark';
-        } else {
-          document.documentElement.dataset.theme = 'light';
-        }
-      })();
-    </script>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/output.css') }}"
-    />
-  </head>
-  <body class="bg-base-200 min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md p-6">
-      <div class="rounded-box border-base-content/10 bg-base-100 p-8 shadow-lg">
-        <div class="text-center mb-8">
-          <h1 class="text-2xl font-bold text-base-content/90">Welcome Back</h1>
-          <p class="text-base-content/60 mt-2">Please sign in to continue</p>
-        </div>
-
-        <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-          <div class="space-y-6">
-            <div class="form-control">
-              <label class="label" for="email">
-                <span class="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="input input-bordered w-full"
-                placeholder="your@email.com"
-                value="{{ email if email }}"
-                required
-                autocomplete="email"
-              />
-            </div>
-
-            <div class="form-control">
-              <label class="label" for="password">
-                <span class="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="input input-bordered w-full"
-                placeholder="••••••••"
-                required
-                autocomplete="current-password"
-              />
-              <label class="label">
-                <a href="#" class="label-text-alt link link-hover"
-                  >Forgot password?</a
-                >
-              </label>
-            </div>
-
-            <div class="form-control">
-              <label class="label cursor-pointer justify-start gap-3">
-                <input
-                  type="checkbox"
-                  class="checkbox checkbox-primary"
-                  name="remember"
-                />
-                <span class="label-text">Remember me</span>
-              </label>
-            </div>
-
-            {% if status == 'error' %}
-            <div class="alert alert-error">
-              <span
-                >{{ message if message else 'Invalid email or password' }}</span
-              >
-            </div>
-            {% endif %}
-
-            <button type="submit" class="btn btn-primary w-full">
-              Sign in
-            </button>
-
-            <div class="text-center">
-              <a href="/register" class="link link-hover text-sm"
-                >Don't have an account? Register</a
-              >
+<html lang="en" data-theme="light" class="h-full overflow-y-scroll">
+  {% include('main/header.html') %}
+  <body class="min-h-full flex flex-col bg-base-100">
+    {% include('main/nav.html') %}
+    <main class="flex-1 lg:pl-64">
+      <div class="h-full flex items-center justify-center p-4">
+        <div class="card max-w-2xl mx-auto">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-2.5">
+              Welcome back, {{ current_user.firstname }} {{ current_user.name
+              }}!
+            </h5>
+            <p class="mb-4">
+              We're glad to see you again. Here's your personal dashboard
+              overview.
+            </p>
+            <div class="card-actions">
+              <button class="btn btn-outline">Learn More</button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </main>
+
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+  </body>
+</html>
+```
+
+## blur.html
+
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ada Lovelace: The First Computer Programmer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="h-full m-0 font-serif bg-gray-50 text-gray-800 leading-relaxed p-5 box-border"
+  >
+    <div
+      class="max-w-3xl min-h-[calc(100vh-40px)] mx-auto p-5 bg-white rounded-lg shadow-md"
+    >
+      <h1
+        id="title"
+        class="text-2xl font-bold mb-8 opacity-0 blur-xl transition-all duration-1000 ease-out"
+      >
+        Ada Lovelace: The First Computer Programmer
+      </h1>
+
+      <div class="paragraph mb-5 leading-loose" id="p1"></div>
+      <div class="paragraph mb-5 leading-loose" id="p2"></div>
+      <div class="paragraph mb-5 leading-loose" id="p3"></div>
+      <div class="paragraph mb-5 leading-loose" id="p4"></div>
+      <div class="paragraph mb-5 leading-loose" id="p5"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const title = document.getElementById("title");
+        const paragraphs = [
+          "Augusta Ada King, Countess of Lovelace, born on December 10, 1815, was a British mathematician and writer known for her work on Charles Babbage's proposed mechanical general-purpose computer, the Analytical Engine.",
+
+          "The daughter of renowned poet Lord Byron, Ada was raised by her mother, Lady Byron, who promoted Ada's interest in mathematics and logic in an effort to prevent her from developing her father's perceived insanity.",
+
+          "In 1833, through her mentor, mathematician and scientist Mary Somerville, Ada met Charles Babbage and became fascinated with his Analytical Engine. Recognizing that the machine had applications beyond pure calculation, she created the first algorithm intended to be carried out by such a machine.",
+
+          "Her notes on the Analytical Engine include what is recognized as the first published algorithm specifically tailored for implementation on a computer, making her the world's first computer programmer.",
+
+          "Beyond her algorithmic contributions, Ada demonstrated remarkable foresight in her understanding of computing's potential. She envisioned that computers could go beyond mere number-crunching to manipulate symbols and even create music—concepts that wouldn't be realized until a century later.",
+        ];
+
+        // Function to split text into words for word-by-word streaming
+        function prepareTextForWordStreaming(text, element) {
+          const words = text.split(" ");
+
+          words.forEach((word) => {
+            const wordSpan = document.createElement("span");
+            wordSpan.className =
+              "inline-block opacity-0 blur-lg mr-1 transition-all duration-500 ease-out";
+            wordSpan.textContent = word;
+            element.appendChild(wordSpan);
+          });
+
+          return element.querySelectorAll("span");
+        }
+
+        // First make the title visible with blur transition
+        setTimeout(() => {
+          title.classList.remove("opacity-0", "blur-xl");
+        }, 150);
+
+        // Process paragraphs sequentially
+        function streamParagraph(index) {
+          if (index >= paragraphs.length) return;
+
+          const paragraphElement = document.getElementById("p" + (index + 1));
+          const words = prepareTextForWordStreaming(
+            paragraphs[index],
+            paragraphElement,
+          );
+
+          let lastWordTimeout = 0;
+
+          // Stream in words one by one with blur effect
+          words.forEach((word, wIndex) => {
+            const timeout = 400 + wIndex * 30;
+            setTimeout(() => {
+              word.classList.remove("opacity-0", "blur-lg");
+            }, timeout);
+
+            // Keep track of when the last word will appear
+            if (wIndex === words.length - 1) {
+              lastWordTimeout = timeout;
+            }
+          });
+
+          // Move to next paragraph after the current one is complete
+          // Add a buffer after the last word appears
+          setTimeout(() => {
+            streamParagraph(index + 1);
+          }, lastWordTimeout + 200);
+        }
+
+        // Start streaming the first paragraph after title appears
+        setTimeout(() => {
+          streamParagraph(0);
+        }, 500);
+      });
+    </script>
   </body>
 </html>
 ```
@@ -472,652 +544,951 @@ module.exports = {
 </html>
 ```
 
-## index.html
+## login.html
 
 ```
 <!doctype html>
-<html lang="en" data-theme="light" class="h-full overflow-y-scroll">
-  {% include('main/header.html') %}
-  <body class="min-h-full flex flex-col bg-base-100">
-    {% include('main/nav.html') %}
-    <main class="flex-1 lg:pl-64">
-      <div class="h-full flex items-center justify-center p-4">
-        <div class="card max-w-2xl mx-auto">
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2.5">
-              Welcome back, {{ current_user.firstname }} {{ current_user.name
-              }}!
-            </h5>
-            <p class="mb-4">
-              We're glad to see you again. Here's your personal dashboard
-              overview.
-            </p>
-            <div class="card-actions">
-              <button class="btn btn-primary">Learn More</button>
+<html lang="en" data-theme="light" class="overflow-y-scroll">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Flask App</title>
+    <!-- Early Theme Initialization -->
+    <script>
+      (function() {
+        // Apply theme before page renders to avoid flash of wrong theme
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+          document.documentElement.dataset.theme = 'dark';
+        } else {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/output.css') }}"
+    />
+  </head>
+  <body class="bg-base-200 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md p-6">
+      <div class="rounded-box border-base-content/10 bg-base-100 p-8 shadow-lg">
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-bold text-base-content/90">Welcome Back</h1>
+          <p class="text-base-content/60 mt-2">Please sign in to continue</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <div class="space-y-6">
+            <div class="form-control">
+              <label class="label" for="email">
+                <span class="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="input input-bordered w-full"
+                placeholder="your@email.com"
+                value="{{ email if email }}"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-control">
+              <label class="label" for="password">
+                <span class="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="input input-bordered w-full"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+              />
+              <label class="label">
+                <a href="#" class="label-text-alt link link-hover"
+                  >Forgot password?</a
+                >
+              </label>
+            </div>
+
+            <div class="form-control">
+              <label class="label cursor-pointer justify-start gap-3">
+                <input
+                  type="checkbox"
+                  class="checkbox checkbox-primary"
+                  name="remember"
+                />
+                <span class="label-text">Remember me</span>
+              </label>
+            </div>
+
+            {% if status == 'error' %}
+            <div class="alert alert-error">
+              <span
+                >{{ message if message else 'Invalid email or password' }}</span
+              >
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary w-full">
+              Sign in
+            </button>
+
+            <div class="text-center">
+              <a href="/register" class="link link-hover text-sm"
+                >Don't have an account? Register</a
+              >
             </div>
           </div>
-        </div>
+        </form>
       </div>
-    </main>
-
+    </div>
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
   </body>
 </html>
 ```
 
-## base/document/form.html
+## chat/chat_messages_rendered.html
 
 ```
-<!doctype html>
-<html lang="en" class="overflow-y-scroll">
-  {% include('/main/header.html') %}
-  <body class="bg-base-100 min-h-screen">
-    {% include('/main/nav.html') %}
-
-    <section class="p-6 flex items-center lg:ml-64">
-      <div class="max-w-screen-xl mx-auto px-4 lg:px-12 w-full">
-        <!-- Start coding here -->
-        <div class="relative bg-base-100 shadow-md sm:rounded-lg">
-          <div class="flex items-center justify-center pt-4 px-4">
-            <form
-              method="POST"
-              enctype="multipart/form-data"
-              id="documentForm"
-              class="w-full max-w-lg"
-            >
-              <input
-                type="hidden"
-                name="csrf_token"
-                value="{{ csrf_token() }}"
-              />
-              <input type="hidden" name="id" value="{{document.id}}" />
-
-              <h1 class="text-2xl font-bold">{{page.title}}</h1>
-              <hr class="my-4" />
-              <div class="flex flex-wrap -mx-3 mb-6">
-                {% include('/base/document/form_elements.html') %}
-              </div>
-
-              <!-- Save and Delete Buttons -->
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div
-                  class="w-full px-3 mb-6 md:mb-0 flex justify-between space-x-3"
-                >
-                  <button
-                    type="submit"
-                    class="btn btn-primary w-1/2"
-                    id="saveButton"
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-error w-1/2"
-                    data-modal-target="confirm_modal"
-                    data-action="{{url_for('delete_document')}}?id={{document.id}}&type={{page.document_name}}"
-                    data-redirect="{{ page.collection_url }}"
-                    data-message="Are you sure you want to delete this {{page.document_name}}? This action cannot be undone."
-                    data-title="Confirm Deletion"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    <script>
-      window.addEventListener("load", function () {
-        // Basic
-        flatpickr("#flatpickr-date", {
-          monthSelectorType: "static",
-          locale: "de",
-          dateFormat: "d.m.Y",
-        });
-      });
-    </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // We're now using the global confirm modal, so we don't need delete_document.js
-        {% include 'base/document/js/search_field.js' %}
-      });
-    </script>
-    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/flatpickr.min.js') }}"></script>
-  </body>
-</html>
-```
-
-## base/document/form_elements.html
-
-```
-{% for element in elements %}
 <div
-  class="{{ 'w-full' if element.full_width else 'w-full md:w-1/2' }} px-3 mb-6 md:mb-0"
+  id="chat_messages"
+  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 overflow-auto flex flex-col space-y-2"
 >
-  <label
-    for="{{ element.id }}"
-    class="label label-text"
-  >
-    {{ element.label }}
-  </label>
-
-  {% if element.type == 'ButtonField' %}
-  <a href="{{element.link}}/{{document.id}}"
-    ><button
-      type="button"
-      class="btn btn-primary"
+  {% for message in config.messages %} {% if message.role =='user' %}
+  <div class="flex space-x-4 mb-4">
+    <div
+      class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full"
     >
-      {{element.label}}
-    </button></a
-  >
-  {% endif %} {% if element.type == 'FileField' %}
-  <input
-    class="input max-w-sm"
-    id="{{element.id}}"
-    type="file"
-    name="files_{{element.id}}"
-    multiple
-  />
-  {% for file in element.value %} {% if file.element_id == element.id %}
-  <div id="{{file.document_id}}" class="flex items-center justify-between mt-2">
-    <span class="mt-1 text-sm text-base-content/60">
-      <a
-        href="{{url_for('download_file',file_id=file.id)}}"
-        class="text-blue-600 hover:text-blue-500"
-        target="_blank"
+      {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
+      config.name else '' }}
+    </div>
+    <div
+      class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
+      id="message-{{ loop.index }}"
+    ></div>
+  </div>
+  {% endif %} {% if message.role =='assistant' %}
+  <div class="flex space-x-4 mb-4">
+    <div
+      class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
       >
-        {{ file.name }}
-      </a>
-    </span>
-    <button
-      type="button"
-      data-modal-target="confirm_modal"
-      data-action="/delete_document?id={{file.id}}&type=files"
-      data-document-id="{{file.document_id}}"
-      data-message="Are you sure you want to delete this file? This action cannot be undone."
-      data-title="Delete File"
-      class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"
-    >
-      Delete
-    </button>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+        />
+      </svg>
+    </div>
+    <div
+      class="message content bg-base-200 text-base-content rounded-lg p-4 flex-1 min-w-0 break-words"
+      id="message-{{ loop.index }}"
+    ></div>
   </div>
-  {% endif %} {% endfor %} {% endif %} {% if element.type=='DocumentField' %}
-  <!-- Search Field -->
-  <input
-    type="hidden"
-    value="{{element.value_id if element.value_id else document.get(element.name + '_id', '')}}"
-    name="{{ element.name }}_hidden"
-    id="{{ element.name }}_hidden"
-  />
-  <input
-    id="{{element.id}}"
-    name="{{element.name}}"
-    value="{{element.value if element.value else document.get(element.name, '')}}"
-    module="{{element.module}}"
-    document_field="{{element.document_field}}"
-    type="text"
-    placeholder="Search..."
-    class="searchField bg-base-200 border border-base-content/10 text-base-content text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-  />
-
-  <!-- Dropdown Menu -->
-  <div
-    id="dropdownMenu"
-    class="z-10 hidden bg-base-100 rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
-  >
-    <ul id="userList" class="py-2 text-base-content"></ul>
-  </div>
-  {% endif %} {% if element.type == 'IntField' or element.type =='FloatField' %}
-
-  <div class="max-w-sm mx-auto">
-    <input
-      type="text"
-      id="{{element.id}}"
-      name="{{element.name}}"
-      value="{{element.value if element.value is not none else ''}}"
-      class="input"
-    />
-  </div>
-
-  {% endif %} {% if element.type == 'Date' %}
-
-  <input
-    type="text"
-    class="input max-w-sm"
-    placeholder="DD.MM.YYYY"
-    id="flatpickr-date"
-    name="{{element.name}}"
-    value="{{element.value if element.value is not none else ''}}"
-  />
-
-  {% endif %} {% if element.type == 'CheckBox' %}
-  <label class="inline-flex items-center mb-5 cursor-pointer">
-    <input
-      type="hidden"
-      name="{{ element.name }}_hidden"
-      value="Off"
-    />
-    <input
-      type="checkbox"
-      name="{{ element.name }}"
-      class="switch switch-primary"
-      value="On"
-      {% if element.value == "On" %}checked{% endif %}
-    />
-  </label>
-  {% endif %} {% if element.type =='SimpleListField' %}
-  <select
-    class="select max-w-sm appearance-none"
-    aria-label="select"
-    id="{{element.id}}"
-    name="{{element.name}}"
-  >
-    {% for item in element.SimpleListField %} {% if item.value == element.value %}
-    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
-    {% else %}
-    <option value="{{item.value}}">{{item.name}}</option>
-    {% endif %} {% endfor %}
-  </select>
-  {% endif %} {% if element.type=='AdvancedListField' %}
-  <select class="select max-w-sm appearance-none" aria-label="select" id="{{element.id}}" name="{{element.name}}">
-    {% for item in element.AdvancedListField %} {% if item.value == element.value %}
-    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
-    {% else %}
-    <option value="{{item.value}}">{{item.name}}</option>
-    {% endif %} {% endfor %}
-  </select>
-  {% endif %} {% if element.type == 'SingleLine' %}
-  <input
-    id="{{ element.id }}"
-    name="{{ element.name }}"
-    type="text"
-    value="{{ element.value }}"
-    placeholder="{{ element.label }}"
-    class="input"
-    {% if element.required %}required{% endif %}
-  />
-  {% elif element.type == 'MultiLine' %}
-  <textarea
-    id="{{ element.id }}"
-    name="{{ element.name }}"
-    rows="4"
-    placeholder="{{ element.label }}"
-    class="textarea"
-    {% if element.required %}required{% endif %}
-  >{{ element.value if element.value is not none else '' }}</textarea>
-  {% endif %}
-    <!-- {% if element.required %}
-    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
-    {% endif %} -->
+  {% endif %} {% endfor %}
 </div>
-{% endfor %}
-```
 
-## base/document/js/search_field.js
-
-```
-document.querySelectorAll(".searchField").forEach((searchField) => {
-  searchField.addEventListener("input", function () {
-    const query = this.value;
-    const module = this.getAttribute("module"); // Get the module attribute value
-    const document_field = this.getAttribute("document_field");
-    const dropdown = this.nextElementSibling;
-    const userList = dropdown.querySelector("#userList");
-    const document_field_hidden = document.getElementById(
-      this.name + "_hidden",
-    );
-
-    // Clear hidden field if search field is empty
-    if (!query || query.length === 0) {
-      document_field_hidden.value = "";
-      document_field.value = "";
-      dropdown.classList.add("hidden");
-      return;
-    }
-
-    if (query.length > 3) {
-      // Construct the URL using the module value
-      const url =
-        `{{ url_for("list", collection="__MODULE__", mode="json") }}`.replace(
-          "__MODULE__",
-          module,
-        );
-
-      // Fetch users from the server based on the search query
-      fetch(`${url}&search=${encodeURIComponent(query)}&limit=100`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === "ok" && data.message === "success") {
-            dropdown.classList.remove("hidden");
-            console.log(data); // Log the result
-            userList.innerHTML = ""; // Clear the existing list
-
-            // Check if data.data is an array before iterating
-            if (Array.isArray(data.data)) {
-              // Append users to the list
-              data.data.forEach((user) => {
-                const userItem = document.createElement("li");
-                userItem.innerHTML = `
-                                    <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">
-                                        ${user[document_field]}
-                                    </a>
-                                `;
-                userItem.addEventListener("click", function (event) {
-                  event.preventDefault();
-                  searchField.value = user[document_field];
-                  document_field_hidden.value = user.id;
-                  dropdown.classList.add("hidden");
-                });
-                userList.appendChild(userItem);
-              });
-
-              // Log the length of the userList to verify
-              console.log(
-                `Number of users appended: ${userList.children.length}`,
-              );
-            } else {
-              console.error("Error: data.data is not an array");
-            }
-          } else {
-            console.error("Error: Unexpected response format");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error); // Log error message
-        });
-    } else {
-      dropdown.classList.add("hidden");
-    }
+<script>
+  // Process all messages after the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    {% for message in config.messages %}
+      const messageContent = {{message.content|tojson}};
+      const container = document.getElementById('message-{{ loop.index }}');
+      if (container) {
+        appendData(messageContent, container);
+      }
+    {% endfor %}
   });
-});
+</script>
 ```
 
-## base/collection/pagination.html
+## chat/chat_prompts.html
 
 ```
-{% if total != null %}
-<div class="flex flex-wrap items-center justify-between gap-2">
-  <div class="flex flex-wrap items-center gap-2 sm:gap-4">
-    <nav class="flex items-center gap-x-1" aria-label="Pagination">
-      {% if prev != null and prev != None %}
-      <a
-        href="{{collection_url}}?start=0&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="First"
+{% if config.messages | length == 0 %}
+<div
+  id="prompts"
+  class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4 mt-8"
+>
+  {% if config.history %}
+  <h3
+    class="text-center text-xl font-semibold text-base-content"
+  >
+    Last Chats
+  </h3>
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    {% for item in config.history %}
+    <a href="/chat/history/{{ item.id }}" class="no-underline">
+      <div
+        id="history_{{ loop.index }}"
+        class="relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
       >
-        <span
-          class="icon-[tabler--chevrons-left] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-        <span class="hidden sm:inline">First</span>
-      </a>
-      <a
-        href="{{collection_url}}?start={{prev}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="Previous"
-      >
-        <span
-          class="icon-[tabler--chevron-left] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-        <span class="hidden sm:inline">Previous</span>
-      </a>
-      {% endif %}
-
-      <div class="flex items-center gap-x-1">
-        <!-- Page numbers would go here -->
+        <span class="truncate">{{ item.first_message }}</span>
       </div>
-
-      {% if next %}
-      <a
-        href="{{collection_url}}?start={{next}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="Next"
+    </a>
+    {% endfor %}
+  </div>
+  <hr class="h-px my-2 bg-base-content/10 border-0" />
+  {% endif %} {% if config.latest_prompts %}
+  <h3
+    class="text-center text-xl font-semibold text-base-content"
+  >
+    Latest Prompts
+  </h3>
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    {% for prompt in config.latest_prompts %}
+    <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
+      <div
+        id="prompt_{{ loop.index }}"
+        class="relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
       >
-        <span class="hidden sm:inline">Next</span>
-        <span
-          class="icon-[tabler--chevron-right] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-      </a>
-      {% endif %} {% if last != null and last != None %}
-      <a
-        href="{{collection_url}}?start={{last}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
-        class="btn btn-outline btn-primary"
-        aria-label="Last"
-      >
-        <span class="hidden sm:inline">Last</span>
-        <span
-          class="icon-[tabler--chevrons-right] size-5 rtl:rotate-180 sm:hidden"
-        ></span>
-      </a>
-      {% endif %}
-    </nav>
-
-    <div class="text-sm text-base-content/60">
-      {% if total != None and total > 0 %} Showing
-      <span class="font-medium">{{start}}</span>
-      to
-      <span class="font-medium">{{end}}</span>
-      of
-      <span class="font-medium">{{total}}</span>
-      results {% else %} No results found {% endif %}
+        <span class="truncate">{{ prompt.name }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %} {% if not config.history and not config.latest_prompts %}
+  <div class="flex flex-row flex-wrap justify-center gap-4">
+    <div
+      class="prompt relative h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
+    >
+      <span class="truncate">Wer war Ada Lovelace?</span>
+    </div>
+    <div
+      class="group relative prompt h-12 w-64 flex items-center justify-center bg-base-100 border border-secondary hover:bg-secondary/10 text-base-content rounded-xl cursor-pointer px-4"
+    >
+      <span class="truncate">Schreibe eine index.html</span>
     </div>
   </div>
-
-  <!-- Limit dropdown -->
-  <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
-    <button
-      id="dropdown-default"
-      type="button"
-      class="dropdown-toggle btn btn-primary btn-outline"
-      aria-haspopup="menu"
-      aria-expanded="false"
-      aria-label="Limit"
-    >
-      Limit
-      <span
-        class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"
-      ></span>
-    </button>
-    <ul
-      aria-labelledby="dropdown-default"
-      aria-orientation="vertical"
-      class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
-      role="menu"
-    >
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=5&search={{search}}&filter={{filter}}"
-        >
-          5 Items
-        </a>
-      </li>
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=10&search={{search}}&filter={{filter}}"
-        >
-          10 Items
-        </a>
-      </li>
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=20&search={{search}}&filter={{filter}}"
-        >
-          20 Items
-        </a>
-      </li>
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{collection_url}}?start=0&limit=50&search={{search}}&filter={{filter}}"
-        >
-          50 Items
-        </a>
-      </li>
-    </ul>
-  </div>
+  {% endif %}
 </div>
 {% endif %}
 ```
 
-## base/collection/collection.html
+## chat/bot_message_template.html
+
+```
+<div class="flex space-x-4 mb-6">
+  <div
+    class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full flex-shrink-0"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+      />
+    </svg>
+  </div>
+  <div class="flex-1 min-w-0">
+    <div
+      class="message content bg-base-200 text-base-content rounded-lg p-4 break-words min-h-[2.5rem] flex flex-col"
+    ></div>
+    <div class="flex justify-start mt-2">
+      <button
+        class="copy-btn flex items-center gap-1 text-sm text-base-content/60 hover:text-base-content active:scale-95 transition-all duration-100 rounded px-2 py-1 hover:bg-base-200"
+      >
+        <svg
+          class="w-4 h-4 copy-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
+          />
+        </svg>
+        <svg
+          class="w-4 h-4 check-icon hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.5 12.75l6 6 9-13.5"
+          />
+        </svg>
+        <span class="copy-text">Copy</span>
+        <span class="check-text hidden">Copied!</span>
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+## chat/chat_ui.html
+
+```
+<div
+  id="chat_ui"
+  class="fixed bottom-0 left-0 md:left-64 md:w-[calc(100%-16rem)] w-full h-40 bg-base-100"
+>
+  <div class="relative h-full w-full mx-auto 2xl:max-w-7xl">
+    <div
+      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 ml-2 mr-2 mb-2 md:ml-10 md:mr-10 md:mb-4 xl:mx-16 2xl:mx-20 rounded-xl bg-white dark:bg-base-200 shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-base-300"
+    >
+      <div class="p-3 pr-16 overflow-hidden">
+        <textarea
+          id="chat_input"
+          placeholder="Type your message and press Command or Strg + Enter"
+          rows="3"
+          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none bg-white dark:bg-base-200 text-gray-900 dark:text-base-content placeholder-gray-500 dark:placeholder-base-content/50"
+        ></textarea>
+      </div>
+      <div class="ml-6 mb-4 flex items-center gap-2">
+        <div
+          class="dropdown relative inline-flex [--placement:top]"
+          data-dropdown
+        >
+          <button
+            id="modelSelectorButton"
+            class="badge badge-outline dropdown-toggle"
+            data-model-badge
+          >
+            <span id="selected_model"></span>
+          </button>
+          <div
+            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden bg-white dark:bg-base-200"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="modelSelectorButton"
+          >
+            {% for model in config.models %}
+            <button
+              id="{{ model.model }}"
+              data-name="{{ model.name }}"
+              class="model dropdown-item w-full text-left px-4 py-2 text-gray-900 dark:text-base-content hover:bg-gray-100 dark:hover:bg-base-300"
+            >
+              {{ model.name }}
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <label for="file-upload" class="cursor-pointer">
+          <div
+            class="badge badge-outline badge-secondary flex items-center gap-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+              />
+            </svg>
+            <span id="file-name-display">Upload</span>
+          </div>
+        </label>
+        <input type="file" id="file-upload" class="hidden" />
+      </div>
+
+      <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
+        <button
+          id="reset_button"
+          class="bg-slate-800 hover:bg-slate-600 dark:bg-primary dark:hover:bg-primary-focus text-white dark:text-primary-content font-extralight p-2.5 rounded"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </button>
+
+        <button
+          id="chat_button"
+          class="bg-slate-800 hover:bg-slate-600 dark:bg-primary dark:hover:bg-primary-focus text-white dark:text-primary-content font-extralight p-2.5 rounded"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+            />
+          </svg>
+        </button>
+        <button
+          id="stop_button"
+          class="hidden bg-red-500 hover:bg-red-400 dark:bg-error dark:hover:bg-error-focus text-white dark:text-error-content font-extralight p-2.5 rounded"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+## chat/chat_messages.html
+
+```
+<div
+  id="chat_messages"
+  class="mt-4 mb-4 overflow-auto flex flex-col min-h-[200px]"
+></div>
+```
+
+## chat/chat copy.html
 
 ```
 <!doctype html>
-<html lang="en" class="overflow-y-scroll">
+<html lang="en" class="h-full">
   {% include('/main/header.html') %}
-  <body class="bg-base-100 min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <style>
+      /* Tailwind-compatible blur transition styles */
+      .blur-xl {
+        filter: blur(12px);
+      }
+
+      /* Remove the old blur-effect styles that might conflict with Tailwind */
+      /* 
+      .blur-effect {
+        transition:
+          opacity 0.5s ease-out,
+          filter 0.5s ease-out,
+          color 0.5s ease-out,
+          text-shadow 0.5s ease-out;
+        display: inline-block;
+      }
+      .blur-effect.opacity-0 {
+        opacity: 0;
+        filter: blur(8px);
+        color: rgba(0, 0, 0, 0.7);
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      }
+      .blur-lg {
+        filter: blur(8px);
+      }
+      */
+    </style>
+    <title>Chat</title>
+  </head>
+  <body class="min-h-full flex flex-col bg-base-100">
     {% include('/main/nav.html') %}
 
-    <section class="p-4 sm:p-6 flex items-center lg:ml-64">
-      <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
-        <div
-          class="relative bg-base-100 shadow-md sm:rounded-lg p-3 sm:p-4 border border-base-content/10"
-        >
-          <div class="flex flex-col gap-4">
-            <div
-              class="flex flex-row justify-between items-center gap-2 sm:gap-4"
-            >
-              <div class="flex-1">
-                <form
-                  method="GET"
-                  action="{{ url_for('list', collection=collection_name, start=start, limit=limit, filter=filter) }}"
-                >
-                  <div class="relative">
-                    <div
-                      class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-                    >
-                      <svg
-                        class="w-4 h-4 text-base-content/50"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </div>
-                    <input
-                      type="text"
-                      name="search"
-                      class="w-full max-w-md pl-10 pr-4 py-2 border border-base-content/20 bg-base-100 text-base-content rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                      placeholder="Search"
-                      value="{{ search }}"
-                    />
-                  </div>
-                </form>
-              </div>
+    <section class="flex-1 flex items-start overflow-y-auto md:ml-64">
+      <div
+        class="px-2 md:px-10 xl:px-16 2xl:px-20 w-full 2xl:max-w-7xl 2xl:mx-auto"
+      >
+        <div class="relative min-h-[calc(100vh-8rem)] pb-32">
+          <main id="main" class="flex flex-col h-full">
+            {% if config.messages|length == 0 %}
+            <!-- Show prompts and history first in a fresh chat -->
+            <div id="selected_prompts_container" class="flex-1">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            {% else %}
+            <!-- Show messages first in an existing chat -->
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            <div id="selected_prompts_container">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            {% endif %}
 
-              <div class="flex-none">
-                {% if show_new_button %}
-                <a
-                  href="{{ url_for('doc',name = collection_name) }}"
-                  class="btn btn-primary whitespace-nowrap"
-                >
-                  New
-                </a>
-                {% endif %}
+            <div id="chat_history_container" class="hidden"></div>
+            <div id="prompts_container" class="hidden"></div>
+            <div id="create_prompt_container" class="hidden"></div>
+            <div id="chat_ui_container">{% include '/chat/chat_ui.html' %}</div>
+          </main>
+
+          <!-- Bot Message Template -->
+          <template id="bot-message-template">
+            {% include '/chat/bot_message_template.html' %}
+          </template>
+
+          <!-- User Message Template -->
+          <template id="user-message-template">
+            {% include '/chat/user_message_template.html' %}
+          </template>
+
+          <!-- File Banner Template -->
+          <template id="file-banner-template">
+            <div class="mb-6">
+              <div class="alert alert-soft">
+                <div class="flex w-full items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <svg
+                      class="h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="text-sm">
+                      Using context from file:
+                      <span class="filename font-medium"></span>
+                    </p>
+                  </div>
+                  <a href="#" class="download-link" title="Download file">
+                    <svg
+                      class="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                      />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
+          </template>
 
-            {% include('/base/collection/table.html') %}
-          </div>
+          <template id="code_template">
+            {% include '/chat/code_block_template.html' %}
+          </template>
         </div>
       </div>
     </section>
 
+    <script>
+      // Global variables
+      const messages = {{ config.messages | tojson | safe }};
+      const systemMessage = {{ config.system_message|tojson }};
+      const welcomeMessage = {{ config.welcome_message|tojson }};
+      const models = {{ config.models | tojson | safe}};
+      const use_prompt_template = {{ config.use_prompt_template|tojson }};
+      const username = {{ config.username|tojson }};
+      const chat_started = {{ config.chat_started|tojson }};
+
+      // Model selection
+      var selected_model = models[0]['model'];
+      var selected_model_name = models[0]['name'];
+      var selectedModelElement = document.getElementById('selected_model');
+      var modelBadgeElement = document.querySelector('[data-model-badge]');
+
+      // Function to update badge color based on model name
+      function updateModelBadgeColor(modelName) {
+        if (modelBadgeElement) {
+          // Remove any existing badge color classes
+          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
+
+          // Add appropriate class based on model name
+          if (modelName.includes('Azure')) {
+            modelBadgeElement.classList.add('badge-success');
+          } else {
+            modelBadgeElement.classList.add('badge-error');
+          }
+        }
+      }
+
+      // Check localStorage for saved model
+      if (localStorage.getItem('selected_model') !== null) {
+        selected_model = localStorage.getItem('selected_model');
+        const model = models.find(m => m.model === selected_model);
+        if (model) {
+          selected_model_name = model.name;
+        }
+      }
+
+      selectedModelElement.innerText = selected_model_name;
+      // Set initial badge color
+      updateModelBadgeColor(selected_model_name);
+
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('#prompts .prompt')) {
+          var chatInput = document.getElementById('chat_input');
+          if (chatInput) {
+            chatInput.value = e.target.textContent;
+          }
+
+          var chatButton = document.getElementById('chat_button');
+          if (chatButton) {
+            chatButton.click();
+          }
+
+          var promptsDiv = document.getElementById('prompts');
+          if (promptsDiv) {
+            promptsDiv.remove();
+          }
+        }
+
+        if (event.target.classList.contains('model')) {
+          selected_model = event.target.id;
+          selected_model_name = event.target.dataset.name;
+          localStorage.setItem('selected_model', selected_model);
+          selectedModelElement.innerText = selected_model_name;
+          // Update badge color when model changes
+          updateModelBadgeColor(selected_model_name);
+          const modelSelectorButton = document.getElementById('modelSelectorButton');
+          if (modelSelectorButton) {
+            modelSelectorButton.click();
+          }
+        }
+      });
+    </script>
+
+    <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
   </body>
 </html>
 ```
 
-## base/collection/table.html
+## chat/user_message_template.html
 
 ```
-<div class="flex flex-col gap-4">
-  {% include('/base/collection/pagination.html') %}
+<div class="flex space-x-4 mb-6">
   <div
-    class="overflow-x-auto rounded-lg border border-base-content/10"
+    class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full flex-shrink-0"
   >
-    <table class="table border-collapse w-full">
-      <thead>
-        <tr>
-          {% for header in table_header %}
-          <th
-            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-base-content/10 last:border-r-0"
-          >
-            {{header.label}}
-          </th>
-          {% endfor %}
-          <th
-            class="w-16 px-4 py-3 text-right border-b border-r border-base-content/10 last:border-r-0 sticky right-0 bg-base-100 z-10"
-          >
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for document in table_content %}
-        <tr
-          id="tr-{{document[0].id}}"
-          class="{% if not loop.last %}border-b border-base-content/10{% endif %}"
-        >
-          {% for field in document %}
-          <td
-            class="font-normal leading-normal px-4 py-2 border-r border-base-content/10 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
-          >
-            {% if field.type == 'ButtonField' %}
-            <div class="flex justify-start items-center">
-              <a href="{{field.link}}" class="w-full">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-outline btn-sm {{field.class}} truncate"
-                >
-                  {{field.label}}
-                </button>
-              </a>
-            </div>
-            {% else %} 
-              <div class="{% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}">
-                {{field.value}}
-              </div>
-            {% endif %}
-          </td>
-          {% endfor %}
-          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-base-100">
-            <div class="flex gap-2 justify-end">
-              <a
-                href="{{document_url}}/{{document[0].id}}"
-                class="btn btn-primary btn-sm btn-outline"
-              >
-                <span class="icon-[tabler--edit] size-4"></span>
-              </a>
-              <button
-                type="button"
-                class="btn btn-error btn-sm btn-outline"
-                data-modal-target="confirm_modal"
-                data-action="{{ url_for('delete_document') }}?id={{document[0].id}}&type={{collection_name}}"
-                data-document-id="tr-{{document[0].id}}"
-                data-message="Are you sure you want to delete this {{collection_name}}? This action cannot be undone."
-                data-title="Delete {{collection_name|capitalize}}"
-              >
-                <span class="icon-[tabler--trash] size-4"></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
+    config.name else '' }}
   </div>
-  {% include('/base/collection/pagination.html') %}
+  <div
+    class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
+  ></div>
 </div>
+```
+
+## chat/code_block_template.html
+
+```
+<div class="flex flex-col w-full">
+  <div
+    class="h-8 bg-base-300 w-full flex rounded-t justify-between items-center px-4"
+  >
+    <!-- Language Info Placeholder -->
+    <span class="text-sm text-base-content language-info"></span>
+
+    <div class="flex flex-row items-center gap-2">
+      <span class="copied hidden text-sm font-extralight text-success"
+        >copied!</span
+      >
+      <!-- Copy Button -->
+      <button
+        class="h-4 w-4 copy-btn flex items-center justify-center text-base-content hover:text-success"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="w-full">
+    <pre
+      class="bg-base-200 text-sm text-base-content rounded-b p-2 overflow-x-auto whitespace-pre-wrap"
+    ></pre>
+  </div>
+</div>
+```
+
+## chat/chat.html
+
+```
+<!doctype html>
+<html lang="en" class="h-full">
+  {% include('/main/header.html') %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>Chat</title>
+  </head>
+  <body class="min-h-full flex flex-col bg-base-100">
+    {% include('/main/nav.html') %}
+
+    <section class="flex-1 flex items-start overflow-y-auto md:ml-64">
+      <div
+        class="px-2 md:px-10 xl:px-16 2xl:px-20 w-full 2xl:max-w-7xl 2xl:mx-auto"
+      >
+        <div class="relative min-h-[calc(100vh-8rem)] pb-32">
+          <main id="main" class="flex flex-col h-full">
+            {% if config.messages|length == 0 %}
+            <!-- Show prompts and history first in a fresh chat -->
+            <div id="selected_prompts_container" class="flex-1">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            {% else %}
+            <!-- Show messages first in an existing chat -->
+            <div id="chat_messages_container" class="pb-40">
+              {% include '/chat/chat_messages.html' %}
+            </div>
+            <div id="selected_prompts_container">
+              {% include '/chat/chat_prompts.html' %}
+            </div>
+            {% endif %}
+
+            <div id="chat_history_container" class="hidden"></div>
+            <div id="prompts_container" class="hidden"></div>
+            <div id="create_prompt_container" class="hidden"></div>
+            <div id="chat_ui_container">{% include '/chat/chat_ui.html' %}</div>
+          </main>
+
+          <!-- Bot Message Template -->
+          <template id="bot-message-template">
+            {% include '/chat/bot_message_template.html' %}
+          </template>
+
+          <!-- User Message Template -->
+          <template id="user-message-template">
+            {% include '/chat/user_message_template.html' %}
+          </template>
+
+          <!-- File Banner Template -->
+          <template id="file-banner-template">
+            <div class="mb-6">
+              <div class="alert alert-soft">
+                <div class="flex w-full items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <svg
+                      class="h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="text-sm">
+                      Using context from file:
+                      <span class="filename font-medium"></span>
+                    </p>
+                  </div>
+                  <a href="#" class="download-link" title="Download file">
+                    <svg
+                      class="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template id="code_template">
+            {% include '/chat/code_block_template.html' %}
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Global variables
+      const messages = {{ config.messages | tojson | safe }};
+      const systemMessage = {{ config.system_message|tojson }};
+      const welcomeMessage = {{ config.welcome_message|tojson }};
+      const models = {{ config.models | tojson | safe}};
+      const use_prompt_template = {{ config.use_prompt_template|tojson }};
+      const username = {{ config.username|tojson }};
+      const chat_started = {{ config.chat_started|tojson }};
+
+      // Model selection
+      var selected_model = models[0]['model'];
+      var selected_model_name = models[0]['name'];
+      var selectedModelElement = document.getElementById('selected_model');
+      var modelBadgeElement = document.querySelector('[data-model-badge]');
+
+      // Function to update badge color based on model name
+      function updateModelBadgeColor(modelName) {
+        if (modelBadgeElement) {
+          // Remove any existing badge color classes
+          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
+
+          // Add appropriate class based on model name
+          if (modelName.includes('Azure')) {
+            modelBadgeElement.classList.add('badge-success');
+          } else {
+            modelBadgeElement.classList.add('badge-error');
+          }
+        }
+      }
+
+      // Check localStorage for saved model
+      if (localStorage.getItem('selected_model') !== null) {
+        selected_model = localStorage.getItem('selected_model');
+        const model = models.find(m => m.model === selected_model);
+        if (model) {
+          selected_model_name = model.name;
+        }
+      }
+
+      selectedModelElement.innerText = selected_model_name;
+      // Set initial badge color
+      updateModelBadgeColor(selected_model_name);
+
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('#prompts .prompt')) {
+          var chatInput = document.getElementById('chat_input');
+          if (chatInput) {
+            chatInput.value = e.target.textContent;
+          }
+
+          var chatButton = document.getElementById('chat_button');
+          if (chatButton) {
+            chatButton.click();
+          }
+
+          var promptsDiv = document.getElementById('prompts');
+          if (promptsDiv) {
+            promptsDiv.remove();
+          }
+        }
+
+        if (event.target.classList.contains('model')) {
+          selected_model = event.target.id;
+          selected_model_name = event.target.dataset.name;
+          localStorage.setItem('selected_model', selected_model);
+          selectedModelElement.innerText = selected_model_name;
+          // Update badge color when model changes
+          updateModelBadgeColor(selected_model_name);
+          const modelSelectorButton = document.getElementById('modelSelectorButton');
+          if (modelSelectorButton) {
+            modelSelectorButton.click();
+          }
+        }
+      });
+    </script>
+
+    <script
+      src="{{ url_for('static', filename='/chat/chat_code_handler.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_markup.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_message_handler.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_initialize.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_save.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_core.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_event_handler.js') }}"
+      type="module"
+    ></script>
+    <script
+      src="{{ url_for('static', filename='/chat/chat_file_upload.js') }}"
+      type="module"
+    ></script>
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+    <script type="module">
+      import { initializeEventHandlers } from "{{ url_for('static', filename='/chat/chat_event_handler.js') }}";
+      document.addEventListener("DOMContentLoaded", initializeEventHandlers);
+    </script>
+  </body>
+</html>
 ```
 
 ## testing/create_users.py
@@ -1139,75 +1510,6 @@ for i in range(1, 20):
 
     # Create user with generated data
     create_user(username, name, email, password, role='user')
-```
-
-## components/confirm_modal.html
-
-```
-<div
-  id="confirm_modal"
-  tabindex="-1"
-  class="hidden overflow-y-auto overflow-x-hidden bg-base-300/65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
->
-  <div
-    class="modal-content relative p-4 w-full max-w-md max-h-full"
-  >
-    <div class="relative bg-base-100 rounded-lg shadow">
-      <button
-        type="button"
-        class="close-modal absolute top-3 right-2.5 text-base-content/60 bg-transparent hover:bg-base-200 hover:text-base-content rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-      >
-        <svg
-          class="w-3 h-3"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 14"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-          />
-        </svg>
-        <span class="sr-only">Close modal</span>
-      </button>
-      <div class="p-4 md:p-5 text-center">
-        <svg
-          class="mx-auto mb-4 text-base-content/60 w-12 h-12"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-        <h3 class="mb-2 text-lg font-medium text-base-content">Confirm Action</h3>
-        <p class="mb-5 text-base-content/60">Are you sure?</p>
-        <button
-          type="button"
-          class="confirm-action text-primary-content bg-error hover:bg-error-focus focus:ring-4 focus:outline-none focus:ring-error/30 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-        >
-          Yes, I'm sure
-        </button>
-        <button
-          type="button"
-          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-base-content focus:outline-none bg-base-100 rounded-lg border border-base-300 hover:bg-base-200 focus:z-10 focus:ring-4 focus:ring-base-200"
-        >
-          No, cancel
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 ```
 
 ## components/confirm_modal.js
@@ -1442,574 +1744,73 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-## chat/chat_messages_rendered.html
+## components/confirm_modal.html
 
 ```
 <div
-  id="chat_messages"
-  class="ml-2 mr-2 mt-3 mb-2 md:ml-16 md:mr-16 md:mt-6 overflow-auto flex flex-col space-y-2"
+  id="confirm_modal"
+  tabindex="-1"
+  class="hidden overflow-y-auto overflow-x-hidden bg-base-300/65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
 >
-  {% for message in config.messages %} {% if message.role =='user' %}
-  <div class="flex space-x-4 mb-4">
-    <div
-      class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full"
-    >
-      {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
-      config.name else '' }}
-    </div>
-    <div
-      class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
-      id="message-{{ loop.index }}"
-    ></div>
-  </div>
-  {% endif %} {% if message.role =='assistant' %}
-  <div class="flex space-x-4 mb-4">
-    <div
-      class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-        />
-      </svg>
-    </div>
-    <div
-      class="message content bg-base-200 text-base-content rounded-lg p-4 flex-1 min-w-0 break-words"
-      id="message-{{ loop.index }}"
-    ></div>
-  </div>
-  {% endif %} {% endfor %}
-</div>
-
-<script>
-  // Process all messages after the page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    {% for message in config.messages %}
-      const messageContent = {{message.content|tojson}};
-      const container = document.getElementById('message-{{ loop.index }}');
-      if (container) {
-        appendData(messageContent, container);
-      }
-    {% endfor %}
-  });
-</script>
-```
-
-## chat/user_message_template.html
-
-```
-<div class="flex space-x-4 mb-6">
   <div
-    class="flex justify-center items-center w-10 h-10 bg-primary text-primary-content rounded-full flex-shrink-0"
+    class="modal-content relative p-4 w-full max-w-md max-h-full"
   >
-    {{ config.firstname[0] if config.firstname else '' }}{{ config.name[0] if
-    config.name else '' }}
-  </div>
-  <div
-    class="message content bg-base-200 rounded-lg p-4 flex-1 min-w-0 break-words"
-  ></div>
-</div>
-```
-
-## chat/code_block_template.html
-
-```
-<div class="flex flex-col w-full">
-    <div class="h-8 bg-neutral w-full flex rounded-t justify-between items-center px-4">
-      <!-- Language Info Placeholder -->
-      <span class="text-sm text-neutral-content language-info"></span>
-
-      <div class="flex flex-row items-center gap-2">
-        <span class="copied hidden text-sm font-extralight text-success">copied!</span>
-        <!-- Copy Button -->
-      <button class="h-4 w-4 copy-btn flex items-center justify-center text-neutral-content hover:text-success">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-        </svg>
-      </button>
-      </div>
-      
-    </div>
-    <div class="w-full">
-      <pre class="bg-neutral-focus text-sm text-neutral-content rounded-b p-2 overflow-x-auto whitespace-pre-wrap">
-      </pre>
-    </div>
-  </div>
-```
-
-## chat/chat_prompts.html
-
-```
-{% if config.messages | length == 0 %}
-<div
-  id="prompts"
-  class="ml-2 mr-2 mb-2 md:ml-16 md:mr-16 flex flex-col gap-4 mt-8"
->
-  {% if config.history %}
-  <h3
-    class="text-center text-xl font-semibold text-base-content"
-  >
-    Last Chats
-  </h3>
-  <div class="flex flex-row flex-wrap justify-center gap-4">
-    {% for item in config.history %}
-    <a href="/chat/history/{{ item.id }}" class="no-underline">
-      <div
-        id="history_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-      >
-        <span class="truncate">{{ item.first_message }}</span>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-  <hr class="h-px my-2 bg-base-content/10 border-0" />
-  {% endif %} {% if config.latest_prompts %}
-  <h3
-    class="text-center text-xl font-semibold text-base-content"
-  >
-    Latest Prompts
-  </h3>
-  <div class="flex flex-row flex-wrap justify-center gap-4">
-    {% for prompt in config.latest_prompts %}
-    <a href="/chat/prompt/{{ prompt.id }}" class="no-underline">
-      <div
-        id="prompt_{{ loop.index }}"
-        class="relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-      >
-        <span class="truncate">{{ prompt.name }}</span>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-  {% endif %} {% if not config.history and not config.latest_prompts %}
-  <div class="flex flex-row flex-wrap justify-center gap-4">
-    <div
-      class="prompt relative h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-    >
-      <span class="truncate">Wer war Ada Lovelace?</span>
-    </div>
-    <div
-      class="group relative prompt h-12 w-64 flex items-center justify-center bg-primary hover:bg-primary-focus text-primary-content rounded-xl cursor-pointer px-4"
-    >
-      <span class="truncate">Schreibe eine index.html</span>
-    </div>
-  </div>
-  {% endif %}
-</div>
-{% endif %}
-```
-
-## chat/bot_message_template.html
-
-```
-<div class="flex space-x-4 mb-6">
-  <div
-    class="flex justify-center items-center w-10 h-10 bg-secondary text-secondary-content rounded-full flex-shrink-0"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-6 h-6"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-      />
-    </svg>
-  </div>
-  <div class="flex-1 min-w-0">
-    <div
-      class="message content bg-base-200 text-base-content rounded-lg p-4 break-words"
-    ></div>
-    <div class="flex justify-start mt-2">
+    <div class="relative bg-base-100 rounded-lg shadow">
       <button
-        class="copy-btn flex items-center gap-1 text-sm text-base-content/60 hover:text-base-content active:scale-95 transition-all duration-100 rounded px-2 py-1 hover:bg-base-200"
+        type="button"
+        class="close-modal absolute top-3 right-2.5 text-base-content/60 bg-transparent hover:bg-base-200 hover:text-base-content rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
       >
         <svg
-          class="w-4 h-4 copy-icon"
+          class="w-3 h-3"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
+          viewBox="0 0 14 14"
         >
           <path
+            stroke="currentColor"
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
           />
         </svg>
-        <svg
-          class="w-4 h-4 check-icon hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12.75l6 6 9-13.5"
-          />
-        </svg>
-        <span class="copy-text">Copy</span>
-        <span class="check-text hidden">Copied!</span>
+        <span class="sr-only">Close modal</span>
       </button>
-    </div>
-  </div>
-</div>
-```
-
-## chat/chat_messages.html
-
-```
-<div
-  id="chat_messages"
-  class="mt-4 mb-4 overflow-auto flex flex-col min-h-[200px]"
-></div>
-```
-
-## chat/chat_ui.html
-
-```
-<div
-  id="chat_ui"
-  class="fixed bottom-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full h-40 bg-base-100"
->
-  <div class="h-full w-full 2xl:max-w-7xl 2xl:mx-auto relative">
-    <div
-      class="flex flex-col absolute bottom-0 left-0 right-0 h-32 mx-2 mb-2 md:mx-10 md:mb-4 xl:mx-16 xl:mb-4 2xl:mx-20 2xl:mb-4 rounded-xl bg-base-100 shadow-[0_-2px_15px_-3px_rgba(0,0,0,0.1)] border border-base-content/10"
-    >
-      <div class="p-3 pr-16 overflow-hidden">
-        <textarea
-          id="chat_input"
-          placeholder="Type your message and press Command or Strg + Enter"
-          rows="3"
-          class="border-none ring-0 w-full rounded-lg focus:outline-none focus:ring-0 resize-none"
-        ></textarea>
-      </div>
-      <div class="ml-6 mb-4 flex items-center gap-2">
-        <div
-          class="dropdown relative inline-flex [--placement:top]"
-          data-dropdown
+      <div class="p-4 md:p-5 text-center">
+        <svg
+          class="mx-auto mb-4 text-base-content/60 w-12 h-12"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
         >
-          <button
-            id="modelSelectorButton"
-            class="badge badge-outline dropdown-toggle"
-            data-model-badge
-          >
-            <span id="selected_model"></span>
-          </button>
-          <div
-            class="dropdown-menu min-w-44 dropdown-open:opacity-100 hidden"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="modelSelectorButton"
-          >
-            {% for model in config.models %}
-            <button
-              id="{{ model.model }}"
-              data-name="{{ model.name }}"
-              class="model dropdown-item w-full text-left px-4 py-2 hover:bg-base-200"
-            >
-              {{ model.name }}
-            </button>
-            {% endfor %}
-          </div>
-        </div>
-
-        <label for="file-upload" class="cursor-pointer">
-          <div
-            class="badge badge-outline badge-secondary flex items-center gap-1"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-4 h-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
-              />
-            </svg>
-            <span id="file-name-display">Upload</span>
-          </div>
-        </label>
-        <input type="file" id="file-upload" class="hidden" />
-      </div>
-
-      <div class="absolute bottom-0 right-0 p-3 flex flex-col gap-2">
-        <button
-          id="reset_button"
-          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
+          <path
             stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        </button>
-
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+        <h3 class="mb-2 text-lg font-medium text-base-content">Confirm Action</h3>
+        <p class="mb-5 text-base-content/60">Are you sure?</p>
         <button
-          id="chat_button"
-          class="bg-slate-800 hover:bg-slate-600 text-white font-extralight p-2.5 rounded"
+          type="button"
+          class="confirm-action text-primary-content bg-error hover:bg-error-focus focus:ring-4 focus:outline-none focus:ring-error/30 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-            />
-          </svg>
+          Yes, I'm sure
         </button>
         <button
-          id="stop_button"
-          class="hidden bg-red-500 hover:bg-red-400 text-white font-extralight p-2.5 rounded"
+          type="button"
+          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-base-content focus:outline-none bg-base-100 rounded-lg border border-base-300 hover:bg-base-200 focus:z-10 focus:ring-4 focus:ring-base-200"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
-            />
-          </svg>
+          No, cancel
         </button>
       </div>
     </div>
   </div>
 </div>
-```
-
-## chat/chat.html
-
-```
-<!doctype html>
-<html lang="en" class="h-full">
-  {% include('/main/header.html') %}
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Chat</title>
-  </head>
-  <body class="min-h-full flex flex-col bg-base-100">
-    {% include('/main/nav.html') %}
-
-    <section class="flex-1 flex items-start overflow-y-auto lg:ml-64">
-      <div class="px-2 md:px-10 xl:px-16 2xl:px-20 w-full 2xl:max-w-7xl 2xl:mx-auto">
-        <div class="relative min-h-[calc(100vh-8rem)] pb-32">
-          <main id="main" class="flex flex-col h-full">
-            {% if config.messages|length == 0 %}
-            <!-- Show prompts and history first in a fresh chat -->
-            <div id="selected_prompts_container" class="flex-1">
-              {% include '/chat/chat_prompts.html' %}
-            </div>
-            <div id="chat_messages_container" class="pb-40">
-              {% include '/chat/chat_messages.html' %}
-            </div>
-            {% else %}
-            <!-- Show messages first in an existing chat -->
-            <div id="chat_messages_container" class="pb-40">
-              {% include '/chat/chat_messages.html' %}
-            </div>
-            <div id="selected_prompts_container">
-              {% include '/chat/chat_prompts.html' %}
-            </div>
-            {% endif %}
-
-            <div id="chat_history_container" class="hidden"></div>
-            <div id="prompts_container" class="hidden"></div>
-            <div id="create_prompt_container" class="hidden"></div>
-            <div id="chat_ui_container">{% include '/chat/chat_ui.html' %}</div>
-          </main>
-
-          <!-- Bot Message Template -->
-          <template id="bot-message-template">
-            {% include '/chat/bot_message_template.html' %}
-          </template>
-
-          <!-- User Message Template -->
-          <template id="user-message-template">
-            {% include '/chat/user_message_template.html' %}
-          </template>
-
-          <!-- File Banner Template -->
-          <template id="file-banner-template">
-            <div class="mb-6">
-              <div class="bg-info/10 border-l-4 border-info p-4">
-                <div class="flex">
-                  <div class="flex-shrink-0">
-                    <svg
-                      class="h-5 w-5 text-info"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div class="ml-3 flex items-center gap-3">
-                    <p class="text-sm text-info-content">
-                      Using context from file: <span class="filename"></span>
-                    </p>
-                    <a
-                      href="#"
-                      class="download-link text-info hover:text-info-focus"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                        />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-
-          <template id="code_template">
-            {% include '/chat/code_block_template.html' %}
-          </template>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      // Global variables
-      const messages = {{ config.messages | tojson | safe }};
-      const systemMessage = {{ config.system_message|tojson }};
-      const welcomeMessage = {{ config.welcome_message|tojson }};
-      const models = {{ config.models | tojson | safe}};
-      const use_prompt_template = {{ config.use_prompt_template|tojson }};
-      const username = {{ config.username|tojson }};
-      const chat_started = {{ config.chat_started|tojson }};
-
-      // Model selection
-      var selected_model = models[0]['model'];
-      var selected_model_name = models[0]['name'];
-      var selectedModelElement = document.getElementById('selected_model');
-      var modelBadgeElement = document.querySelector('[data-model-badge]');
-
-      // Function to update badge color based on model name
-      function updateModelBadgeColor(modelName) {
-        if (modelBadgeElement) {
-          // Remove any existing badge color classes
-          modelBadgeElement.classList.remove('badge-primary', 'badge-success', 'badge-error');
-          
-          // Add appropriate class based on model name
-          if (modelName.includes('Azure')) {
-            modelBadgeElement.classList.add('badge-success');
-          } else {
-            modelBadgeElement.classList.add('badge-error');
-          }
-        }
-      }
-
-      // Check localStorage for saved model
-      if (localStorage.getItem('selected_model') !== null) {
-        selected_model = localStorage.getItem('selected_model');
-        const model = models.find(m => m.model === selected_model);
-        if (model) {
-          selected_model_name = model.name;
-        }
-      }
-
-      selectedModelElement.innerText = selected_model_name;
-      // Set initial badge color
-      updateModelBadgeColor(selected_model_name);
-
-      document.addEventListener('click', function (e) {
-        if (e.target.closest('#prompts .prompt')) {
-          var chatInput = document.getElementById('chat_input');
-          if (chatInput) {
-            chatInput.value = e.target.textContent;
-          }
-
-          var chatButton = document.getElementById('chat_button');
-          if (chatButton) {
-            chatButton.click();
-          }
-
-          var promptsDiv = document.getElementById('prompts');
-          if (promptsDiv) {
-            promptsDiv.remove();
-          }
-        }
-
-        if (event.target.classList.contains('model')) {
-          selected_model = event.target.id;
-          selected_model_name = event.target.dataset.name;
-          localStorage.setItem('selected_model', selected_model);
-          selectedModelElement.innerText = selected_model_name;
-          // Update badge color when model changes
-          updateModelBadgeColor(selected_model_name);
-          const modelSelectorButton = document.getElementById('modelSelectorButton');
-          if (modelSelectorButton) {
-            modelSelectorButton.click();
-          }
-        }
-      });
-    </script>
-
-    <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
-  </body>
-</html>
 ```
 
 ## main/header.html
@@ -2061,30 +1862,65 @@ document.addEventListener('DOMContentLoaded', function() {
       Fireworks
     </a>
   </div>
-  
+
   <!-- Screen Size Indicator (Temporary) -->
-  <div id="screen-size-indicator" class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2">
+  <div
+    id="screen-size-indicator"
+    class="px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs font-mono hidden md:flex items-center gap-2"
+  >
     <span class="icon-[tabler--device-desktop-analytics] size-4"></span>
     <span class="screen-width">0</span> × <span class="screen-height">0</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="640" data-name="sm">sm</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="768" data-name="md">md</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1024" data-name="lg">lg</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1280" data-name="xl">xl</span>
-    <span class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag" data-min-width="1536" data-name="2xl">2xl</span>
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="640"
+      data-name="sm"
+      >sm</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="768"
+      data-name="md"
+      >md</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1024"
+      data-name="lg"
+      >lg</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1280"
+      data-name="xl"
+      >xl</span
+    >
+    <span
+      class="text-[10px] px-1.5 py-0.5 rounded breakpoint-tag"
+      data-min-width="1536"
+      data-name="2xl"
+      >2xl</span
+    >
   </div>
-  
+
   <div class="navbar-end flex items-center gap-2">
-    <!-- Dark Mode Toggle -->
-    <div class="flex items-center mr-2">
+    <!-- Dark Mode Toggle - Only visible on screens larger than md -->
+    <div class="items-center mr-2 hidden md:flex">
       <div class="flex items-center gap-1">
         <span class="icon-[tabler--sun] size-5 text-yellow-500"></span>
-        <input type="checkbox" class="switch theme-controller switch-sm" id="darkModeToggle" value="dark" />
-        <span class="icon-[tabler--moon] size-5 text-slate-700 dark:text-slate-300"></span>
+        <input
+          type="checkbox"
+          class="switch theme-controller switch-sm"
+          id="darkModeToggle"
+          value="dark"
+        />
+        <span
+          class="icon-[tabler--moon] size-5 text-slate-700 dark:text-slate-300"
+        ></span>
       </div>
     </div>
     <!-- User Avatar Dropdown for Desktop -->
     <div
-      class="dropdown relative inline-flex max-lg:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
+      class="dropdown relative inline-flex max-md:hidden [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
     >
       <button
         type="button"
@@ -2093,7 +1929,7 @@ document.addEventListener('DOMContentLoaded', function() {
         aria-expanded="false"
         aria-label="User menu"
       >
-        <div class="bg-primary text-primary-content rounded-full w-10">
+        <div class="bg-base-100 border border-secondary text-base-content rounded-full w-10 flex items-center justify-center">
           <span class="text-lg"
             >{{ current_user.firstname[0] }}{{ current_user.name[0] }}</span
           >
@@ -2124,10 +1960,10 @@ document.addEventListener('DOMContentLoaded', function() {
         </form>
       </ul>
     </div>
-    <!-- Mobile Menu Button -->
+    <!-- Mobile Menu Button - Only visible on md screens and below -->
     <button
       type="button"
-      class="btn btn-text max-lg:btn-square lg:hidden"
+      class="btn btn-text max-md:btn-square md:hidden"
       aria-haspopup="dialog"
       aria-expanded="false"
       aria-controls="mobile-menu-overlay"
@@ -2140,13 +1976,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <aside
   id="mobile-menu-overlay"
-  class="overlay drawer drawer-start w-64 max-w-64 lg:fixed lg:top-[57px] lg:bottom-0 lg:left-0 lg:z-40 lg:flex lg:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
+  class="overlay drawer drawer-start w-64 max-w-64 md:fixed md:top-[57px] md:bottom-0 md:left-0 md:z-40 md:flex md:translate-x-0 overlay-open:translate-x-0 -translate-x-full transition-transform duration-300"
   tabindex="-1"
 >
-  <div class="drawer-body w-64 bg-base-100 h-full flex flex-col overflow-hidden">
+  <div
+    class="drawer-body w-64 bg-base-100 h-full flex flex-col overflow-hidden"
+  >
     <!-- Fixed Header Section -->
     <div class="px-2 pt-4 pb-2 border-b border-base-200 flex-none">
       <ul class="menu w-full space-y-0.5 p-0">
+        <!-- Dark Mode Toggle (Mobile View) - Aligned with other menu items -->
+        <li class="w-full md:hidden">
+          <div class="flex items-center gap-2 px-4 py-2 w-full">
+            <span class="icon-[tabler--sun-moon] size-5 shrink-0"></span>
+            <span class="truncate flex-1">Mode</span>
+            <div class="flex items-center gap-1">
+              <span class="icon-[tabler--sun] size-4 text-yellow-500"></span>
+              <input
+                type="checkbox"
+                class="switch theme-controller switch-sm"
+                id="mobileDarkModeToggle"
+                value="dark"
+              />
+              <span
+                class="icon-[tabler--moon] size-4 text-slate-700 dark:text-slate-300"
+              ></span>
+            </div>
+          </div>
+        </li>
         <li class="w-full">
           <a
             href="{{ url_for('index') }}"
@@ -2255,7 +2112,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <li class="w-full">
                   <a
                     href="{{ url_for('doc', name='prompt') }}"
-                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-primary rounded-lg group"
+                    class="text-xs w-full px-4 py-2 hover:bg-base-200 flex items-center gap-2 text-base-content rounded-lg group"
                   >
                     <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
                     <span class="truncate">New Prompt</span>
@@ -2287,7 +2144,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       title="Edit prompt"
                     >
                       <span
-                        class="icon-[tabler--edit] size-3.5 text-primary"
+                        class="icon-[tabler--edit] size-3.5 text-base-content"
                       ></span>
                     </a>
                   </div>
@@ -2366,12 +2223,12 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <!-- Fixed Footer Section -->
-    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 lg:hidden">
+    <div class="flex-none border-t border-base-200 px-2 pt-4 pb-2 md:hidden">
       <form action="{{ url_for('logout') }}" method="post" class="w-full">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button
           type="submit"
-          class="btn btn-ghost w-full justify-start gap-2 text-error"
+          class="flex items-center gap-2 px-4 py-2 w-full hover:bg-base-200 rounded-lg text-error"
         >
           <span class="icon-[tabler--logout-2] size-5 shrink-0"></span>
           <span class="truncate">Sign Out</span>
@@ -2480,7 +2337,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </a>
                 <span class="text-[10px] text-gray-500 whitespace-nowrap shrink-0">${formattedDate}</span>
                 <a href="/d/prompt/${prompt._id.$oid}" class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Edit prompt" title="Edit prompt">
-                  <span class="icon-[tabler--edit] size-3.5 text-primary"></span>
+                  <span class="icon-[tabler--edit] size-3.5 text-base-content"></span>
                 </a>
               </div>
             `;
@@ -2543,13 +2400,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Listen for the confirmAction:success event from our confirm modal
-  document.addEventListener('confirmAction:success', async function(event) {
+  document.addEventListener("confirmAction:success", async function (event) {
     const { modalId, result, documentType, action } = event.detail;
-    
+
     // If this is from delete all history action
-    if (result && (result.action === 'delete_all_history' || action === 'delete_all_history')) {
-      console.log('History deletion was successful');
-      
+    if (
+      result &&
+      (result.action === "delete_all_history" ||
+        action === "delete_all_history")
+    ) {
+      console.log("History deletion was successful");
+
       // Check if we're on a history page or list history page
       const currentPath = window.location.pathname;
       if (
@@ -2557,13 +2418,13 @@ document.addEventListener('DOMContentLoaded', function() {
         currentPath.includes("/list/history") ||
         currentPath.includes("/d/history")
       ) {
-        console.log('On history page, redirecting to index');
+        console.log("On history page, redirecting to index");
         // Redirect to index page
         window.location.href = "/";
         return;
       }
 
-      console.log('Not on history page, updating navigation items');
+      console.log("Not on history page, updating navigation items");
       // Update the navigation items
       await updateNavItems();
     }
@@ -2583,107 +2444,118 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Update every 30 seconds, but use debouncing to prevent overlapping calls
   setInterval(debouncedUpdate, 30000);
-  
+
   // Special handler for the delete history button in the collapsed menu
-  document.addEventListener('DOMContentLoaded', function() {
-    const deleteHistoryBtn = document.querySelector('button[data-action*="delete_all_history"]');
+  document.addEventListener("DOMContentLoaded", function () {
+    const deleteHistoryBtn = document.querySelector(
+      'button[data-action*="delete_all_history"]',
+    );
     if (deleteHistoryBtn) {
-      console.log('Found delete history button, adding special handler');
-      deleteHistoryBtn.addEventListener('click', function(e) {
+      console.log("Found delete history button, adding special handler");
+      deleteHistoryBtn.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        console.log('Delete history button clicked via special handler');
-        
+
+        console.log("Delete history button clicked via special handler");
+
         const modalId = this.dataset.modalTarget;
-        const modalInstance = window.modalInstances ? window.modalInstances[modalId] : null;
-        
+        const modalInstance = window.modalInstances
+          ? window.modalInstances[modalId]
+          : null;
+
         if (modalInstance) {
-          console.log('Using modal instance for delete history', this.dataset);
+          console.log("Using modal instance for delete history", this.dataset);
           // Make sure we correctly update the modal from this button's data attributes
           modalInstance.updateModalFromTrigger(this);
           modalInstance.showModal();
         } else {
           // Fallback: try to get modal directly
-          console.log('No modal instance found, trying direct access');
+          console.log("No modal instance found, trying direct access");
           const modal = document.getElementById(modalId);
           if (modal) {
             // Update modal content directly
-            const title = modal.querySelector('h3');
-            const message = modal.querySelector('p');
-            const confirmBtn = modal.querySelector('button.confirm-action');
-            
+            const title = modal.querySelector("h3");
+            const message = modal.querySelector("p");
+            const confirmBtn = modal.querySelector("button.confirm-action");
+
             // Set data attributes on the modal itself for the confirm action
             modal.dataset.action = this.dataset.action;
-            modal.dataset.method = 'post'; // Force POST method for delete_all_history
-            
-            if (title) title.textContent = this.dataset.title || 'Confirm Action';
-            if (message) message.textContent = this.dataset.message || 'Are you sure?';
-            
+            modal.dataset.method = "post"; // Force POST method for delete_all_history
+
+            if (title)
+              title.textContent = this.dataset.title || "Confirm Action";
+            if (message)
+              message.textContent = this.dataset.message || "Are you sure?";
+
             // Attach direct click handler to confirm button as fallback
             if (confirmBtn) {
-              confirmBtn.onclick = function() {
+              confirmBtn.onclick = function () {
                 const url = modal.dataset.action;
-                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                
+                const csrfToken =
+                  document.querySelector('meta[name="csrf-token"]')?.content ||
+                  "";
+
                 fetch(url, {
-                  method: 'POST',
+                  method: "POST",
                   headers: {
-                    'X-CSRFToken': csrfToken
-                  }
+                    "X-CSRFToken": csrfToken,
+                  },
                 })
-                .then(response => response.json())
-                .then(result => {
-                  console.log('History deletion result:', result);
-                  if (result.status === 'ok') {
-                    // Show success notification
-                    const notification = document.createElement('div');
-                    notification.className = 'fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white';
-                    notification.textContent = 'History deleted successfully';
-                    document.body.appendChild(notification);
-                    setTimeout(() => notification.remove(), 3000);
-                    
-                    // Check if we're on a history-related page
-                    const currentPath = window.location.pathname;
-                    if (
-                      currentPath.includes("/chat/history/") ||
-                      currentPath.includes("/list/history") ||
-                      currentPath.includes("/d/history")
-                    ) {
-                      console.log('On history page, redirecting to index');
-                      window.location.href = "/";
-                      return;
+                  .then((response) => response.json())
+                  .then((result) => {
+                    console.log("History deletion result:", result);
+                    if (result.status === "ok") {
+                      // Show success notification
+                      const notification = document.createElement("div");
+                      notification.className =
+                        "fixed bottom-4 right-4 px-6 py-3 rounded shadow-lg z-50 bg-green-500 text-white";
+                      notification.textContent = "History deleted successfully";
+                      document.body.appendChild(notification);
+                      setTimeout(() => notification.remove(), 3000);
+
+                      // Check if we're on a history-related page
+                      const currentPath = window.location.pathname;
+                      if (
+                        currentPath.includes("/chat/history/") ||
+                        currentPath.includes("/list/history") ||
+                        currentPath.includes("/d/history")
+                      ) {
+                        console.log("On history page, redirecting to index");
+                        window.location.href = "/";
+                        return;
+                      }
+
+                      // Update the navigation
+                      console.log("Not on history page, updating navigation");
+                      updateNavItems();
                     }
-                    
-                    // Update the navigation
-                    console.log('Not on history page, updating navigation');
-                    updateNavItems();
-                  }
-                  modal.classList.add('hidden');
-                })
-                .catch(error => {
-                  console.error('Error deleting history:', error);
-                  modal.classList.add('hidden');
-                });
+                    modal.classList.add("hidden");
+                  })
+                  .catch((error) => {
+                    console.error("Error deleting history:", error);
+                    modal.classList.add("hidden");
+                  });
               };
             }
-            
+
             // Show modal
-            modal.classList.remove('hidden');
+            modal.classList.remove("hidden");
           }
         }
       });
     } else {
-      console.warn('Delete history button not found on DOMContentLoaded');
-      
+      console.warn("Delete history button not found on DOMContentLoaded");
+
       // Try again after a slight delay to account for dynamic content
-      setTimeout(function() {
-        const delayedButton = document.querySelector('button[data-action*="delete_all_history"]');
+      setTimeout(function () {
+        const delayedButton = document.querySelector(
+          'button[data-action*="delete_all_history"]',
+        );
         if (delayedButton) {
-          console.log('Found delete history button after delay');
+          console.log("Found delete history button after delay");
           delayedButton.click(); // Trigger the click to ensure it works
         } else {
-          console.error('Delete history button not found even after delay');
+          console.error("Delete history button not found even after delay");
         }
       }, 500);
     }
@@ -2692,36 +2564,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Screen Size Indicator Script -->
 <script>
-  // Function to update screen size information
   function updateScreenSizeIndicator() {
+    // Get current dimensions
     const width = window.innerWidth;
     const height = window.innerHeight;
-    
+
     // Update the displayed dimensions
-    document.querySelectorAll('.screen-width').forEach(el => {
+    document.querySelectorAll(".screen-width").forEach((el) => {
       el.textContent = width;
     });
-    
-    document.querySelectorAll('.screen-height').forEach(el => {
+
+    document.querySelectorAll(".screen-height").forEach((el) => {
       el.textContent = height;
     });
-    
-    // Show the indicator on all screens 
-    const indicator = document.getElementById('screen-size-indicator');
+
+    // Show the indicator on all screens
+    const indicator = document.getElementById("screen-size-indicator");
     if (indicator) {
-      indicator.classList.remove('hidden', 'md:flex');
-      indicator.classList.add('flex');
+      indicator.classList.remove("hidden", "md:flex");
+      indicator.classList.add("flex");
     }
 
     // Define breakpoints in order from smallest to largest
     const breakpoints = [
-      { name: 'sm', minWidth: 640 },
-      { name: 'md', minWidth: 768 },
-      { name: 'lg', minWidth: 1024 },
-      { name: 'xl', minWidth: 1280 },
-      { name: '2xl', minWidth: 1536 }
+      { name: "sm", minWidth: 640 },
+      { name: "md", minWidth: 768 },
+      { name: "lg", minWidth: 1024 },
+      { name: "xl", minWidth: 1280 },
+      { name: "2xl", minWidth: 1536 },
     ];
-    
+
     // Find the highest active breakpoint
     let activeBreakpoint = null;
     for (let i = breakpoints.length - 1; i >= 0; i--) {
@@ -2730,58 +2602,861 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
       }
     }
-    
+
     // Update all breakpoint tags
-    document.querySelectorAll('.breakpoint-tag').forEach(tag => {
+    document.querySelectorAll(".breakpoint-tag").forEach((tag) => {
       const name = tag.dataset.name;
-      
+
       // Reset all styles
-      tag.classList.remove('bg-green-500', 'text-white', 'font-bold', 'bg-gray-100', 'opacity-50');
-      
+      tag.classList.remove(
+        "bg-green-500",
+        "text-white",
+        "font-bold",
+        "bg-gray-100",
+        "opacity-50",
+      );
+
       if (name === activeBreakpoint) {
         // Highlight the active breakpoint
-        tag.classList.add('bg-green-500', 'text-white', 'font-bold');
+        tag.classList.add("bg-green-500", "text-white", "font-bold");
       } else {
         // Make other breakpoints subtle
-        tag.classList.add('bg-gray-100', 'opacity-50');
+        tag.classList.add("bg-gray-100", "opacity-50");
       }
     });
   }
-  
+
   // Run on page load
-  document.addEventListener('DOMContentLoaded', updateScreenSizeIndicator);
-  
+  document.addEventListener("DOMContentLoaded", updateScreenSizeIndicator);
+
   // Run whenever the window is resized
-  window.addEventListener('resize', updateScreenSizeIndicator);
+  window.addEventListener("resize", updateScreenSizeIndicator);
 </script>
 
 <!-- Theme Persistence Script -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    
+  document.addEventListener("DOMContentLoaded", function () {
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const mobileDarkModeToggle = document.getElementById(
+      "mobileDarkModeToggle",
+    );
+
     // Check saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial state
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-      document.documentElement.dataset.theme = 'dark';
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    // Set initial state for both toggles
+    if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.dataset.theme = "dark";
       if (darkModeToggle) darkModeToggle.checked = true;
+      if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
     }
-    
-    // Add change event listener to toggle
+
+    // Add change event listener to desktop toggle
     if (darkModeToggle) {
-      darkModeToggle.addEventListener('change', function() {
-        const newTheme = this.checked ? 'dark' : 'light';
+      darkModeToggle.addEventListener("change", function () {
+        const newTheme = this.checked ? "dark" : "light";
         document.documentElement.dataset.theme = newTheme;
-        localStorage.setItem('theme', newTheme);
+        localStorage.setItem("theme", newTheme);
+        if (mobileDarkModeToggle) mobileDarkModeToggle.checked = this.checked;
+      });
+    }
+
+    // Add change event listener to mobile toggle
+    if (mobileDarkModeToggle) {
+      mobileDarkModeToggle.addEventListener("change", function () {
+        const newTheme = this.checked ? "dark" : "light";
+        document.documentElement.dataset.theme = newTheme;
+        localStorage.setItem("theme", newTheme);
+        if (darkModeToggle) darkModeToggle.checked = this.checked;
       });
     }
   });
 </script>
 
 {% include 'components/confirm_modal.html' %}
+```
+
+## base/collection/pagination.html
+
+```
+{% if total != null %}
+<div class="flex flex-wrap items-center justify-between gap-2">
+  <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+    <nav class="flex items-center gap-x-1" aria-label="Pagination">
+      {% if prev != null and prev != None %}
+      <a
+        href="{{collection_url}}?start=0&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="First"
+      >
+        <span
+          class="icon-[tabler--chevrons-left] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+        <span class="hidden sm:inline">First</span>
+      </a>
+      <a
+        href="{{collection_url}}?start={{prev}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="Previous"
+      >
+        <span
+          class="icon-[tabler--chevron-left] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+        <span class="hidden sm:inline">Previous</span>
+      </a>
+      {% endif %}
+
+      <div class="flex items-center gap-x-1">
+        <!-- Page numbers would go here -->
+      </div>
+
+      {% if next %}
+      <a
+        href="{{collection_url}}?start={{next}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="Next"
+      >
+        <span class="hidden sm:inline">Next</span>
+        <span
+          class="icon-[tabler--chevron-right] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+      </a>
+      {% endif %} {% if last != null and last != None %}
+      <a
+        href="{{collection_url}}?start={{last}}&limit={{limit}}&search={{search}}&id={{id}}&filter={{filter}}"
+        class="btn btn-outline"
+        aria-label="Last"
+      >
+        <span class="hidden sm:inline">Last</span>
+        <span
+          class="icon-[tabler--chevrons-right] size-5 rtl:rotate-180 sm:hidden"
+        ></span>
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="text-sm text-base-content/60">
+      {% if total != None and total > 0 %} Showing
+      <span class="font-medium">{{start}}</span>
+      to
+      <span class="font-medium">{{end}}</span>
+      of
+      <span class="font-medium">{{total}}</span>
+      results {% else %} No results found {% endif %}
+    </div>
+  </div>
+
+  <!-- Limit dropdown -->
+  <div class="dropdown relative inline-flex rtl:[--placement:bottom-end]">
+    <button
+      id="dropdown-default"
+      type="button"
+      class="dropdown-toggle btn btn-outline"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-label="Limit"
+    >
+      Limit
+      <span
+        class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"
+      ></span>
+    </button>
+    <ul
+      aria-labelledby="dropdown-default"
+      aria-orientation="vertical"
+      class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
+      role="menu"
+    >
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=5&search={{search}}&filter={{filter}}"
+        >
+          5 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=10&search={{search}}&filter={{filter}}"
+        >
+          10 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=20&search={{search}}&filter={{filter}}"
+        >
+          20 Items
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{collection_url}}?start=0&limit=50&search={{search}}&filter={{filter}}"
+        >
+          50 Items
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endif %}
+```
+
+## base/collection/collection.html
+
+```
+<!doctype html>
+<html lang="en" class="overflow-y-scroll">
+  {% include('/main/header.html') %}
+  <body class="bg-base-100 min-h-screen">
+    {% include('/main/nav.html') %}
+
+    <section class="p-4 sm:p-6 flex items-center lg:ml-64">
+      <div class="max-w-screen-xl mx-auto px-2 sm:px-4 lg:px-12 w-full">
+        <div
+          class="relative bg-base-100 shadow-md sm:rounded-lg p-3 sm:p-4 border border-base-content/10"
+        >
+          <div class="flex flex-col gap-4">
+            <div
+              class="flex flex-row justify-between items-center gap-2 sm:gap-4"
+            >
+              <div class="flex-1">
+                <form
+                  method="GET"
+                  action="{{ url_for('list', collection=collection_name, start=start, limit=limit, filter=filter) }}"
+                >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                    >
+                      <svg
+                        class="w-4 h-4 text-base-content/50"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      name="search"
+                      class="w-full max-w-md pl-10 pr-4 py-2 border border-base-content/20 bg-base-100 text-base-content rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                      placeholder="Search"
+                      value="{{ search }}"
+                    />
+                  </div>
+                </form>
+              </div>
+
+              <div class="flex-none">
+                {% if show_new_button %}
+                <a
+                  href="{{ url_for('doc',name = collection_name) }}"
+                  class="btn btn-outline whitespace-nowrap"
+                >
+                  New
+                </a>
+                {% endif %}
+              </div>
+            </div>
+
+            {% include('/base/collection/table.html') %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+  </body>
+</html>
+```
+
+## base/collection/table.html
+
+```
+<div class="flex flex-col gap-4">
+  {% include('/base/collection/pagination.html') %}
+  <div
+    class="overflow-x-auto rounded-lg border border-base-content/10"
+  >
+    <table class="table border-collapse w-full">
+      <thead>
+        <tr>
+          {% for header in table_header %}
+          <th
+            class="font-bold {{header.class}} px-4 py-3 border-b border-r border-base-content/10 last:border-r-0"
+          >
+            {{header.label}}
+          </th>
+          {% endfor %}
+          <th
+            class="w-16 px-4 py-3 text-right border-b border-r border-base-content/10 last:border-r-0 sticky right-0 bg-base-100 z-10"
+          >
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for document in table_content %}
+        <tr
+          id="tr-{{document[0].id}}"
+          class="{% if not loop.last %}border-b border-base-content/10{% endif %}"
+        >
+          {% for field in document %}
+          <td
+            class="font-normal leading-normal px-4 py-2 border-r border-base-content/10 last:border-r-0 {% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}"
+          >
+            {% if field.type == 'ButtonField' %}
+            <div class="flex justify-start items-center">
+              <a href="{{field.link}}" class="w-full">
+                <button
+                  type="button"
+                  class="btn btn-outline btn-sm {{field.class}} truncate"
+                >
+                  {{field.label}}
+                </button>
+              </a>
+            </div>
+            {% else %} 
+              <div class="{% if field.name == 'first_message' %}max-w-md truncate line-clamp-2{% endif %}">
+                {{field.value}}
+              </div>
+            {% endif %}
+          </td>
+          {% endfor %}
+          <td class="w-16 px-4 py-2 text-right sticky right-0 bg-base-100">
+            <div class="flex gap-2 justify-end">
+              <a
+                href="{{document_url}}/{{document[0].id}}"
+                class="btn btn-sm btn-outline"
+              >
+                <span class="icon-[tabler--edit] size-4"></span>
+              </a>
+              <button
+                type="button"
+                class="btn btn-error btn-sm btn-outline"
+                data-modal-target="confirm_modal"
+                data-action="{{ url_for('delete_document') }}?id={{document[0].id}}&type={{collection_name}}"
+                data-document-id="tr-{{document[0].id}}"
+                data-message="Are you sure you want to delete this {{collection_name}}? This action cannot be undone."
+                data-title="Delete {{collection_name|capitalize}}"
+              >
+                <span class="icon-[tabler--trash] size-4"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include('/base/collection/pagination.html') %}
+</div>
+```
+
+## base/document/form.html
+
+```
+<!doctype html>
+<html lang="en" class="overflow-y-scroll">
+  {% include('/main/header.html') %}
+  <body class="bg-base-100 min-h-screen">
+    {% include('/main/nav.html') %}
+
+    <section class="p-6 flex items-center lg:ml-64">
+      <div class="max-w-screen-xl mx-auto px-4 lg:px-12 w-full">
+        <!-- Start coding here -->
+        <div class="relative bg-base-100 shadow-md sm:rounded-lg">
+          <div class="flex items-center justify-center pt-4 px-4">
+            <form
+              method="POST"
+              enctype="multipart/form-data"
+              id="documentForm"
+              class="w-full max-w-lg"
+            >
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+              />
+              <input type="hidden" name="id" value="{{document.id}}" />
+
+              <h1 class="text-2xl font-bold">{{page.title}}</h1>
+              <hr class="my-4" />
+              <div class="flex flex-wrap -mx-3 mb-6">
+                {% include('/base/document/form_elements.html') %}
+              </div>
+
+              <!-- Save and Delete Buttons -->
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div
+                  class="w-full px-3 mb-6 md:mb-0 flex justify-between space-x-3"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-outline w-1/2"
+                    id="saveButton"
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-error w-1/2"
+                    data-modal-target="confirm_modal"
+                    data-action="{{url_for('delete_document')}}?id={{document.id}}&type={{page.document_name}}"
+                    data-redirect="{{ page.collection_url }}"
+                    data-message="Are you sure you want to delete this {{page.document_name}}? This action cannot be undone."
+                    data-title="Confirm Deletion"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      window.addEventListener("load", function () {
+        // Basic
+        flatpickr("#flatpickr-date", {
+          monthSelectorType: "static",
+          locale: "de",
+          dateFormat: "d.m.Y",
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // We're now using the global confirm modal, so we don't need delete_document.js
+        {% include 'base/document/js/search_field.js' %}
+      });
+    </script>
+    <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/flatpickr.min.js') }}"></script>
+  </body>
+</html>
+```
+
+## base/document/form_elements.html
+
+```
+{% for element in elements %}
+<div
+  class="{{ 'w-full' if element.full_width else 'w-full md:w-1/2' }} px-3 mb-6 md:mb-0"
+>
+  <label
+    for="{{ element.id }}"
+    class="label label-text"
+  >
+    {{ element.label }}
+  </label>
+
+  {% if element.type == 'ButtonField' %}
+  <a href="{{element.link}}/{{document.id}}"
+    ><button
+      type="button"
+      class="btn btn-outline"
+    >
+      {{element.label}}
+    </button></a
+  >
+  {% endif %} {% if element.type == 'FileField' %}
+  <input
+    class="input max-w-sm"
+    id="{{element.id}}"
+    type="file"
+    name="files_{{element.id}}"
+    multiple
+  />
+  {% for file in element.value %} {% if file.element_id == element.id %}
+  <div id="{{file.document_id}}" class="flex items-center justify-between mt-2">
+    <span class="mt-1 text-sm text-base-content/60">
+      <a
+        href="{{url_for('download_file',file_id=file.id)}}"
+        class="text-blue-600 hover:text-blue-500"
+        target="_blank"
+      >
+        {{ file.name }}
+      </a>
+    </span>
+    <button
+      type="button"
+      data-modal-target="confirm_modal"
+      data-action="/delete_document?id={{file.id}}&type=files"
+      data-document-id="{{file.document_id}}"
+      data-message="Are you sure you want to delete this file? This action cannot be undone."
+      data-title="Delete File"
+      class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"
+    >
+      Delete
+    </button>
+  </div>
+  {% endif %} {% endfor %} {% endif %} {% if element.type=='DocumentField' %}
+  <!-- Search Field -->
+  <input
+    type="hidden"
+    value="{{element.value_id if element.value_id else document.get(element.name + '_id', '')}}"
+    name="{{ element.name }}_hidden"
+    id="{{ element.name }}_hidden"
+  />
+  <input
+    id="{{element.id}}"
+    name="{{element.name}}"
+    value="{{element.value if element.value else document.get(element.name, '')}}"
+    module="{{element.module}}"
+    document_field="{{element.document_field}}"
+    type="text"
+    placeholder="Search..."
+    class="searchField bg-base-200 border border-base-content/10 text-base-content text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+  />
+
+  <!-- Dropdown Menu -->
+  <div
+    id="dropdownMenu"
+    class="z-10 hidden bg-base-100 rounded-lg shadow w-full mt-1 max-h-48 overflow-y-auto"
+  >
+    <ul id="userList" class="py-2 text-base-content"></ul>
+  </div>
+  {% endif %} {% if element.type == 'IntField' or element.type =='FloatField' %}
+
+  <div class="max-w-sm mx-auto">
+    <input
+      type="text"
+      id="{{element.id}}"
+      name="{{element.name}}"
+      value="{{element.value if element.value is not none else ''}}"
+      class="input"
+    />
+  </div>
+
+  {% endif %} {% if element.type == 'Date' %}
+
+  <input
+    type="text"
+    class="input max-w-sm"
+    placeholder="DD.MM.YYYY"
+    id="flatpickr-date"
+    name="{{element.name}}"
+    value="{{element.value if element.value is not none else ''}}"
+  />
+
+  {% endif %} {% if element.type == 'CheckBox' %}
+  <label class="inline-flex items-center mb-5 cursor-pointer">
+    <input
+      type="hidden"
+      name="{{ element.name }}_hidden"
+      value="Off"
+    />
+    <input
+      type="checkbox"
+      name="{{ element.name }}"
+      class="switch"
+      value="On"
+      {% if element.value == "On" %}checked{% endif %}
+    />
+  </label>
+  {% endif %} {% if element.type =='SimpleListField' %}
+  <select
+    class="select max-w-sm appearance-none"
+    aria-label="select"
+    id="{{element.id}}"
+    name="{{element.name}}"
+  >
+    {% for item in element.SimpleListField %} {% if item.value == element.value %}
+    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
+    {% else %}
+    <option value="{{item.value}}">{{item.name}}</option>
+    {% endif %} {% endfor %}
+  </select>
+  {% endif %} {% if element.type=='AdvancedListField' %}
+  <select class="select max-w-sm appearance-none" aria-label="select" id="{{element.id}}" name="{{element.name}}">
+    {% for item in element.AdvancedListField %} {% if item.value == element.value %}
+    <option value="{{item.value}}" selected="selected">{{item.name}}</option>
+    {% else %}
+    <option value="{{item.value}}">{{item.name}}</option>
+    {% endif %} {% endfor %}
+  </select>
+  {% endif %} {% if element.type == 'SingleLine' %}
+  <input
+    id="{{ element.id }}"
+    name="{{ element.name }}"
+    type="text"
+    value="{{ element.value }}"
+    placeholder="{{ element.label }}"
+    class="input"
+    {% if element.required %}required{% endif %}
+  />
+  {% elif element.type == 'MultiLine' %}
+  <textarea
+    id="{{ element.id }}"
+    name="{{ element.name }}"
+    rows="4"
+    placeholder="{{ element.label }}"
+    class="textarea"
+    {% if element.required %}required{% endif %}
+  >{{ element.value if element.value is not none else '' }}</textarea>
+  {% endif %}
+    <!-- {% if element.required %}
+    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+    {% endif %} -->
+</div>
+{% endfor %}
+```
+
+## base/document/js/search_field.js
+
+```
+document.querySelectorAll(".searchField").forEach((searchField) => {
+  searchField.addEventListener("input", function () {
+    const query = this.value;
+    const module = this.getAttribute("module"); // Get the module attribute value
+    const document_field = this.getAttribute("document_field");
+    const dropdown = this.nextElementSibling;
+    const userList = dropdown.querySelector("#userList");
+    const document_field_hidden = document.getElementById(
+      this.name + "_hidden",
+    );
+
+    // Clear hidden field if search field is empty
+    if (!query || query.length === 0) {
+      document_field_hidden.value = "";
+      document_field.value = "";
+      dropdown.classList.add("hidden");
+      return;
+    }
+
+    if (query.length > 3) {
+      // Construct the URL using the module value
+      const url =
+        `{{ url_for("list", collection="__MODULE__", mode="json") }}`.replace(
+          "__MODULE__",
+          module,
+        );
+
+      // Fetch users from the server based on the search query
+      fetch(`${url}&search=${encodeURIComponent(query)}&limit=100`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "ok" && data.message === "success") {
+            dropdown.classList.remove("hidden");
+            console.log(data); // Log the result
+            userList.innerHTML = ""; // Clear the existing list
+
+            // Check if data.data is an array before iterating
+            if (Array.isArray(data.data)) {
+              // Append users to the list
+              data.data.forEach((user) => {
+                const userItem = document.createElement("li");
+                userItem.innerHTML = `
+                                    <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                        ${user[document_field]}
+                                    </a>
+                                `;
+                userItem.addEventListener("click", function (event) {
+                  event.preventDefault();
+                  searchField.value = user[document_field];
+                  document_field_hidden.value = user.id;
+                  dropdown.classList.add("hidden");
+                });
+                userList.appendChild(userItem);
+              });
+
+              // Log the length of the userList to verify
+              console.log(
+                `Number of users appended: ${userList.children.length}`,
+              );
+            } else {
+              console.error("Error: data.data is not an array");
+            }
+          } else {
+            console.error("Error: Unexpected response format");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error); // Log error message
+        });
+    } else {
+      dropdown.classList.add("hidden");
+    }
+  });
+});
+```
+
+## auth.py
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from flask import Flask, render_template, redirect, request, session, url_for
+from functools import wraps
+import json
+from flask_login import login_user, logout_user, login_required, current_user
+from core import db_user, db_connect
+from datetime import timedelta
+
+def is_public_route():
+    public_routes = ['/login', '/register', '/static']
+    return request.path.startswith(tuple(public_routes))
+
+def do_register(request):
+    if request.method == 'POST':
+        firstname = request.form.get('firstname', '').strip()
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '')
+
+        if not all([firstname, name, email, password]):
+            return render_template('register.html', status='error', 
+                                message='All fields are required')
+            
+        if len(password) < 8:
+            return render_template('register.html', status='error',
+                                message='Password must be at least 8 characters')
+
+        result = db_user.create_user(firstname, name, email, password)
+        
+        if result['status'] == 'error':
+            return render_template('register.html', status='error',
+                                message=result['message'])
+            
+        return redirect(url_for('login'))
+    
+    return render_template('register.html')
+
+def do_login(request):
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        remember = 'remember' in request.form
+
+        status = db_user.check_password(email, password)
+
+        if status['status'] == 'ok':
+            user = db_user.User.objects(email=email).first()
+            if not user:
+                return render_template('login.html', status='error', message='User not found')
+            
+            login_user(user, remember=remember, duration=timedelta(days=30) if remember else None)
+            next_page = request.args.get('next')
+            if next_page and next_page.startswith('/'):  # Ensure the next URL is relative
+                return redirect(next_page)
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html', status='error', message=status['message'])
+    else:
+        return render_template('login.html')
+
+def do_logout():
+    logout_user()
+    session.clear()
+    return redirect(url_for('login'))
+```
+
+## db_user.py
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from werkzeug.security import generate_password_hash, check_password_hash
+from core.db_document import *
+
+import logging
+from mongoengine.errors import NotUniqueError, ValidationError, OperationError
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def hash_password(password):
+    return generate_password_hash(password)
+
+def check_password(email, password):
+    try:
+        user = User.objects(email=email).first()
+        if user and check_password_hash(user.pw_hash, password):
+            return {'status': 'ok', 'message': 'successfully logged in', 'user': user.to_json()}
+        return {'status': 'error', 'message': 'Invalid email or password'}
+    except Exception as e:
+        logger.error(f"Error checking password for {email}: {str(e)}")
+        return {'status': 'error', 'message': 'Authentication error occurred'}
+
+def create_user(firstname, name, email, password, role='user'):
+    try:
+        # Check if user exists first
+        if User.objects(email=email).first():
+            return {'status': 'error', 'message': 'user exists'}
+
+        # Create new user
+        user = User(
+            firstname=firstname,
+            name=name,
+            email=email,
+            pw_hash=hash_password(password),
+            role=role,
+            created_by='system',
+            modified_by='system'
+        )
+        user.save()
+        logger.info(f"User created successfully: {email}")
+        return {'status': 'ok', 'message': 'user created', 'id': str(user.id)}
+
+    except ValidationError as e:
+        logger.error(f"Validation error creating user {email}: {str(e)}")
+        return {'status': 'error', 'message': 'Invalid user data provided'}
+    except NotUniqueError as e:
+        logger.error(f"Duplicate email error for {email}")
+        return {'status': 'error', 'message': 'user exists'}
+    except Exception as e:
+        logger.error(f"Unexpected error creating user {email}: {str(e)}")
+        return {'status': 'error', 'message': 'An unexpected error occurred'}
+
+def delete_user(email, password):
+    try:
+        user = User.objects(email=email).first()
+        if not user:
+            return {'status': 'error', 'message': 'user does not exist'}
+        
+        if not check_password_hash(user.pw_hash, password):
+            return {'status': 'error', 'message': 'incorrect password'}
+        
+        user.delete()
+        logger.info(f"User deleted successfully: {email}")
+        return {'status': 'ok', 'message': 'user deleted'}
+    except Exception as e:
+        logger.error(f"Error deleting user {email}: {str(e)}")
+        return {'status': 'error', 'message': 'Failed to delete user'}
+
+def update_password(email, password, new_password):
+    try:
+        user = User.objects(email=email).first()
+        if not user:
+            return {'status': 'error', 'message': 'user does not exist'}
+
+        if not check_password_hash(user.pw_hash, password):
+            return {'status': 'error', 'message': 'incorrect password'}
+
+        user.pw_hash = hash_password(new_password)
+        user.save()
+        logger.info(f"Password updated successfully for user: {email}")
+        return {'status': 'ok', 'message': 'password updated'}
+    except ValidationError as e:
+        logger.error(f"Validation error updating password for {email}: {str(e)}")
+        return {'status': 'error', 'message': 'Invalid password format'}
+    except Exception as e:
+        logger.error(f"Error updating password for {email}: {str(e)}")
+        return {'status': 'error', 'message': 'Failed to update password'}
 ```
 
 ## db_helper.py
@@ -2870,19 +3545,40 @@ def getFile(file_id):
     try:
         file = File.objects(id=file_id).first()
         if file is not None:
-            # Verify file exists on disk
+            # Get the base directory (where the application is running)
+            base_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+            
+            # Check relative path
             file_path = os.path.join(file.path, f"{file_id}.{file.file_type}")
             if os.path.exists(file_path):
+                print(f"[DEBUG] File exists at path: {file_path}")
                 return {'status': 'ok', 'message': '', 'data': file.to_json()}
-            else:
-                print(f"[DEBUG] Physical file not found at: {file_path}")
-                return {'status': 'error', 'message': 'Physical file not found'}
+            
+            # Check absolute path
+            abs_path = os.path.join(base_path, file.path, f"{file_id}.{file.file_type}")
+            if os.path.exists(abs_path):
+                print(f"[DEBUG] File exists at absolute path: {abs_path}")
+                return {'status': 'ok', 'message': '', 'data': file.to_json()}
+            
+            # Check if the file exists in the category folder
+            if hasattr(file, 'category') and file.category:
+                category_path = os.path.join(base_path, 'core', 'documents', file.category, f"{file_id}.{file.file_type}")
+                if os.path.exists(category_path):
+                    print(f"[DEBUG] File found in category folder: {category_path}")
+                    # Update the file path in the database
+                    file.path = os.path.join('core', 'documents', file.category)
+                    file.save()
+                    return {'status': 'ok', 'message': '', 'data': file.to_json()}
+            
+            print(f"[DEBUG] Physical file not found at: {file_path}")
+            # Just return the file data anyway and let download_file handle the rest
+            return {'status': 'ok', 'message': '', 'data': file.to_json()}
         else:
             print(f"[DEBUG] No file record found for id: {file_id}")
             return {'status': 'error', 'message': 'File record not found'}
     except Exception as e:
         print(f"[DEBUG] Error in getFile: {str(e)}")
-        return {'status': 'error', 'message': f'Error retrieving file: {str(e)}'}
+        return {'status': 'error', 'message': str(e)}
 
 
 def getDocumentsByID(collection, name, start=0, limit=10, id=''):
@@ -3009,74 +3705,10 @@ def getFilterDict(filter_id):
     return data
 ```
 
-## auth.py
+## __init__.py
 
 ```
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from flask import Flask, render_template, redirect, request, session, url_for
-from functools import wraps
-import json
-from flask_login import login_user, logout_user, login_required, current_user
-from core import db_user, db_connect
-from datetime import timedelta
-
-def is_public_route():
-    public_routes = ['/login', '/register', '/static']
-    return request.path.startswith(tuple(public_routes))
-
-def do_register(request):
-    if request.method == 'POST':
-        firstname = request.form.get('firstname', '').strip()
-        name = request.form.get('name', '').strip()
-        email = request.form.get('email', '').strip()
-        password = request.form.get('password', '')
-
-        if not all([firstname, name, email, password]):
-            return render_template('register.html', status='error', 
-                                message='All fields are required')
-            
-        if len(password) < 8:
-            return render_template('register.html', status='error',
-                                message='Password must be at least 8 characters')
-
-        result = db_user.create_user(firstname, name, email, password)
-        
-        if result['status'] == 'error':
-            return render_template('register.html', status='error',
-                                message=result['message'])
-            
-        return redirect(url_for('login'))
-    
-    return render_template('register.html')
-
-def do_login(request):
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        remember = 'remember' in request.form
-
-        status = db_user.check_password(email, password)
-
-        if status['status'] == 'ok':
-            user = db_user.User.objects(email=email).first()
-            if not user:
-                return render_template('login.html', status='error', message='User not found')
-            
-            login_user(user, remember=remember, duration=timedelta(days=30) if remember else None)
-            next_page = request.args.get('next')
-            if next_page and next_page.startswith('/'):  # Ensure the next URL is relative
-                return redirect(next_page)
-            return redirect(url_for('index'))
-        else:
-            return render_template('login.html', status='error', message=status['message'])
-    else:
-        return render_template('login.html')
-
-def do_logout():
-    logout_user()
-    session.clear()
-    return redirect(url_for('login'))
+# This file can be empty, it just marks the directory as a Python package
 ```
 
 ## db_default.py
@@ -3149,999 +3781,6 @@ def getCounter(name):
     return 0
 
 #initDefault()
-```
-
-## db_crud.py
-
-```
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-import sys
-sys.path.append('core')
-from core.db_document import File, Prompt
-from core.db_connect import *
-import os
-
-import json,datetime
-from flask import session
-from flask_login import current_user
-
-from db_default import getCounter
-from bson import ObjectId
-
-def createDocument(form_data, document, request=None):
-    print(f"[DEBUG] Starting createDocument with form_data keys: {form_data.keys()}")
-    # Remove csrf_token before processing
-    form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
-    
-    try:
-        # Initialize document with default values if it's a new document
-        if isinstance(document, type):
-            document = document()
-        
-        # Handle counter if needed
-        try:
-            counter_name = document.getCounterName()
-            counter = getCounter(counter_name)
-            document[counter_name] = counter
-        except Exception as e:
-            print(f"[DEBUG] Counter error: {str(e)}")
-
-        # Process all non-file fields
-        for key in form_data.keys():
-            if key.startswith('files_'):
-                continue
-                
-            if form_data[key] is None or (isinstance(form_data[key], list) and not form_data[key]):
-                continue
-
-            if key.endswith('_hidden'):
-                base_key = key.replace('_hidden', '')
-                if form_data[key]:
-                    document[f"{base_key}_id"] = form_data[key]
-                continue
-
-            if form_data[key] == '':
-                continue
-
-            if '_date' in key:
-                try:
-                    document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
-                except ValueError as e:
-                    return {'status': 'error', 'message': f'Invalid date format for field {key}'}
-            elif '_int' in key:
-                try:
-                    document[key] = int(form_data[key]) if form_data[key] else None
-                except ValueError:
-                    return {'status': 'error', 'message': f'Invalid integer value for field {key}'}
-            elif '_float' in key:
-                try:
-                    document[key] = float(form_data[key]) if form_data[key] else None
-                except ValueError:
-                    return {'status': 'error', 'message': f'Invalid float value for field {key}'}
-            elif key != 'id':
-                document[key] = form_data[key]
-
-        # Save document
-        try:
-            document.save()
-            return {'status': 'ok', 'message': '', 'data': document.to_json()}
-            
-        except ValidationError as e:
-            print(f"[DEBUG] Validation error: {str(e)}")
-            return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
-        except Exception as e:
-            print(f"[DEBUG] Save error: {str(e)}")
-            return {'status': 'error', 'message': f'document not created: {str(e)}'}
-
-    except Exception as e:
-        print(f"[DEBUG] Error in createDocument: {str(e)}")
-        return {'status': 'error', 'message': f'Error creating document: {str(e)}'}
-
-def updateDocument(form_data, document, collection):
-    # Remove csrf_token before processing
-    form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
-    
-    try:
-        print(f"[DEBUG] Updating document with id={form_data['id']}")
-        object_id = ObjectId(form_data['id'])
-        document = collection.objects(_id=object_id).first()
-        
-        if document is None:
-            return {'status': 'error', 'message': 'document not found'}
-
-        for key in form_data.keys():
-            if key == 'id':  # Skip id field
-                continue
-
-            # Handle document search fields
-            if key.endswith('_hidden'):
-                base_key = key.replace('_hidden', '')
-                if '_search' in base_key:
-                    # Clear both the search field and its ID if hidden field is empty
-                    if not form_data[key]:
-                        document[base_key] = ''
-                        document[f"{base_key}_id"] = ''
-                    else:
-                        document[f"{base_key}_id"] = form_data[key]
-                else:
-                    if base_key in form_data:
-                        document[base_key] = form_data[base_key]  # Will be "On" if checked
-                    else:
-                        document[base_key] = "Off"  # Default to Off if unchecked
-                continue
-
-            # Handle different field types
-            if '_date' in key:
-                try:
-                    document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
-                except:
-                    return {'status': 'error', 'message': 'error preparing form date field'}
-            elif '_int' in key:
-                document[key] = int(form_data[key]) if form_data[key] else None
-            elif '_float' in key:
-                document[key] = float(form_data[key].replace(',','.')) if form_data[key] else None
-            else:
-                document[key] = form_data[key]
-
-        # Save document
-        try:
-            document.save()
-            return {'status': 'ok', 'message': '', 'data': document.to_json()}
-        except ValidationError as e:
-            print(f"Validation error: {str(e)}")
-            return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
-        except Exception as e:
-            print(f"Error saving document: {str(e)}")
-            return {'status': 'error', 'message': f'error saving document: {str(e)}'}
-            
-    except Exception as e:
-        print(f"[DEBUG] Error in updateDocument: {str(e)}")
-        return {'status': 'error', 'message': f'Error updating document: {str(e)}'}
-
-def eraseDocument(id, document, collection):
-    try:
-        print(f"[DEBUG] eraseDocument called with id={id}, collection={collection.__name__}")
-        object_id = ObjectId(id)
-        document = collection.objects(_id=object_id).first()
-        
-        if document is not None:
-            print(f"[DEBUG] Found document to delete: {document.to_json()}")
-            
-            # Get base path for constructing absolute paths
-            base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-            print(f"[DEBUG] Base path: {base_path}")
-            
-            # Handle file deletion for both File collection and associated files
-            if collection == File:
-                # Check if user has permission to delete this file
-                if not document.can_access(current_user):
-                    print(f"[DEBUG] Access denied for file deletion: {id}")
-                    return {'status': 'error', 'message': 'Access denied. You can only delete your own files.'}
-                
-                # Check if file is used by any prompt
-                prompts_using_file = Prompt.objects(document_id=str(id))
-                if prompts_using_file:
-                    print(f"[DEBUG] File {id} is used by prompts, cannot delete")
-                    return {'status': 'error', 'message': 'File is used by one or more prompts and cannot be deleted'}
-                    
-                # Direct file document deletion
-                try:
-                    # Use the same path construction as upload_files
-                    file_path = os.path.join(base_path, document.path, f"{id}.{document.file_type}")
-                    print(f"[DEBUG] Attempting to delete file at: {file_path}")
-                    print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
-                    
-                    if os.path.exists(file_path):
-                        os.remove(file_path)
-                        print(f"[DEBUG] Successfully deleted file: {file_path}")
-                    else:
-                        print(f'[DEBUG] Physical file not found at: {file_path}')
-                except Exception as e:
-                    print(f'[DEBUG] Error deleting physical file: {str(e)}')
-                    return {'status': 'error', 'message': f'Error deleting physical file: {str(e)}'}
-                
-                try:
-                    document.delete()
-                    print(f"[DEBUG] Successfully deleted file document from database")
-                    return {'status': 'ok', 'message': 'deleted'}
-                except Exception as e:
-                    print(f'[DEBUG] Error deleting file document: {str(e)}')
-                    return {'status': 'error', 'message': f'Error deleting file document: {str(e)}'}
-            else:
-                # For non-File collections, handle associated files
-                file_ids = []
-                
-                # Check for files linked by document_id
-                associated_files = File.objects(document_id=str(id))
-                file_ids.extend([str(f.id) for f in associated_files])
-                
-                # Check for files in file_ids array (used by History documents)
-                if hasattr(document, 'file_ids') and document.file_ids:
-                    file_ids.extend(document.file_ids)
-                
-                # Remove duplicates
-                file_ids = list(set(file_ids))
-                print(f"[DEBUG] Found {len(file_ids)} associated files")
-                print(f"[DEBUG] File IDs to process: {file_ids}")
-                
-                deleted_files = []
-                failed_files = []
-                
-                for file_id in file_ids:
-                    try:
-                        print(f"[DEBUG] Processing associated file: {file_id}")
-                        file_doc = File.objects(id=file_id).first()
-                        if not file_doc:
-                            print(f"[DEBUG] File document not found: {file_id}")
-                            failed_files.append(file_id)
-                            continue
-                            
-                        # Check if file is used by any prompt
-                        prompts_using_file = Prompt.objects(document_id=str(file_id))
-                        if prompts_using_file:
-                            print(f"[DEBUG] File {file_id} is used by prompts, skipping")
-                            failed_files.append(file_id)
-                            continue
-                        
-                        # Check if user has permission to delete this file
-                        if not file_doc.can_access(current_user):
-                            print(f"[DEBUG] Access denied for associated file deletion: {file_id}")
-                            failed_files.append(file_id)
-                            continue
-                            
-                        # Delete physical file
-                        # Use the same path construction as upload_files
-                        file_path = os.path.join(base_path, file_doc.path, f"{file_id}.{file_doc.file_type}")
-                        print(f"[DEBUG] Attempting to delete associated file at: {file_path}")
-                        print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
-                        
-                        if os.path.exists(file_path):
-                            os.remove(file_path)
-                            print(f"[DEBUG] Successfully deleted associated file: {file_path}")
-                        else:
-                            print(f'[DEBUG] Physical file not found at: {file_path}')
-                        
-                        # Delete file document
-                        file_doc.delete()
-                        deleted_files.append(file_id)
-                        print(f"[DEBUG] Successfully deleted associated file document: {file_id}")
-                    except Exception as e:
-                        print(f'[DEBUG] Error deleting associated file {file_id}: {str(e)}')
-                        failed_files.append(file_id)
-                
-                try:
-                    document.delete()
-                    status_msg = 'deleted'
-                    if failed_files:
-                        status_msg += f' (some associated files could not be deleted: {", ".join(map(str, failed_files))})'
-                    print(f"[DEBUG] Successfully deleted main document with status: {status_msg}")
-                    return {'status': 'ok', 'message': status_msg}
-                except Exception as e:
-                    print(f'[DEBUG] Error deleting main document: {str(e)}')
-                    return {'status': 'error', 'message': f'Error deleting document: {str(e)}'}
-        else:
-            print(f"[DEBUG] No document found with id={id}")
-            return {'status': 'error', 'message': 'document not found'}
-    except Exception as e:
-        print(f"[DEBUG] Error in eraseDocument: {str(e)}")
-        return {'status': 'error', 'message': f'Error deleting document: {str(e)}'}
-
-def getDocument(id, document, collection):
-    try:
-        print(f"[DEBUG] Querying collection {collection.__name__} for document with id={id}")
-        # Convert string id to ObjectId
-        object_id = ObjectId(id)
-        print(f"[DEBUG] Using ObjectId: {object_id}")
-        
-        # Try direct query first
-        document = collection.objects(_id=object_id).first()
-        
-        if document is None:
-            # Try alternate query structure
-            document = collection.objects(__raw__={'_id': {'$oid': id}}).first()
-        
-        if document is not None:
-            #print(f"[DEBUG] Found document: {document.to_json()}")
-            return {'status': 'ok', 'message': '', 'data': document.to_json()}
-        else:
-            # Let's print all documents in collection to debug
-            all_docs = collection.objects().limit(1)
-            print(f"[DEBUG] Sample document from collection: {[doc.to_json() for doc in all_docs]}")
-            print(f"[DEBUG] No document found with id={id} in collection {collection.__name__}")
-            return {'status': 'error', 'message': f'Document not found in {collection.__name__}'}
-    except Exception as e:
-        print(f"[DEBUG] Error in getDocument: {str(e)}")
-        return {'status': 'error', 'message': f'Error retrieving document: {str(e)}'}
-```
-
-## __init__.py
-
-```
-# This file can be empty, it just marks the directory as a Python package
-```
-
-## db_document.py
-
-```
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from core.db_connect import *
-from bson import json_util
-from flask_login import UserMixin, current_user
-from flask import url_for
-from datetime import datetime
-from mongoengine import *
-
-class AuditMixin:
-    created_date = DateTimeField(default=lambda: datetime.now())
-    created_by = StringField()
-    modified_date = DateTimeField()
-    modified_by = StringField()
-
-    def save(self, *args, **kwargs):
-        try:
-            user = current_user.get_id() if current_user and current_user.is_authenticated else 'system'
-        except:
-            user = 'system'
-            
-        if not self.id:
-            # Document is being created
-            self.created_date = datetime.now()
-            self.created_by = user
-        
-        # Always update modified info on save
-        self.modified_date = datetime.now()
-        self.modified_by = user
-        
-        return super().save(*args, **kwargs)
-
-#Date Fields must be named name_date, e.g. contact_date
-#This is to make sure that string dates like 01.01.2016 are saved as date objects
-#functions to convert strings to date objects are in crud.py (create / update)
-
-#every document needs a required name field !!!
-
-#converts mongo to Json and formats _date properly
-def mongoToJson(document):
-    data = document.to_mongo()
-    
-    # Format all date fields (including audit fields)
-    for key, value in data.items():
-        if key in ['created_date', 'modified_date'] or key.find('_date') != -1:
-            try:
-                data[key] = document[key].strftime('%d.%m.%Y %H:%M')
-            except:
-                pass
-        elif key.find('filter') != -1:
-            try:
-                i = 0
-                for filter in document[key]:
-                    if '_date' in filter['field']:
-                        data[key][i]['value'] = document[key][i]['value'].strftime('%d.%m.%Y')
-                    i += 1
-            except:
-                pass
-
-    return json_util.dumps(data)
-
-class CustomQuerySet(QuerySet):
-    def to_json(self):
-        return "[%s]" % (",".join([doc.to_json() for doc in self]))
-
-class Default(DynamicDocument):
-    document_name = StringField(default='')
-    document_url = StringField(default='')
-    collection_name = StringField(default='')
-    collection_url = StringField(default='')
-    page_name_document = StringField(default='')
-    page_name_collection = StringField(default='')
-    collection_title = StringField(default='')
-    menu = DictField(default={})
-    
-    def to_json(self):
-        return mongoToJson(self)
-    
-def getDefaults(name):
-    print(f"[DEBUG] getDefaults called with name={name}")
-    defaults = None
-    
-    def create_document(doc_class):
-        try:
-            return doc_class()
-        except Exception as e:
-            print(f"[DEBUG] Error creating document instance: {str(e)}")
-            return None
-    
-    if name == 'filter':
-        defaults = ['filter', 'filter', 'Filter','Filter', Filter, create_document(Filter), 'filters']
-    elif name == 'user' or name == 'users':
-        defaults = ['user', 'users', 'User','Users', User, create_document(User), 'users']
-    elif name == 'file' or name == 'files':
-        defaults = ['file', 'files', 'File','Files', File, create_document(File), 'files']
-    elif name == 'example' or name == 'examples':
-        defaults = ['example', 'examples', 'Example','Example', Example, create_document(Example), 'examples']
-    elif name == 'model' or name == 'models':
-        defaults = ['model', 'models', 'Model','Models', Model, create_document(Model), 'models']
-    elif name == 'history':
-        defaults = ['history', 'history', 'History','Histories', History, create_document(History), 'history']
-    elif name == 'prompt' or name == 'prompts':
-        print("[DEBUG] Found prompt match")
-        defaults = ['prompt', 'prompts', 'Prompt','Prompts', Prompt, create_document(Prompt), 'prompts']
-
-    print(f"[DEBUG] defaults={defaults}")
-    if defaults:
-        try:
-            d = Default()
-            d.document_name = defaults[0]
-            d.document_url = url_for('doc', name=defaults[0])
-            d.collection_name = defaults[1]
-            d.collection_url = url_for('list', collection=defaults[1])
-            d.page_name_document = defaults[2]
-            d.page_name_collection = defaults[3]
-            d.collection_title = defaults[3]
-            d.collection = defaults[4]
-            d.document = defaults[5]
-            if d.document is None:
-                print("[DEBUG] Failed to create document instance")
-                return None
-            d.menu = {defaults[6]: 'open active', defaults[1]: 'open active'}
-            print("[DEBUG] Created Default object successfully")
-            return d
-        except Exception as e:
-            print(f"[DEBUG] Error creating Default object: {str(e)}")
-            return None
-    else:
-        print("[DEBUG] No defaults found")
-        return None
-
-class AccessControlMixin:
-    def can_access(self, user):
-        """Default access control - allows access to all users"""
-        return True
-        
-    def can_list(self, user):
-        """Default list access control - allows listing to all users"""
-        return True
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """Default list filter - no filtering"""
-        return None
-
-class User(UserMixin, AccessControlMixin, DynamicDocument):
-    firstname = StringField(required=True)
-    name = StringField(required=True)
-    email = StringField(required=True, unique=True)
-    pw_hash = StringField(required=True)
-    csrf_token = StringField()
-    salutation = StringField()
-    comment = StringField()
-    role = StringField(default='user')
-    created_date = DateTimeField(default=datetime.now)
-    modified_date = DateTimeField(default=datetime.now)
-    created_by = StringField()
-    modified_by = StringField()
-    
-    meta = {
-        'collection': 'user',
-        'queryset_class': CustomQuerySet
-    }
-    def searchFields(self):
-        return ['email','firstname','name']
-    def fields(self, list_order = False):
-        email = {'name' :  'email', 'label' : 'Email', 'class' : '', 'type' : 'SingleLine', 'required' : True,'full_width':True}
-        salutation = {'name' :  'salutation', 'label' : 'Anrede', 'class' : '', 'type' : 'SimpleListField','full_width':False}
-        firstname = {'name' :  'firstname', 'label' : 'Vorname', 'class' : '', 'type' : 'SingleLine', 'full_width':False}
-        name = {'name' :  'name', 'label' : 'Nachname', 'class' : '', 'type' : 'SingleLine','full_width':False}
-        comment = {'name' :  'comment', 'label' : 'Kommentar', 'class' : '', 'type' : 'MultiLine','full_width':True}
-        role = {'name' :  'role', 'label' : 'Rolle', 'class' : '', 'type' : 'SimpleListField','full_width':False}
-        
-        if list_order != None and list_order == True:
-            #fields in the overview table of the collection
-            return [firstname,name,email,role] if current_user.is_admin else [firstname,name,email]
-            
-        #fields in the form
-        fields = [email,salutation,firstname,name,comment]
-        if current_user.is_admin:
-            fields.append(role)
-        return fields
-    def to_json(self):
-        return mongoToJson(self)
-    def get_id(self):
-        """Return the unique identifier for Flask-Login"""
-        return str(self.id)
-
-    @property
-    def is_admin(self):
-        """Check if user has admin role"""
-        return self.role == 'admin'
-    
-    def can_access(self, user):
-        """Check if a user can access this specific user profile"""
-        return user.is_admin or str(user.id) == str(self.id)
-
-    def can_list(self, user):
-        """Only admins can list all users"""
-        return user.is_admin
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """Regular users can only see themselves"""
-        if not user.is_admin:
-            return {'_id': user.id}
-        return None
-
-class File(AccessControlMixin, AuditMixin, DynamicDocument):
-    name = StringField(required=True, min_length=4)
-    owner_id = StringField(required=True)
-    category = StringField(default='')  # 'prompt' or 'history' or other categories
-    meta = {'queryset_class': CustomQuerySet}
-    
-    def searchFields(self):
-        return ['name']
-    
-    def fields(self, list_order=False):
-        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, "full_width": False}
-        category = {'name': 'category', 'label': 'Kategorie', 'class': 'hidden-xs', 'type': 'TextField', "full_width": False}
-        if list_order:
-            return [name, category]
-        return [name, category]
-    
-    def can_access(self, user):
-        """Check if a user can access this file"""
-        # Admin can access all files
-        if user.is_admin:
-            return True
-            
-        # If file is part of a prompt, anyone can access
-        if self.category == 'prompt':
-            return True
-            
-        # For history files or other categories, only owner can access
-        return str(user.id) == str(self.owner_id)
-    
-    def can_list(self, user):
-        """Users can list files"""
-        return True
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """Filter logic for file listing"""
-        if user.is_admin:
-            return None  # Admins see all files
-            
-        # Regular users see:
-        # 1. Their own files (including history files)
-        # 2. Files associated with prompts
-        return {
-            '$or': [
-                {'owner_id': str(user.id)},
-                {'category': 'prompt'}
-            ]
-        }
-
-    def save(self, *args, **kwargs):
-        if not self.owner_id and current_user and current_user.is_authenticated:
-            self.owner_id = str(current_user.id)
-        return super().save(*args, **kwargs)
-
-    def to_json(self):
-        return mongoToJson(self)
-
-class Filter(AccessControlMixin, AuditMixin, DynamicDocument):
-    name = StringField(required=True, min_length=4)
-    meta = {'queryset_class': CustomQuerySet}
-    
-    def searchFields(self):
-        return ['name']
-        
-    def fields(self, list_order=False):
-        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True}
-        category = {'name': 'category', 'label': 'Kategorie', 'class': '', 'type': 'SingleLine'}
-
-        if list_order:
-            return [name, category]
-        return [name, category]
-
-    def can_access(self, user):
-        """Only admins can access filters"""
-        return user.is_admin
-        
-    def can_list(self, user):
-        """Only admins can list filters"""
-        return user.is_admin
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """No additional filtering needed since access is already admin-only"""
-        return None
-
-    def to_json(self):
-        return mongoToJson(self)
-
-#example of a DynamicDocument with all available fields
-#fields are then used in the form_elements.html to create the form
-#the fields are then used in the db_crud.py to create the document
-class Example(AccessControlMixin, AuditMixin, DynamicDocument):
-    name = StringField(required=True, min_length=1)
-    email = StringField(required=True, min_length=1)
-    salutation = StringField(default='')
-    firstname = StringField(default='')
-    comment = StringField(default='')
-    active = StringField(default='Off')
-    newsletter = StringField(default='Off')
-    event_date = DateField(default=None, null=True)
-    age_int = IntField(default=None, null=True)
-    salary_float = FloatField(default=None, null=True)
-    ai_provider = StringField(default='')
-    user_search = StringField(default='')
-    files = StringField(default='')
-    more_files = StringField(default='')
-    link = StringField(default='')
-    
-    meta = {'queryset_class': CustomQuerySet}
-    
-    #these are the search fields for the search field in the document list overview page
-    def searchFields(self):
-        return ['name', 'email', 'firstname']
-        
-    def fields(self, list_order = False):
-        # Field Types Documentation needs these corrections:
-        
-        # SingleLine: Text input field with 'input' class
-        # MultiLine: Textarea field with 'textarea' class
-        # CheckBox: Switch toggle with 'switch switch-primary' class
-        # SimpleListField: Select dropdown with 'select max-w-sm' class
-        # AdvancedListField: Enhanced select dropdown with 'select max-w-sm' class
-        # Date: Flatpickr date picker with 'input max-w-sm' class (format: DD.MM.YYYY)
-        # IntField: Number input with 'input' class
-        # FloatField: Number input with 'input' class
-        # FileField: File upload with 'input max-w-sm' class
-        # ButtonField: Button with 'btn btn-primary' class
-        # DocumentField: Search field with 'searchField' class and dropdown functionality
-
-        # Additional Field Properties:
-        # id: Used for element identification (required for all fields)
-        # value: Current field value
-        # value_id: (DocumentField only) ID of selected document
-        # SimpleListField: (SimpleListField only) Array of {value, name} objects
-        # AdvancedListField: (AdvancedListField only) Array of {value, name} objects
-
-        #full_width is used to create a full width field in the form
-        #if full_width is set to True, the field will take up the full width of the form
-        #if full_width is set to False, the field will take up half the width of the form
-        #required is used to make the field required in the form
-
-        #list of fields for the form
-        #SingleLine is a single line text field (input type text)
-        #MultiLine is a multi line text field (input type textarea)
-        #CheckBox is a checkbox field (input type checkbox, we are using a switch in the frontend)
-        #SimpleListField is a simple list field (input type select)
-        #AdvancedListField is a advanced list field (input type select with search)
-        #DateField is a date field (input type date, this uses Flatpickr and flatpickr.js needs to be included in the frontend)
-        #IntField is a integer field (input type number)
-        #FloatField is a float field (input type number)
-        #FileField is a file field (input type file)
-
-        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
-        email = {'name': 'email', 'label': 'Email', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
-        salutation = {'name': 'salutation', 'label': 'Anrede', 'class': '', 'type': 'SimpleListField', 'full_width': False}
-        firstname = {'name': 'firstname', 'label': 'Vorname', 'class': '', 'type': 'SingleLine', 'full_width': False}
-        comment = {'name': 'comment', 'label': 'Kommentar', 'class': '', 'type': 'MultiLine', 'full_width': True}
-        active = {'name': 'active', 'label': 'Aktiv', 'class': '', 'type': 'CheckBox', 'full_width': False}
-        newsletter = {'name': 'newsletter', 'label': 'Newsletter', 'class': '', 'type': 'CheckBox', 'full_width': False}
-        event_date = {'name': 'event_date', 'label': 'Event-Datum', 'class': 'hidden-xs', 'type': 'Date', 'full_width': False}
-        age_int = {'name': 'age_int', 'label': 'Alter', 'class': 'hidden-xs', 'type': 'IntField', 'full_width': False}
-        salary_float = {'name': 'salary_float', 'label': 'Gehalt', 'class': 'hidden-xs', 'type': 'FloatField', 'full_width': False}
-        ai_provider = {'name': 'ai_provider', 'label': 'Firma', 'class': 'hidden-xs', 'type': 'AdvancedListField', 'full_width': False}
-        user_search = {'name': 'user_search', 'label': 'User', 'class': '', 'type': 'DocumentField', 'full_width': False, 'module': 'user', 'document_field': 'email'}
-        files = {'name': 'files', 'label': 'Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
-        more_files = {'name': 'more_files', 'label': 'More Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
-        link = {'name': 'link', 'label': 'Link', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/d/testing'}
-
-        #fields in the overview table of the collection
-        if list_order:
-            return [name, email, firstname]
-        #fields in the form
-        return [name, email, salutation, firstname, comment, active, newsletter, event_date, 
-                age_int, salary_float, ai_provider, user_search, files, more_files, link]
-
-    def to_json(self):
-        return mongoToJson(self)
-
-    def can_access(self, user):
-        """Only admins can access examples"""
-        return user.is_admin
-        
-    def can_list(self, user):
-        """Only admins can list examples"""
-        return user.is_admin
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """No additional filtering needed since access is already admin-only"""
-        return None
-
-#AI Documents
-#AI Chat Bot Code
-class Model(AccessControlMixin, AuditMixin, DynamicDocument):
-    provider = StringField(required=True, min_length=1)
-    model = StringField(required=True, min_length=1)
-    name = StringField(required=True, min_length=1)
-
-    meta = {'queryset_class': CustomQuerySet}
-
-    def searchFields(self):
-        return ['provider', 'model', 'name']
-
-    def fields(self, list_order=False):
-        provider = {'name': 'provider', 'label': 'Provider', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
-        model = {'name': 'model', 'label': 'Model', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
-        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
-
-        if list_order:
-            return [name, provider, model]
-        return [name, provider, model]
-
-    def can_access(self, user):
-        """Only admins can access models"""
-        return user.is_admin
-        
-    def can_list(self, user):
-        """Only admins can list models"""
-        return user.is_admin
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """No additional filtering needed since access is already admin-only"""
-        return None
-
-    def to_json(self):
-        return mongoToJson(self)
-
-class History(AccessControlMixin, AuditMixin, DynamicDocument):
-    user_id = StringField(required=True)
-    chat_started = IntField()
-    messages = StringField()
-    first_message = StringField()
-    link = StringField(default='')
-    file_ids = ListField(StringField())
-    
-    meta = {'queryset_class': CustomQuerySet}
-    
-    def searchFields(self):
-        return ['messages', 'first_message']
-    
-    def fields(self, list_order=False):
-        user_id = {'name': 'user_id', 'label': 'User ID', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
-        created_date = {'name': 'created_date', 'label': 'Date', 'class': '', 'type': 'Date', 'full_width': False}
-        first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
-        messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
-        link = {'name': 'link', 'label': 'Chat', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/history'}
-        chat_started = {'name': 'chat_started', 'label': 'Chat Started', 'class': '', 'type': 'IntField', 'full_width': False}
-        
-        if list_order:
-            # Show these fields in the list view
-            return [created_date, first_message, link]
-        # Show these fields in the edit form
-        return [user_id, first_message, chat_started, messages, link]
-    
-    def can_access(self, user):
-        """Check if a user can access this specific history entry"""
-        return user.is_admin or str(user.id) == str(self.user_id)
-    
-    def can_list(self, user):
-        """Users can always list their own history"""
-        return True
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """Filter to only show user's own history"""
-        print(f"[DEBUG] Getting list filter for user {user.id}")
-        filter_dict = {'user_id': str(user.id)}
-        print(f"[DEBUG] Returning filter: {filter_dict}")
-        return filter_dict
-    
-    def save(self, *args, **kwargs):
-        if not self.user_id and current_user and current_user.is_authenticated:
-            self.user_id = str(current_user.id)
-        return super().save(*args, **kwargs)
-
-    def to_json(self):
-        return mongoToJson(self)
-
-class Prompt(AccessControlMixin, AuditMixin, DynamicDocument):
-    name = StringField(required=True, min_length=1)
-    welcome_message = StringField(required=True, min_length=1)
-    system_message = StringField(required=True, min_length=1)
-    prompt = StringField(required=True, min_length=1)
-    link = StringField(default='')
-    files = StringField(default='')
-
-    meta = {
-        'collection': 'prompts',
-        'queryset_class': CustomQuerySet
-    }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not self.link:
-            self.link = '/chat/prompt'
-
-    def searchFields(self):
-        return ['name', 'system_message', 'prompt']
-
-    def fields(self, list_order=False):
-        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
-        welcome_message = {'name': 'welcome_message', 'label': 'Welcome Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
-        system_message = {'name': 'system_message', 'label': 'System Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
-        prompt = {'name': 'prompt', 'label': 'Prompt', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
-        link = {'name': 'link', 'label': 'Use Prompt', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/prompt'}
-        files = {'name': 'files', 'label': 'Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
-
-        if list_order:
-            return [link, name, prompt]
-        return [name, welcome_message, system_message, prompt, files, link]
-
-    def can_access(self, user):
-        """Check if user can access this prompt"""
-        return True  # All users can access prompts
-        
-    def can_list(self, user):
-        """Check if user can list prompts"""
-        return True  # All users can list prompts
-        
-    @classmethod
-    def get_list_filter(cls, user):
-        """No filtering needed for prompts"""
-        return None  # No filtering - everyone sees all prompts
-
-    def to_json(self):
-        return mongoToJson(self)
-```
-
-## db_date.py
-
-```
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-import sys, datetime
-
-#dont write pyc files!
-sys.dont_write_bytecode = True
-
-#returns isoDates
-class dbDates():
-    now = datetime.datetime.now()
-    #print now.weekday()
-    today = datetime.datetime(now.year,now.month,now.day)
-    def firstDayThisMonth(self):
-        date = self.today.replace(day=1)
-        return date
-    def firstDayLastMonth(self):
-        date = self.today.replace(day=1,month=self.now.month-1)
-        return date
-    def firstDayNextMonth(self):
-        date = self.today.replace(month=self.now.month+1, day=1)
-        return date
-    def firstDayThisYear(self):
-        date = self.today.replace(month=1,day=1)
-        return date
-    def firstDayNextYear(self):
-        date = self.today.replace(year=self.now.year+1,month=1,day=1)
-        return date
-    def thisYear(self):
-        return {'$gte': self.firstDayThisYear(), '$lt': self.firstDayNextYear()}
-    def thisMonth(self):
-        return {'$gte': self.firstDayThisMonth(), '$lt': self.firstDayNextMonth()}
-    def lastMonth(self):
-        return {'$gte': self.firstDayLastMonth(), '$lt': self.firstDayThisMonth()}
-    def thisWeek(self):
-        start = self.today - datetime.timedelta(days=self.today.weekday())
-        end = start + datetime.timedelta(days=7)
-        return {'$gte': start, '$lt': end}
-    def thisDay(self):
-        return self.today
-    def yesterDay(self):
-        return self.today - datetime.timedelta(days=1)
-    def tomorrow(self):
-        return self.today + datetime.timedelta(days=1)
-```
-
-## db_user.py
-
-```
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from werkzeug.security import generate_password_hash, check_password_hash
-from core.db_document import *
-
-import logging
-from mongoengine.errors import NotUniqueError, ValidationError, OperationError
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-def hash_password(password):
-    return generate_password_hash(password)
-
-def check_password(email, password):
-    try:
-        user = User.objects(email=email).first()
-        if user and check_password_hash(user.pw_hash, password):
-            return {'status': 'ok', 'message': 'successfully logged in', 'user': user.to_json()}
-        return {'status': 'error', 'message': 'Invalid email or password'}
-    except Exception as e:
-        logger.error(f"Error checking password for {email}: {str(e)}")
-        return {'status': 'error', 'message': 'Authentication error occurred'}
-
-def create_user(firstname, name, email, password, role='user'):
-    try:
-        # Check if user exists first
-        if User.objects(email=email).first():
-            return {'status': 'error', 'message': 'user exists'}
-
-        # Create new user
-        user = User(
-            firstname=firstname,
-            name=name,
-            email=email,
-            pw_hash=hash_password(password),
-            role=role,
-            created_by='system',
-            modified_by='system'
-        )
-        user.save()
-        logger.info(f"User created successfully: {email}")
-        return {'status': 'ok', 'message': 'user created', 'id': str(user.id)}
-
-    except ValidationError as e:
-        logger.error(f"Validation error creating user {email}: {str(e)}")
-        return {'status': 'error', 'message': 'Invalid user data provided'}
-    except NotUniqueError as e:
-        logger.error(f"Duplicate email error for {email}")
-        return {'status': 'error', 'message': 'user exists'}
-    except Exception as e:
-        logger.error(f"Unexpected error creating user {email}: {str(e)}")
-        return {'status': 'error', 'message': 'An unexpected error occurred'}
-
-def delete_user(email, password):
-    try:
-        user = User.objects(email=email).first()
-        if not user:
-            return {'status': 'error', 'message': 'user does not exist'}
-        
-        if not check_password_hash(user.pw_hash, password):
-            return {'status': 'error', 'message': 'incorrect password'}
-        
-        user.delete()
-        logger.info(f"User deleted successfully: {email}")
-        return {'status': 'ok', 'message': 'user deleted'}
-    except Exception as e:
-        logger.error(f"Error deleting user {email}: {str(e)}")
-        return {'status': 'error', 'message': 'Failed to delete user'}
-
-def update_password(email, password, new_password):
-    try:
-        user = User.objects(email=email).first()
-        if not user:
-            return {'status': 'error', 'message': 'user does not exist'}
-
-        if not check_password_hash(user.pw_hash, password):
-            return {'status': 'error', 'message': 'incorrect password'}
-
-        user.pw_hash = hash_password(new_password)
-        user.save()
-        logger.info(f"Password updated successfully for user: {email}")
-        return {'status': 'ok', 'message': 'password updated'}
-    except ValidationError as e:
-        logger.error(f"Validation error updating password for {email}: {str(e)}")
-        return {'status': 'error', 'message': 'Invalid password format'}
-    except Exception as e:
-        logger.error(f"Error updating password for {email}: {str(e)}")
-        return {'status': 'error', 'message': 'Failed to update password'}
 ```
 
 ## helper.py
@@ -4958,6 +4597,546 @@ def upload_file(file, category='history'):
         return {'status': 'error', 'message': str(e)}
 ```
 
+## db_document.py
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from core.db_connect import *
+from bson import json_util
+from flask_login import UserMixin, current_user
+from flask import url_for
+from datetime import datetime
+from mongoengine import *
+
+class AuditMixin:
+    created_date = DateTimeField(default=lambda: datetime.now())
+    created_by = StringField()
+    modified_date = DateTimeField()
+    modified_by = StringField()
+
+    def save(self, *args, **kwargs):
+        try:
+            user = current_user.get_id() if current_user and current_user.is_authenticated else 'system'
+        except:
+            user = 'system'
+            
+        if not self.id:
+            # Document is being created
+            self.created_date = datetime.now()
+            self.created_by = user
+        
+        # Always update modified info on save
+        self.modified_date = datetime.now()
+        self.modified_by = user
+        
+        return super().save(*args, **kwargs)
+
+#Date Fields must be named name_date, e.g. contact_date
+#This is to make sure that string dates like 01.01.2016 are saved as date objects
+#functions to convert strings to date objects are in crud.py (create / update)
+
+#every document needs a required name field !!!
+
+#converts mongo to Json and formats _date properly
+def mongoToJson(document):
+    data = document.to_mongo()
+    
+    # Format all date fields (including audit fields)
+    for key, value in data.items():
+        if key in ['created_date', 'modified_date'] or key.find('_date') != -1:
+            try:
+                data[key] = document[key].strftime('%d.%m.%Y %H:%M')
+            except:
+                pass
+        elif key.find('filter') != -1:
+            try:
+                i = 0
+                for filter in document[key]:
+                    if '_date' in filter['field']:
+                        data[key][i]['value'] = document[key][i]['value'].strftime('%d.%m.%Y')
+                    i += 1
+            except:
+                pass
+
+    return json_util.dumps(data)
+
+class CustomQuerySet(QuerySet):
+    def to_json(self):
+        return "[%s]" % (",".join([doc.to_json() for doc in self]))
+
+class Default(DynamicDocument):
+    document_name = StringField(default='')
+    document_url = StringField(default='')
+    collection_name = StringField(default='')
+    collection_url = StringField(default='')
+    page_name_document = StringField(default='')
+    page_name_collection = StringField(default='')
+    collection_title = StringField(default='')
+    menu = DictField(default={})
+    
+    def to_json(self):
+        return mongoToJson(self)
+    
+def getDefaults(name):
+    print(f"[DEBUG] getDefaults called with name={name}")
+    defaults = None
+    
+    def create_document(doc_class):
+        try:
+            return doc_class()
+        except Exception as e:
+            print(f"[DEBUG] Error creating document instance: {str(e)}")
+            return None
+    
+    if name == 'filter':
+        defaults = ['filter', 'filter', 'Filter','Filter', Filter, create_document(Filter), 'filters']
+    elif name == 'user' or name == 'users':
+        defaults = ['user', 'users', 'User','Users', User, create_document(User), 'users']
+    elif name == 'file' or name == 'files':
+        defaults = ['file', 'files', 'File','Files', File, create_document(File), 'files']
+    elif name == 'example' or name == 'examples':
+        defaults = ['example', 'examples', 'Example','Example', Example, create_document(Example), 'examples']
+    elif name == 'model' or name == 'models':
+        defaults = ['model', 'models', 'Model','Models', Model, create_document(Model), 'models']
+    elif name == 'history':
+        defaults = ['history', 'history', 'History','Histories', History, create_document(History), 'history']
+    elif name == 'prompt' or name == 'prompts':
+        print("[DEBUG] Found prompt match")
+        defaults = ['prompt', 'prompts', 'Prompt','Prompts', Prompt, create_document(Prompt), 'prompts']
+
+    print(f"[DEBUG] defaults={defaults}")
+    if defaults:
+        try:
+            d = Default()
+            d.document_name = defaults[0]
+            d.document_url = url_for('doc', name=defaults[0])
+            d.collection_name = defaults[1]
+            d.collection_url = url_for('list', collection=defaults[1])
+            d.page_name_document = defaults[2]
+            d.page_name_collection = defaults[3]
+            d.collection_title = defaults[3]
+            d.collection = defaults[4]
+            d.document = defaults[5]
+            if d.document is None:
+                print("[DEBUG] Failed to create document instance")
+                return None
+            d.menu = {defaults[6]: 'open active', defaults[1]: 'open active'}
+            print("[DEBUG] Created Default object successfully")
+            return d
+        except Exception as e:
+            print(f"[DEBUG] Error creating Default object: {str(e)}")
+            return None
+    else:
+        print("[DEBUG] No defaults found")
+        return None
+
+class AccessControlMixin:
+    def can_access(self, user):
+        """Default access control - allows access to all users"""
+        return True
+        
+    def can_list(self, user):
+        """Default list access control - allows listing to all users"""
+        return True
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Default list filter - no filtering"""
+        return None
+
+class User(UserMixin, AccessControlMixin, DynamicDocument):
+    firstname = StringField(required=True)
+    name = StringField(required=True)
+    email = StringField(required=True, unique=True)
+    pw_hash = StringField(required=True)
+    csrf_token = StringField()
+    salutation = StringField()
+    comment = StringField()
+    role = StringField(default='user')
+    created_date = DateTimeField(default=datetime.now)
+    modified_date = DateTimeField(default=datetime.now)
+    created_by = StringField()
+    modified_by = StringField()
+    
+    meta = {
+        'collection': 'user',
+        'queryset_class': CustomQuerySet
+    }
+    def searchFields(self):
+        return ['email','firstname','name']
+    def fields(self, list_order = False):
+        email = {'name' :  'email', 'label' : 'Email', 'class' : '', 'type' : 'SingleLine', 'required' : True,'full_width':True}
+        salutation = {'name' :  'salutation', 'label' : 'Anrede', 'class' : '', 'type' : 'SimpleListField','full_width':False}
+        firstname = {'name' :  'firstname', 'label' : 'Vorname', 'class' : '', 'type' : 'SingleLine', 'full_width':False}
+        name = {'name' :  'name', 'label' : 'Nachname', 'class' : '', 'type' : 'SingleLine','full_width':False}
+        comment = {'name' :  'comment', 'label' : 'Kommentar', 'class' : '', 'type' : 'MultiLine','full_width':True}
+        role = {'name' :  'role', 'label' : 'Rolle', 'class' : '', 'type' : 'SimpleListField','full_width':False}
+        
+        if list_order != None and list_order == True:
+            #fields in the overview table of the collection
+            return [firstname,name,email,role] if current_user.is_admin else [firstname,name,email]
+            
+        #fields in the form
+        fields = [email,salutation,firstname,name,comment]
+        if current_user.is_admin:
+            fields.append(role)
+        return fields
+    def to_json(self):
+        return mongoToJson(self)
+    def get_id(self):
+        """Return the unique identifier for Flask-Login"""
+        return str(self.id)
+
+    @property
+    def is_admin(self):
+        """Check if user has admin role"""
+        return self.role == 'admin'
+    
+    def can_access(self, user):
+        """Check if a user can access this specific user profile"""
+        return user.is_admin or str(user.id) == str(self.id)
+
+    def can_list(self, user):
+        """Only admins can list all users"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Regular users can only see themselves"""
+        if not user.is_admin:
+            return {'_id': user.id}
+        return None
+
+class File(AccessControlMixin, AuditMixin, DynamicDocument):
+    name = StringField(required=True, min_length=4)
+    owner_id = StringField(required=True)
+    category = StringField(default='')  # 'prompt' or 'history' or other categories
+    meta = {'queryset_class': CustomQuerySet}
+    
+    def searchFields(self):
+        return ['name']
+    
+    def fields(self, list_order=False):
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, "full_width": False}
+        category = {'name': 'category', 'label': 'Kategorie', 'class': 'hidden-xs', 'type': 'TextField', "full_width": False}
+        if list_order:
+            return [name, category]
+        return [name, category]
+    
+    def can_access(self, user):
+        """Check if a user can access this file"""
+        # Admin can access all files
+        if user.is_admin:
+            return True
+            
+        # If file is part of a prompt, anyone can access
+        if self.category == 'prompt':
+            return True
+            
+        # For history files or other categories, only owner can access
+        return str(user.id) == str(self.owner_id)
+    
+    def can_list(self, user):
+        """Users can list files"""
+        return True
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Filter logic for file listing"""
+        if user.is_admin:
+            return None  # Admins see all files
+            
+        # Regular users see:
+        # 1. Their own files (including history files)
+        # 2. Files associated with prompts
+        return {
+            '$or': [
+                {'owner_id': str(user.id)},
+                {'category': 'prompt'}
+            ]
+        }
+
+    def save(self, *args, **kwargs):
+        if not self.owner_id and current_user and current_user.is_authenticated:
+            self.owner_id = str(current_user.id)
+        return super().save(*args, **kwargs)
+
+    def to_json(self):
+        return mongoToJson(self)
+
+class Filter(AccessControlMixin, AuditMixin, DynamicDocument):
+    name = StringField(required=True, min_length=4)
+    meta = {'queryset_class': CustomQuerySet}
+    
+    def searchFields(self):
+        return ['name']
+        
+    def fields(self, list_order=False):
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True}
+        category = {'name': 'category', 'label': 'Kategorie', 'class': '', 'type': 'SingleLine'}
+
+        if list_order:
+            return [name, category]
+        return [name, category]
+
+    def can_access(self, user):
+        """Only admins can access filters"""
+        return user.is_admin
+        
+    def can_list(self, user):
+        """Only admins can list filters"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No additional filtering needed since access is already admin-only"""
+        return None
+
+    def to_json(self):
+        return mongoToJson(self)
+
+#example of a DynamicDocument with all available fields
+#fields are then used in the form_elements.html to create the form
+#the fields are then used in the db_crud.py to create the document
+class Example(AccessControlMixin, AuditMixin, DynamicDocument):
+    name = StringField(required=True, min_length=1)
+    email = StringField(required=True, min_length=1)
+    salutation = StringField(default='')
+    firstname = StringField(default='')
+    comment = StringField(default='')
+    active = StringField(default='Off')
+    newsletter = StringField(default='Off')
+    event_date = DateField(default=None, null=True)
+    age_int = IntField(default=None, null=True)
+    salary_float = FloatField(default=None, null=True)
+    ai_provider = StringField(default='')
+    user_search = StringField(default='')
+    files = StringField(default='')
+    more_files = StringField(default='')
+    link = StringField(default='')
+    
+    meta = {'queryset_class': CustomQuerySet}
+    
+    #these are the search fields for the search field in the document list overview page
+    def searchFields(self):
+        return ['name', 'email', 'firstname']
+        
+    def fields(self, list_order = False):
+        # Field Types Documentation needs these corrections:
+        
+        # SingleLine: Text input field with 'input' class
+        # MultiLine: Textarea field with 'textarea' class
+        # CheckBox: Switch toggle with 'switch switch-primary' class
+        # SimpleListField: Select dropdown with 'select max-w-sm' class
+        # AdvancedListField: Enhanced select dropdown with 'select max-w-sm' class
+        # Date: Flatpickr date picker with 'input max-w-sm' class (format: DD.MM.YYYY)
+        # IntField: Number input with 'input' class
+        # FloatField: Number input with 'input' class
+        # FileField: File upload with 'input max-w-sm' class
+        # ButtonField: Button with 'btn btn-primary' class
+        # DocumentField: Search field with 'searchField' class and dropdown functionality
+
+        # Additional Field Properties:
+        # id: Used for element identification (required for all fields)
+        # value: Current field value
+        # value_id: (DocumentField only) ID of selected document
+        # SimpleListField: (SimpleListField only) Array of {value, name} objects
+        # AdvancedListField: (AdvancedListField only) Array of {value, name} objects
+
+        #full_width is used to create a full width field in the form
+        #if full_width is set to True, the field will take up the full width of the form
+        #if full_width is set to False, the field will take up half the width of the form
+        #required is used to make the field required in the form
+
+        #list of fields for the form
+        #SingleLine is a single line text field (input type text)
+        #MultiLine is a multi line text field (input type textarea)
+        #CheckBox is a checkbox field (input type checkbox, we are using a switch in the frontend)
+        #SimpleListField is a simple list field (input type select)
+        #AdvancedListField is a advanced list field (input type select with search)
+        #DateField is a date field (input type date, this uses Flatpickr and flatpickr.js needs to be included in the frontend)
+        #IntField is a integer field (input type number)
+        #FloatField is a float field (input type number)
+        #FileField is a file field (input type file)
+
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        email = {'name': 'email', 'label': 'Email', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        salutation = {'name': 'salutation', 'label': 'Anrede', 'class': '', 'type': 'SimpleListField', 'full_width': False}
+        firstname = {'name': 'firstname', 'label': 'Vorname', 'class': '', 'type': 'SingleLine', 'full_width': False}
+        comment = {'name': 'comment', 'label': 'Kommentar', 'class': '', 'type': 'MultiLine', 'full_width': True}
+        active = {'name': 'active', 'label': 'Aktiv', 'class': '', 'type': 'CheckBox', 'full_width': False}
+        newsletter = {'name': 'newsletter', 'label': 'Newsletter', 'class': '', 'type': 'CheckBox', 'full_width': False}
+        event_date = {'name': 'event_date', 'label': 'Event-Datum', 'class': 'hidden-xs', 'type': 'Date', 'full_width': False}
+        age_int = {'name': 'age_int', 'label': 'Alter', 'class': 'hidden-xs', 'type': 'IntField', 'full_width': False}
+        salary_float = {'name': 'salary_float', 'label': 'Gehalt', 'class': 'hidden-xs', 'type': 'FloatField', 'full_width': False}
+        ai_provider = {'name': 'ai_provider', 'label': 'Firma', 'class': 'hidden-xs', 'type': 'AdvancedListField', 'full_width': False}
+        user_search = {'name': 'user_search', 'label': 'User', 'class': '', 'type': 'DocumentField', 'full_width': False, 'module': 'user', 'document_field': 'email'}
+        files = {'name': 'files', 'label': 'Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
+        more_files = {'name': 'more_files', 'label': 'More Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
+        link = {'name': 'link', 'label': 'Link', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/d/testing'}
+
+        #fields in the overview table of the collection
+        if list_order:
+            return [name, email, firstname]
+        #fields in the form
+        return [name, email, salutation, firstname, comment, active, newsletter, event_date, 
+                age_int, salary_float, ai_provider, user_search, files, more_files, link]
+
+    def to_json(self):
+        return mongoToJson(self)
+
+    def can_access(self, user):
+        """Only admins can access examples"""
+        return user.is_admin
+        
+    def can_list(self, user):
+        """Only admins can list examples"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No additional filtering needed since access is already admin-only"""
+        return None
+
+#AI Documents
+#AI Chat Bot Code
+class Model(AccessControlMixin, AuditMixin, DynamicDocument):
+    provider = StringField(required=True, min_length=1)
+    model = StringField(required=True, min_length=1)
+    name = StringField(required=True, min_length=1)
+
+    meta = {'queryset_class': CustomQuerySet}
+
+    def searchFields(self):
+        return ['provider', 'model', 'name']
+
+    def fields(self, list_order=False):
+        provider = {'name': 'provider', 'label': 'Provider', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        model = {'name': 'model', 'label': 'Model', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+
+        if list_order:
+            return [name, provider, model]
+        return [name, provider, model]
+
+    def can_access(self, user):
+        """Only admins can access models"""
+        return user.is_admin
+        
+    def can_list(self, user):
+        """Only admins can list models"""
+        return user.is_admin
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No additional filtering needed since access is already admin-only"""
+        return None
+
+    def to_json(self):
+        return mongoToJson(self)
+
+class History(AccessControlMixin, AuditMixin, DynamicDocument):
+    user_id = StringField(required=True)
+    chat_started = IntField()
+    messages = StringField()
+    first_message = StringField()
+    link = StringField(default='')
+    file_ids = ListField(StringField())
+    
+    meta = {'queryset_class': CustomQuerySet}
+    
+    def searchFields(self):
+        return ['messages', 'first_message']
+    
+    def fields(self, list_order=False):
+        user_id = {'name': 'user_id', 'label': 'User ID', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': False}
+        created_date = {'name': 'created_date', 'label': 'Date', 'class': '', 'type': 'Date', 'full_width': False}
+        first_message = {'name': 'first_message', 'label': 'First Message', 'class': '', 'type': 'SingleLine', 'required': False, 'full_width': True}
+        messages = {'name': 'messages', 'label': 'Messages', 'class': '', 'type': 'MultiLine', 'required': False, 'full_width': True}
+        link = {'name': 'link', 'label': 'Chat', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/history'}
+        chat_started = {'name': 'chat_started', 'label': 'Chat Started', 'class': '', 'type': 'IntField', 'full_width': False}
+        
+        if list_order:
+            # Show these fields in the list view
+            return [created_date, first_message, link]
+        # Show these fields in the edit form
+        return [user_id, first_message, chat_started, messages, link]
+    
+    def can_access(self, user):
+        """Check if a user can access this specific history entry"""
+        return user.is_admin or str(user.id) == str(self.user_id)
+    
+    def can_list(self, user):
+        """Users can always list their own history"""
+        return True
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """Filter to only show user's own history"""
+        print(f"[DEBUG] Getting list filter for user {user.id}")
+        filter_dict = {'user_id': str(user.id)}
+        print(f"[DEBUG] Returning filter: {filter_dict}")
+        return filter_dict
+    
+    def save(self, *args, **kwargs):
+        if not self.user_id and current_user and current_user.is_authenticated:
+            self.user_id = str(current_user.id)
+        return super().save(*args, **kwargs)
+
+    def to_json(self):
+        return mongoToJson(self)
+
+class Prompt(AccessControlMixin, AuditMixin, DynamicDocument):
+    name = StringField(required=True, min_length=1)
+    welcome_message = StringField(required=True, min_length=1)
+    system_message = StringField(required=True, min_length=1)
+    prompt = StringField(required=True, min_length=1)
+    link = StringField(default='')
+    files = StringField(default='')
+
+    meta = {
+        'collection': 'prompts',
+        'queryset_class': CustomQuerySet
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.link:
+            self.link = '/chat/prompt'
+
+    def searchFields(self):
+        return ['name', 'system_message', 'prompt']
+
+    def fields(self, list_order=False):
+        name = {'name': 'name', 'label': 'Name', 'class': '', 'type': 'SingleLine', 'required': True, 'full_width': True}
+        welcome_message = {'name': 'welcome_message', 'label': 'Welcome Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
+        system_message = {'name': 'system_message', 'label': 'System Message', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
+        prompt = {'name': 'prompt', 'label': 'Prompt', 'class': '', 'type': 'MultiLine', 'required': True, 'full_width': True}
+        link = {'name': 'link', 'label': 'Use Prompt', 'class': '', 'type': 'ButtonField', 'full_width': False, 'link': '/chat/prompt'}
+        files = {'name': 'files', 'label': 'Files', 'class': 'hidden-xs', 'type': 'FileField', 'full_width': True}
+
+        if list_order:
+            return [link, name, prompt]
+        return [name, welcome_message, system_message, prompt, files, link]
+
+    def can_access(self, user):
+        """Check if user can access this prompt"""
+        return True  # All users can access prompts
+        
+    def can_list(self, user):
+        """Check if user can list prompts"""
+        return True  # All users can list prompts
+        
+    @classmethod
+    def get_list_filter(cls, user):
+        """No filtering needed for prompts"""
+        return None  # No filtering - everyone sees all prompts
+
+    def to_json(self):
+        return mongoToJson(self)
+```
+
 ## db_connect.py
 
 ```
@@ -4989,60 +5168,398 @@ connect(host=mongodb_uri)
 # user.save()
 ```
 
-## ai_insert_models.py
+## db_date.py
 
 ```
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
+import sys, datetime
+
+#dont write pyc files!
+sys.dont_write_bytecode = True
+
+#returns isoDates
+class dbDates():
+    now = datetime.datetime.now()
+    #print now.weekday()
+    today = datetime.datetime(now.year,now.month,now.day)
+    def firstDayThisMonth(self):
+        date = self.today.replace(day=1)
+        return date
+    def firstDayLastMonth(self):
+        date = self.today.replace(day=1,month=self.now.month-1)
+        return date
+    def firstDayNextMonth(self):
+        date = self.today.replace(month=self.now.month+1, day=1)
+        return date
+    def firstDayThisYear(self):
+        date = self.today.replace(month=1,day=1)
+        return date
+    def firstDayNextYear(self):
+        date = self.today.replace(year=self.now.year+1,month=1,day=1)
+        return date
+    def thisYear(self):
+        return {'$gte': self.firstDayThisYear(), '$lt': self.firstDayNextYear()}
+    def thisMonth(self):
+        return {'$gte': self.firstDayThisMonth(), '$lt': self.firstDayNextMonth()}
+    def lastMonth(self):
+        return {'$gte': self.firstDayLastMonth(), '$lt': self.firstDayThisMonth()}
+    def thisWeek(self):
+        start = self.today - datetime.timedelta(days=self.today.weekday())
+        end = start + datetime.timedelta(days=7)
+        return {'$gte': start, '$lt': end}
+    def thisDay(self):
+        return self.today
+    def yesterDay(self):
+        return self.today - datetime.timedelta(days=1)
+    def tomorrow(self):
+        return self.today + datetime.timedelta(days=1)
+```
+
+## db_crud.py
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import sys
-import datetime
-
-# Add parent directory to Python path to find core module
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from core.db_document import Model
+sys.path.append('core')
+from core.db_document import File, Prompt
 from core.db_connect import *
+import os
 
-models = [
-  # {'provider':'openai','model':'gpt-4o','name':'OpenAI - GPT-4o'},
-  # {'provider':'openai','model':'gpt-4o-mini','name':'OpenAI - GPT-4o Mini'},
-  {'provider':'perplexity','model':'sonar-deep-research','name':'US - Perplexity - Sonar Deep Research', 'region':'US','model_family':'sonar'},
-  {'provider':'perplexity','model':'sonar-reasoning-pro','name':'US - Perplexity - Sonar Reasoning Pro', 'region':'US','model_family':'sonar'},
-  {'provider':'perplexity','model':'sonar-reasoning','name':'US - Perplexity - Sonar Reasoning', 'region':'US','model_family':'sonar'},
-  {'provider':'perplexity','model':'sonar-pro','name':'US - Perplexity - Sonar Pro', 'region':'US','model_family':'sonar'},
-  {'provider':'perplexity','model':'sonar','name':'US - Perplexity - Sonar', 'region':'US','model_family':'sonar' },
-  {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1', 'region':'US','model_family':'deepseek'},
-  {'provider':'azure','model':'gpt-4o-sweden-02','name':'EU - Azure - GPT-4o - Sweden', 'region':'EU','model_family':'gpt4o'},
-  {'provider':'azure','model':'gpt-4o-mini-sweden-02','name':'EU - Azure - GPT-4o Mini - Sweden', 'region':'EU','model_family':'gpt4o'},
-  {'provider':'azure','model':'o1-mini','name':'EU Azure - o1-mini Sweden', 'region':'EU','model_family':'o1'},
-  ]
+import json,datetime
+from flask import session
+from flask_login import current_user
 
-# Delete existing models
-Model.objects.delete()
+from db_default import getCounter
+from bson import ObjectId
 
-# Current timestamp for creation date
-now = datetime.datetime.now()
+def createDocument(form_data, document, request=None):
+    print(f"[DEBUG] Starting createDocument with form_data keys: {form_data.keys()}")
+    # Remove csrf_token before processing
+    form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
+    
+    try:
+        # Initialize document with default values if it's a new document
+        if isinstance(document, type):
+            document = document()
+        
+        # Handle counter if needed
+        try:
+            counter_name = document.getCounterName()
+            counter = getCounter(counter_name)
+            document[counter_name] = counter
+        except Exception as e:
+            print(f"[DEBUG] Counter error: {str(e)}")
 
-# Insert models with only creation audit fields
-for model_data in models:
-    model = Model(
-        provider=model_data['provider'],
-        model=model_data['model'],
-        name=model_data['name'],
-        created_date=now,
-        created_by='system'
-    )
-    # Use save(force_insert=True) to ensure it's treated as a new document
-    model.save(force_insert=True)
+        # Process all non-file fields
+        for key in form_data.keys():
+            if key.startswith('files_'):
+                continue
+                
+            if form_data[key] is None or (isinstance(form_data[key], list) and not form_data[key]):
+                continue
 
-print("Models inserted successfully with creation audit fields.")
+            if key.endswith('_hidden'):
+                base_key = key.replace('_hidden', '')
+                if form_data[key]:
+                    document[f"{base_key}_id"] = form_data[key]
+                continue
+
+            if form_data[key] == '':
+                continue
+
+            if '_date' in key:
+                try:
+                    document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
+                except ValueError as e:
+                    return {'status': 'error', 'message': f'Invalid date format for field {key}'}
+            elif '_int' in key:
+                try:
+                    document[key] = int(form_data[key]) if form_data[key] else None
+                except ValueError:
+                    return {'status': 'error', 'message': f'Invalid integer value for field {key}'}
+            elif '_float' in key:
+                try:
+                    document[key] = float(form_data[key]) if form_data[key] else None
+                except ValueError:
+                    return {'status': 'error', 'message': f'Invalid float value for field {key}'}
+            elif key != 'id':
+                document[key] = form_data[key]
+
+        # Save document
+        try:
+            document.save()
+            return {'status': 'ok', 'message': '', 'data': document.to_json()}
+            
+        except ValidationError as e:
+            print(f"[DEBUG] Validation error: {str(e)}")
+            return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
+        except Exception as e:
+            print(f"[DEBUG] Save error: {str(e)}")
+            return {'status': 'error', 'message': f'document not created: {str(e)}'}
+
+    except Exception as e:
+        print(f"[DEBUG] Error in createDocument: {str(e)}")
+        return {'status': 'error', 'message': f'Error creating document: {str(e)}'}
+
+def updateDocument(form_data, document, collection):
+    # Remove csrf_token before processing
+    form_data = {k: v for k, v in form_data.items() if k != 'csrf_token'}
+    
+    try:
+        print(f"[DEBUG] Updating document with id={form_data['id']}")
+        object_id = ObjectId(form_data['id'])
+        document = collection.objects(_id=object_id).first()
+        
+        if document is None:
+            return {'status': 'error', 'message': 'document not found'}
+
+        for key in form_data.keys():
+            if key == 'id':  # Skip id field
+                continue
+
+            # Handle document search fields
+            if key.endswith('_hidden'):
+                base_key = key.replace('_hidden', '')
+                if '_search' in base_key:
+                    # Clear both the search field and its ID if hidden field is empty
+                    if not form_data[key]:
+                        document[base_key] = ''
+                        document[f"{base_key}_id"] = ''
+                    else:
+                        document[f"{base_key}_id"] = form_data[key]
+                else:
+                    if base_key in form_data:
+                        document[base_key] = form_data[base_key]  # Will be "On" if checked
+                    else:
+                        document[base_key] = "Off"  # Default to Off if unchecked
+                continue
+
+            # Handle different field types
+            if '_date' in key:
+                try:
+                    document[key] = datetime.datetime.strptime(form_data[key], "%d.%m.%Y") if form_data[key] else None
+                except:
+                    return {'status': 'error', 'message': 'error preparing form date field'}
+            elif '_int' in key:
+                document[key] = int(form_data[key]) if form_data[key] else None
+            elif '_float' in key:
+                document[key] = float(form_data[key].replace(',','.')) if form_data[key] else None
+            else:
+                document[key] = form_data[key]
+
+        # Save document
+        try:
+            document.save()
+            return {'status': 'ok', 'message': '', 'data': document.to_json()}
+        except ValidationError as e:
+            print(f"Validation error: {str(e)}")
+            return {'status': 'error', 'message': f'validation error: {str(e)}', 'data': document.to_json()}
+        except Exception as e:
+            print(f"Error saving document: {str(e)}")
+            return {'status': 'error', 'message': f'error saving document: {str(e)}'}
+            
+    except Exception as e:
+        print(f"[DEBUG] Error in updateDocument: {str(e)}")
+        return {'status': 'error', 'message': f'Error updating document: {str(e)}'}
+
+def eraseDocument(id, document, collection):
+    try:
+        print(f"[DEBUG] eraseDocument called with id={id}, collection={collection.__name__}")
+        object_id = ObjectId(id)
+        document = collection.objects(_id=object_id).first()
+        
+        if document is not None:
+            print(f"[DEBUG] Found document to delete: {document.to_json()}")
+            
+            # Get base path for constructing absolute paths
+            base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+            print(f"[DEBUG] Base path: {base_path}")
+            
+            # Handle file deletion for both File collection and associated files
+            if collection == File:
+                # Check if user has permission to delete this file
+                if not document.can_access(current_user):
+                    print(f"[DEBUG] Access denied for file deletion: {id}")
+                    return {'status': 'error', 'message': 'Access denied. You can only delete your own files.'}
+                
+                # Check if file is used by any prompt
+                prompts_using_file = Prompt.objects(document_id=str(id))
+                if prompts_using_file:
+                    print(f"[DEBUG] File {id} is used by prompts, cannot delete")
+                    return {'status': 'error', 'message': 'File is used by one or more prompts and cannot be deleted'}
+                    
+                # Direct file document deletion
+                try:
+                    # Use the same path construction as upload_files
+                    file_path = os.path.join(base_path, document.path, f"{id}.{document.file_type}")
+                    print(f"[DEBUG] Attempting to delete file at: {file_path}")
+                    print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
+                    
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                        print(f"[DEBUG] Successfully deleted file: {file_path}")
+                    else:
+                        print(f'[DEBUG] Physical file not found at: {file_path}')
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting physical file: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting physical file: {str(e)}'}
+                
+                try:
+                    document.delete()
+                    print(f"[DEBUG] Successfully deleted file document from database")
+                    return {'status': 'ok', 'message': 'deleted'}
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting file document: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting file document: {str(e)}'}
+            else:
+                # For non-File collections, handle associated files
+                file_ids = []
+                
+                # Check for files linked by document_id
+                associated_files = File.objects(document_id=str(id))
+                file_ids.extend([str(f.id) for f in associated_files])
+                
+                # Check for files in file_ids array (used by History documents)
+                if hasattr(document, 'file_ids') and document.file_ids:
+                    file_ids.extend(document.file_ids)
+                
+                # Remove duplicates
+                file_ids = list(set(file_ids))
+                print(f"[DEBUG] Found {len(file_ids)} associated files")
+                print(f"[DEBUG] File IDs to process: {file_ids}")
+                
+                deleted_files = []
+                failed_files = []
+                
+                for file_id in file_ids:
+                    try:
+                        print(f"[DEBUG] Processing associated file: {file_id}")
+                        file_doc = File.objects(id=file_id).first()
+                        if not file_doc:
+                            print(f"[DEBUG] File document not found: {file_id}")
+                            failed_files.append(file_id)
+                            continue
+                            
+                        # Check if file is used by any prompt
+                        prompts_using_file = Prompt.objects(document_id=str(file_id))
+                        if prompts_using_file:
+                            print(f"[DEBUG] File {file_id} is used by prompts, skipping")
+                            failed_files.append(file_id)
+                            continue
+                        
+                        # Check if user has permission to delete this file
+                        if not file_doc.can_access(current_user):
+                            print(f"[DEBUG] Access denied for associated file deletion: {file_id}")
+                            failed_files.append(file_id)
+                            continue
+                            
+                        # Delete physical file
+                        # Use the same path construction as upload_files
+                        file_path = os.path.join(base_path, file_doc.path, f"{file_id}.{file_doc.file_type}")
+                        print(f"[DEBUG] Attempting to delete associated file at: {file_path}")
+                        print(f"[DEBUG] File exists: {os.path.exists(file_path)}")
+                        
+                        if os.path.exists(file_path):
+                            os.remove(file_path)
+                            print(f"[DEBUG] Successfully deleted associated file: {file_path}")
+                        else:
+                            print(f'[DEBUG] Physical file not found at: {file_path}')
+                        
+                        # Delete file document
+                        file_doc.delete()
+                        deleted_files.append(file_id)
+                        print(f"[DEBUG] Successfully deleted associated file document: {file_id}")
+                    except Exception as e:
+                        print(f'[DEBUG] Error deleting associated file {file_id}: {str(e)}')
+                        failed_files.append(file_id)
+                
+                try:
+                    document.delete()
+                    status_msg = 'deleted'
+                    if failed_files:
+                        status_msg += f' (some associated files could not be deleted: {", ".join(map(str, failed_files))})'
+                    print(f"[DEBUG] Successfully deleted main document with status: {status_msg}")
+                    return {'status': 'ok', 'message': status_msg}
+                except Exception as e:
+                    print(f'[DEBUG] Error deleting main document: {str(e)}')
+                    return {'status': 'error', 'message': f'Error deleting document: {str(e)}'}
+        else:
+            print(f"[DEBUG] No document found with id={id}")
+            return {'status': 'error', 'message': 'document not found'}
+    except Exception as e:
+        print(f"[DEBUG] Error in eraseDocument: {str(e)}")
+        return {'status': 'error', 'message': f'Error deleting document: {str(e)}'}
+
+def getDocument(id, document, collection):
+    try:
+        print(f"[DEBUG] Querying collection {collection.__name__} for document with id={id}")
+        # Convert string id to ObjectId
+        object_id = ObjectId(id)
+        print(f"[DEBUG] Using ObjectId: {object_id}")
+        
+        # Try direct query first
+        document = collection.objects(_id=object_id).first()
+        
+        if document is None:
+            # Try alternate query structure
+            document = collection.objects(__raw__={'_id': {'$oid': id}}).first()
+        
+        if document is not None:
+            #print(f"[DEBUG] Found document: {document.to_json()}")
+            return {'status': 'ok', 'message': '', 'data': document.to_json()}
+        else:
+            # Let's print all documents in collection to debug
+            all_docs = collection.objects().limit(1)
+            print(f"[DEBUG] Sample document from collection: {[doc.to_json() for doc in all_docs]}")
+            print(f"[DEBUG] No document found with id={id} in collection {collection.__name__}")
+            return {'status': 'error', 'message': f'Document not found in {collection.__name__}'}
+    except Exception as e:
+        print(f"[DEBUG] Error in getDocument: {str(e)}")
+        return {'status': 'error', 'message': f'Error retrieving document: {str(e)}'}
 ```
 
-## __init__.py
+## documents/clean_up_files.py
 
 ```
-# This file can be empty, it just marks the directory as a Python package
+import os
+import shutil
+
+def delete_folder_contents(folder_path: str) -> None:
+    """Delete all files and subdirectories in the specified folder."""
+    try:
+        # Check if folder exists
+        if not os.path.exists(folder_path):
+            print(f"[DEBUG] Folder {folder_path} does not exist")
+            return
+
+        # Delete everything in the folder
+        for item in os.listdir(folder_path):
+            item_path = os.path.join(folder_path, item)
+            try:
+                if os.path.isfile(item_path):
+                    os.unlink(item_path)
+                elif os.path.isdir(item_path):
+                    shutil.rmtree(item_path)
+            except Exception as e:
+                print(f"[DEBUG] Error deleting {item_path}: {str(e)}")
+
+        print(f"[DEBUG] Successfully cleared contents of {folder_path}")
+
+    except Exception as e:
+        print(f"[DEBUG] Error clearing folder {folder_path}: {str(e)}")
+
+def delete_history_and_prompts():
+    """Delete contents of history and prompts folders."""
+    folders = ['history']
+    
+    for folder in folders:
+        delete_folder_contents(folder)
+        print(f"[DEBUG] Completed deletion process for {folder}")
+
+if __name__ == "__main__":
+    delete_history_and_prompts()
 ```
 
 ## ai_search.py
@@ -5106,110 +5623,6 @@ def search(question, num_results=10, days=5, start=0):
     return news_results
 
 search("Wann spielt der FCBayern?")
-```
-
-## Readme.md
-
-```
-# AI Chat System Documentation
-
-## Prerequisites
-
-- OpenAI API key or Anthropic API key required for operation
-- Set your API keys in the `.env` file
-
-## System Architecture
-
-### Backend Components (`/ai`)
-
-- `ai_chat.py`: Main chat blueprint and route handlers
-- `ai_llm_helper.py`: LLM integration and response processing
-- `ai_insert_models.py`: Database models initialization
-- `__init__.py`: Package initialization
-
-### Supported Models
-
-The system supports multiple AI providers:
-
-- **OpenAI**: GPT-3.5, GPT-4, and O1 models (o1-mini, o1-preview)
-- **Anthropic**: Claude models
-- **Together AI**: Various open-source models
-- **DeepSeek**: DeepSeek language models
-- **Perplexity**: Perplexity language models
-- **Azure OpenAI**: Microsoft-hosted OpenAI models
-
-#### O1 Model Support
-
-OpenAI O1 models are supported with some limitations:
-- **No system message support** - System messages are automatically converted to user messages
-- **No streaming support** - Responses are always processed in non-streaming mode
-- Content filtering results are captured
-- Detailed token usage information is available
-
-Important O1 model limitations:
-1. System messages are converted by prepending them to the first user message
-2. All requests use non-streaming mode regardless of the `stream` parameter
-
-To use O1 models, configure in model settings:
-```python
-model = {
-    "provider": "openai",
-    "model": "o1-mini"  # or other O1 models
-}
-```
-
-### Frontend Components
-
-#### Templates (`/templates/chat/`)
-
-- `chat.html`: Main chat interface layout
-- `chat_ui.html`: Chat UI components and structure
-- `chat_messages.html`: Message container template
-- `chat_messages_rendered.html`: Rendered messages view
-- `bot_message_template.html`: AI response formatting
-- `user_message_template.html`: User message formatting
-- `code_block_template.html`: Code snippet display
-- `chat_prompts.html`: System prompts management
-
-#### JavaScript (`/static/chat/`)
-
-- `chat_core.js`: Core chat functionality, HTMX interactions, and UI handlers
-
-## Database Integration
-
-- Chat models and schemas defined in `core/db_document.py`
-- Stores message history, prompts, and system configurations
-
-## Setup Instructions
-
-1. Configure your environment variables in `.env`
-2. Import the chat blueprint in `app.py`:
-   ```python
-   from ai.ai_chat import dms_chat
-   app.register_blueprint(dms_chat, url_prefix='/chat')
-   ```
-
-## Features
-
-- Real-time chat interface with AI models
-- Code snippet highlighting and formatting
-- Message history persistence
-- Custom prompt management
-- HTMX-powered dynamic updates
-- Support for OpenAI's O1 models with detailed token analytics
-
-## Testing
-
-Use the testing scripts to validate model connectivity:
-- `ai_test.py`: General API testing
-- `test_o1_models.py`: Specific testing for O1 model compatibility
-```
-
-## ToDo.md
-
-```
-check the chat.html and the chat_core.js file for things that are not neccesary anymore
-enable the model selection
 ```
 
 ## ai_chat.py
@@ -5584,6 +5997,116 @@ def delete_all_history():
         }), 500
 ```
 
+## __init__.py
+
+```
+# This file can be empty, it just marks the directory as a Python package
+```
+
+## ToDo.md
+
+```
+check the chat.html and the chat_core.js file for things that are not neccesary anymore
+enable the model selection
+```
+
+## Readme.md
+
+```
+# AI Chat System Documentation
+
+## Prerequisites
+
+- OpenAI API key or Anthropic API key required for operation
+- Set your API keys in the `.env` file
+
+## System Architecture
+
+### Backend Components (`/ai`)
+
+- `ai_chat.py`: Main chat blueprint and route handlers
+- `ai_llm_helper.py`: LLM integration and response processing
+- `ai_insert_models.py`: Database models initialization
+- `__init__.py`: Package initialization
+
+### Supported Models
+
+The system supports multiple AI providers:
+
+- **OpenAI**: GPT-3.5, GPT-4, and O1 models (o1-mini, o1-preview)
+- **Anthropic**: Claude models
+- **Together AI**: Various open-source models
+- **DeepSeek**: DeepSeek language models
+- **Perplexity**: Perplexity language models
+- **Azure OpenAI**: Microsoft-hosted OpenAI models
+
+#### O1 Model Support
+
+OpenAI O1 models are supported with some limitations:
+- **No system message support** - System messages are automatically converted to user messages
+- **No streaming support** - Responses are always processed in non-streaming mode
+- Content filtering results are captured
+- Detailed token usage information is available
+
+Important O1 model limitations:
+1. System messages are converted by prepending them to the first user message
+2. All requests use non-streaming mode regardless of the `stream` parameter
+
+To use O1 models, configure in model settings:
+```python
+model = {
+    "provider": "openai",
+    "model": "o1-mini"  # or other O1 models
+}
+```
+
+### Frontend Components
+
+#### Templates (`/templates/chat/`)
+
+- `chat.html`: Main chat interface layout
+- `chat_ui.html`: Chat UI components and structure
+- `chat_messages.html`: Message container template
+- `chat_messages_rendered.html`: Rendered messages view
+- `bot_message_template.html`: AI response formatting
+- `user_message_template.html`: User message formatting
+- `code_block_template.html`: Code snippet display
+- `chat_prompts.html`: System prompts management
+
+#### JavaScript (`/static/chat/`)
+
+- `chat_core.js`: Core chat functionality, HTMX interactions, and UI handlers
+
+## Database Integration
+
+- Chat models and schemas defined in `core/db_document.py`
+- Stores message history, prompts, and system configurations
+
+## Setup Instructions
+
+1. Configure your environment variables in `.env`
+2. Import the chat blueprint in `app.py`:
+   ```python
+   from ai.ai_chat import dms_chat
+   app.register_blueprint(dms_chat, url_prefix='/chat')
+   ```
+
+## Features
+
+- Real-time chat interface with AI models
+- Code snippet highlighting and formatting
+- Message history persistence
+- Custom prompt management
+- HTMX-powered dynamic updates
+- Support for OpenAI's O1 models with detailed token analytics
+
+## Testing
+
+Use the testing scripts to validate model connectivity:
+- `ai_test.py`: General API testing
+- `test_o1_models.py`: Specific testing for O1 model compatibility
+```
+
 ## ai_llm_helper.py
 
 ```
@@ -5831,44 +6354,6 @@ def llm_call(messages, model, stream=True):
     return llm_call_no_stream(messages, model)
 ```
 
-## ai_test.py
-
-```
-from dotenv import load_dotenv
-import os
-import sys
-
-# Add parent directory to Python path to find core module
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from ai.ai_llm_helper import llm_call
-from core.db_document import History, Prompt, File, Model, Example, User
-
-messages = [
-    {"role": "system", "content": "Du bist ein Experte für Geschichte. Antworte immer in deutscher Sprache."},
-    {"role": "user", "content": "Wer war Ada Lovelace?"}
-]
-
-#model = {'provider':'azure','model':'gpt-4o-sweden-02','name':'gpt-4o-sweden-02'}
-#model = {'provider':'openai','model':'gpt-4o-mini','name':'gpt-4o-mini'}
-#model = {'provider':'perplexity','model':'sonar-pro','name':'Perplexity - Sonar Reasoning Pro'}
-#model = {'provider':'anthropic','model':'claude-3-5-sonnet-20240620','name':'claude-3.5-sonnet'}
-model = {'provider':'azure','model':'o1-mini','name':'o1-mini'}
-
-#Stream response handling
-response = llm_call(messages, model)
-for chunk in response:
-    print(chunk)
-
-# History.objects().delete()
-# Prompt.objects().delete()
-# File.objects().delete()
-
-# user = User.objects(email='').first()
-# user.role = 'admin'
-# user.save()
-```
-
 ## ai_perplexity.py
 
 ```
@@ -5903,6 +6388,104 @@ headers = {
 response = requests.request("POST", url, json=payload, headers=headers)
 
 print(response.text)
+```
+
+## ai_insert_models.py
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import os
+import sys
+import datetime
+
+# Add parent directory to Python path to find core module
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from core.db_document import Model
+from core.db_connect import *
+
+models = [
+  # {'provider':'openai','model':'gpt-4o','name':'OpenAI - GPT-4o'},
+  # {'provider':'openai','model':'gpt-4o-mini','name':'OpenAI - GPT-4o Mini'},
+  {'provider':'azure','model':'gpt-4o-mini-sweden-02','name':'EU - Azure - GPT-4o Mini - Sweden', 'region':'EU','model_family':'gpt4o'},
+  {'provider':'azure','model':'gpt-4o-sweden-02','name':'EU - Azure - GPT-4o - Sweden', 'region':'EU','model_family':'gpt4o'},
+  {'provider':'azure','model':'o1-mini','name':'EU Azure - o1-mini Sweden', 'region':'EU','model_family':'o1'},
+  {'provider':'perplexity','model':'sonar-deep-research','name':'US - Perplexity - Sonar Deep Research', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar-reasoning-pro','name':'US - Perplexity - Sonar Reasoning Pro', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar-reasoning','name':'US - Perplexity - Sonar Reasoning', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar-pro','name':'US - Perplexity - Sonar Pro', 'region':'US','model_family':'sonar'},
+  {'provider':'perplexity','model':'sonar','name':'US - Perplexity - Sonar', 'region':'US','model_family':'sonar' },
+  {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1', 'region':'US','model_family':'deepseek'},
+ 
+  ]
+
+# Delete existing models
+Model.objects.delete()
+
+# Current timestamp for creation date
+now = datetime.datetime.now()
+
+# Insert models with only creation audit fields
+for model_data in models:
+    model = Model(
+        provider=model_data['provider'],
+        model=model_data['model'],
+        name=model_data['name'],
+        region=model_data['region'],
+        model_family=model_data['model_family'],
+        created_date=now,
+        created_by='system'
+    )
+    # Use save(force_insert=True) to ensure it's treated as a new document
+    model.save(force_insert=True)
+
+print("Models inserted successfully with creation audit fields.")
+```
+
+## ai_test.py
+
+```
+from dotenv import load_dotenv
+import os
+import sys
+
+# Add parent directory to Python path to find core module
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from ai.ai_llm_helper import llm_call
+from core.db_document import History, Prompt, File, Model, Example, User
+
+messages = [
+    {"role": "system", "content": "Du bist ein Experte für Geschichte. Antworte immer in deutscher Sprache."},
+    {"role": "user", "content": "Wer war Ada Lovelace?"}
+]
+
+# for model in Model.objects():
+#     print (model.to_json())
+
+#model = {'provider':'azure','model':'gpt-4o-mini-sweden-02','name':'EU - Azure - GPT-4o Mini - Sweden', 'region':'EU','model_family':'gpt4o'}
+#model = {'provider':'azure','model':'gpt-4o-sweden-02','name':'EU - Azure - GPT-4o - Sweden', 'region':'EU','model_family':'gpt4o'}
+#model = {'provider':'azure','model':'o1-mini','name':'EU Azure - o1-mini Sweden', 'region':'EU','model_family':'o1'}
+#model = {'provider':'perplexity','model':'sonar-deep-research','name':'US - Perplexity - Sonar Deep Research', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar-reasoning-pro','name':'US - Perplexity - Sonar Reasoning Pro', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar-reasoning','name':'US - Perplexity - Sonar Reasoning', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar-pro','name':'US - Perplexity - Sonar Pro', 'region':'US','model_family':'sonar'}
+#model = {'provider':'perplexity','model':'sonar','name':'US - Perplexity - Sonar', 'region':'US','model_family':'sonar'}
+model = {'provider':'perplexity','model':'r1-1776','name':'US - Perplexity - DeepSeek R1', 'region':'US','model_family':'deepseek'}
+
+#Stream response handling
+response = llm_call(messages, model)
+for chunk in response:
+    print(chunk)
+
+# History.objects().delete()
+# Prompt.objects().delete()
+# File.objects().delete()
+
+# user = User.objects(email='').first()
+# user.role = 'admin'
+# user.save()
 ```
 
 # config
@@ -5952,61 +6535,158 @@ print(response.text)
 }
 ```
 
-## chat/chat_core.js
+## chat/chat_markup.js
 
 ```
-let isInCodeBlock = false;
-let currentCodeElement = null;
-let stop_stream = false;
-let uploadedFilesCount = 0;
-let currentMessageAttachments = [];
-let displayedFileIds = new Set(); // Track which files we've already displayed
-
-function appendCodeBlock(container, codeContent) {
-  const codeElement = createCodeElement();
-  const preElement = codeElement.querySelector("pre");
-  const languageInfoElement = codeElement.querySelector(".language-info");
-
-  const lines = codeContent.split("\n");
-  const language = lines[0].trim();
-  const code = lines.slice(1).join("\n").trim();
-
-  if (language) {
-    languageInfoElement.textContent = language;
-  }
-  preElement.textContent = code;
-
-  container.appendChild(codeElement);
+function appendNormalText(container, text) {
+  const textNode = document.createTextNode(text);
+  container.appendChild(textNode);
 }
 
-function createCodeElement() {
-  const template = document.getElementById("code_template");
-  if (!template) {
-    console.error("Code template not found");
-    return document.createElement("div");
+function processInlineMarkdown(text) {
+  // Process blockquotes (now handled in appendNormalText for nesting support)
+  if (text.startsWith("> ")) {
+    return `<blockquote class="border-l-4 border-base-content/20 pl-4 py-2 my-2 italic text-base-content/70">${text.substring(2)}</blockquote>`;
   }
-  const codeElement = template.content
-    .cloneNode(true)
-    .querySelector(".flex.flex-col.w-full");
 
-  const copyButton = codeElement.querySelector(".copy-btn");
-  const copiedInfo = codeElement.querySelector(".copied");
-  const preElement = codeElement.querySelector("pre");
+  // Process inline code first (to avoid conflicts with other syntax)
+  text = text.replace(
+    /`([^`]+)`/g,
+    '<code class="bg-base-300 px-1 py-0.5 rounded text-sm font-mono">$1</code>',
+  );
 
-  copyButton.onclick = () => {
-    copiedInfo.classList.remove("hidden");
-    navigator.clipboard
-      .writeText(preElement.textContent)
-      .then(() => {
-        console.log("Text copied to clipboard");
-      })
-      .catch((err) => {
-        console.error("Failed to copy text:", err);
-      });
-    setTimeout(() => copiedInfo.classList.add("hidden"), 500);
-  };
+  // Process bold and italic
+  text = text.replace(
+    /\*\*([^*]+)\*\*/g,
+    '<strong class="font-bold">$1</strong>',
+  );
+  text = text.replace(/\*([^*]+)\*/g, '<em class="italic">$1</em>');
+  text = text.replace(/_([^_]+)_/g, '<em class="italic">$1</em>');
 
-  return codeElement;
+  // Process links
+  text = text.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">$1</a>',
+  );
+
+  // Process strikethrough
+  text = text.replace(/~~([^~]+)~~/, '<del class="line-through">$1</del>');
+
+  return text;
+}
+
+function appendImage(container, imageData) {
+  const img = document.createElement("img");
+  img.src = imageData.image_url.url;
+  img.className = "w-16 h-auto rounded-lg";
+  container.appendChild(img);
+}
+
+// Export the functions
+export { appendNormalText, processInlineMarkdown, appendImage };
+```
+
+## chat/chat_message_handler.js
+
+```
+import { appendNormalText, appendImage } from "./chat_markup.js";
+import { isInCodeBlock, appendCodeBlock } from "./chat_code_handler.js";
+
+function appendData(text, botMessageElement) {
+  // Clear any existing content
+  botMessageElement.innerHTML = "";
+
+  if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(botMessageElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(botMessageElement, item);
+      }
+    });
+    return;
+  }
+
+  // First handle code blocks
+  const codeRegex = /```([\s\S]*?)```/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = codeRegex.exec(text)) !== null) {
+    // Append text before code block
+    if (match.index > lastIndex) {
+      appendNormalText(botMessageElement, text.slice(lastIndex, match.index));
+    }
+
+    // Handle code block
+    const codeContent = match[1];
+    appendCodeBlock(botMessageElement, codeContent);
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Append any remaining text after the last code block
+  if (lastIndex < text.length) {
+    appendNormalText(botMessageElement, text.slice(lastIndex));
+  }
+}
+
+export { appendData };
+```
+
+## chat/chat_initialize.js
+
+```
+import { displayedFileIds, displayFileBanner } from "./chat_file_upload.js";
+import { appendNormalText, appendImage } from "./chat_markup.js";
+import { appendData } from "./chat_message_handler.js";
+import { scrollToBottom } from "./chat_utils.js";
+
+function addBotMessage(text) {
+  const template = document
+    .getElementById("bot-message-template")
+    .content.cloneNode(true);
+  const contentElement = template.querySelector(".content");
+
+  if (text == "...") {
+    contentElement.innerHTML =
+      '<span class="loading loading-dots loading-xs"></span>';
+  } else if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(contentElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(contentElement, item);
+      }
+    });
+  } else {
+    contentElement.textContent = text;
+  }
+
+  document.getElementById("chat_messages").appendChild(template);
+  return contentElement;
+}
+
+function addUserMessage(text) {
+  const template = document
+    .getElementById("user-message-template")
+    .content.cloneNode(true);
+  const contentElement = template.querySelector(".content");
+
+  if (typeof text === "object" && Array.isArray(text)) {
+    text.forEach((item) => {
+      if (item.type === "text") {
+        appendNormalText(contentElement, item.text);
+      } else if (item.type === "image_url") {
+        appendImage(contentElement, item);
+      }
+    });
+  } else {
+    contentElement.textContent = text;
+  }
+
+  document.getElementById("chat_messages").appendChild(template);
+  scrollToBottom();
 }
 
 function initChatMessages() {
@@ -6106,715 +6786,43 @@ if (document.readyState === "complete") {
   });
 }
 
-function appendImage(container, imageData) {
-  const img = document.createElement("img");
-  img.src = imageData.image_url.url;
-  img.className = "w-16 h-auto rounded-lg";
-  container.appendChild(img);
-}
+export { initChatMessages, addBotMessage, addUserMessage };
+```
 
-function appendData(text, botMessageElement) {
-  // Clear any existing content
-  botMessageElement.innerHTML = "";
+## chat/chat_event_handler.js
 
-  if (typeof text === "object" && Array.isArray(text)) {
-    text.forEach((item) => {
-      if (item.type === "text") {
-        appendNormalText(botMessageElement, item.text);
-      } else if (item.type === "image_url") {
-        appendImage(botMessageElement, item);
+```
+import { streamMessage } from "./chat_core.js";
+import { displayedFileIds } from "./chat_file_upload.js";
+
+function initializeEventHandlers() {
+  // Chat button click handler
+  document
+    .getElementById("chat_button")
+    .addEventListener("click", streamMessage);
+
+  // Chat input keydown handler for Cmd/Ctrl + Enter
+  document
+    .getElementById("chat_input")
+    .addEventListener("keydown", function (event) {
+      if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+        event.preventDefault();
+        streamMessage();
       }
     });
-    return;
-  }
 
-  // First handle code blocks
-  const codeRegex = /```([\s\S]*?)```/g;
-  let lastIndex = 0;
-  let match;
-
-  while ((match = codeRegex.exec(text)) !== null) {
-    // Append text before code block
-    if (match.index > lastIndex) {
-      appendNormalText(botMessageElement, text.slice(lastIndex, match.index));
-    }
-
-    // Handle code block
-    const codeContent = match[1];
-    appendCodeBlock(botMessageElement, codeContent);
-
-    lastIndex = match.index + match[0].length;
-  }
-
-  // Append any remaining text after the last code block
-  if (lastIndex < text.length) {
-    appendNormalText(botMessageElement, text.slice(lastIndex));
-  }
-}
-
-function saveChatData(messages) {
-  console.log("Saving chat data:");
-  console.log("- chat_started:", chat_started);
-  console.log("- messages:", JSON.stringify(messages, null, 2));
-
-  if (!chat_started) {
-    console.error("Missing required data for saving chat:");
-    console.error("- chat_started:", chat_started);
-    return Promise.reject(new Error("Missing required data for saving chat"));
-  }
-
-  // Get CSRF token from meta tag
-  const csrfToken = document
-    .querySelector('meta[name="csrf-token"]')
-    .getAttribute("content");
-
-  // Create FormData
-  const formData = new FormData();
-  formData.append("chat_started", chat_started);
-  formData.append("messages", JSON.stringify(messages));
-
-  // Send POST request to save chat
-  return fetch("/chat/save_chat", {
-    method: "POST",
-    headers: {
-      "X-CSRFToken": csrfToken,
-    },
-    body: formData,
-    credentials: "same-origin",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.error(
-          "Save chat response not OK:",
-          response.status,
-          response.statusText,
-        );
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then((data) => {
-      console.log("Chat saved successfully. Server response:", data);
-      return data;
-    })
-    .catch((error) => {
-      console.error("Error saving chat:", error);
-      throw error;
+  // Reset button click handler
+  document
+    .getElementById("reset_button")
+    .addEventListener("click", function () {
+      displayedFileIds.clear();
+      window.location.href = "/chat";
     });
-}
 
-async function stopStreaming() {
-  // Set the flag to true to stop streaming
-  stop_stream = true;
-}
-
-function appendNormalText(container, text) {
-  // Split text into lines to process each line separately
-  const lines = text.split("\n");
-  let inList = false;
-  let listElement = null;
-  let inTable = false;
-  let tableElement = null;
-  let tableHeader = false;
-
-  // New structure for managing lists
-  const listContext = {
-    lists: [], // Stack of list elements
-    indentLevels: [], // Corresponding indent levels
-  };
-
-  lines.forEach((line, index) => {
-    // Check for horizontal rule
-    if (line.match(/^[\-*_]{3,}$/)) {
-      // End any open lists
-      if (inList) {
-        inList = false;
-      }
-      if (inTable) {
-        container.appendChild(tableElement);
-        inTable = false;
-      }
-      const hr = document.createElement("hr");
-      hr.className = "my-4 border-t-2 border-base-content/20";
-      container.appendChild(hr);
-      return;
-    }
-
-    // Check for table
-    const tableMatch = line.match(/^\|(.+)\|$/);
-    if (tableMatch) {
-      const cells = tableMatch[1].split("|").map((cell) => cell.trim());
-
-      if (!inTable) {
-        tableElement = document.createElement("table");
-        tableElement.className =
-          "min-w-full my-4 border-collapse border border-base-content/20";
-        inTable = true;
-        tableHeader = true;
-      }
-
-      const row = document
-        .createElement(tableHeader ? "thead" : "tbody")
-        .appendChild(document.createElement("tr"));
-      row.className = tableHeader ? "bg-base-200" : "";
-
-      cells.forEach((cell) => {
-        const td = document.createElement(tableHeader ? "th" : "td");
-        td.className = "border border-base-content/20 px-4 py-2 text-left";
-        td.innerHTML = processInlineMarkdown(cell);
-        row.appendChild(td);
-      });
-
-      if (tableHeader) {
-        tableElement.appendChild(row.parentElement);
-        tableHeader = false;
-      } else {
-        tableElement.appendChild(row.parentElement);
-      }
-      return;
-    } else if (inTable) {
-      container.appendChild(tableElement);
-      inTable = false;
-    }
-
-    // Check for heading patterns
-    const h1Match = line.match(/^# (.*)/);
-    const h2Match = line.match(/^## (.*)/);
-    const h3Match = line.match(/^### (.*)/);
-
-    // Check for list patterns
-    const indentedListMatch = line.match(/^(\s+)([\*\-]|\d+\.)\s+(.*)/);
-    const ulMatch = line.match(/^[\*\-] (.*)/);
-    const olMatch = line.match(/^(\d+)\. (.*)/);
-    const taskMatch = line.match(/^[\*\-] \[([ x])\] (.*)/);
-    const nestedQuoteMatch = line.match(/^>+ (.*)/);
-
-    if (nestedQuoteMatch) {
-      // End any open lists
-      if (listContext.lists.length > 0) {
-        cleanupLists(container, listContext);
-      }
-
-      const quoteDepth = line.match(/^>+/)[0].length;
-      const blockquote = document.createElement("blockquote");
-      // Reduced spacing for blockquotes
-      blockquote.className = `border-l-4 pl-4 py-2 my-2 ml-${(quoteDepth - 1) * 4}`;
-
-      // Adjust styling based on nesting level
-      switch (quoteDepth) {
-        case 1:
-          blockquote.classList.add(
-            "border-primary/50",
-            "text-base-content",
-            "bg-base-200",
-          );
-          break;
-        case 2:
-          blockquote.classList.add(
-            "border-secondary/50",
-            "text-base-content",
-            "bg-base-200/70",
-          );
-          break;
-        case 3:
-          blockquote.classList.add(
-            "border-accent/50",
-            "text-base-content",
-            "bg-base-300",
-          );
-          break;
-        default:
-          blockquote.classList.add(
-            "border-base-content/30",
-            "text-base-content",
-            "bg-base-300",
-          );
-      }
-
-      blockquote.innerHTML = processInlineMarkdown(nestedQuoteMatch[1]);
-      container.appendChild(blockquote);
-    } else if (h1Match || h2Match || h3Match) {
-      // End any open lists
-      if (listContext.lists.length > 0) {
-        cleanupLists(container, listContext);
-      }
-
-      // Handle headings (existing code)
-      if (h1Match) {
-        const h1 = document.createElement("h1");
-        h1.className = "text-2xl font-bold mt-1 mb-3 text-base-content";
-        h1.innerHTML = processInlineMarkdown(h1Match[1]);
-        container.appendChild(h1);
-      } else if (h2Match) {
-        const h2 = document.createElement("h2");
-        h2.className = "text-xl font-bold mt-1 mb-1 text-base-content";
-        h2.innerHTML = processInlineMarkdown(h2Match[1]);
-        container.appendChild(h2);
-      } else if (h3Match) {
-        const h3 = document.createElement("h3");
-        h3.className = "text-lg font-bold mt-1 mb-1 text-base-content";
-        h3.innerHTML = processInlineMarkdown(h3Match[1]);
-        container.appendChild(h3);
-      }
-    } else if (indentedListMatch || ulMatch || olMatch) {
-      // Process any type of list item (indented or not)
-      let indentation = 0;
-      let listMarker = "";
-      let content = "";
-      let isIndented = false;
-
-      if (indentedListMatch) {
-        indentation = indentedListMatch[1].length;
-        listMarker = indentedListMatch[2];
-        content = indentedListMatch[3];
-        isIndented = true;
-      } else if (ulMatch) {
-        listMarker = "*";
-        content = ulMatch[1];
-      } else if (olMatch) {
-        listMarker = olMatch[1] + ".";
-        content = olMatch[2];
-      }
-
-      const isOrdered = listMarker.includes(".");
-      const listType = isOrdered ? "ol" : "ul";
-
-      // Handle list nesting
-      processListItem(container, listContext, {
-        indentation,
-        listType,
-        content,
-        listMarker,
-        isIndented,
-      });
-
-      inList = true;
-    } else if (taskMatch) {
-      // Clean up any lists with different indentation
-      while (
-        listContext.lists.length > 0 &&
-        listContext.lists[listContext.lists.length - 1].tagName !== "UL"
-      ) {
-        listContext.lists.pop();
-        listContext.indentLevels.pop();
-      }
-
-      // Create UL if needed
-      if (listContext.lists.length === 0) {
-        const ul = document.createElement("ul");
-        ul.className = "mb-2";
-        container.appendChild(ul);
-        listContext.lists.push(ul);
-        listContext.indentLevels.push(0);
-      }
-
-      // Create the task list item
-      const li = document.createElement("li");
-      li.className = "text-base-content mb-1 flex items-center";
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = taskMatch[1] === "x";
-      checkbox.disabled = true;
-      checkbox.className = "mr-2";
-      li.appendChild(checkbox);
-      const textSpan = document.createElement("span");
-      textSpan.innerHTML = processInlineMarkdown(taskMatch[2]);
-      li.appendChild(textSpan);
-
-      // Add to the current list
-      listContext.lists[listContext.lists.length - 1].appendChild(li);
-
-      inList = true;
-    } else {
-      // Handle non-list content - clean up any open lists
-      if (listContext.lists.length > 0) {
-        cleanupLists(container, listContext);
-      }
-
-      if (line === "") {
-        const spacer = document.createElement("div");
-        spacer.className = "h-1"; // Reduced empty line height
-        container.appendChild(spacer);
-      } else {
-        const p = document.createElement("p");
-        p.className = "mb-1 text-base-content"; // Reduced margin
-        p.innerHTML = processInlineMarkdown(line);
-        container.appendChild(p);
-      }
-
-      inList = false;
-    }
-  });
-
-  // Clean up any remaining lists
-  if (listContext.lists.length > 0) {
-    cleanupLists(container, listContext);
-  }
-
-  // Clean up any remaining table
-  if (inTable) {
-    container.appendChild(tableElement);
-  }
-
-  // Remove the last margin-bottom from the last element if it has one
-  const lastElement = container.lastElementChild;
-  if (lastElement) {
-    lastElement.classList.remove("mb-0.5", "mb-1", "mb-2");
-  }
-}
-
-// Helper function to clean up any open lists
-function cleanupLists(container, listContext) {
-  if (listContext.lists.length > 0) {
-    container.appendChild(listContext.lists[0]);
-    listContext.lists = [];
-    listContext.indentLevels = [];
-  }
-}
-
-// Helper function to process a list item and handle nesting properly
-function processListItem(container, listContext, item) {
-  const { indentation, listType, content, listMarker, isIndented } = item;
-
-  // Adjust the list stack based on indentation
-  if (isIndented) {
-    // Remove lists at greater indentation levels
-    while (
-      listContext.lists.length > 0 &&
-      listContext.indentLevels[listContext.indentLevels.length - 1] >=
-        indentation
-    ) {
-      listContext.lists.pop();
-      listContext.indentLevels.pop();
-    }
-  } else {
-    // For non-indented items, clear lists and create a new top-level list
-    listContext.lists = [];
-    listContext.indentLevels = [];
-  }
-
-  // Create list item
-  const li = document.createElement("li");
-  li.className = "text-base-content mb-0.5";
-
-  // Add bullet or number
-  if (listType === "ul") {
-    const bulletPoint = document.createElement("span");
-    bulletPoint.className = "inline-block w-4";
-    bulletPoint.textContent = "•";
-    li.appendChild(bulletPoint);
-  } else {
-    const numberPoint = document.createElement("span");
-    numberPoint.className = "inline-block w-4";
-    const num = listMarker.replace(".", "");
-    numberPoint.textContent = num + ".";
-    if (parseInt(num)) {
-      li.value = parseInt(num);
-    }
-    li.appendChild(numberPoint);
-  }
-
-  // Add content
-  const textSpan = document.createElement("span");
-  textSpan.innerHTML = processInlineMarkdown(content);
-  li.appendChild(textSpan);
-
-  // Find or create the appropriate list
-  let parentList;
-
-  if (listContext.lists.length === 0) {
-    // Create a new top-level list
-    parentList = document.createElement(listType);
-    parentList.className = "mb-2";
-
-    if (isIndented) {
-      // This is an indented item without a parent - rare case
-      container.appendChild(parentList);
-    } else {
-      // Normal top-level list
-      container.appendChild(parentList);
-    }
-
-    listContext.lists.push(parentList);
-    listContext.indentLevels.push(indentation);
-  } else {
-    // Get the current deepest list
-    const currentList = listContext.lists[listContext.lists.length - 1];
-
-    if (isIndented) {
-      // This is a nested list item - create a new list inside the last list item
-      const parentLi = currentList.lastElementChild;
-
-      // Check if parent already has a list of this type
-      let nestedList = null;
-      if (parentLi) {
-        for (let i = 0; i < parentLi.children.length; i++) {
-          const child = parentLi.children[i];
-          if (child.tagName && child.tagName.toLowerCase() === listType) {
-            nestedList = child;
-            break;
-          }
-        }
-      }
-
-      if (!nestedList && parentLi) {
-        // Create a new nested list
-        nestedList = document.createElement(listType);
-        nestedList.className = "ml-6 mt-1 pl-2 border-l border-base-content/20";
-        parentLi.appendChild(nestedList);
-      }
-
-      parentList = nestedList || currentList;
-
-      if (nestedList) {
-        // Add the new list to our context
-        listContext.lists.push(nestedList);
-        listContext.indentLevels.push(indentation);
-      }
-    } else {
-      // This is a new item at the same level as the current list
-      parentList = currentList;
-    }
-  }
-
-  // Add the list item to the appropriate list
-  if (parentList) {
-    parentList.appendChild(li);
-  }
-}
-
-function processInlineMarkdown(text) {
-  // Process blockquotes (now handled in appendNormalText for nesting support)
-  if (text.startsWith("> ")) {
-    return `<blockquote class="border-l-4 border-base-content/20 pl-4 py-2 my-2 italic text-base-content/70">${text.substring(2)}</blockquote>`;
-  }
-
-  // Process inline code first (to avoid conflicts with other syntax)
-  text = text.replace(
-    /`([^`]+)`/g,
-    '<code class="bg-base-300 px-1 py-0.5 rounded text-sm font-mono">$1</code>',
-  );
-
-  // Process bold and italic
-  text = text.replace(
-    /\*\*([^*]+)\*\*/g,
-    '<strong class="font-bold">$1</strong>',
-  );
-  text = text.replace(/\*([^*]+)\*/g, '<em class="italic">$1</em>');
-  text = text.replace(/_([^_]+)_/g, '<em class="italic">$1</em>');
-
-  // Process links
-  text = text.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">$1</a>',
-  );
-
-  // Process strikethrough
-  text = text.replace(/~~([^~]+)~~/, '<del class="line-through">$1</del>');
-
-  return text;
-}
-
-function appendCodeText(container, text) {
-  // Get the template and clone its content
-  const template = document
-    .getElementById("code_template")
-    .content.cloneNode(true);
-
-  const lines = text.split("\n");
-  const language = lines[0].trim(); // Get the language info from the first line
-  console.log(`Code block language: ${language}`); // Log the language info
-
-  // Remove the first line (language info) and join the rest back into a single string
-  const codeWithoutLanguageInfo = lines.slice(1).join("\n").trim();
-
-  // Set the text content of the pre element
-  const preElement = template.querySelector("pre");
-  preElement.textContent = codeWithoutLanguageInfo;
-
-  // Append the filled template to the specified container
-  const importedNode = document.importNode(template, true);
-
-  if (language) {
-    // Check if the language string is not empty
-    const languageInfoElement = importedNode.querySelector(".language-info");
-    languageInfoElement.textContent = `${language}`; // Set the language info
-  }
-
-  // IMPORTANT: Add the event listener to the COPY button of this specific instance BEFORE appending to the container
-  const copyButton = importedNode.querySelector(".copy-btn");
-  const copiedInfo = importedNode.querySelector(".copied");
-  copyButton.onclick = (event) => {
-    // It's better to use onclick here to avoid multiple bindings
-    copiedInfo.classList.remove("hidden");
-    navigator.clipboard
-      .writeText(preElement.textContent)
-      .then(() => {
-        console.log("Text copied to clipboard");
-      })
-      .catch((err) => {
-        console.error("Failed to copy text:", err);
-      });
-    setTimeout(function () {
-      copiedInfo.classList.add("hidden");
-    }, 500);
-  };
-
-  container.appendChild(importedNode);
-}
-
-async function streamMessage() {
-  const chatInput = document.getElementById("chat_input");
-  const userMessage = chatInput.value.trim();
-  const csrfToken = document
-    .querySelector('meta[name="csrf-token"]')
-    .getAttribute("content");
-
-  if (userMessage !== "") {
-    // Remove prompts div if it exists
-    const promptsDiv = document.getElementById("prompts");
-    if (promptsDiv) promptsDiv.remove();
-
-    // Create message object with attachments
-    const messageObj = {
-      role: "user",
-      content: userMessage,
-    };
-
-    console.log("Current messages array before adding user message:", messages);
-
-    messages.push(messageObj);
-    addUserMessage(userMessage); // Display the user message in the chat
-    chatInput.value = ""; // Clear the input field after sending the message
-
-    // Save chat immediately after adding user message
-    try {
-      await saveChatData(messages);
-      console.log("Chat saved after user message");
-    } catch (error) {
-      console.error("Failed to save chat after user message:", error);
-    }
-
-    toggleButtonVisibility();
-    stop_stream = false;
-    chatInput.readOnly = true;
-
-    // Instantly add a bot message template to be filled with streamed content
-    const botMessageElement = addBotMessage("..."); // Initially empty
-    let accumulatedResponse = ""; // Variable to accumulate the streamed response
-
-    try {
-      let current_model = models[0];
-      for (let i = 0; i < models.length; i++) {
-        if (selected_model == models[i]["model"]) {
-          current_model = models[i];
-        }
-      }
-      const response = await fetch("/chat/stream", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
-        },
-        body: JSON.stringify({ messages: messages, model: current_model }),
-      });
-
-      if (!response.body) {
-        throw new Error("Failed to get a readable stream from the response");
-      }
-
-      const reader = response.body.getReader();
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done || stop_stream) {
-          const stopIndexAccumulated =
-            accumulatedResponse.indexOf("###STOP###");
-          if (stopIndexAccumulated !== -1) {
-            accumulatedResponse = accumulatedResponse.substring(
-              0,
-              stopIndexAccumulated,
-            );
-          }
-          botMessageElement.innerHTML = "";
-          appendData(accumulatedResponse, botMessageElement);
-          messages.push({ role: "assistant", content: accumulatedResponse });
-
-          console.log(
-            "Current messages array before saving after AI response:",
-            messages,
-          );
-
-          // Save chat after AI response
-          try {
-            await saveChatData(messages);
-            console.log("Chat saved after AI response");
-          } catch (error) {
-            console.error("Failed to save chat after AI response:", error);
-          }
-
-          toggleButtonVisibility();
-          chatInput.readOnly = false;
-          break;
-        }
-
-        const text = new TextDecoder().decode(value);
-        const stopIndex = text.indexOf("###STOP###");
-
-        if (stopIndex !== -1) {
-          accumulatedResponse += text.substring(0, stopIndex);
-          botMessageElement.innerHTML = "";
-          appendData(accumulatedResponse, botMessageElement);
-          messages.push({ role: "assistant", content: accumulatedResponse });
-
-          console.log(
-            "Current messages array before saving after AI response:",
-            messages,
-          );
-
-          // Save chat after AI response
-          try {
-            await saveChatData(messages);
-            console.log("Chat saved after AI response");
-          } catch (error) {
-            console.error("Failed to save chat after AI response:", error);
-          }
-
-          toggleButtonVisibility();
-          chatInput.readOnly = false;
-          break;
-        } else {
-          accumulatedResponse += text;
-          botMessageElement.innerHTML = "";
-          appendData(accumulatedResponse, botMessageElement);
-          scrollToBottom();
-        }
-      }
-    } catch (error) {
-      console.error("Streaming failed:", error);
-      botMessageElement.textContent = `Error occurred: ${error.message}`;
-      messages.push({
-        role: "assistant",
-        content: `Error occurred: ${error.message}`,
-      });
-
-      console.log(
-        "Current messages array before saving after error:",
-        messages,
-      );
-
-      // Save chat after error
-      try {
-        await saveChatData(messages);
-        console.log("Chat saved after error");
-      } catch (saveError) {
-        console.error("Failed to save chat after error:", saveError);
-      }
-
-      toggleButtonVisibility();
-      chatInput.readOnly = false;
-    }
-  }
+  // Stop button click handler
+  document
+    .getElementById("stop_button")
+    .addEventListener("click", stopStreaming);
 }
 
 function toggleButtonVisibility() {
@@ -6825,151 +6833,31 @@ function toggleButtonVisibility() {
   stopButton.classList.toggle("hidden");
 }
 
-function addBotMessage(text) {
-  const template = document
-    .getElementById("bot-message-template")
-    .content.cloneNode(true);
-  const contentElement = template.querySelector(".content");
-  const copyButton = template.querySelector(".copy-btn");
-  const copyIcon = copyButton.querySelector(".copy-icon");
-  const checkIcon = copyButton.querySelector(".check-icon");
-  const copyText = copyButton.querySelector(".copy-text");
-  const checkText = copyButton.querySelector(".check-text");
-
-  if (text == "...") {
-    contentElement.innerHTML =
-      '<span class="loading loading-dots loading-xs"></span>';
-  } else if (typeof text === "object" && Array.isArray(text)) {
-    text.forEach((item) => {
-      if (item.type === "text") {
-        appendNormalText(contentElement, item.text);
-      } else if (item.type === "image_url") {
-        appendImage(contentElement, item);
-      }
-    });
-  } else {
-    contentElement.textContent = text;
-  }
-
-  // Add copy functionality
-  copyButton.addEventListener("click", async () => {
-    // Create a temporary div to handle HTML content
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = contentElement.innerHTML;
-
-    // Remove any loading indicators if present
-    const loadingElements = tempDiv.getElementsByClassName("loading");
-    while (loadingElements.length > 0) {
-      loadingElements[0].remove();
-    }
-
-    // Function to inline Tailwind styles
-    function inlineStyles(element) {
-      const styles = window.getComputedStyle(element);
-      const inlineStyle = {};
-      for (let prop of styles) {
-        inlineStyle[prop] = styles.getPropertyValue(prop);
-      }
-      element.style.cssText = Object.entries(inlineStyle)
-        .map(([prop, value]) => `${prop}: ${value}`)
-        .join("; ");
-
-      // Process children
-      Array.from(element.children).forEach((child) => inlineStyles(child));
-    }
-
-    // Clone the content and inline styles
-    const clonedContent = contentElement.cloneNode(true);
-    document.body.appendChild(clonedContent);
-    inlineStyles(clonedContent);
-    const styledHTML = clonedContent.outerHTML;
-    document.body.removeChild(clonedContent);
-
-    try {
-      // Create a Blob with HTML content
-      const blob = new Blob([styledHTML], { type: "text/html" });
-      const plainText = contentElement.textContent;
-
-      // Create clipboard data with both formats
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          "text/html": blob,
-          "text/plain": new Blob([plainText], { type: "text/plain" }),
-        }),
-      ]);
-
-      // Visual feedback
-      copyIcon.classList.add("hidden");
-      checkIcon.classList.remove("hidden");
-      copyText.classList.add("hidden");
-      checkText.classList.remove("hidden");
-      copyButton.classList.add("text-success", "bg-success/10");
-
-      // Reset after 2 seconds
-      setTimeout(() => {
-        copyIcon.classList.remove("hidden");
-        checkIcon.classList.add("hidden");
-        copyText.classList.remove("hidden");
-        checkText.classList.add("hidden");
-        copyButton.classList.remove("text-success", "bg-success/10");
-      }, 2000);
-    } catch (err) {
-      console.error("Failed to copy formatted content:", err);
-      // Fallback to plain text
-      navigator.clipboard.writeText(contentElement.textContent);
-    }
-  });
-
-  document.getElementById("chat_messages").appendChild(template);
-  return contentElement;
+async function stopStreaming() {
+  window.stop_stream = true;
 }
 
-function addUserMessage(text) {
-  const template = document
-    .getElementById("user-message-template")
-    .content.cloneNode(true);
-  const contentElement = template.querySelector(".content");
+export { initializeEventHandlers, toggleButtonVisibility, stopStreaming };
+```
 
-  if (typeof text === "object" && Array.isArray(text)) {
-    text.forEach((item) => {
-      if (item.type === "text") {
-        appendNormalText(contentElement, item.text);
-      } else if (item.type === "image_url") {
-        appendImage(contentElement, item);
-      }
-    });
-  } else {
-    contentElement.textContent = text;
-  }
+## chat/chat_utils.js
 
-  document.getElementById("chat_messages").appendChild(template);
-  scrollToBottom();
-}
-
+```
 function scrollToBottom() {
   setTimeout(() => {
     const chatMessages = document.getElementById("chat_messages");
     chatMessages.scrollTop = chatMessages.scrollHeight;
-  }, 0); // Verzögerung von 0 ms, was den Effekt hat, die Ausführung bis nach dem Rendering zu verzögern
+  }, 0);
 }
 
-document.getElementById("chat_button").addEventListener("click", streamMessage);
+export { scrollToBottom };
+```
 
-document
-  .getElementById("chat_input")
-  .addEventListener("keydown", function (event) {
-    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
-      event.preventDefault();
-      streamMessage();
-    }
-  });
+## chat/chat_file_upload.js
 
-document.getElementById("reset_button").addEventListener("click", function () {
-  displayedFileIds.clear();
-  window.location.href = "/chat";
-});
-
-document.getElementById("stop_button").addEventListener("click", stopStreaming);
+```
+let uploadedFilesCount = 0;
+let displayedFileIds = new Set();
 
 function createFileBanner(fileName, fileId) {
   // If we've already displayed this file, don't create another banner
@@ -7010,6 +6898,9 @@ function displayFileBanner(fileName, fileId, chatMessages) {
   }
   return null;
 }
+
+// Export the functions and Set
+export { displayedFileIds, createFileBanner, displayFileBanner };
 
 document
   .getElementById("file-upload")
@@ -7104,5 +6995,499 @@ document
         "Upload error: " + error.message;
     }
   });
+```
+
+## chat/chat_code_handler.js
+
+```
+let isInCodeBlock = false;
+let currentCodeElement = null;
+let accumulatedCode = "";
+let codeLanguage = "";
+
+function resetCodeBlockState() {
+  isInCodeBlock = false;
+  currentCodeElement = null;
+  accumulatedCode = "";
+  codeLanguage = "";
+}
+
+function setIsInCodeBlock(value) {
+  console.log(`Code block state changed: ${!isInCodeBlock} -> ${value}`);
+  if (value) {
+    console.log("Code block started - detected opening backticks");
+  } else {
+    console.log("Code block ended - detected closing backticks");
+  }
+  isInCodeBlock = value;
+}
+
+function setCurrentCodeElement(value) {
+  console.log("Setting current code element:", value ? "new element" : "null");
+  currentCodeElement = value;
+}
+
+function setAccumulatedCode(value) {
+  const newChunk = value.substring(accumulatedCode.length);
+  console.log("New chunk:", JSON.stringify(newChunk));
+
+  // Check for code block markers in the new chunk
+  if (newChunk.includes("```")) {
+    console.log("Found backticks in chunk, current state:", isInCodeBlock);
+    // Count occurrences of ``` in the chunk
+    const matches = newChunk.match(/```/g);
+    if (matches) {
+      console.log("Number of backtick groups found:", matches.length);
+    }
+  }
+
+  accumulatedCode = value;
+}
+
+function setCodeLanguage(value) {
+  console.log("Setting code language:", value || "none");
+  codeLanguage = value;
+}
+
+function appendCodeText(container, text) {
+  // Get the template and clone its content
+  const template = document
+    .getElementById("code_template")
+    .content.cloneNode(true);
+
+  const lines = text.split("\n");
+  const language = lines[0].trim(); // Get the language info from the first line
+  console.log(`Code block language: ${language}`); // Log the language info
+
+  // Remove the first line (language info) and join the rest back into a single string
+  const codeWithoutLanguageInfo = lines.slice(1).join("\n").trim();
+
+  // Set the text content of the pre element
+  const preElement = template.querySelector("pre");
+  preElement.textContent = codeWithoutLanguageInfo;
+
+  // Append the filled template to the specified container
+  const importedNode = document.importNode(template, true);
+
+  if (language) {
+    // Check if the language string is not empty
+    const languageInfoElement = importedNode.querySelector(".language-info");
+    languageInfoElement.textContent = `${language}`; // Set the language info
+  }
+
+  // IMPORTANT: Add the event listener to the COPY button of this specific instance BEFORE appending to the container
+  const copyButton = importedNode.querySelector(".copy-btn");
+  const copiedInfo = importedNode.querySelector(".copied");
+  copyButton.onclick = (event) => {
+    // It's better to use onclick here to avoid multiple bindings
+    copiedInfo.classList.remove("hidden");
+    navigator.clipboard
+      .writeText(preElement.textContent)
+      .then(() => {
+        console.log("Text copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text:", err);
+      });
+    setTimeout(function () {
+      copiedInfo.classList.add("hidden");
+    }, 500);
+  };
+
+  container.appendChild(importedNode);
+}
+
+function appendCodeBlock(container, codeContent) {
+  const codeElement = createCodeElement();
+  const preElement = codeElement.querySelector("pre");
+  const languageInfoElement = codeElement.querySelector(".language-info");
+
+  const lines = codeContent.split("\n");
+  const language = lines[0].trim();
+  const code = lines.slice(1).join("\n").trim();
+
+  if (language) {
+    languageInfoElement.textContent = language;
+  }
+  preElement.textContent = code;
+
+  container.appendChild(codeElement);
+}
+
+function createCodeElement() {
+  const template = document.getElementById("code_template");
+  if (!template) {
+    console.error("Code template not found");
+    return document.createElement("div");
+  }
+  const codeElement = template.content
+    .cloneNode(true)
+    .querySelector(".flex.flex-col.w-full");
+
+  const copyButton = codeElement.querySelector(".copy-btn");
+  const copiedInfo = codeElement.querySelector(".copied");
+  const preElement = codeElement.querySelector("pre");
+
+  copyButton.onclick = () => {
+    copiedInfo.classList.remove("hidden");
+    navigator.clipboard
+      .writeText(preElement.textContent)
+      .then(() => {
+        console.log("Text copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text:", err);
+      });
+    setTimeout(() => copiedInfo.classList.add("hidden"), 500);
+  };
+
+  return codeElement;
+}
+
+// Export the variables and functions so they can be used in other files
+export {
+  isInCodeBlock,
+  currentCodeElement,
+  accumulatedCode,
+  codeLanguage,
+  appendCodeBlock,
+  appendCodeText,
+  createCodeElement,
+  resetCodeBlockState,
+  setIsInCodeBlock,
+  setCurrentCodeElement,
+  setAccumulatedCode,
+  setCodeLanguage,
+};
+```
+
+## chat/chat_save.js
+
+```
+function saveChatData(messages) {
+  console.log("Saving chat data:");
+  console.log("- chat_started:", chat_started);
+  console.log("- messages:", JSON.stringify(messages, null, 2));
+
+  if (!chat_started) {
+    console.error("Missing required data for saving chat:");
+    console.error("- chat_started:", chat_started);
+    return Promise.reject(new Error("Missing required data for saving chat"));
+  }
+
+  // Get CSRF token from meta tag
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute("content");
+
+  // Create FormData
+  const formData = new FormData();
+  formData.append("chat_started", chat_started);
+  formData.append("messages", JSON.stringify(messages));
+
+  // Send POST request to save chat
+  return fetch("/chat/save_chat", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": csrfToken,
+    },
+    body: formData,
+    credentials: "same-origin",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.error(
+          "Save chat response not OK:",
+          response.status,
+          response.statusText,
+        );
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then((data) => {
+      console.log("Chat saved successfully. Server response:", data);
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error saving chat:", error);
+      throw error;
+    });
+}
+
+export { saveChatData };
+```
+
+## chat/chat_stream_handler.js
+
+```
+import {
+  isInCodeBlock,
+  currentCodeElement,
+  accumulatedCode,
+  codeLanguage,
+  createCodeElement,
+  resetCodeBlockState,
+  setIsInCodeBlock,
+  setCurrentCodeElement,
+  setAccumulatedCode,
+  setCodeLanguage,
+} from "./chat_code_handler.js";
+
+import { appendNormalText } from "./chat_markup.js";
+import { saveChatData } from "./chat_save.js";
+import { scrollToBottom } from "./chat_utils.js";
+import { toggleButtonVisibility } from "./chat_event_handler.js";
+
+async function handleStream(response, botMessageElement, messages) {
+  if (!response.body) {
+    throw new Error("Failed to get a readable stream from the response");
+  }
+
+  const reader = response.body.getReader();
+  let accumulatedResponse = "";
+  let textContainer = document.createElement("div");
+  textContainer.className = "w-full";
+  let currentTextBuffer = "";
+  botMessageElement.appendChild(textContainer);
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done || window.stop_stream) {
+      const stopIndexAccumulated = accumulatedResponse.indexOf("###STOP###");
+      if (stopIndexAccumulated !== -1) {
+        accumulatedResponse = accumulatedResponse.substring(
+          0,
+          stopIndexAccumulated,
+        );
+      }
+
+      // Flush any remaining text
+      if (currentTextBuffer.trim().length > 0) {
+        appendNormalText(textContainer, currentTextBuffer);
+      }
+
+      // Close any open code block
+      if (isInCodeBlock) {
+        setIsInCodeBlock(false);
+        setCurrentCodeElement(null);
+      }
+
+      messages.push({ role: "assistant", content: accumulatedResponse });
+      saveChatData(messages);
+      return accumulatedResponse;
+    }
+
+    const text = new TextDecoder().decode(value);
+    const stopIndex = text.indexOf("###STOP###");
+    const textToProcess =
+      stopIndex !== -1 ? text.substring(0, stopIndex) : text;
+    accumulatedResponse += textToProcess;
+
+    // Process the streamed text
+    let remainingText = textToProcess;
+
+    while (remainingText.length > 0) {
+      if (isInCodeBlock) {
+        const endCodeIndex = remainingText.indexOf("```");
+
+        if (endCodeIndex !== -1) {
+          // Found end of code block
+          setAccumulatedCode(remainingText.substring(0, endCodeIndex));
+          if (currentCodeElement && currentCodeElement.querySelector("pre")) {
+            currentCodeElement.querySelector("pre").textContent =
+              accumulatedCode;
+          }
+          setIsInCodeBlock(false);
+          setCurrentCodeElement(null);
+          setAccumulatedCode("");
+          setCodeLanguage("");
+
+          // Create new text container for content after code block
+          textContainer = document.createElement("div");
+          textContainer.className = "w-full";
+          botMessageElement.appendChild(textContainer);
+          currentTextBuffer = "";
+
+          remainingText = remainingText.substring(endCodeIndex + 3);
+        } else {
+          // Still in code block
+          setAccumulatedCode(accumulatedCode + remainingText);
+          if (currentCodeElement && currentCodeElement.querySelector("pre")) {
+            currentCodeElement.querySelector("pre").textContent =
+              accumulatedCode;
+          }
+          remainingText = "";
+        }
+      } else {
+        const startCodeIndex = remainingText.indexOf("```");
+
+        if (startCodeIndex !== -1) {
+          // Found start of code block
+          if (startCodeIndex > 0) {
+            // Add text before code block
+            currentTextBuffer += remainingText.substring(0, startCodeIndex);
+            appendNormalText(textContainer, currentTextBuffer);
+
+            // Create new text container for after code block
+            textContainer = document.createElement("div");
+            textContainer.className = "w-full";
+            botMessageElement.appendChild(textContainer);
+            currentTextBuffer = "";
+          }
+
+          setIsInCodeBlock(true);
+          const restOfText = remainingText.substring(startCodeIndex + 3);
+          const lineEndIndex = restOfText.indexOf("\n");
+
+          if (lineEndIndex !== -1) {
+            setCodeLanguage(restOfText.substring(0, lineEndIndex).trim());
+            remainingText = restOfText.substring(lineEndIndex + 1);
+          } else {
+            setCodeLanguage(restOfText.trim());
+            remainingText = "";
+          }
+
+          setCurrentCodeElement(createCodeElement());
+          if (
+            codeLanguage &&
+            currentCodeElement.querySelector(".language-info")
+          ) {
+            currentCodeElement.querySelector(".language-info").textContent =
+              codeLanguage;
+          }
+          botMessageElement.appendChild(currentCodeElement);
+        } else {
+          // No code block markers, just text
+          currentTextBuffer += remainingText;
+          textContainer.textContent = currentTextBuffer;
+          remainingText = "";
+        }
+      }
+    }
+
+    scrollToBottom();
+
+    if (stopIndex !== -1) {
+      // Final flush of any remaining text
+      if (currentTextBuffer.trim().length > 0) {
+        appendNormalText(textContainer, currentTextBuffer);
+      }
+      if (isInCodeBlock) {
+        setIsInCodeBlock(false);
+        setCurrentCodeElement(null);
+      }
+      messages.push({ role: "assistant", content: accumulatedResponse });
+      saveChatData(messages);
+      return accumulatedResponse;
+    }
+  }
+}
+
+export { handleStream };
+```
+
+## chat/chat_core.js
+
+```
+import {
+  isInCodeBlock,
+  currentCodeElement,
+  accumulatedCode,
+  codeLanguage,
+  appendCodeBlock,
+  createCodeElement,
+  resetCodeBlockState,
+  setIsInCodeBlock,
+  setCurrentCodeElement,
+  setAccumulatedCode,
+  setCodeLanguage,
+  appendCodeText,
+} from "./chat_code_handler.js";
+
+import {
+  appendNormalText,
+  processInlineMarkdown,
+  appendImage,
+} from "./chat_markup.js";
+
+import {
+  displayedFileIds,
+  createFileBanner,
+  displayFileBanner,
+} from "./chat_file_upload.js";
+
+import {
+  initChatMessages,
+  addBotMessage,
+  addUserMessage,
+} from "./chat_initialize.js";
+
+import { scrollToBottom } from "./chat_utils.js";
+import { saveChatData } from "./chat_save.js";
+import { appendData } from "./chat_message_handler.js";
+import { toggleButtonVisibility, stopStreaming } from "./chat_event_handler.js";
+import { handleStream } from "./chat_stream_handler.js";
+
+window.stop_stream = false;
+
+async function streamMessage() {
+  const chatInput = document.getElementById("chat_input");
+  const userMessage = chatInput.value.trim();
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute("content");
+
+  if (userMessage !== "") {
+    // Remove prompts div if it exists
+    const promptsDiv = document.getElementById("prompts");
+    if (promptsDiv) promptsDiv.remove();
+
+    messages.push({ role: "user", content: userMessage });
+    addUserMessage(userMessage);
+    chatInput.value = "";
+
+    toggleButtonVisibility();
+    window.stop_stream = false;
+    chatInput.readOnly = true;
+
+    resetCodeBlockState();
+    const botMessageElement = addBotMessage("");
+
+    try {
+      let current_model = models[0];
+      for (let i = 0; i < models.length; i++) {
+        if (selected_model == models[i]["model"]) {
+          current_model = models[i];
+        }
+      }
+
+      const response = await fetch("/chat/stream", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify({ messages: messages, model: current_model }),
+      });
+
+      await handleStream(response, botMessageElement, messages);
+      toggleButtonVisibility();
+      chatInput.readOnly = false;
+    } catch (error) {
+      console.error("Streaming failed:", error);
+      botMessageElement.textContent = `Error occurred: ${error.message}`;
+      messages.push({
+        role: "assistant",
+        content: `Error occurred: ${error.message}`,
+      });
+      saveChatData(messages);
+      toggleButtonVisibility();
+      chatInput.readOnly = false;
+    }
+  }
+}
+
+export { streamMessage };
 ```
 

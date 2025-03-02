@@ -5,6 +5,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <style>
+      /* Tailwind-compatible blur transition styles */
+      .blur-xl {
+        filter: blur(12px);
+      }
+
+      /* Remove the old blur-effect styles that might conflict with Tailwind */
+      /* 
+      .blur-effect {
+        transition:
+          opacity 0.5s ease-out,
+          filter 0.5s ease-out,
+          color 0.5s ease-out,
+          text-shadow 0.5s ease-out;
+        display: inline-block;
+      }
+      .blur-effect.opacity-0 {
+        opacity: 0;
+        filter: blur(8px);
+        color: rgba(0, 0, 0, 0.7);
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      }
+      .blur-lg {
+        filter: blur(8px);
+      }
+      */
+    </style>
     <title>Chat</title>
   </head>
   <body class="min-h-full flex flex-col bg-base-100">
@@ -177,42 +204,7 @@
       });
     </script>
 
-    <script
-      src="{{ url_for('static', filename='/chat/chat_code_handler.js') }}"
-      type="module"
-    ></script>
-    <script
-      src="{{ url_for('static', filename='/chat/chat_markup.js') }}"
-      type="module"
-    ></script>
-    <script
-      src="{{ url_for('static', filename='/chat/chat_message_handler.js') }}"
-      type="module"
-    ></script>
-    <script
-      src="{{ url_for('static', filename='/chat/chat_initialize.js') }}"
-      type="module"
-    ></script>
-    <script
-      src="{{ url_for('static', filename='/chat/chat_save.js') }}"
-      type="module"
-    ></script>
-    <script
-      src="{{ url_for('static', filename='/chat/chat_core.js') }}"
-      type="module"
-    ></script>
-    <script
-      src="{{ url_for('static', filename='/chat/chat_event_handler.js') }}"
-      type="module"
-    ></script>
-    <script
-      src="{{ url_for('static', filename='/chat/chat_file_upload.js') }}"
-      type="module"
-    ></script>
+    <script src="{{ url_for('static', filename='/chat/chat_core.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/flyonui.js') }}"></script>
-    <script type="module">
-      import { initializeEventHandlers } from "{{ url_for('static', filename='/chat/chat_event_handler.js') }}";
-      document.addEventListener("DOMContentLoaded", initializeEventHandlers);
-    </script>
   </body>
 </html>
