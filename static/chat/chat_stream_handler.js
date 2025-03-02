@@ -147,6 +147,20 @@ async function handleStream(response, botMessageElement, messages) {
   textContainer.className = "w-full";
   botMessageElement.appendChild(textContainer);
 
+  // Hide the copy button immediately and more reliably
+  const messageContainer = botMessageElement.closest(".flex.space-x-4.mb-6");
+  const copyButtonContainer = messageContainer
+    ? messageContainer.querySelector(".flex.justify-start")
+    : null;
+
+  // Ensure button is hidden initially
+  if (copyButtonContainer) {
+    // Force hide the button with inline style as well for extra assurance
+    copyButtonContainer.classList.add("hidden");
+    copyButtonContainer.style.display = "none";
+    debug("Copy button hidden at start of streaming");
+  }
+
   // Reset state variables
   backtickBuffer = "";
   waitingForLineBreak = false;
@@ -181,6 +195,23 @@ async function handleStream(response, botMessageElement, messages) {
       waitingForLineBreak = false;
       languageBuffer = "";
 
+      // Store the complete response text in the message container
+      if (messageContainer) {
+        messageContainer.setAttribute(
+          "data-complete-message",
+          accumulatedResponse,
+        );
+        debug("Stored complete message in data attribute");
+      }
+
+      // Show the copy button now that streaming is complete
+      if (copyButtonContainer) {
+        // Use both class and style to ensure visibility
+        copyButtonContainer.classList.remove("hidden");
+        copyButtonContainer.style.display = "flex";
+        debug("Copy button shown after streaming completed");
+      }
+
       messages.push({ role: "assistant", content: accumulatedResponse });
       await saveChatData(messages);
       return accumulatedResponse;
@@ -214,6 +245,23 @@ async function handleStream(response, botMessageElement, messages) {
         } else if (remainingText.trim()) {
           appendNormalText(textContainer, remainingText);
         }
+      }
+
+      // Store the complete response text in the message container
+      if (messageContainer) {
+        messageContainer.setAttribute(
+          "data-complete-message",
+          accumulatedResponse,
+        );
+        debug("Stored complete message in data attribute after marker");
+      }
+
+      // Show the copy button now that streaming is complete
+      if (copyButtonContainer) {
+        // Use both class and style to ensure visibility
+        copyButtonContainer.classList.remove("hidden");
+        copyButtonContainer.style.display = "flex";
+        debug("Copy button shown after marker detected");
       }
 
       // Add to messages and return

@@ -32,28 +32,38 @@ function initializeMessageCopyButtons() {
       const copyText = button.querySelector(".copy-text");
       const checkText = button.querySelector(".check-text");
 
-      // Find the content element (the message content to be copied)
-      const messageContainer = button.closest(".flex-1");
+      // Find the message container
+      const messageContainer = button.closest(".flex.space-x-4.mb-6");
       const contentElement = messageContainer.querySelector(".content");
 
       button.addEventListener("click", async () => {
         try {
-          // Create a clean representation of the message content for copying
-          const textParts = [];
+          let textContent;
 
-          // Traverse the DOM and extract content appropriately
-          collectTextContent(contentElement, textParts);
+          // Check if we have the complete message stored in a data attribute
+          if (
+            messageContainer &&
+            messageContainer.hasAttribute("data-complete-message")
+          ) {
+            console.log("Using stored complete message for copy");
+            textContent = messageContainer.getAttribute(
+              "data-complete-message",
+            );
+          } else {
+            // Fall back to DOM traversal for older messages or user messages
+            console.log("Falling back to DOM traversal for message copy");
+            const textParts = [];
+            collectTextContent(contentElement, textParts);
+            textContent = textParts.join("");
 
-          // Join all parts and clean up whitespace
-          let textContent = textParts.join("");
-
-          // Normalize spacing - only clean up excessive whitespace while preserving meaningful spaces
-          textContent = textContent
-            .replace(/\n{3,}/g, "\n\n") // Replace 3+ newlines with 2
-            .replace(/[ \t]{2,}/g, " ") // Replace multiple spaces with a single space
-            .replace(/[ \t]+\n/g, "\n") // Remove spaces before newlines
-            .replace(/\n[ \t]+/g, "\n") // Remove spaces after newlines
-            .trim();
+            // Clean up whitespace
+            textContent = textContent
+              .replace(/\n{3,}/g, "\n\n") // Replace 3+ newlines with 2
+              .replace(/[ \t]{2,}/g, " ") // Replace multiple spaces with a single space
+              .replace(/[ \t]+\n/g, "\n") // Remove spaces before newlines
+              .replace(/\n[ \t]+/g, "\n") // Remove spaces after newlines
+              .trim();
+          }
 
           // Copy to clipboard
           await navigator.clipboard.writeText(textContent);
@@ -121,7 +131,7 @@ function collectTextContent(element, parts) {
         codeContent = codeContent.slice(0, -2);
       }
 
-      // Format as a code block with triple backticks
+      // Format as a code block with triple backticks and language
       parts.push(`\n\n\`\`\`${language}\n${codeContent}\n\`\`\`\n\n`);
     }
     return;
@@ -211,7 +221,7 @@ function initializeCodeBlockCopyButtons() {
 
       button.addEventListener("click", async () => {
         try {
-          // Get code content
+          // Get code content, without any language tag
           const codeContent = preElement.textContent;
 
           // Copy to clipboard

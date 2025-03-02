@@ -10,6 +10,13 @@ function addBotMessage(text) {
     .content.cloneNode(true);
   const contentElement = template.querySelector(".content");
 
+  // Hide the copy button initially - it will be shown after streaming completes
+  const copyButtonContainer = template.querySelector(".flex.justify-start");
+  if (copyButtonContainer) {
+    copyButtonContainer.classList.add("hidden");
+    copyButtonContainer.style.display = "none";
+  }
+
   if (text == "...") {
     contentElement.innerHTML =
       '<span class="loading loading-dots loading-xs"></span>';
