@@ -189,7 +189,38 @@ async function handleStream(response, botMessageElement, messages) {
     const text = new TextDecoder().decode(value);
     debug(`Received chunk of ${text.length} characters`);
 
+    // Add the chunk to accumulated response
     accumulatedResponse += text;
+
+    // Check if accumulated response contains the ###STOP### marker
+    const stopIndex = accumulatedResponse.indexOf("###STOP###");
+    if (stopIndex !== -1) {
+      // Only keep content up to the marker
+      accumulatedResponse = accumulatedResponse.substring(0, stopIndex);
+      debug("Found ###STOP### marker, stopping stream");
+
+      // Process the accumulated response one more time
+      if (lastProcessedIndex < accumulatedResponse.length) {
+        const remainingText = cleanupBackticks(
+          accumulatedResponse.substring(lastProcessedIndex),
+        );
+
+        if (isInCodeBlock) {
+          if (currentCodeElement && currentCodeElement.querySelector("pre")) {
+            currentCodeElement.querySelector("pre").textContent +=
+              remainingText;
+          }
+          resetCodeBlockState();
+        } else if (remainingText.trim()) {
+          appendNormalText(textContainer, remainingText);
+        }
+      }
+
+      // Add to messages and return
+      messages.push({ role: "assistant", content: accumulatedResponse });
+      await saveChatData(messages);
+      return accumulatedResponse;
+    }
 
     // Process the accumulated response
     while (lastProcessedIndex < accumulatedResponse.length) {
@@ -329,15 +360,6 @@ async function handleStream(response, botMessageElement, messages) {
     }
 
     scrollToBottom();
-
-    // Check for stream end marker
-    const stopIndex = accumulatedResponse.indexOf("###STOP###");
-    if (stopIndex !== -1) {
-      accumulatedResponse = accumulatedResponse.substring(0, stopIndex);
-      messages.push({ role: "assistant", content: accumulatedResponse });
-      await saveChatData(messages);
-      return accumulatedResponse;
-    }
   }
 }
 

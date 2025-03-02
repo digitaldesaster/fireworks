@@ -199,10 +199,15 @@ function initializeCodeBlockCopyButtons() {
       // Mark this button as having a listener attached
       button.setAttribute("data-listener-attached", "true");
 
+      // Find related elements
+      const copyIcon = button.querySelector(".copy-icon");
+      const checkIcon = button.querySelector(".check-icon");
+      const copyText = button.querySelector(".copy-text");
+      const checkText = button.querySelector(".check-text");
+
       // Find the code element (the code block to be copied)
       const codeBlock = button.closest(".flex.flex-col.w-full");
       const preElement = codeBlock.querySelector("pre");
-      const copiedInfo = codeBlock.querySelector(".copied");
 
       button.addEventListener("click", async () => {
         try {
@@ -213,11 +218,27 @@ function initializeCodeBlockCopyButtons() {
           await navigator.clipboard.writeText(codeContent);
 
           // Visual feedback
-          copiedInfo.classList.remove("hidden");
+          copyIcon.classList.add("hidden");
+          checkIcon.classList.remove("hidden");
+          copyText.classList.add("hidden");
+          checkText.classList.remove("hidden");
+          button.classList.add(
+            "text-green-500",
+            "dark:text-green-400",
+            "bg-green-500/10",
+          );
 
           // Reset after 2 seconds
           setTimeout(() => {
-            copiedInfo.classList.add("hidden");
+            copyIcon.classList.remove("hidden");
+            checkIcon.classList.add("hidden");
+            copyText.classList.remove("hidden");
+            checkText.classList.add("hidden");
+            button.classList.remove(
+              "text-green-500",
+              "dark:text-green-400",
+              "bg-green-500/10",
+            );
           }, 2000);
         } catch (err) {
           console.error("Failed to copy code block:", err);
