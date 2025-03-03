@@ -1,7 +1,4 @@
-# doublecheck dark mode for the chat ui
 # in markdown adjust the spacing for citations
-# dark mode toggle for mobile ui fix needed
-
 # add vectore database support
 # test gemini models
 # add agentic behavior to the bot

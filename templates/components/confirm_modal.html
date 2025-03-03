@@ -1,15 +1,13 @@
 <div
   id="confirm_modal"
   tabindex="-1"
-  class="hidden overflow-y-auto overflow-x-hidden bg-base-300/65 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
+  class="hidden overflow-y-auto overflow-x-hidden bg-base-300/65 dark:bg-base-700/75 backdrop-blur-sm fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full"
 >
-  <div
-    class="modal-content relative p-4 w-full max-w-md max-h-full"
-  >
-    <div class="relative bg-base-100 rounded-lg shadow">
+  <div class="modal-content relative p-4 w-full max-w-md max-h-full">
+    <div class="relative bg-base-100 dark:bg-base-900 rounded-lg shadow">
       <button
         type="button"
-        class="close-modal absolute top-3 right-2.5 text-base-content/60 bg-transparent hover:bg-base-200 hover:text-base-content rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+        class="close-modal absolute top-3 right-2.5 text-base-content/60 dark:text-base-content/70 bg-transparent hover:bg-base-200 hover:text-base-content dark:hover:bg-base-800 dark:hover:text-base-content rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
       >
         <svg
           class="w-3 h-3"
@@ -30,7 +28,7 @@
       </button>
       <div class="p-4 md:p-5 text-center">
         <svg
-          class="mx-auto mb-4 text-base-content/60 w-12 h-12"
+          class="mx-auto mb-4 text-base-content/60 dark:text-base-content/70 w-12 h-12"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -44,8 +42,8 @@
             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
           />
         </svg>
-        <h3 class="mb-2 text-lg font-medium text-base-content">Confirm Action</h3>
-        <p class="mb-5 text-base-content/60">Are you sure?</p>
+        <h3 class="mb-2 text-lg font-medium text-base-content dark:text-base-content">Confirm Action</h3>
+        <p class="mb-5 text-base-content/60 dark:text-base-content/70">Are you sure?</p>
         <button
           type="button"
           class="confirm-action text-primary-content bg-error hover:bg-error-focus focus:ring-4 focus:outline-none focus:ring-error/30 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
@@ -54,11 +52,11 @@
         </button>
         <button
           type="button"
-          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-base-content focus:outline-none bg-base-100 rounded-lg border border-base-300 hover:bg-base-200 focus:z-10 focus:ring-4 focus:ring-base-200"
+          class="cancel-action py-2.5 px-5 ms-3 text-sm font-medium text-base-content focus:outline-none bg-base-100 dark:bg-base-800 rounded-lg border border-base-300 dark:border-base-600 hover:bg-base-200 dark:hover:bg-base-700 focus:z-10 focus:ring-4 focus:ring-base-200 dark:focus:ring-base-700"
         >
           No, cancel
         </button>
       </div>
     </div>
   </div>
-</div> 
+</div>

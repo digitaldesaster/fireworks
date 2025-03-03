@@ -1,0 +1,19 @@
+---
+description: Creating New Classes
+globs: 
+---
+IF you need to add new classes then:
+
+- Add the class in [db_document.py](mdc:core/db_document.py)
+    - you can use the Example class to see which fields are available
+    - please ask the user which fields he needs if unclear
+    - you also need to add the class details to the getDefaults function in the db_document.py
+
+- Add a link to the new class in the [nav.html](mdc:templates/main/nav.html)
+    - ask the user if hew wants to add it to the admin sections or to the gloabl section.
+    - choose a icon for the new class
+    - use the exact same patterns like already in the nav.html to have the exact styling. 
+
+- Restart Server
+    - tell the user to restart the apache2 server
+        - sudo systemctl restart apache2
