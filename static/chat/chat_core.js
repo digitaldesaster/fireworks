@@ -37,7 +37,15 @@ function createCodeElement() {
   const preElement = codeElement.querySelector("pre");
 
   copyButton.onclick = () => {
+    // Show the copied message
     copiedInfo.classList.remove("hidden");
+    copyButton.classList.add("hidden");
+    
+    // Hide the copied message and show the button after 2 seconds
+    setTimeout(() => {
+      copiedInfo.classList.add("hidden");
+      copyButton.classList.remove("hidden");
+    }, 2000);
     navigator.clipboard
       .writeText(preElement.textContent)
       .then(() => {
@@ -46,7 +54,6 @@ function createCodeElement() {
       .catch((err) => {
         console.error("Failed to copy text:", err);
       });
-    setTimeout(() => copiedInfo.classList.add("hidden"), 500);
   };
 
   return codeElement;
